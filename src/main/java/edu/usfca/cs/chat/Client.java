@@ -2,6 +2,7 @@ package edu.usfca.cs.chat;
 
 import java.io.*;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 
 import edu.usfca.cs.chat.ChatMessages.ChatMessage;
 import edu.usfca.cs.chat.net.MessagePipeline;
@@ -30,10 +31,13 @@ public class Client
         this.username = username;
     }
 
-    private void chunkFile(File f) throws IOException {
-        int partCounter = 1;
+    private void chunkFile(String filePath) throws IOException {
+        File f = new File(filePath);
+        int partCounter = 0;
 
-        int sizeOfFile = 4 * 1024; // 4KB
+        System.out.println("file is: " + f.toString());
+
+        int sizeOfFile = 4 * 1024; // 4KB/chunk
         byte[] buffer = new byte[sizeOfFile];
 
         String fileName = f.getName();
@@ -44,14 +48,24 @@ public class Client
 
             int bytesAmount = 0;
             while ((bytesAmount = bis.read(buffer)) > 0) {
+
                 //write each chunk of data into separate file with different number in name
                 String filePartName = String.format("%s.%03d", fileName, partCounter++);
                 File newFile = new File(f.getParent(), filePartName);
                 try (FileOutputStream out = new FileOutputStream(newFile)) {
                     out.write(buffer, 0, bytesAmount);
                 }
+                catch(Error e) {
+                    System.out.println("Error while writing file in chunkFile " + e);
+                }
             }
         }
+        catch(Error e) {
+            System.out.println("Error while splitting file in chunkFile " + e);
+        }
+
+        System.out.println("Total chunks: " + partCounter);
+        System.out.println("Chunked array: " + Arrays.toString(buffer));
     }
 
     public static void main(String[] args)
@@ -171,7 +185,9 @@ public class Client
             while (true) {
                 String line = "";
                 try {
+                    System.out.println("Enter absolute filepath of to chunk: ");
                     line = reader.readLine();
+                    client.chunkFile(line);
                 } catch (IOException e) {
                     e.printStackTrace();
                     break;
