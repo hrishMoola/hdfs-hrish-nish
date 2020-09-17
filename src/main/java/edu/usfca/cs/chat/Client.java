@@ -36,11 +36,8 @@ public class Client
         File f = new File(filePath);
         int partCounter = 0;
 
-        System.out.println("file is: " + f.toString());
-
         int sizeOfFile = 128 * 1024 * 1024; // 128/chunk
         byte[] buffer = new byte[sizeOfFile];
-        System.out.println("buffer: " + buffer.length);
 
         String fileName = f.getName();
 
@@ -66,7 +63,6 @@ public class Client
         }
 
         System.out.println("Total chunks: " + partCounter);
-        System.out.println("Chunked array: " + Arrays.toString(buffer));
     }
 
     private void mergeFiles(String[] files, String outputFilePath) throws IOException {
