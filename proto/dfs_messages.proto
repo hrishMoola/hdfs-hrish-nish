@@ -1,0 +1,47 @@
+syntax = "proto3";
+option java_package = "edu.usfca.cs.chat";
+
+//sent from client
+message FileChunk{ //from client to primary datanode, and primary datanode to others
+    string filepath = 1;
+    bytes chunks = 2;
+}
+
+message FileRequest{
+    string directory = 1;
+    string filepath = 2;
+    enum Type{
+        STORE = 0;
+        RETRIEVE = 1;
+    }
+    int32 num_chunks = 3;
+    int32 size = 4; // exclusively in mb and Math.ceil()
+}
+
+
+//sent from namenode
+message FileResponse{
+    repeated DataNodeMetadata dataNodes = 1;
+}
+message DataNodeMetadata{
+    string hostname = 1;
+    string ip = 2;
+    string memory = 3;
+}
+
+//sent from datanodes
+message HeartBeat{
+    DataNodeMetadata node_meta_data = 2;
+    int32 store_count = 3;
+    int32 retrieve_count = 4;
+}
+
+
+message DfsMessagesWrapper {
+    oneof msg {
+        FileChunk fileChunk = 1;
+        FileRequest fileRequest = 2;
+        FileResponse fileResponse = 3;
+        HeartBeat heartBeat = 4;
+    }
+}
