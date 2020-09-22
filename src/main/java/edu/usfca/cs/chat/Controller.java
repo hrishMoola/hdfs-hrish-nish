@@ -10,7 +10,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 @ChannelHandler.Sharable
 public class Controller
-        extends SimpleChannelInboundHandler<DfsMessages.DfsMessagesWrapper> {
+        extends SimpleChannelInboundHandler<DfsMessages.ControllerMessagesWrapper> {
 
     ServerMessageRouter messageRouter;
 
@@ -20,7 +20,7 @@ public class Controller
 
     public void start(int port)
             throws IOException {
-        messageRouter = new ServerMessageRouter(this);
+        messageRouter = new ServerMessageRouter(this, DfsMessages.ControllerMessagesWrapper.getDefaultInstance());
         messageRouter.listen(port);
         System.out.println("Controller started on port " + port + "...");
     }
@@ -55,10 +55,40 @@ public class Controller
 
     @Override
     public void channelRead0(
-            ChannelHandlerContext ctx, DfsMessages.DfsMessagesWrapper msg) {
+            ChannelHandlerContext ctx, DfsMessages.ControllerMessagesWrapper message) {
 
-        /* Hmm... */
+        int messageType = message.getMsgCase().getNumber();
 
+        switch(messageType){
+            case 1:
+                try {
+                    System.out.println("Received a file request for " + message.getFileRequest().getFilepath());
+                    System.out.println("Request type is  " + message.getFileRequest().getType().name());
+                    //todo blast file overwrite ack to all
+                    replyWithNodeInfo(ctx, message.getFileRequest().getFilepath());
+                } catch (Exception e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                System.out.println("whaaaa");
+                break;
+        }
+
+    }
+
+    private void replyWithNodeInfo(ChannelHandlerContext ctx, String filepath) {
+        DfsMessages.FileResponse fileResponse = DfsMessages.FileResponse.newBuilder()
+                .addDataNodes(0, DfsMessages.DataNodeMetadata.newBuilder().setHostname("localhost").setIp("8000").build())
+                .addDataNodes(1, DfsMessages.DataNodeMetadata.newBuilder().setHostname("localhost").setIp("8001").build())
+                .addDataNodes(2, DfsMessages.DataNodeMetadata.newBuilder().setHostname("localhost").setIp("8002").build())
+                .setFilepath(filepath)
+                .build();
+        DfsMessages.ClientMessagesWrapper wrapper = DfsMessages.ClientMessagesWrapper.newBuilder().setFileResponse(fileResponse).build();
+        System.out.println("wrapper = " + wrapper);
+        ctx.channel().writeAndFlush(wrapper);
+//        ctx.channel().flush();
     }
 
     @Override
