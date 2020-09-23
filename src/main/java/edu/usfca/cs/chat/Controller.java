@@ -70,8 +70,18 @@ public class Controller
                     //get list of nodes client can write to and reply to client with FileResponse
                     replyWithNodeInfo(ctx, message.getFileRequest().getFilepath());
                 } catch (Exception e) {
-                    System.out.println("An error occurred.");
+                    System.out.println("An error in Controller while reading FileRequest");
                     e.printStackTrace();
+                }
+                break;
+            case 6:
+                try {
+                    System.out.println("New Storage Node connected");
+                    System.out.println("Hostname: " + message.getIntroMessage().getHostname());
+                    System.out.println("IP: " + message.getIntroMessage().getIp());
+                    System.out.println("Available Memory: " + message.getIntroMessage().getMemory());
+                } catch (Exception e) {
+                    System.out.println("An error in Controller while reading DataNodeMetaData");
                 }
                 break;
             default:

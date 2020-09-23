@@ -22,24 +22,27 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import static edu.usfca.cs.chat.Utils.FileUtils.writeToFile;
 
 @ChannelHandler.Sharable
-public class DataNode
+public class StorageNode
     extends SimpleChannelInboundHandler<DfsMessages.DataNodeMessagesWrapper> {
 
     ServerMessageRouter messageRouter;
     private String storagePath;
-    private String nameNodeHost;    //namenode to connect to and send heartbeats to
-    private Integer nameNodePort;
-    private String hostName;        //host and part where datanode will be listening as a server
+    private String controllerHostname;    // controller to connect to and send heartbeats to
+    private Integer controllerPort;
+    private String hostName;        // host and part where storage node will be listening as a server
     private Integer hostPort;
+
+    private Channel controllerChannel;
+    private String localAddr;
 
     Map<String, List<Channel>> filePathToReplicaChannels;
 
-    public DataNode(String[] args) {
+    public StorageNode(String[] args) {
         this.storagePath = args[0];
         this.hostName = args[1];
         this.hostPort = Integer.parseInt(args[2]);
-        this.nameNodeHost = args[3];
-        this.nameNodePort = Integer.parseInt(args[4]);
+        this.controllerHostname = args[3]; // sto
+        this.controllerPort = Integer.parseInt(args[4]);
         filePathToReplicaChannels = new HashMap<>();
     }
 
@@ -47,20 +50,53 @@ public class DataNode
     throws IOException {
         messageRouter = new ServerMessageRouter(this,  DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
         messageRouter.listen(this.hostPort);
-        System.out.println("Data node" + this.hostName + " on port " + this.hostPort + "...");
+        System.out.println("Data node " + this.hostName + " on port " + this.hostPort + "...");
+        // on start connect to controller and send alive notification
+        this.connect();
+        this.sendIntroMessage();
     }
 
     public static void main(String[] args)
     throws IOException {
         if (args.length >= 4) {
-            DataNode s = new DataNode(args);
+            StorageNode s = new StorageNode(args);
             s.start();
 
-            //todo connect to namenode as a client
+            // todo connect to controller as a client
 //            c = new Client(args[0], Integer.parseInt(args[1]), args[2]);
-//            c.connect();
         }
+    }
 
+    private void sendIntroMessage() {
+        DfsMessages.ControllerMessagesWrapper wrapper = DfsMessages.ControllerMessagesWrapper.newBuilder()
+                .setIntroMessage(DfsMessages.DataNodeMetadata.newBuilder()
+                .setHostname(hostName)
+                .setIp(localAddr)
+                .setPort(hostPort)
+                .setMemory("10GB")
+                .build()).build();
+
+        ChannelFuture write = controllerChannel.writeAndFlush(wrapper);
+        write.syncUninterruptibly();
+    }
+
+    //connect to controller node upon startup
+    public void connect() {
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
+
+        Bootstrap bootstrap = new Bootstrap()
+                .group(workerGroup)
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .handler(pipeline);
+
+        System.out.println("Storage node connecting to " + controllerHostname + ":" + controllerPort);
+        ChannelFuture cf = bootstrap.connect(controllerHostname, controllerPort);
+        cf.syncUninterruptibly();
+        controllerChannel = cf.channel();
+        // gets storage node's IP addr to send to controller and also removes the '/' prefix
+        localAddr = this.controllerChannel.localAddress().toString().substring(1);
     }
 
     @Override
