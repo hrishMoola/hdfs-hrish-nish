@@ -17,18 +17,19 @@ public class Client
 //    extends SimpleChannelInboundHandler<ChatMessages.ChatMessagesWrapper> {
     extends SimpleChannelInboundHandler<DfsMessages.ClientMessagesWrapper> {
 
-    private String username;
-    private String hostname;
-    private int port;
+    private String username;    //client name
+    private String controllerHostName;
+    private int controllerPort;
 
     private Channel serverChannel;
     private Channel leaderChannel;
 
-    public Client(String hostname, int port, String username) {
-        this.hostname = hostname;
-        this.port = port;
+    public Client(String controllerHostName, int controllerPort, String username) {
+        this.controllerHostName = controllerHostName;
+        this.controllerPort = controllerPort;
         this.username = username;
     }
+
 
 
     public static void main(String[] args) throws IOException {
@@ -50,6 +51,7 @@ public class Client
         inputThread.run();
     }
 
+    //connect to controller node upon startup
     public void connect() {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.ClientMessagesWrapper.getDefaultInstance());
@@ -60,8 +62,8 @@ public class Client
             .option(ChannelOption.SO_KEEPALIVE, true)
             .handler(pipeline);
 
-        System.out.println("Connecting to " + hostname + ":" + port);
-        ChannelFuture cf = bootstrap.connect(hostname, port);
+        System.out.println("Connecting to " + controllerHostName + ":" + controllerPort);
+        ChannelFuture cf = bootstrap.connect(controllerHostName, controllerPort);
         cf.syncUninterruptibly();
         serverChannel = cf.channel();
     }
@@ -231,10 +233,8 @@ public class Client
             while (true) {
                 String line = "";
                 try {
-                    //client.mergeFiles(new String[2], "");
                     System.out.println("What do you want to do: ");
                     line = reader.readLine();
-//                    client.(line);
                     if (line.startsWith("store"))
                         client.sendFileRequestToController(line);
                 } catch (IOException e) {

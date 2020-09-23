@@ -8,3 +8,5 @@ java -cp target/dfs-1.0-shaded.jar edu.usfca.cs.chat.DataNode storage1 localhost
 
 Run the client with this
 java -cp target/dfs-1.0-shaded.jar edu.usfca.cs.chat.Client localhost 7777 client1
+
+//store <local filepath> <dfs filepath>

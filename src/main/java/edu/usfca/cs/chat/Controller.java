@@ -18,8 +18,7 @@ public class Controller
 
     }
 
-    public void start(int port)
-            throws IOException {
+    public void start(int port) throws IOException {
         messageRouter = new ServerMessageRouter(this, DfsMessages.ControllerMessagesWrapper.getDefaultInstance());
         messageRouter.listen(port);
         System.out.println("Controller started on port " + port + "...");
@@ -31,6 +30,8 @@ public class Controller
         s.start(Integer.parseInt(args[0]));
     }
 
+    //todo register an active datanode and client connection over here.
+    //todo figure out how to distinguish between the two of them to store accordingly. Mostly probably name them correctly
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         /* A connection has been established */
@@ -39,6 +40,7 @@ public class Controller
         System.out.println("Connection established: " + addr);
     }
 
+    //todo remove reference to node upon disconnection
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         /* A channel has been disconnected */
@@ -65,6 +67,7 @@ public class Controller
                     System.out.println("Received a file request for " + message.getFileRequest().getFilepath());
                     System.out.println("Request type is  " + message.getFileRequest().getType().name());
                     //todo blast file overwrite ack to all
+                    //get list of nodes client can write to and reply to client with FileResponse
                     replyWithNodeInfo(ctx, message.getFileRequest().getFilepath());
                 } catch (Exception e) {
                     System.out.println("An error occurred.");
@@ -78,6 +81,7 @@ public class Controller
 
     }
 
+    //just populating with three known nodes right now. ideally here the bloomfilter stuff should come into play to create the response
     private void replyWithNodeInfo(ChannelHandlerContext ctx, String filepath) {
         DfsMessages.FileResponse fileResponse = DfsMessages.FileResponse.newBuilder()
                 .addDataNodes(0, DfsMessages.DataNodeMetadata.newBuilder().setHostname("localhost").setIp("8000").build())
@@ -88,7 +92,6 @@ public class Controller
         DfsMessages.ClientMessagesWrapper wrapper = DfsMessages.ClientMessagesWrapper.newBuilder().setFileResponse(fileResponse).build();
         System.out.println("wrapper = " + wrapper);
         ctx.channel().writeAndFlush(wrapper);
-//        ctx.channel().flush();
     }
 
     @Override

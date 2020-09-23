@@ -27,9 +27,9 @@ public class DataNode
 
     ServerMessageRouter messageRouter;
     private String storagePath;
-    private String nameNodeHost;
+    private String nameNodeHost;    //namenode to connect to and send heartbeats to
     private Integer nameNodePort;
-    private String hostName;
+    private String hostName;        //host and part where datanode will be listening as a server
     private Integer hostPort;
 
     Map<String, List<Channel>> filePathToReplicaChannels;
@@ -56,6 +56,7 @@ public class DataNode
             DataNode s = new DataNode(args);
             s.start();
 
+            //todo connect to namenode as a client
 //            c = new Client(args[0], Integer.parseInt(args[1]), args[2]);
 //            c.connect();
         }
@@ -91,6 +92,7 @@ public class DataNode
 
         switch(messageType){
             case 1:
+                //basically store the chunks being provided and send for replication to replicas
                 try {
                     writeToFile(message.getFileChunk(),storagePath);
                     sendFileToReplicas(message.getFileChunk());
@@ -100,10 +102,11 @@ public class DataNode
                     e.printStackTrace();
                 }
                 break;
-            case 3:
+            case 3:// chunk header from client.
                 System.out.println("Received chunk header and replica information");
                 prepareForStorage(message.getFileChunkHeader());
             case 4:
+                //replication status. not currently doing anything
                 System.out.println("Replication Status of " + ctx.channel().remoteAddress().toString());
                 System.out.println("Chunk num and success" + message.getReplicationStatus().getChunkNum() + " is " + message.getReplicationStatus().getSuccess());
                 break;
@@ -119,6 +122,7 @@ public class DataNode
 
     }
 
+    //create directories and tell replicas to create also
     private void prepareForStorage(DfsMessages.FileChunkHeader fileChunkHeader) {
         try {
             Path path = Paths.get(storagePath + "/" + fileChunkHeader.getFilepath());
