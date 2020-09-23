@@ -12,6 +12,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class Controller
         extends SimpleChannelInboundHandler<DfsMessages.ControllerMessagesWrapper> {
 
+    private
     ServerMessageRouter messageRouter;
 
     public Controller() {

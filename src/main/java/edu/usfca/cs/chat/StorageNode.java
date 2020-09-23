@@ -1,5 +1,6 @@
 package edu.usfca.cs.chat;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 
+import edu.usfca.cs.chat.Utils.FileUtils;
 import edu.usfca.cs.chat.net.MessagePipeline;
 import edu.usfca.cs.chat.net.ServerMessageRouter;
 import io.netty.bootstrap.Bootstrap;
@@ -46,11 +48,13 @@ public class StorageNode
         filePathToReplicaChannels = new HashMap<>();
     }
 
-    public void start()
-    throws IOException {
+    public void start() throws IOException {
         messageRouter = new ServerMessageRouter(this,  DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
         messageRouter.listen(this.hostPort);
         System.out.println("Data node " + this.hostName + " on port " + this.hostPort + "...");
+
+        // before start clear directroy contents
+        FileUtils.clearDirectoryContents(storagePath);
         // on start connect to controller and send alive notification
         this.connect();
         this.sendIntroMessage();
@@ -61,9 +65,6 @@ public class StorageNode
         if (args.length >= 4) {
             StorageNode s = new StorageNode(args);
             s.start();
-
-            // todo connect to controller as a client
-//            c = new Client(args[0], Integer.parseInt(args[1]), args[2]);
         }
     }
 

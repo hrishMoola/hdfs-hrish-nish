@@ -28,6 +28,25 @@ public class FileUtils {
 
     }
 
+    private static void purgeDirectory(File dir) {
+        for (File file: dir.listFiles()) {
+            if (file.isDirectory())
+                purgeDirectory(file);
+            file.delete();
+        }
+    }
+
+    public static void clearDirectoryContents(String storagePath) {
+        try {
+            File dir = new File(storagePath);
+            if(!dir.isDirectory()) throw new Error("Storage path given is not a directory");
+            purgeDirectory(dir);
+        }
+        catch (Exception e) {
+            System.out.println(e + " Error clearing storage node contents before startup");
+        }
+    }
+
 
     public static DfsMessages.FileRequest getFileRequest(String localFile, String dfsPath){
         File f = new File(localFile);
