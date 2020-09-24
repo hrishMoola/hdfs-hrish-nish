@@ -1,6 +1,5 @@
 package edu.usfca.cs.chat;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
@@ -11,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -98,7 +96,7 @@ public class StorageNode
                 .setHostname(hostName)
                 .setIp(localAddr)
                 .setPort(hostPort)
-                .setMemory("10GB")
+                .setMemory(1024) // todo figure out directory size
                 .build();
     }
 

@@ -48,7 +48,7 @@ message FileResponse{
 message DataNodeMetadata{
     string hostname = 1;
     string ip = 2;
-    string memory = 3;
+    int32 memory = 3; // in mb 1GB=1024MB
     int32 port = 4;
 }
 

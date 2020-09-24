@@ -4,6 +4,7 @@ import com.sangupta.murmur.Murmur3;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 
 public class BloomFilter {
@@ -20,7 +21,7 @@ public class BloomFilter {
         this.n = 0;
     }
 
-    private byte[] longToBytes(long x) {
+    public byte[] longToBytes(long x) {
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
         buffer.putLong(x);
         return buffer.array();
@@ -40,6 +41,8 @@ public class BloomFilter {
             bitsList.add(idx);
             hashedData = longToBytes(hash2);
         }
+
+        System.out.println("bitsList: " + bitsList);
 
         return bitsList;
     }

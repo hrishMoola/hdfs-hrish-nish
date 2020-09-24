@@ -4872,16 +4872,14 @@ public final class DfsMessages {
         getIpBytes();
 
     /**
-     * <code>string memory = 3;</code>
+     * <pre>
+     * in mb 1GB=1024MB
+     * </pre>
+     *
+     * <code>int32 memory = 3;</code>
      * @return The memory.
      */
-    java.lang.String getMemory();
-    /**
-     * <code>string memory = 3;</code>
-     * @return The bytes for memory.
-     */
-    com.google.protobuf.ByteString
-        getMemoryBytes();
+    int getMemory();
 
     /**
      * <code>int32 port = 4;</code>
@@ -4904,7 +4902,6 @@ public final class DfsMessages {
     private DataNodeMetadata() {
       hostname_ = "";
       ip_ = "";
-      memory_ = "";
     }
 
     @java.lang.Override
@@ -4949,10 +4946,9 @@ public final class DfsMessages {
               ip_ = s;
               break;
             }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 24: {
 
-              memory_ = s;
+              memory_ = input.readInt32();
               break;
             }
             case 32: {
@@ -5069,41 +5065,18 @@ public final class DfsMessages {
     }
 
     public static final int MEMORY_FIELD_NUMBER = 3;
-    private volatile java.lang.Object memory_;
+    private int memory_;
     /**
-     * <code>string memory = 3;</code>
+     * <pre>
+     * in mb 1GB=1024MB
+     * </pre>
+     *
+     * <code>int32 memory = 3;</code>
      * @return The memory.
      */
     @java.lang.Override
-    public java.lang.String getMemory() {
-      java.lang.Object ref = memory_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        memory_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string memory = 3;</code>
-     * @return The bytes for memory.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getMemoryBytes() {
-      java.lang.Object ref = memory_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        memory_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getMemory() {
+      return memory_;
     }
 
     public static final int PORT_FIELD_NUMBER = 4;
@@ -5137,8 +5110,8 @@ public final class DfsMessages {
       if (!getIpBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ip_);
       }
-      if (!getMemoryBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, memory_);
+      if (memory_ != 0) {
+        output.writeInt32(3, memory_);
       }
       if (port_ != 0) {
         output.writeInt32(4, port_);
@@ -5158,8 +5131,9 @@ public final class DfsMessages {
       if (!getIpBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ip_);
       }
-      if (!getMemoryBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, memory_);
+      if (memory_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, memory_);
       }
       if (port_ != 0) {
         size += com.google.protobuf.CodedOutputStream
@@ -5184,8 +5158,8 @@ public final class DfsMessages {
           .equals(other.getHostname())) return false;
       if (!getIp()
           .equals(other.getIp())) return false;
-      if (!getMemory()
-          .equals(other.getMemory())) return false;
+      if (getMemory()
+          != other.getMemory()) return false;
       if (getPort()
           != other.getPort()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -5204,7 +5178,7 @@ public final class DfsMessages {
       hash = (37 * hash) + IP_FIELD_NUMBER;
       hash = (53 * hash) + getIp().hashCode();
       hash = (37 * hash) + MEMORY_FIELD_NUMBER;
-      hash = (53 * hash) + getMemory().hashCode();
+      hash = (53 * hash) + getMemory();
       hash = (37 * hash) + PORT_FIELD_NUMBER;
       hash = (53 * hash) + getPort();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -5344,7 +5318,7 @@ public final class DfsMessages {
 
         ip_ = "";
 
-        memory_ = "";
+        memory_ = 0;
 
         port_ = 0;
 
@@ -5434,9 +5408,8 @@ public final class DfsMessages {
           ip_ = other.ip_;
           onChanged();
         }
-        if (!other.getMemory().isEmpty()) {
-          memory_ = other.memory_;
-          onChanged();
+        if (other.getMemory() != 0) {
+          setMemory(other.getMemory());
         }
         if (other.getPort() != 0) {
           setPort(other.getPort());
@@ -5622,78 +5595,45 @@ public final class DfsMessages {
         return this;
       }
 
-      private java.lang.Object memory_ = "";
+      private int memory_ ;
       /**
-       * <code>string memory = 3;</code>
+       * <pre>
+       * in mb 1GB=1024MB
+       * </pre>
+       *
+       * <code>int32 memory = 3;</code>
        * @return The memory.
        */
-      public java.lang.String getMemory() {
-        java.lang.Object ref = memory_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          memory_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      @java.lang.Override
+      public int getMemory() {
+        return memory_;
       }
       /**
-       * <code>string memory = 3;</code>
-       * @return The bytes for memory.
-       */
-      public com.google.protobuf.ByteString
-          getMemoryBytes() {
-        java.lang.Object ref = memory_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          memory_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string memory = 3;</code>
+       * <pre>
+       * in mb 1GB=1024MB
+       * </pre>
+       *
+       * <code>int32 memory = 3;</code>
        * @param value The memory to set.
        * @return This builder for chaining.
        */
-      public Builder setMemory(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      public Builder setMemory(int value) {
+        
         memory_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string memory = 3;</code>
+       * <pre>
+       * in mb 1GB=1024MB
+       * </pre>
+       *
+       * <code>int32 memory = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearMemory() {
         
-        memory_ = getDefaultInstance().getMemory();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string memory = 3;</code>
-       * @param value The bytes for memory to set.
-       * @return This builder for chaining.
-       */
-      public Builder setMemoryBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        memory_ = value;
+        memory_ = 0;
         onChanged();
         return this;
       }
@@ -14168,7 +14108,7 @@ public final class DfsMessages {
       "\n\014FileResponse\022\020\n\010filepath\030\001 \001(\t\022$\n\tdata" +
       "Nodes\030\002 \003(\0132\021.DataNodeMetadata\"N\n\020DataNo" +
       "deMetadata\022\020\n\010hostname\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t" +
-      "\022\016\n\006memory\030\003 \001(\t\022\014\n\004port\030\004 \001(\005\"c\n\tHeartB" +
+      "\022\016\n\006memory\030\003 \001(\005\022\014\n\004port\030\004 \001(\005\"c\n\tHeartB" +
       "eat\022)\n\016node_meta_data\030\002 \001(\0132\021.DataNodeMe" +
       "tadata\022\023\n\013store_count\030\003 \001(\005\022\026\n\016retrieve_" +
       "count\030\004 \001(\005\"I\n\021ReplicationStatus\022\020\n\010file" +
