@@ -14,6 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 import edu.usfca.cs.chat.Utils.FileUtils;
@@ -38,8 +39,8 @@ public class StorageNode
     private String hostName;        // host and part where storage node will be listening as a server
     private int hostPort;
 
-    private int totalStorageReqs;
-    private int totalRetrievalReqs;
+    private AtomicInteger totalStorageReqs;
+    private AtomicInteger totalRetrievalReqs;
 
     private Channel controllerChannel;
     private String localAddr;
@@ -54,8 +55,8 @@ public class StorageNode
         this.controllerHostname = args[3]; // sto
         this.controllerPort = Integer.parseInt(args[4]);
 
-        totalStorageReqs = 0;
-        totalRetrievalReqs = 0;
+        totalStorageReqs = new AtomicInteger(0);
+        totalRetrievalReqs = new AtomicInteger(0);
         filePathToReplicaChannels = new HashMap<>();
         executorService = Executors.newSingleThreadScheduledExecutor();
     }
@@ -116,8 +117,8 @@ public class StorageNode
         return DfsMessages.ControllerMessagesWrapper.newBuilder()
                 .setHeartBeat(DfsMessages.HeartBeat.newBuilder()
                 .setNodeMetaData(buildDataNodeMetaData())
-                .setRetrieveCount(totalRetrievalReqs)
-                .setStoreCount(totalStorageReqs)
+                .setRetrieveCount(totalRetrievalReqs.intValue())
+                .setStoreCount(totalStorageReqs.intValue())
                 .build())
                 .build();
     }

@@ -3,8 +3,6 @@ package edu.usfca.cs.chat;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
@@ -15,26 +13,12 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-class StorageNodeInfo {
-    String hostname;
-    String IP;
-    String memory;
-    int port;
-
-    public StorageNodeInfo(String hostname, String IP, String memory, int port) {
-        this.hostname = hostname;
-        this.IP = IP;
-        this.memory = memory;
-        this.port = port;
-    }
-}
-
 @ChannelHandler.Sharable
 public class Controller
         extends SimpleChannelInboundHandler<DfsMessages.ControllerMessagesWrapper> {
 
 
-    // storage node map with key as hostname and sotrageNodeInfoObj
+    // storage node map with key as hostname and DataNodeMetadata
     private ConcurrentMap<String, DfsMessages.DataNodeMetadata> activeStorageNodes;
     ServerMessageRouter messageRouter;
 
@@ -108,13 +92,11 @@ public class Controller
                 break;
             case 6: // Intro Message
                 try {
-                    String hostname = message.getIntroMessage().getHostname();
-                    String IP = message.getIntroMessage().getIp();
-                    String memory = message.getIntroMessage().getMemory();
-                    int port = message.getIntroMessage().getPort();
+                    DfsMessages.DataNodeMetadata IntroMsg = message.getIntroMessage();
                     // print controller
                     printMsg(message);
-//                    activeStorageNodes.put(hostname, new StorageNodeInfo(hostname, IP, memory, port));
+                    // add to active storage nodes
+                    activeStorageNodes.put(IntroMsg.getHostname(), IntroMsg);
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading DataNodeMetaData");
                 }
