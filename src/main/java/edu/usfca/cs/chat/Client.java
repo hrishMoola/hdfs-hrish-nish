@@ -1,111 +1,38 @@
 package edu.usfca.cs.chat;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.InetSocketAddress;
-import java.util.Arrays;
 
-import edu.usfca.cs.chat.ChatMessages.ChatMessage;
+import com.google.protobuf.ByteString;
 import edu.usfca.cs.chat.net.MessagePipeline;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-public class Client
-    extends SimpleChannelInboundHandler<ChatMessages.ChatMessagesWrapper> {
+import static edu.usfca.cs.chat.Utils.FileUtils.getFileRequest;
 
-    private String username;
-    private String hostname;
-    private int port;
+@ChannelHandler.Sharable
+public class Client
+//    extends SimpleChannelInboundHandler<ChatMessages.ChatMessagesWrapper> {
+    extends SimpleChannelInboundHandler<DfsMessages.ClientMessagesWrapper> {
+
+    private String username;    //client name
+    private String controllerHostName;
+    private int controllerPort;
 
     private Channel serverChannel;
+    private Channel leaderChannel;
 
-    public Client(String hostname, int port, String username) {
-        this.hostname = hostname;
-        this.port = port;
+    public Client(String controllerHostName, int controllerPort, String username) {
+        this.controllerHostName = controllerHostName;
+        this.controllerPort = controllerPort;
         this.username = username;
     }
 
-    private void chunkFile(String filePath) throws IOException {
-        File f = new File(filePath);
-        int partCounter = 0;
 
-        int sizeOfFile = 128 * 1024 * 1024; // 128/chunk
-        byte[] buffer = new byte[sizeOfFile];
 
-        String fileName = f.getName();
-
-        //try-with-resources to ensure closing stream
-        try (FileInputStream fis = new FileInputStream(f);
-             BufferedInputStream bis = new BufferedInputStream(fis)) {
-
-            int bytesAmount = 0;
-            while ((bytesAmount = bis.read(buffer)) > 0) {
-                //write each chunk of data into separate file with different number in name
-                String filePartName = String.format("%03d-%s", partCounter++, fileName);
-                File newFile = new File(f.getParent(), filePartName);
-                try (FileOutputStream out = new FileOutputStream(newFile)) {
-                    out.write(buffer, 0, bytesAmount);
-                }
-                catch(Error e) {
-                    System.out.println("Error while writing file in chunkFile " + e);
-                }
-            }
-        }
-        catch(Error e) {
-            System.out.println("Error while splitting file in chunkFile " + e);
-        }
-
-        System.out.println("Total chunks: " + partCounter);
-    }
-
-    private void mergeFiles(String[] files, String outputFilePath) throws IOException {
-        FileInputStream instream = null;
-        FileOutputStream outstream = null;
-
-        files = new String[]{"/Users/nishantmehta/Desktop/Videos/000-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/001-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/002-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/003-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/004-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/005-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/006-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/007-My Movie 2.mp4"};
-        outputFilePath = "/Users/nishantmehta/Desktop/Videos/MyMovie2Merged.mov";
-
-        try{
-            int i;
-            File inFile;
-            File outFile = new File(outputFilePath);
-            outstream = new FileOutputStream(outFile);
-
-            for(i = 0; i < files.length; i++) {
-                inFile = new File(files[i]);
-
-                instream = new FileInputStream(inFile);
-
-                byte[] buffer = new byte[1024];
-
-                int length;
-                /* copying the contents from input stream to
-                 * output stream using read and write methods
-                 */
-                while ((length = instream.read(buffer)) > 0){
-                    outstream.write(buffer, 0, length);
-                }
-
-                // Closing the input file streams
-                instream.close();
-            }
-            outstream.close();
-
-            System.out.println("File copied successfully!!");
-        }catch(IOException ioe){
-            ioe.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args)
-    throws IOException {
+    public static void main(String[] args) throws IOException {
         Client c = null;
         if (args.length >= 3) {
             c = new Client(args[0], Integer.parseInt(args[1]), args[2]);
@@ -124,9 +51,10 @@ public class Client
         inputThread.run();
     }
 
+    //connect to controller node upon startup
     public void connect() {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        MessagePipeline pipeline = new MessagePipeline(this);
+        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.ClientMessagesWrapper.getDefaultInstance());
 
         Bootstrap bootstrap = new Bootstrap()
             .group(workerGroup)
@@ -134,13 +62,80 @@ public class Client
             .option(ChannelOption.SO_KEEPALIVE, true)
             .handler(pipeline);
 
-        System.out.println("Connecting to " + hostname + ":" + port);
-        ChannelFuture cf = bootstrap.connect(hostname, port);
+        System.out.println("Connecting to " + controllerHostName + ":" + controllerPort);
+        ChannelFuture cf = bootstrap.connect(controllerHostName, controllerPort);
         cf.syncUninterruptibly();
         serverChannel = cf.channel();
     }
 
+    private void chunkFileAndSendToLeader(DfsMessages.FileResponse fileResponse) throws IOException {
+        File f = new File(fileResponse.getFilepath());
+        int partCounter = 0;
+        int sizeOfFile = 50 * 1024; // 50kb chunks
+//        int sizeOfFile = 128 * 1024 * 1024; // 128/chunk
+        byte[] buffer = new byte[sizeOfFile];
+
+        String fileName = f.getName();
+        sendChunkHeaderToLeader((int)Math.ceil(f.length() / (float)sizeOfFile), fileResponse);
+
+        //try-with-resources to ensure closing stream
+        try (FileInputStream fis = new FileInputStream(f);
+             BufferedInputStream bis = new BufferedInputStream(fis)) {
+
+            int bytesAmount = 0;
+            while ((bytesAmount = bis.read(buffer)) > 0) {
+                //write each chunk of data into separate file with different number in name
+                String filePartName = String.format("%s-%03d", fileName, partCounter++);
+                    sendChunks(filePartName, buffer);
+                    System.out.println("Sent");
+            }
+        }
+        catch(Error e) {
+            System.out.println("Error while splitting file in chunkFile " + e);
+        }
+        System.out.println("Total chunks: " + partCounter);
+        leaderChannel.flush();
+        leaderChannel.close();
+    }
+
+    private void sendChunkHeaderToLeader(int numChunks, DfsMessages.FileResponse fileResponse) {
+        DfsMessages.DataNodeMessagesWrapper wrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder()
+                        .setFileChunkHeader(DfsMessages.FileChunkHeader.newBuilder()
+                        .setFilepath(fileResponse.getFilepath()).setTotalChunks(numChunks)
+                        .addReplicas(0,fileResponse.getDataNodes(1))
+                        .addReplicas(1,fileResponse.getDataNodes(2))
+                                .build()).build();
+        connectToLeaderNode(fileResponse.getDataNodes(0).getHostname() , Integer.parseInt(fileResponse.getDataNodes(0).getIp()));
+        ChannelFuture write = leaderChannel.writeAndFlush(wrapper);
+        System.out.println("Sent chunk header to leader");
+        write.syncUninterruptibly();
+    }
+
+    public void connectToLeaderNode(String leadername, Integer port) {
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.ClientMessagesWrapper.getDefaultInstance());
+
+        Bootstrap bootstrap = new Bootstrap()
+                .group(workerGroup)
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .handler(pipeline);
+
+        System.out.println("Connecting to " + leadername + ":" + port);
+        ChannelFuture cf = bootstrap.connect(leadername, port);
+        cf.syncUninterruptibly();
+        leaderChannel = cf.channel();
+    }
+    private void sendChunks(String filePartName, byte[] buffer) {
+        DfsMessages.FileChunk fileChunkMessage = DfsMessages.FileChunk.newBuilder().setFilepath(filePartName).setChunks(ByteString.copyFrom(buffer)).build();
+        DfsMessages.DataNodeMessagesWrapper msgWrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileChunk(fileChunkMessage).build();
+        ChannelFuture write = leaderChannel.writeAndFlush(msgWrapper);
+        write.syncUninterruptibly();
+    }
+
+
     public void sendMessage(String message) {
+
         ChatMessages.ChatMessage msg
             = ChatMessages.ChatMessage.newBuilder()
             .setUsername(username)
@@ -165,7 +160,7 @@ public class Client
 
     public void sendGreeting() {
         String message = "Hello all! I am " + username + ", pleased to meet you.";
-        sendMessage(message);
+//        sendMessage(message);
     }
 
     @Override
@@ -192,13 +187,30 @@ public class Client
 
     @Override
     public void channelRead0(
-            ChannelHandlerContext ctx, ChatMessages.ChatMessagesWrapper msg) {
+            ChannelHandlerContext ctx, DfsMessages.ClientMessagesWrapper message) {
 
-        if (msg.hasChatMessage()) {
-            ChatMessage message = msg.getChatMessage();
-            String user = message.getUsername();
-            String messageBody = message.getMessageBody();
-            System.out.println("[" + user + "] " + messageBody);
+        System.out.println(message);
+        int messageType = message.getMsgCase().getNumber();
+        try{
+            switch(messageType){
+                case 2:
+                    System.out.println("Received a file response for " + message.getFileResponse().getFilepath());
+                    chunkFileAndSendToLeader(message.getFileResponse());
+                case 6:
+                    try {
+                        System.out.println("received file ack");
+
+                    } catch (Exception e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+                    break;
+                default:
+                    System.out.println("whaaaa");
+                    break;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -221,17 +233,23 @@ public class Client
             while (true) {
                 String line = "";
                 try {
-                    client.mergeFiles(new String[2], "");
-                    System.out.println("Enter absolute filepath of to chunk: ");
+                    System.out.println("What do you want to do: ");
                     line = reader.readLine();
-                    client.chunkFile(line);
+                    if (line.startsWith("store"))
+                        client.sendFileRequestToController(line);
                 } catch (IOException e) {
                     e.printStackTrace();
                     break;
                 }
-
-                client.sendMessage(line);
             }
         }
+    }
+
+    private void sendFileRequestToController(String line) {
+        String localFile = line.split("\\s")[1];
+        String dfsPath = line.split("\\s")[2];
+        DfsMessages.ControllerMessagesWrapper wrapper = DfsMessages.ControllerMessagesWrapper.newBuilder().setFileRequest(getFileRequest(localFile,dfsPath)).build();
+        serverChannel.write(wrapper);
+        serverChannel.flush();
     }
 }

@@ -1,0 +1,2141 @@
+REPORT
+FEBRUARY 2 0 1 9
+PROJ ECT O N EUROPE AND THE TRANSAT L A N T I C RELATIONSHIP
+NATO at
+Seventy
+An Alliance in Crisis
+Ambassador Douglas Lute Ambassador Nicholas Burns
+Project on Europe and the Transatlantic Relationship
+Belfer Center for Science and International Affairs
+Harvard Kennedy School
+79 JFK Street
+Cambridge, MA 02138
+www.belfercenter.org/Transatlantic
+Statements and views expressed in this report are solely those of the authors and do not imply
+endorsement by Harvard University, the Harvard Kennedy School, or the Belfer Center for Science
+and International Affairs.
+The authors of this report invite liberal use of the information provided in it for educational
+purposes, requiring only that the reproduced material clearly cite the source.
+Design and Layout by Andrew Facini
+Cover photo: A U.S. Marine carries cold weather equipment as he begins to march across the Icelandic
+terrain in preparation for NATO’s Trident Juncture 2018 exercise, October 19, 2018. (NATO Photo)
+Copyright 2019, President and Fellows of Harvard College
+Printed in the United States of America
+PROJ ECT O N EUROPE AND THE TRANSAT L A N T I C RELATIONSHIP
+REPORT
+FEBRUARY 2 0 1 9
+NATO at
+Seventy
+An Alliance in Crisis
+Ambassador Douglas Lute Ambassador Nicholas Burns
+
+Belfer Center for Science and International Affairs | Harvard Kennedy School iii
+About this Report
+“NATO at Seventy: An Alliance in Crisis” is a report by the Project on Europe and
+the Transatlantic Relationship at Harvard Kennedy School’s Belfer Center for
+Science and International Affairs. This Project aims to strengthen teaching, research,
+and policy-making on the relationship between the United States and Europe.
+This report is timed to coincide with the 70th anniversary of the North Atlantic
+Treaty Organization in 2019 as the world’s most successful alliance faces perhaps
+the most daunting and complex set of challenges in its history. This report identifies
+ten major challenges for NATO—some from within the Alliance, others from
+beyond its borders or looming on the horizon—and specific recommendations for
+how to resolve them.
+This report benefited from discussions with experts and officials on both sides
+of the Atlantic. The report’s authors are Ambassador (Ret.) Douglas Lute,
+Senior Fellow at the Project on Europe and the Transatlantic Relationship and
+President of Cambridge Global Advisors and Ambassador (Ret.) Nicholas Burns,
+Faculty Chair of the Project on Europe and the Transatlantic Relationship and
+Roy and Barbara Goodman Family Professor of the Practice of Diplomacy and
+International Politics at Harvard Kennedy School. Both are former Permanent
+Representatives of the United States to the North Atlantic Treaty Organization.
+iv NATO at Seventy: An Alliance in Crisis
+About the Authors
+Ambassador (Ret.) Douglas Lute
+Senior Fellow with the Project on Europe and the Transatlantic
+Relationship, Belfer Center for Science and International Affairs
+President, Cambridge Global Advisors
+Ambassador (Ret.) Douglas Lute is the former United States Ambassador
+to NATO (2013-2017) where he contributed to designing and implementing
+the responses of the Alliance to the most severe security challenges in
+Europe since the end of the Cold War. A career Army officer, in 2010 Lute
+retired from active duty as a lieutenant general after 35 years of service. In
+2007 President Bush named him as Assistant to the President and Deputy
+National Security Advisor to coordinate the wars in Iraq and Afghanistan.
+In 2009 he was the senior White House official retained by President
+Obama. Across these two Administrations, he served a total of six years in
+the White House. Before being assigned to the White House, General Lute
+served as Director of Operations (J3) on the Joint Staff, overseeing U.S.
+military operations worldwide. He now holds the McDermott Chair of
+Social Sciences at West Point and is a member of the Council on Foreign
+Relations, the Senior Military Advisory Group of the United States
+Institute of Peace, and the Board of Directors of the Atlantic Council.
+Belfer Center for Science and International Affairs | Harvard Kennedy School v
+Ambassador (Ret.) Nicholas Burns
+Roy and Barbara Goodman Family Professor of the Practice of
+Diplomacy and International Politics, Harvard Kennedy School
+Ambassador (Ret.) Nicholas Burns is the Roy and Barbara Goodman
+Family Professor of the Practice of Diplomacy and International Relations
+at Harvard Kennedy School. He is Faculty Chair of the Future of Diplomacy
+Project and the Project on Europe and the Transatlantic Relationship. He is
+Director of the Aspen Strategy Group and a Senior Counselor at the Cohen
+Group. From 2014-2017, he was a member of Secretary of State John
+Kerry’s Foreign Affairs Policy Board at the U.S. Department of State. He
+served in the United States Foreign Service for twenty-seven years until
+his retirement in April 2008. He was Under Secretary of State for Political
+Affairs from 2005 to 2008. Prior to that, he was Ambassador to NATO
+(2001-2005), Ambassador to Greece (1997-2001), and State Department
+Spokesman (1995-1997). He worked on the National Security Council staff
+where he was Senior Director for Russia, Ukraine and Eurasia Affairs and
+Special Assistant to President Clinton and, before that, Director for Soviet
+Affairs for President George H.W. Bush. Earlier in his career, he worked
+at the American Consulate General in Jerusalem and in the American
+Embassies in Egypt and Mauritania. He serves on the board of several corporate
+and non-profit organizations.
+vi NATO at Seventy: An Alliance in Crisis
+Contributors
+The authors gratefully acknowledge the extraordinary substantive contributions
+of our colleagues at Harvard who worked tirelessly on this report.
+It would not have been completed without them.
+RESEARCH ASSOCIATES
+Seth A. Johnston
+Council on Foreign Relations International Affairs Fellow & Visiting Scholar,
+Center for European Studies, Harvard University
+Dr. Seth Johnston is a Major in the United States Army and veteran of
+NATO, most recently serving as a task force commander with the NATO
+Resolute Support mission in Afghanistan. Formerly an Assistant Professor
+of International Relations at West Point, he is the author of How NATO
+Adapts: Strategy and Organization in the Atlantic Alliance since 1950.
+Gabrielle Tarini
+Master in Public Policy Candidate, Class of 2019, Harvard Kennedy School
+Gabrielle Tarini is a Master in Public Policy candidate at the Harvard
+Kennedy School and research assistant at the Belfer Center for Science
+and International Affairs. Previously, she was a Rosenthal Fellow in
+the Office of the Undersecretary of Defense for Policy and a research
+associate at the James Martin Center for Nonproliferation Studies. She
+holds a B.A. in International Studies from Boston College.
+Belfer Center for Science and International Affairs | Harvard Kennedy School vii
+PROJECT ON EUROPE AND THE TRANSATLANTIC
+RELATIONSHIP PROGRAM SUPPORT
+Cathryn Clüver Ashbrook
+Executive Director, the Future of Diplomacy Project & the Project on Europe
+and the Transatlantic Relationship, Belfer Center
+Cathryn Clüver Ashbrook is the founding Executive Director of the Future
+of Diplomacy Project & the Project on Europe and the Transatlantic
+Relationship. Her areas of expertise include EU-U.S. relations and digital
+public policy in urban and national contexts. Cathryn holds a Master in
+Public Administration from Harvard Kennedy School, a Master’s Degree
+in European Studies from the London School of Economics, and an undergraduate
+degree from Brown University.
+Alison Hillegeist
+Assistant Director, the Future of Diplomacy Project & the Project on Europe
+and the Transatlantic Relationship, Belfer Center; Special Assistant to
+Professor Nicholas Burns
+Alison Hillegeist has spent a 22-year career in non-profit organizations
+and higher education with expertise in developing and managing complex
+programs and projects, building partnerships in national and international
+settings, and fostering collaboration across disciplines and cultures. She has
+a B.A. in International Relations and a M.A. in Sustainable Development.
+Patricia Morris
+Research Director, NATO at Seventy: An Alliance in Crisis
+Patricia Morris leads the future of NATO initiative of the Belfer Center’s
+Project on Europe and the Transatlantic Relationship. She is an international
+conflict and governance professional, and previously worked at West Point,
+the World Bank, and Conflict Dynamics International, among others. She is
+a Truman Project National Security Fellow. She holds an MSc in Conflict
+Studies from the London School of Economics and Political Science and a
+B.A. in Political Science and French from Wellesley College.
+viii NATO at Seventy: An Alliance in Crisis
+Acknowledgements
+This report benefited from the advice and comments of experts, scholars and
+practitioners representing generations of experience on the trans-Atlantic
+relationship. The authors are particularly grateful to the individuals listed on
+the following pages for their contributions to this report. The individuals on
+this list do not necessarily endorse all the recommendations in this report.
+The authors accept full responsibility for the contents of the report.
+North American Consultations
+Secretary Madeleine Albright, Former United States Secretary of State
+Dr. Jordan Becker, Senior Transatlantic Fellow, Institute for European Studies,
+Vrije Universiteit Brussel
+Robert Bell, Former Defense Advisor, United States Mission to the North Atlantic
+Treaty Organization
+Secretary Ash Carter, Former United States Secretary of Defense and Director of
+the Belfer Center for Science and International Affairs
+Dr. Philippe Le Corre, Senior Fellow, Mossavar-Rahmani Center for Business and
+Government, Harvard Kennedy School and Affiliate, Belfer Center's Project on
+Europe and the Transatlantic Relationship
+Ambassador Ivo Daalder, Former United States Permanent Representative to the
+North Atlantic Treaty Organization
+Dr. Karen Donfried, President of the German Marshall Fund of the United States
+Thomas Donilon, Former United States National Security Advisor
+Ambassador Kay Bailey Hutchison, United States Permanent Representative to
+the North Atlantic Treaty Organization
+Ambassador Robert Hunter, Former United States Permanent Representative to
+the North Atlantic Treaty Organization
+General James Jones, Former NATO Supreme Allied Commander Europe
+Dr. Andrea Kendall-Taylor, Senior Fellow and Director of the Transatlantic Security
+Program at the Center for a New American Security
+Dr. Ian Lesser, Vice President of the German Marshall Fund of the United States
+Ambassador Victoria Nuland, Former United States Permanent Representative to
+the North Atlantic Treaty Organization
+Dr. Alina Polyakova, David M. Rubenstein Fellow at the Brookings Institution
+Belfer Center for Science and International Affairs | Harvard Kennedy School ix
+Secretary Colin Powell, Former United States Secretary of State
+Eric Rosenbach, Co-Director of the Belfer Center for Science and International
+Affairs at Harvard Kennedy School
+Dr. Mary Sarotte, Kravis Chair in Historical Studies at Johns Hopkins School of
+Advanced International Studies
+Dr. Timothy Andrews Sayle, Assistant Professor at the University of Toronto
+Professor Stanley R. Sloan, Nonresident Senior Fellow at the Atlantic Council and
+former Founding Director of the Atlantic Community
+James Townsend, Former United States Deputy Assistant Secretary of Defense
+for Europe and the North Atlantic Treaty Organization
+Ambassador Alexander “Sandy” Vershbow, Former Deputy Secretary General of
+the North Atlantic Treaty Organization and former Permament Representative to
+the NATO and U.S. Ambassador to Russia
+Damon Wilson, former Special Assistant to the U.S. President, Senior Director for
+Europe Affairs at the National Security Council, and Executive Vice President of the
+Atlantic Council
+European Consultations
+General Knud Bartels, Former Chairman of the North Atlantic Treaty Organization
+Military Committee
+Rose Gottemoeller, Deputy Secretary General of the North Atlantic Treaty
+Organization
+Ambassador Wolfgang Ischinger, Chairman, Munich Security Conference
+Dr. Alexander Mattelaer, Academic Director of the Institute for European Studies
+at the Vrije Universiteit Brussel
+The Right Honourable Lord Robertson of Port Ellen KT, Former Secretary General
+of the North Atlantic Treaty Organization
+Jaap de Hoop Scheffer, Former Secretary General of the North Atlantic Treaty
+Organization and former Foreign Minister of the Netherlands
+Ambassador Stefano Stefanini, Former Permanent Representative of Italy to the
+North Atlantic Treaty Organization
+Lieutenant General Steven Shepro, Deputy Chairman of the North Atlantic Treaty
+Organization Military Committee
+Dr. Nathalie Tocci, Director at the Istituto Affari Internazionali
+Ambassador Tomáš Valášek, Former Permanent Representative of Slovakia to the
+North Atlantic Treaty Organization
+
+Belfer Center for Science and International Affairs | Harvard Kennedy School xi
+Table of Contents
+Executive Summary...................................................................................1
+NATO at Seventy: An Alliance in Crisis..............................................13
+Challenges from Within NATO.........................................................................13
+Challenges from Beyond NATO’s Borders.....................................................24
+Challenges on the Horizon..............................................................................35
+Meeting the Challenges...................................................................................38
+Conclusion.........................................................................................................43
+A Slovak soldier with Stefanik Company charges through smoke
+during an exercise in eastern Latvia, October 4, 2018.
+Stefanik Company, a mechanized infantry unit currently based in
+Adaži, Latvia, is Slovakia’s first contribution to NATO’s enhanced
+Forward Presence in Eastern Europe.
+NATO Photo
+Belfer Center for Science and International Affairs | Harvard Kennedy School 1
+Executive Summary
+Approaching the seventieth anniversary of its founding in April 1949,
+the North Atlantic Treaty Organization (NATO) remains the single most
+important contributor to security, stability and peace in Europe and
+North America.
+NATO provides the umbrella defending Europe from conventional and
+nuclear attack and a secure geopolitical landscape for the world’s two
+largest economies—the European Union and the United States. NATO
+members comprise the largest and strongest alliance of democratic countries
+in the world. They contain Russian aggression and protect over 100
+million East Europeans who now live in democracy and freedom after the
+fall of communism.1 Far from obsolete, NATO remains vital for the more
+than 900 million Europeans and North Americans who benefit from it
+every day.2 It is no overstatement that if NATO did not exist today, countries
+on both sides of the Atlantic would need to create it in a troubled,
+divisive 21st century where authoritarian powers are on the rise.
+The NATO allies, however, are confronting daunting and complex challenges
+that are testing both their purpose and unity. Based on extensive
+discussions with current European and North American leaders, former
+senior officials, academics and journalists during the past six months, this
+report argues that NATO needs to come to grips with ten major challenges
+this year. The list is long, with simultaneous challenges from within the
+alliance, from beyond NATO’s borders and looming on the horizon. Most
+significant is a challenge NATO has not faced before: the absence of strong
+American presidential leadership. NATO’s leaders need to act decisively
+in 2019 to meet these tests and heal the widening divisions within the
+Alliance before it is too late.
+2 NATO at Seventy: An Alliance in Crisis
+Challenges from Within NATO
+Reviving American Leadership of the Alliance
+NATO’s single greatest challenge is the absence of strong, principled
+American presidential leadership for the first time in its history. President
+Donald Trump is regarded widely in NATO capitals as the Alliance’s most
+urgent, and often most difficult, problem. NATO leaders, for example,
+considered not holding a 2019 summit to mark the seventieth anniversary
+this spring as they did in decades past. They feared President Trump would
+blow up a meeting in controversy as he has done each time he has met with
+NATO leaders during the past two years. Wary of his past behavior, NATO
+plans a scaled down leaders meeting for December 2019.
+President Trump’s open ambivalence about NATO’s value to the U.S.,
+his public questioning of America’s Article 5 commitment to its allies,
+persistent criticism of Europe’s democratic leaders and embrace of its
+anti-democratic members and continued weakness in failing to confront
+NATO’s primary adversary President Vladimir Putin of Russia, have hurtled
+the Alliance into its most worrisome crisis in memory.3
+There is no reason to believe President Trump’s attitude will change for
+the better during the next two years. He believes NATO allies are taking
+advantage of the U.S.4 These are the same allies and partners who came
+to America’s defense on 9/11, suffered more than 1,000 battlefield deaths
+alongside American soldiers in Afghanistan,5 are fighting with the U.S.
+now against the Islamic State and shoulder the main burden sustaining a
+fragile peace in the Balkans, in both Kosovo and Bosnia and Herzegovina.
+President Trump is the first U.S. president to view the European Union
+as an economic competitor rather than a vital partner of both the U.S.
+and NATO. His troubling anti-NATO and anti-Europe bias has caused
+European governments to question the credibility of the U.S. as the leader
+of the West for the first time since the Second World War.6 The European
+public confidence in American leadership is also at historically low depths.7
+Every American president before Trump has encouraged the strength and
+Belfer Center for Science and International Affairs | Harvard Kennedy School 3
+unity of Europe as a core interest of the U.S. Trump may well cause even
+greater damage to the Alliance while he remains in office.
+For this reason, Republicans and Democrats in Congress must act together
+as a blocking force against President Trump’s dangerous policies. Congress,
+on a bipartisan basis, should reaffirm the U.S. commitment to the Article
+5 defense clause in the NATO Treaty. Congress should pass legislation this
+year requiring Congressional approval should President Trump attempt
+to alter U.S. treaty commitments to NATO allies or to have the U.S. leave
+the Alliance altogether.8 Congress should continue to fund the “European
+Deterrence Initiative” to bolster U.S. military strength in Europe that is the
+primary deterrent against Russian adventurism.
+Restoring European Defense Strength
+NATO’s European members and Canada pose their own challenge to the
+Alliance—the weakness of their collective defense spending for NATO’s
+common defense. President Trump has been right to push allies to spend
+more on defense. He has the support of the U.S. Congress and many
+Americans in doing so. It is simply unfair that only five of the twenty-nine
+allies are currently spending at least 2 percent of their Gross Domestic
+Product (GDP) on their military budgets, while the U.S. is spending 3.5
+percent and shouldering much of the defense burden.9
+Germany, the largest and wealthiest of the European allies, has a major
+shortfall as it is currently spending only 1.24 percent of its budget on
+defense. Its coalition government has not summoned the strength and
+determination to convince the Bundestag and the German public to
+reach the minimum 2 percent level soon. Germany is thus abdicating this
+most basic obligation as a member of NATO. Italy, Canada, Spain, the
+Netherlands and other allies are also spending well below the agreed 2
+percent level.10
+Having made his point, President Trump should also acknowledge
+that aggregate NATO defense spending trends are actually heading
+in the right direction, despite insufficient spending by some allies.
+NATO allies have produced four consecutive years of real growth for a
+4 NATO at Seventy: An Alliance in Crisis
+collective increase in spending of $87 billion, particularly in reaction
+to Putin’s annexation of Crimea in 2014 and President Trump’s public
+pressure since 2017.11 A majority of NATO members plan to reach
+the 2 percent level by the agreed target date of 2024. More than half
+will spend 20 percent of their defense budgets on new equipment and
+research and development.12 This new spending is critical to produce
+added NATO defense capabilities, including intelligence-surveillance-
+reconnaissance, cyber and digital technologies.
+The challenge for President Trump on NATO defense spending is to pivot
+from chief critic to chief cheerleader. His administration should also
+support new European Union efforts to strengthen the EU’s own defense
+capacity as long as it complements, and not duplicates, NATO’s existing
+capabilities and programs.
+Upholding NATO’s Democratic Values
+NATO is struggling to confront a potentially cancerous threat from within.
+Three allied governments—Poland, Hungary and Turkey—have undermined
+their own democracies in varying degrees by suppressing free speech and a
+free press and limiting the independence of the courts.13 As NATO is, first
+and foremost, an alliance of democracies, the actions of these governments
+threaten the core values—democracy, individual liberty and the rule of law—
+to which each ally is committed in the North Atlantic Treaty.
+Nearly every current and former NATO official with whom we talked for
+this report worried that a recommendation for NATO to discipline these
+anti-democratic governments would be highly problematic and divisive.
+Nonetheless, we believe NATO must find a way to shine a light on these
+recalcitrant allies. For example, NATO could review annually each ally’s
+democratic practices, perhaps in a report prepared by a high-level, outside
+group. Allies that violate basic democratic standards could be suspended
+from NATO military exercises or denied access to NATO training and
+common infrastructure funding.
+More than one European mentioned to us the ironic fact that the U.S. itself
+may be chastised for a deterioration of its own democratic standards in
+Belfer Center for Science and International Affairs | Harvard Kennedy School 5
+such a process. Nevertheless, ignoring this challenge of democratic principles
+will undermine the core convictions that brought NATO together
+seventy years ago.
+Streamlining NATO Decision-Making
+NATO allies have always reached critical decisions by consensus. This
+continues to make sense for all allies to agree on how NATO should act
+on major issues. But, it is time for the Alliance to empower the Secretary
+General on the administrative and resource issues that impede focusing
+on more significant challenges. The Secretary General must have the
+operational power to move an often-unwieldy Alliance forward in the way
+it plans and operates on a daily basis. Also important is improving decision-
+making in crisis scenarios.
+Challenges from Beyond NATO’s Borders
+Containing Putin’s Russia
+NATO faces a challenge to deter further Russian aggression in Eastern
+Europe. Russian President Vladimir Putin is destabilizing NATO partners
+Ukraine and Georgia by the continued occupation of their territories. He
+also seeks to weaken the three Baltic allies from within.14 And Russian
+cyber attacks, political subversion and aggressive social media campaigns
+pose a threat to all the NATO democracies and their electoral processes.
+NATO allies thus need to take much stronger measures against Moscow
+than they have to date by:
+• Reaffirming economic sanctions on Russia will remain in place for
+as long as it occupies Ukrainian territory;
+• Sustaining indefinitely current back-to-back NATO rotational
+troop deployments to Estonia, Latvia, Lithuania and Poland, while
+adding enablers and improving readiness of reinforcements;
+6 NATO at Seventy: An Alliance in Crisis
+• Addressing vulnerabilities in the area of hybrid warfare urgently,
+the most likely form of Russian aggression against the Alliance;
+• Preparing cyber offensive options to deter Russia from further
+cyber attacks.
+At the same time, it makes sense for NATO leaders to maintain continuing
+contacts with the Kremlin on the many issues that divide NATO allies
+and Russia: Russia’s violation of Ukraine’s sovereign territory, dangerous
+Russian air and sea maneuvers in the Baltic and Black Sea regions, the
+Russian Intermediate-Range Nuclear Forces Treaty (INF) violation,
+Afghanistan and measures to prevent miscalculation that could lead to
+conflict that all wish to avoid.
+Containing Russian power will be a generational challenge until Putin’s
+Soviet-trained leadership circle leaves power during the next decade, perhaps
+beyond. There is no more important external challenge for NATO.
+Ending the Afghan War
+NATO’s largest and longest combat mission in Afghanistan is at a critical
+juncture. The war with the Taliban is at a stalemate. Afghan civilian and
+military casualties are at an all-time high.15 Few believe the war can be
+won outright. President Trump appears determined to have the U.S. depart
+quickly sometime in 2019 after nearly 18 years of combat. President Trump
+and his advisors should proceed carefully, in close coordination with the
+Afghan government, to avoid a precipitous U.S. departure that would jeopardize
+American interests and risk further instability in Afghanistan.
+The Trump administration is right to engage directly with the Taliban to
+explore a political process to end the war. A durable, sustainable settlement
+ultimately must be made among Afghans, including the elected Afghan
+government and the Taliban. The interests and views of Afghanistan’s
+neighbors and the NATO allies with troops on the ground must be considered
+as well. The U.S. should proceed slowly and carefully, conditioning
+troop withdrawals on the Taliban’s meeting agreed security and political
+benchmarks beginning with a ceasefire and including agreeing to engage
+Belfer Center for Science and International Affairs | Harvard Kennedy School 7
+with the Afghan government. NATO allies should adhere to the “in
+together, out together” principle, avoiding unilateral national withdrawals.
+Refocusing NATO Partnerships
+NATO maintains a partnership with forty-one countries outside the
+Alliance from Mauritania in West Africa to Japan.16 Many states have
+been invaluable members of coalitions in Afghanistan, Iraq, the Balkans
+and in the fight against the Islamic State. Most important, NATO should
+strengthen its partnership with the European Union. Partnerships with the
+Gulf Coordination Council, the African Union and the Arab League could
+promote stability along NATO’s periphery.
+Maintaining an Open Door to Future Members
+Following a historic two-decade expansion of the NATO Alliance with
+thirteen new members, NATO would be well advised to consolidate that
+expansion once North Macedonia joins the Alliance in the coming months.
+Over the next decade or two, however, NATO should keep the door
+open for any European democracy that meets the strict qualifications for
+membership. Georgia and Ukraine may not meet the conditions for years
+to come, but it is in NATO’s interest to hold open the possibility of membership
+in the long term. No country outside the Alliance, most especially
+Russia, can have a veto over who NATO accepts as it pursues its goal of
+providing for a free and peaceful European continent.
+8 NATO at Seventy: An Alliance in Crisis
+Challenges on the Horizon
+Winning the Technology Battle in the Digital Age
+NATO faces yet another critical challenge in adapting quickly to a rapidly
+changing, global, military technology landscape. Its often-byzantine
+defense planning processes date to the Cold War, long before the extraordinary,
+current advances in military arms powered by artificial intelligence,
+cyber, robotics, quantum computing and biotechnology—perhaps the most
+decisive change in military technology since the start of the nuclear age.
+NATO allies, led by the United States, must now commit a far greater share
+of their military budgets to acquiring these new military technologies, lest
+China and Russia gain a decisive advantage in the decade ahead.
+Competing with China
+While China does not pose a direct military threat to most NATO allies, it
+is emerging as a global competitor politically, economically and in seeking
+dominance in digital military technologies. Europe, the United States
+and Canada need to adopt a more cohesive approach to China. Beijing is
+emerging as the strongest strategic competitor of both North America and
+Europe in this century. The European allies need to focus more intently on
+the challenge from Chinese economic and technological power and industrial
+espionage. NATO allies should thus tighten restrictions on Chinese
+investments in key technology sectors on both sides of the Atlantic. And
+NATO should strengthen its military partnerships with Japan, South
+Korea, Australia, New Zealand and others.
+China will be the main geo-strategic competitor of the United States in the
+decades ahead. It is in the interest of NATO allies to take on the defense
+burden in the trans-Atlantic region more equitably, to enable the U.S. to
+focus increasingly on the competition with China. In this strategic sense,
+NATO’s military strength and unity could be a potentially decisive factor in
+the long-term competition ahead in the Indo-Pacific. The goal is to live and
+work with China where possible, but to compete to maintain the primacy
+of the free, democratic countries in both Europe and the Indo-Pacific.
+Belfer Center for Science and International Affairs | Harvard Kennedy School 9
+Summary
+The United States bears a special responsibility to help its allies to meet these
+tests. President Trump is wrong to question NATO’s central importance to
+American security. On its own, the United States is a powerful nation. But
+America’s European and Canadian allies expand and amplify American
+power in ways that Russia and China—with few allies of their own—can
+never match. United States access to European air and naval bases alone
+bring American forces a continent closer to the Middle East, Africa and parts
+of Asia.17 The United States is substantially stronger in NATO than it would
+be on its own. There is ample evidence President Trump does not understand—
+and certainly does not appreciate—this basic strategic fact about
+NATO.
+This is why decisive action by the Congress this year to reassert America’s
+commitment and leadership in NATO is imperative. And it is also why
+NATO allies, on both sides of the Atlantic, must work together to narrow
+the growing divisions within the Alliance and to meet these historic challenges
+as NATO turns seventy.
+10 NATO at Seventy: An Alliance in Crisis
+Notes for Executive Summary
+1 The population of East European countries in the North Atlantic Treaty Organization is approximately
+109 million. See “NATO Countries: Statistical Profile,” Nation Master, accessed January 3,
+2019, https://www.nationmaster.com/country-info/groups/NATO-countries.
+2 “NATO Countries: Statistical Profile,” 2018; “US Population,” U.S. Census Bureau, accessed January
+3, 2019, https://www.census.gov/popclock.
+3 Julian E. Barnes and Helene Cooper, “Trump Discussed Pulling US From NATO, Aides Say Amid
+New Concerns Over Russia,” The New York Times, January 14, 2018, https://www.nytimes.
+com/2019/01/14/us/politics/nato-president-trump.html; Aaron Blake, “Trump’s Montenegro
+comments make it abundantly clear he doesn’t understand NATO,” The Washington Post, July 28,
+2018, https://www.washingtonpost.com/news/the-fix/wp/2018/07/18/trump-makes-it-abundantly-
+clear-he-doesnt-know-how-nato-works/.
+4 David Welna, “Fact Check: Trump’s Claims On NATO Spending,” National Public Radio, July 18, 2018,
+https://www.npr.org/2018/07/11/628137185/fact-check-trumps-claims-on-nato-spending.
+5 “Afghanistan Fatalities, Fatalities by Country,” iCasualties, accessed December 26, 2018, www.
+iCasualties.org.
+6 Angelique Chrisafis, “Europe can no longer rely on US for security, says Emmanuel Macron,” The
+Guardian, August 27, 2018, https://www.theguardian.com/world/2018/aug/27/europe-can-no-longer-
+rely-on-us-for-security-says-emmanuel-macron; Michael Birnbaum and Rick Noack, “Following
+Trump’s trip, Merkel says Europe can’t rely on ‘others.’ She means the US,” The Washington Post,
+May 28, 2017, https://www.washingtonpost.com/world/following-trumps-trip-merkel-says-europecant-
+rely-on-us-anymore/2017/05/28/4c6b92cc-43c1-11e7-8de1-cec59a9bf4b1_story.html.
+7 “Confidence in Trump remains low in key EU countries,” Pew Research Center, September 28,
+2018, http://www.pewglobal.org/2018/10/01/trumps-international-ratings-remain-low-especially-
+among-key-allies/pg_2018-10-1_u-s-image_0-5/.
+8 The United States House of Representatives passed the NATO Support Act on January 2,
+2018, which prohibits the appropriation or use of funds to withdraw the United States from the
+North Atlantic Treaty Organization. United States Congress, House, NATO Support Act, HR 676,
+116th Congress, 1st sess., introduced in House January 17, 2019, https://www.congress.gov/
+bill/116th-congress/house-bill/676; Similar action is under consideration in the Senate. See United
+States Congress, House, NATO Support Act, HR 676, 116th Congress, 1st sess., introduced January
+17, 2019, https://www.congress.gov/bill/116th-congress/house-bill/676.
+9 “Defence Expenditure of NATO Countries (2011-2018),” NATO Press Release PR/CP(2018)091, July
+10, 2018, https://www.nato.int/nato_static_fl2014/assets/pdf/pdf_2018_07/20180709_180710-
+pr2018-91-en.pdf. However, data on defense spending can be misleading. While the U.S. devotes 3.5
+percent of GDP to defense, not all of that is committed to NATO.
+10 “Defence Expenditure of NATO Countries (2011-2018),” 2018.
+11 Nicholas Burns, “What America Gets Out of NATO,” The New York Times, July 11, 2018, https://www.
+nytimes.com/2018/07/11/opinion/what-america-gets-out-of-nato.html.
+12 “Defence Expenditure of NATO Countries (2011-2018),” 2018.
+13 Jonathan Katz and Torrey Taussig, “An inconvenient truth: Addressing democratic backsliding
+within NATO,” Brookings Institution, July 10, 2018, https://www.brookings.edu/blog/order-from-chaos/
+2018/07/10/an-inconvenient-truth-addressing-democratic-backsliding-within-nato/.
+Belfer Center for Science and International Affairs | Harvard Kennedy School 11
+14 Paul Stronski and Richard Sokolsky, The Return of Global Russia: An Analytical Framework
+(Washington, DC: The Carnegie Endowment for International Peace, December 2017), https://carnegieendowment.
+org/2017/12/14/return-of-global-russia-analytical-framework-pub-75003, p. 3-30.
+15 “Quarterly Report on the Protection of Civilians in Armed Conflict: 1 January to 30 September,
+2018,” United Nations Assistance Mission in Afghanistan, October 10, 2018, https://unama.
+unmissions.org/sites/default/files/unama_protection_of_civilians_in_armed_conflict_3rd_quarter_
+report_2018_10_oct.pdf; Idrees Ali, “Afghan security forces’ deaths unsustainable: US military
+official,” Reuters, December 4, 2018, https://www.reuters.com/article/us-usa-afghanistan-military/
+afghan-security-forces-deaths-unsustainable-u-s-military-official-idUSKBN1O32CS.
+16 Partnership for Peace: Armenia, Austria, Azerbaijan, Belarus, Bosnia and Herzegovina, Finland,
+Georgia, Ireland, Kazakhstan, Kyrgyz Republic, Malta, The Republic of Moldova, Russia, Serbia,
+Sweden, Switzerland, Tajikistan, the former Yugoslav Republic of Macedonia, Turkmenistan,
+Ukraine, Uzbekistan; Mediterranean Dialogue: Algeria, Egypt, Israel, Jordan, Mauritania, Morocco,
+Tunisia; Istanbul Cooperation Initiative: Bahrain, Kuwait, Qatar, United Arab Emirates; Partners
+from across the globe: Afghanistan, Australia, Colombia, Iraq, Japan, Republic of Korea, Mongolia,
+New Zealand, Pakistan; International organizations: United Nations, European Union, Organization
+for Security and Cooperation in Europe. See “Partners,” NATO, last updated November 11, 2015,
+https://www.nato.int/cps/en/natohq/51288.htm.
+17 Jens Stoltenberg, “The Value of NATO in the 21st Century,” Heritage Foundation, Washington, DC,
+September 14, 2018, https://www.heritage.org/defense/event/the-value-nato-the-21st-century/.
+12 NATO at Seventy: An Alliance in Crisis
+A view of the interior of the new NATO headquarters in
+Brussels, February 22, 2018.
+NATO Photo
+Belfer Center for Science and International Affairs | Harvard Kennedy School 13
+NATO at Seventy:
+An Alliance in Crisis
+NATO stands once again at a crossroads, but this is different. As the world’s
+oldest and most successful military alliance celebrates its seventieth anniversary
+in April 2019, it faces an array of diverse, simultaneous challenges.
+Some challenges are familiar, others new and pressing; some from within
+the Alliance, others from beyond NATO’s borders and still others looming
+on the horizon. Taken together, these challenges represent the most severe
+crisis in the security environment in Europe since the end of the Cold War
+and perhaps ever. The question is whether the Alliance can adapt to these
+challenges, revitalized and retooled for the decades ahead. This report aims
+to address the array of challenges and offer practical recommendations.
+Challenges from Within NATO
+Reviving American Leadership
+The single greatest challenge NATO faces today is the critical need for
+reviving strong, reliable American leadership. With American leadership,
+anything is possible within the Alliance; absent American leadership, progress
+will be slow at best. At the most basic level the next American
+president must reaffirm U.S. commitment to the Alliance, especially the
+Article 5 collective defense pledge, in both words and
+deeds. Given the opportunity to do so within months
+of his inauguration in May 2017, President Trump
+refused to honor the U.S. commitment to Article 5,
+even while unveiling a memorial at the new NATO
+headquarters commemorating its historic invocation
+after 9/11.1 His persistent disrespect toward some key
+democratic leaders and warmth toward some autocrats,
+denigration of NATO and the EU and penchant for
+unpredictable statements and decisions combine to erode European governmental
+and public confidence in American leadership.2
+“...an armed attack
+against one or more
+[ally] in Europe
+or North America
+shall be considered
+an attack against
+them all...”
+— Article 5,
+Washington Treaty
+14 NATO at Seventy: An Alliance in Crisis
+Actions speak louder than
+words, but words still count.
+Effective deterrence and
+defense—the essence of
+NATO—depend not only
+on capability, but also on
+adversaries’ perception of
+allies’ collective political will.3
+The U.S. demonstrates its
+commitment to NATO with
+senior diplomatic and military
+leadership, troop deployments
+to Europe including to the
+Baltics and Poland, active participation
+in NATO exercises
+and prepositioning equipment
+to ease rapid reinforcement.
+Especially under the leadership of Secretary of Defense James Mattis, NATO
+made progress on readiness, mobility, cyber security and command structure
+reforms. Fortunately, bipartisan congressional support is unwavering: Senate
+and House resolutions in 2017 reaffirming U.S. commitment to the Alliance,
+the introduction of a Senate bill preventing the President from leaving
+NATO without Senate approval in 2018 and 2019, the passage of a House
+resolution in 2019 prohibiting the appropriation of funds to withdraw the
+U.S. from NATO and steady funding increases for the European Deterrence
+Initiative.4 Polls show that the American people, too, understand the value
+of NATO and support the Alliance, including America’s Article 5 commitments.
+5 This public support for trans-Atlantic ties is deeply rooted, as NATO
+allies represent six of the ten largest diaspora groups in America.6 The Trump
+administration’s Secretaries of State and Defense have reassured allies of the
+U.S. commitment to NATO at the annual ministerial-level meetings.7 All of
+these measures are necessary for deterrence and defense, but not sufficient
+if the U.S. President casts doubt on America’s commitment. Meeting the
+challenges outlined in this report begins with American leadership and
+American leadership begins at the top.
+The 9/11 and Article 5 Memorial at NATO Headquarters
+in Brussels, November 21, 2018. (NATO Photo)
+Belfer Center for Science and International Affairs | Harvard Kennedy School 15
+More broadly, the U.S. Government—both the executive and legislative
+branches—is not working effectively and predictably.8 Staff vacancies and
+lack of collaborative processes stagnate policy making and implementation.
+Divisive hyper-partisan, zero-sum politics amplified by social media defy
+compromise, strain Washington’s national security institutions and leave
+U.S. allies questioning what may come next.
+As President Trump cannot be expected to change, responsibility lies with
+the Congress to check and balance his approach to NATO. We recommend
+the Congress take specific steps this year:
+• Congress should reaffirm again the U.S. commitment to the Article
+5 defense clause in the NATO Treaty to express bipartisan support
+for U.S. allies and to bolster deterrence.
+• The Senate and House also should pass legislation this year requiring
+congressional approval to alter any U.S. treaty commitments to
+NATO or to withdraw the U.S. from the Alliance altogether.9
+• Congress should continue to fund the “European Deterrence
+Initiative” to reinforce American military strength in Europe, deter
+Russian aggression and help with building NATO allies’ capability.
+Restoring European Defense Strength
+The issue of burden sharing is as old as the Alliance itself. In its current
+form the debate springs from the Wales Summit in 2014 when for the first
+time NATO leaders agreed to move toward the goal of 2 percent of their
+national Gross Domestic Product (GDP) for defense spending by 2024, in
+the Defense Investment Pledge.10 President Trump is right to demand progress
+in accordance with the “Wales Pledge”—a critical part of NATO’s initial
+reaction to Russian aggression in Ukraine in the first half of 2014.11 After
+many years of steady decline in defense spending especially among European
+allies, in the first four years after Wales, 2014-2018, there has been significant
+progress: five allies now meet the 2 percent mark; all allies have made
+real increases in spending; and cumulative increases outside the U.S. since
+2014 total $87 billion.12 President Trump should acknowledge this progress
+while continuing to press allies to do more. This progress, however, has been
+16 NATO at Seventy: An Alliance in Crisis
+overshadowed by President Trump’s fixation on 2 percent as the sole measure
+of NATO’s value and his refusal to understand how NATO funding works.13
+His public threats against allies who have not reached the mark is counter-
+productive, making it harder for allied leaders seen by their publics as
+complying with his demands.14 As a result, the 2 percent pledge designed to
+unite the allies around a common goal has evolved into a most divisive issue
+and diverts attention from equally important measures.
+Figure 1: NATO Europe and Canada total defense expenditure (in 2010 $US billions).
+Allies must contribute equitably to the Alliance and 2 percent of GDP is a
+fair premium for the ‘whole life insurance’ benefit of Article 5’s collective
+defense commitment.15 Allies must deliver. Germany especially, the largest
+European ally and the strongest economy, must do much more, or its leadership
+position within the Alliance will be jeopardized. But 2 percent was
+never designed to be the sole measure of value. The Wales Pledge itself is
+broader, committing allies to 20 percent of defense spending for major new
+equipment and research and development of new capabilities, and highlighting
+the importance of output measures as well. More than half of allies
+have made the 20 percent target.16
+While retaining the goal of 2 percent GDP for defense spending, it is time
+for NATO, led by the United States, to broaden the framework by which
+Source: “Defence Expenditure of NATO Countries (2011-2018)”, NATO, July 2018.
+Belfer Center for Science and International Affairs | Harvard Kennedy School 17
+it measures defense contributions. Secretary General Jens Stoltenberg
+rightly notes that allies provide “cash, capabilities and contributions” that
+strengthen NATO.17 Focusing on inputs alone is deceptive. European
+NATO members together spend more than three times as much on defense
+as Russia and slightly more than China.18 Total military spending by all
+twenty-nine NATO members was $900 billion in 2017, accounting for 52
+percent of world defense spending.19 Yet inefficiencies diminish the impact
+of these investments and significant capability gaps persist, so merely
+spending more is not sufficient.
+We recommend three possible approaches. First, NATO should be more
+transparent. Alongside measuring defense spending as an input, the
+Alliance should make public more of its assessments of the capabilities that
+defense budgets acquire, that is, how the inputs are spent, or measures of
+output. Some will argue that this approach will reveal information that is
+politically sensitive for some allies, but the overall benefit for the Alliance
+is clear.20 NATO already publishes some data on outputs, which should
+receive more attention.21 For example, money spent on current operations,
+replenishing stocks, research and development on and acquiring new
+equipment to fill identified capabilities gaps—such as precision munitions,
+modern air and missile defenses and heavy airlift—is more important than
+pensions for retired officers.22 Here the data are available and should be
+carefully assessed annually and publicly by defense ministers. Focusing
+more on outputs also can draw attention to the potential for increased specialization,
+especially for smaller allies.
+Second, the Alliance should ensure it is accounting fully for national
+spending that contributes to NATO’s collective defense and security,
+whether that spending is in defense ministries or other parts of national
+budgets.23 NATO today faces a diverse range of threats that cannot be
+addressed by conventional defense capabilities alone. Spending on national
+cyber security and intelligence, for example, could well be included as
+part of national defense expenditures for NATO purposes,24 especially in
+this time when hybrid threats are so prominent as discussed later in this
+report. Investment in dual-use transportation infrastructure that facilitates
+movement of NATO forces across Europe is an important contribution, as
+NATO now relies heavily on rapid reinforcement to complement in-place
+18 NATO at Seventy: An Alliance in Crisis
+forces.25 Some also suggest that development assistance funding that contributes
+to stabilizing areas on NATO’s periphery in the Middle East and
+North Africa also contributes to NATO’s security.26 While we do not suggest
+including such spending under NATO’s internal definition of defense
+expenditure, there is value in assessing it alongside defense expenditure in
+public discussions on the topic. Such broader measures should supplement,
+not replace or obscure, the Wales Pledge. We support taking a broad and
+holistic approach to measuring what the Alliance needs and how each ally
+contributes, in addition to the 2 percent pledge.
+Third, the United States should support, rather than criticize, European
+Union initiatives to promote European defense capabilities with legal,
+institutional and financial incentives.27 The EU has a long way to go. After
+Brexit, 80 percent of NATO’s defense spending will come from allies outside
+the EU and the EU’s military capability will be greatly diminished,
+making NATO even more important.28 It is in the United States’ interest
+to support European defense initiatives—for example the Permanent
+Structured Cooperation (PESCO), the European Defense Fund (EDF) and
+military mobility improvements—so long as these contribute to NATO as
+well.29 As agreed in the original Brussels and Berlin agreements of the late
+1990s, the standard should remain that EU initiatives must be complementary
+to NATO, not competitive.30 The measure is straightforward: NATO
+assesses regularly what capabilities it needs, and the EU should do likewise.
+This should lead to developing and delivering those mutually reinforcing
+capabilities, which would be available to both organizations. Avoiding
+duplication is the key. For example, NATO and the EU both require airlift
+and intelligence-surveillance-reconnaissance capabilities; so, if a European
+ally acquires these with EU assistance they should be available for both
+NATO and EU operations based on a national decision. On the other
+hand, NATO already has world-class standing headquarters structures and
+communications capabilities, which can be made available to the EU so the
+Union need not invest in these. EU initiatives will be even more important
+in the future as the expense of modern systems continues to increase,
+demanding greater efficiency, sharing and inevitably specialization.31 As
+European defense spending increases, European allies should seek “strategic
+responsibility” but not aim for stand-alone “strategic autonomy” for
+collective defense.32 It is important to sustain the shared understanding
+Belfer Center for Science and International Affairs | Harvard Kennedy School 19
+that for the collective defense of the continent—especially against Russian
+aggression—the United States must be heavily engaged, and, as all allies
+agree, that means NATO.
+In summary, as Lord Robertson, former NATO Secretary General, states
+“NATO needs the military capability to go far, go fast, hit hard and stay
+long.” These are the essence of restoring European defense strength.
+Upholding NATO’s Democratic Values
+From the outset in 1949, NATO formed around
+common values: democracy, individual liberty and
+the rule of law.33 These values are a significant part of
+the glue that has held the Alliance together for seventy
+years, through decades of the Cold War, at the end of
+the Cold War in 1989-1991 and during the decades
+that followed. Yet today, as the Alliance again faces
+diverse challenges, there is obvious drift from these
+core values within some member states. The rise of
+authoritarian tendencies that erode democratic values
+is not entirely new to the Alliance. NATO has seen
+military dictatorships in the past.34 Today, again there is a pattern among several
+allies that places in question their commitment to the values that underpin
+the Alliance. Wherever it occurs in member states, the Alliance must confront
+authoritarian centralization of executive power; suppression of free press, civil
+society and political opposition; and interference with the judiciary.
+NATO needs to take a hard look at itself. Across twenty-five indicators of
+democracy rated by Freedom House, the downward trend among NATO
+allies over the past decade is stark.35 Especially in Central Europe but not
+exclusively, there are setbacks in the media, the judiciary and the functioning
+of national democratic institutions. The rate at which democracy is declining
+in Poland, Hungary and Turkey is particularly alarming. In 2017 and 2018,
+these three states’ scores represented some of the largest one-year declines
+in political rights and civil liberties of all 195 countries ranked by Freedom
+House.36 Poland—with the largest category declines in the forty-year history
+of the survey—is close to leaving the “consolidated democracy” category.37
+“The Parties to
+this Treaty....
+are determined to
+safeguard the freedom,
+common heritage and
+civilisation of their
+peoples, founded on
+the principles of
+democracy, individual
+liberty and the
+rule of law.”
+— Washington Treaty
+20 NATO at Seventy: An Alliance in Crisis
+Hungary is no longer rated a consolidated democracy. Turkey, whose decline
+in freedom over the last ten years represents the largest of any country in the
+world, crossed the threshold from “free” to “not free.”38
+Figure 2: Average of NATO members’ Political Rights and Civil Liberties ratings according to
+Freedom House, 1973-2018. (1 = most free.)
+While less severe today, nationalist populism movements in other allies
+represent a broader, more diffuse threat to NATO and can amplify other
+challenges facing the Alliance. The United States is not immune, with its
+Freedom House rating declining in 2018 due to “Russian interference in
+the 2016 election, violations of basic ethical standards by the new administration
+and a reduction in government transparency.”39 While this slippage
+in the U.S. is relatively recent and still minor in scale, it nonetheless diminishes
+America’s standing as a standard-bearer for democracy and further
+erodes its leadership position within the Alliance. Further, anti-democratic
+policies among allies open vulnerabilities for interference by competitors
+outside the Alliance, especially Russia that seeks to divide NATO and the
+EU politically using hybrid tactics.40
+The question for allies is what must the role of the Alliance be in reinforcing
+its core values when they are under assault from within. NATO is both
+a political and a military alliance. It is not enough to be bound together
+by a commitment only to Article 5 collective defense. The values in the
+7th Enlargement
+3rd Enlargement
+4th Enlargement
+5th Enlargement
+6th Enlargement
+Belfer Center for Science and International Affairs | Harvard Kennedy School 21
+Treaty and the adherence of NATO allies to those values is fundamental for
+Alliance cohesion. That shared commitment to values in turn makes credible
+the Article 5 commitment. The Washington Treaty is binding for both
+its political and military commitments.41 Allies cannot ignore the failure
+to abide by political commitments including values and expect military
+commitments to be unaffected. In short, NATO allies should not expect
+that they could violate democratic values without consequences, while
+resting assured that NATO cohesion is intact and other commitments in
+the Treaty will be upheld. The Treaty is not a menu of options from which
+allies can select some obligations while ignoring others.
+The NATO Treaty has no provision for policing members that drift from
+common political values, unlike the European Union Treaty’s Chapter 7
+that has been invoked recently toward several EU member states with some
+success.42 While it would be impossible to achieve consensus to impose
+penalties on wayward allies, given that the ally in question could veto any
+penalties, a range of escalating political initiatives on the part of the Secretary
+General and a coalition of the other allies could assert pressure. As a start,
+the Secretary General should express concern in his bilateral meetings with
+the anti-democratic governments, with the support of key allies and in partnership
+with the European Union. To increase awareness within the Alliance
+and among the public, foreign ministers could review annually indicators
+of democracy for all twenty-nine allies, perhaps prepared by an informal
+high-level group of experts drawing on Freedom House data. The NATO
+Parliamentary Assembly and coalitions of allies can amplify the message.43
+To increase pressure, NATO could suspend hosting of visits, official meetings
+and even military exercises with these nations. In severe cases, NATO
+infrastructure spending and even access to military schools and information
+sharing could be affected. An indirect way to express concern among allies
+is to increase the prominence of core democratic values when considering
+NATO enlargement decisions in the future.44 None of these steps is without
+political cost and risk, even if calibrated carefully. But the costs and risks of
+the gradual erosion of Alliance cohesion as member states drift from the
+founding values are even greater. NATO cannot expect to remain coherent
+and relevant and able to address the full range of challenges it faces, if it
+ignores the internal drift from democracy within some member states. This
+drift is a fundamental issue for the Alliance.45
+22 NATO at Seventy: An Alliance in Crisis
+Streamlining NATO Decision-Making
+Finally, the challenges facing NATO today demand more flexibility in executive
+decision-making. As a core principle in preserving NATO cohesion,
+consensus decision-making must remain the basis for major NATO
+actions.46 The Treaty requirements for consensus on collective defense
+decisions (Article 5) and enlargement decisions (Article 10) remain sensible.
+Major policy decisions like the Defense Investment Pledge or the
+creation of the Very High Readiness Joint Task Force rapid reaction capabilities
+require consensus. But today with NATO enlarged to twenty-nine
+members and facing increasingly diverse and complex challenges, it is time
+to consider how other, more routine, administrative decisions can be taken
+more efficiently. But this should be a management function, not derogation
+from the consensus principle.
+We recommend strengthening the Secretary General’s role as the chief executive
+of the Alliance with broader authority to carry out routine business
+without seeking consensus among the twenty-nine members. For example,
+the Secretary General should consult allies on matters such as agendas and
+timings of Ministerial Council meetings, but not be required to seek consensus
+agreement. Today the agenda and even the dates of a Foreign Minister meeting
+Jens Stoltenberg chairing his first meeting of the North Atlantic Council as NATO Secretary
+General, October 1, 2014. (NATO Photo)
+Belfer Center for Science and International Affairs | Harvard Kennedy School 23
+or a NATO-Russia Council meeting can consume hours of formal Council
+time seeking consensus at the ambassadorial level, consuming headquarters’
+bandwidth and crowding out more substantive and urgent topics, including
+many outlined in this paper. Further, the Secretary General’s flexibility on
+international staff personnel changes and NATO budget matters should be
+increased. Today, for example, the Secretary General is severely constrained
+from adapting the Alliance to emerging challenges by making meaningful
+shifts in personnel and budgetary resources.47 While nations will continue to
+want a critical role in all these decisions, criteria should be developed that will
+provide for more flexibility while ensuring that all allies gain a fair share of
+opportunities and allocation of resources.
+A related problem is the tendency of some allies to bring into the Alliance
+bilateral issues that impede progress on collective issues of the Alliance. As
+an example, an ally might hold up agreement on the entire NATO military
+exercise program because of an unrelated bilateral dispute with a NATO
+partner who wishes to participate in an exercise.48 This practice erodes
+Alliance cohesion and should not be permitted. After appropriate consultation,
+we recommend the Secretary General should have the authority to
+exclude such external issues from consideration in the Alliance, even if it
+means moving forward without full consensus.
+Speeding up decision-making in a crisis also deserves attention, especially
+considering hybrid warfare scenarios that are designed to be ambiguous,
+complicate attribution and delay decisions. While preserving political
+control for actual employment of forces, the Alliance should authorize the
+Supreme Allied Commander for Europe (SACEUR) to alert, prepare and
+stage forces based on intelligence indicators and while consulting NATO
+civilian authorities. Such delegated authorities are required, because the
+Alliance today relies on rapid reinforcement of modest forces based forward,
+and can contribute to deterrence and be overseen by political authorities.49
+24 NATO at Seventy: An Alliance in Crisis
+Challenges from Beyond NATO’s Borders
+Containing Putin’s Russia
+Geography still matters. Russia—NATO’s largest, most militarily capable
+neighbor—remains NATO’s principal external challenge. Russia under
+President Putin ignores international commitments; violates Ukrainian,
+Georgian and Moldovan sovereignty; conducts provocative exercises and
+maneuvers along NATO’s borders; expands military activity in the Arctic
+and North Atlantic; intervenes in parts of the Middle East against Western
+interests; and interferes in democratic processes within members of the
+Alliance, aspiring members and partners.50 President Putin’s objectives
+seem clear: secure his leadership position within Russia and prevent
+regime change; undermine the international rules-based order in favor of
+a Europe re-divided into spheres of influence; assert increasing influence
+on the Russian periphery, especially in Ukraine and Georgia, to prevent the
+success of democratic, pro-European governments whose example could
+undermine his own kleptocratic system; seize every opportunity to erode
+the cohesion of NATO and the EU; and widen divisions within individual
+member states.51
+Pro-Russian rebels ride on a tank flying Russia’s flag, on a road east of Donetsk, Ukraine,
+Monday, July 21, 2014. (AP Photo/Vadim Ghirda)
+Belfer Center for Science and International Affairs | Harvard Kennedy School 25
+NATO should continue to rely on a two-track approach to counter and
+contain President Putin’s Russia: deterrence and dialogue.52 Deterrence must
+cover a spectrum of threats against NATO from nuclear, to conventional, to
+hybrid warfare. NATO is most familiar with and most capable in the nuclear
+and conventional realms. In these realms the Alliance has taken prudent
+steps since 2014 to bolster deterrence, especially with the forward deployment
+of ground forces to allies on the eastern flank in the Baltics and Poland,
+enhancements to rapid response forces, revisions to the command structure
+and a more robust exercise program.53 These efforts must be sustained.
+NATO’s current rotational troop deployments in the Baltics and Poland
+should be sustained indefinitely without gaps while adding appropriate
+enabling capabilities.54 Priorities for the future include increasing readiness
+of reinforcing conventional forces; filling capability gaps in high-end
+conventional enablers such as precision strike, intelligence-surveillance-reconnaissance
+and air-missile defense; and ensuring protocols are in place
+to access both national strategic nuclear and offensive cyber capabilities.55
+Most recently the NATO Readiness Initiative aims to provide 30 ready battle
+groups, air squadrons and naval combatants in 30 days; now this policy must
+be implemented.56 In the Baltics, deterrence can be bolstered by focusing on
+the fielding of portable anti-armor and anti-air systems, along with training
+specialists qualified in directing precision air support. The essence of NATO
+deterrence of Russia remains the United States’ unquestioned commitment
+to Article 5, up to and including extended nuclear deterrence.57 This reality
+underlines the importance of stronger American presidential leadership
+highlighted at the outset of this report.
+(NATO)
+26 NATO at Seventy: An Alliance in Crisis
+Deterrence of hybrid, or sub-conventional, attack demands urgent attention.
+NATO is vulnerable to means short of Article 5’s “armed attack”
+including by cyber attacks, intimidation by threatening energy cut-offs,
+political subversion by covert agents and funding, disinformation campaigns
+and election interference.58 Russia has already attacked NATO
+members in this realm. Examples include the 2007 cyber attack on Estonia,
+and interference in 2016 elections in France, the United States and the
+United Kingdom’s Brexit referendum.59 NATO allies must invest in building
+national resilience—the ability to resist such measures and to respond
+effectively if an attack occurs. The idea of resilience is not new: Article 3
+of the Treaty commits allies to “…develop their individual and collective
+capacity to resist armed attack.”60 Today this mandate must extend below
+the classic Article 5 threshold where Russia is most likely to attack.
+Deterrence of hybrid attack, however, is vastly more complex than traditional
+deterrence. Deterrence can be achieved by denying an attacker’s
+ability to attain objectives and by increasing the risk of unacceptable
+punishment for an attack.61 Hybrid tactics challenge both forms of deterrence.
+National capabilities required to deny hybrid objectives extend well
+beyond traditional defense and are dispersed among other elements of the
+government at multiple levels and even the private sector, complicating
+integration and coordination. Cybersecurity and election security illustrate
+this point. Further, while the first responsibility for resilience lies with
+states, both NATO and the EU have a responsibility to back up member
+states, yet lines of authority between these multilateral institutions and
+member states may not be clear, common standards are not established and
+sharing classified information remains a persistent challenge.62 Deterring
+by promising punishment requires clarity on the origin of the attack.
+Hybrid attacks, however, are designed to be ambiguous, complicate attribution
+and shield the attacker from punishment. As we have seen in Ukraine,
+ambiguity and difficulty of attribution stressed Alliance decision-making
+and risked paralysis while Russia established facts on the ground that are
+hard to reverse. Finally, deterring hybrid attacks is connected to the drift
+from NATO’s core values discussed in this report. Moving away from
+common democratic values opens vulnerabilities for Russian attacks that
+aim to erode the cohesion of the Alliance by exploiting political divisions
+within and among allies.63
+Belfer Center for Science and International Affairs | Harvard Kennedy School 27
+As a start, NATO should define standards for national resilience and clarify
+shared responsibilities for deterring hybrid attacks.64 The Alliance should
+be a leader in the global effort to adapt traditional deterrence principles
+to the cyber realm. Exercises that focus on hybrid attacks, including at
+the level of ministers, can illustrate the deterrence challenge and lead to
+refined policies. NATO could bring together ministers of defense, ministers
+of interior and national intelligence officials to increase the value of such
+exercises. NATO and the EU should coordinate common standards in
+member states, with priority on cybersecurity, election security and countering
+disinformation. A priority should be placed on publicly disclosing
+the nature and source of hybrid attacks. Russia must be held to account,
+not allowed to deny, obfuscate and hide in the shadows. In the longer
+term, diversifying energy sources and fully assimilating Russian-speaking
+minority populations should be addressed as vulnerabilities that Russia
+could exploit.65
+Allies must continue bolstering deterrence by ensuring consequences for
+Russian actions. Recent examples include sustaining U.S.-Canadian-EU
+economic sanctions five years after Russian aggression in Ukraine, the
+Netherlands’ public commitment to holding Russia accountable for its
+role in the shooting down of Malaysia Airlines Flight 17 in 2014 and
+the responses after the Novichok chemical agent attacks in the U.K. 66
+Going forward, the U.S. and the EU together must never recognize the
+illegal annexation of Crimea and reaffirm economic sanctions will stay
+on Moscow for as long as it occupies Ukrainian territory. These measures,
+however, have not changed Russian behavior. Even less impressive are the
+reactions to Russian interference in elections and recent aggression in the
+Black Sea and denial of Ukrainian access to the Sea of Azov.67
+While confronting Russian aggression and bolstering deterrence, NATO must
+remain open to dialogue with Russia when it is in the West’s interest. Russia is
+a major European power that must be taken into account.68 First, dialogue is
+fundamental to deterrence, as Russia must clearly understand NATO’s intent
+and the consequences of aggression. Second, even in a period of increased
+tensions, there are topics for dialogue that serve common interests. The NATORussia
+Council should continue to meet regularly to address risk reduction
+measures, provide transparency on military exercises and exchange views on
+28 NATO at Seventy: An Alliance in Crisis
+priority political issues, including the conflict in Ukraine. Allies should press
+the Organization for Security and Cooperation in Europe (OSCE) to update the
+Vienna Document to improve predictability and transparency of conventional
+forces in the region.69 Russia should return an ambassador to NATO and NATO
+should re-open military-military contacts below the four-star level. It is not
+in NATO’s interest that the Russian military liaison cell at Allied Command
+Operations’ SHAPE remains closed. Third, balancing deterrence and dialogue
+is essential to sustaining political cohesion among allies some of whom have
+differing perspectives on the nature of the Russian threat and the best responses
+to it.70 NATO should not return to “business as usual” with Russia as before
+2014, but restricting dialogue is not an effective form of punishment. In periods
+of increased tension, the risk of accident and unintended consequences
+increases—dialogue can mitigate some of that risk. In short, sustaining and even
+expanding dialogue with Russia is in NATO’s interest.
+Arms control remains an important goal of real dialogue with Russia. Even
+during the height of the Cold War, U.S.-Russian agreements, while imperfect,
+reduced weapons stockpiles, improved stability and were the basis of a degree
+of trust.71 The Russian violation of the Intermediate-Range Nuclear Forces
+(INF) Treaty is a serious setback and threatens the “fabric” of arms control
+agreements that have contributed to security for decades.72 First, the United
+States should not abrogate the Treaty, as this step diverts attention from the
+Russian violation and is not required by the United States to counter the
+Russian deployment. Even now that the U.S. has begun the six-month process
+of withdrawing, every effort must be made to preserve the Treaty using
+diplomacy to hold Russia accountable and bring it back into compliance. The
+U.S. should continue to explore every diplomatic angle, while continuously
+consulting allies at every step. For example, the parties should explore more
+fully reciprocal on-site inspections for Russia at the NATO ballistic missile
+defense sites and for the U.S. at Russian cruise missile sites.73 Such negotiations
+would not be simple or quick, but are worth the effort considering the severe
+impact of losing the INF Treaty. Another potential diplomatic approach is
+to begin discussions to broaden the Treaty to include China, which has INF
+systems of concern to both Russia and the U.S. Especially with the renewal of
+the New START Treaty in 2021, now is the time to use every tool to preserve
+and even extend arms control agreements. NATO should stand united in support
+of American diplomacy to sustain arms control with Russia by exploring
+Belfer Center for Science and International Affairs | Harvard Kennedy School 29
+new measures to prevent a renewed arms race that would be destabilizing and
+expensive. The alternative is that in two years there may be no arms control
+treaties with Russia for the first time in over 50 years.
+Russia is unlikely to change in the near- to mid-term. President Putin will
+be in power at least until 2024. His successor will face the same declining
+power indicators—economic, social-political, demographic and health—
+likely requiring centralized power in the Kremlin, rallying nationalism
+against NATO as an enemy and seeking to control the periphery, especially
+neighboring states that move toward democracy and the West.74 For these
+reasons, NATO must take a long view toward Russia, containing President
+Putin, investing in the twin pillars of deterrence and dialogue, while contending
+with multiple other challenges.
+Ending the Afghan War
+NATO has led the international military coalition in Afghanistan
+beginning in 2003, making it the Alliance’s largest and longest combat
+operation.75 Today the roughly 17,000 coalition troops from thirty-nine
+nations demonstrate NATO’s adaptability, cohesion and staying power.76
+But it is time to reconsider this mission. The fight against the Taliban is a
+military stalemate. Afghans are the second largest refugee population in
+the world.77 Afghan civilian and security forces casualties are at all-time
+highs.78 Coalition bombing is also at a peak.79 The war in Afghanistan may
+The U.S. Special Representative for Afghanistan Reconciliation, Ambassador Zalmay Khalilzad
+meets with NATO Secretary General Jens Stoltenberg, December 2018. (NATO Photo)
+30 NATO at Seventy: An Alliance in Crisis
+be approaching a political turning point as the Afghan government, the
+U.S. and others engage the Taliban to end the conflict.80
+The Trump administration is right to be engaging the Taliban directly to
+explore a political process to end the war. NATO should prioritize this
+political effort, subordinating the military campaign to a supporting role.
+Only a political settlement among Afghans—including the elected Afghan
+government and the Taliban—will provide a durable, sustainable outcome
+that secures NATO’s mission to prevent Afghanistan from again becoming
+a terrorist safe haven.81 The outline of a compromise may be within reach:
+the Taliban breaks ties with al-Qa’ida, ends the insurgency and attains a
+share of political power; an inclusive, elected government governs under
+the framework of the Constitution; neighboring states benefit from a
+stable Afghanistan and agree not to interfere; and the NATO-led coalition
+achieves its original mission of denying safe haven to al-Qa’ida. The
+diplomatic process will be difficult and likely prolonged. The U.S. should
+proceed slowly and carefully, conditioning troop withdrawals on the
+Taliban’s meeting agreed security and political benchmarks, beginning
+with a ceasefire and including engaging with the Afghan government.
+Verification and enforcement of a deal will be major challenges. NATO’s
+main role will be to sustain its support for the Afghan security forces,
+denying Taliban efforts to gain influence at the bargaining table by military
+means. Especially during this shift to diplomacy, any changes in coalition
+force posture must be linked to the talks and made in concert with the
+Alliance as a whole. NATO allies should adhere to the “in together, out
+together” principle, avoiding unilateral national withdrawals that would
+undermine the diplomatic effort, the confidence of Afghan partners and
+Alliance cohesion.82 Even after a settlement, Afghanistan will require financial
+support indefinitely, or face state collapse. NATO allies and the EU
+should prepare now to lead the international effort to financially sustain
+the Afghan government and its security forces in the years ahead.83
+Belfer Center for Science and International Affairs | Harvard Kennedy School 31
+Refocusing NATO’s Partnerships
+NATO’s partnership program began with the North Atlantic Cooperation
+Council (NACC) in 1991 and Partnership for Peace in 1994, reaching out
+to the former Warsaw Pact states and Soviet republics to help stabilize
+their transitions, prepare for possible NATO membership and serve as
+a substitute for those that would not join, perhaps ever. Thirteen former
+partners, of course, became NATO members. Today forty-one states
+are formal NATO partners, ranging geographically from Mauritania in
+Western Africa to Japan, many with diplomatic representatives at NATO
+Headquarters.84 NATO demonstrates democratic values and military standards
+to its partners while gaining political insight and military support
+from a diverse array of states. Partners vary politically and in military
+capability too, with close partners like Sweden, Finland and Australia
+adding significantly to NATO operations and exercises. The basic premise
+is sound: if NATO’s neighbors are stable, then NATO is more secure.85
+Today, however, NATO’s neighborhood is anything but stable. Instability
+among partner states runs along most of NATO’s periphery in Central and
+Eastern Europe, the Balkans, the Middle East and across North Africa.
+Along this “arc of instability” weak states struggle with frozen conflicts,
+terrorists inspire strikes on NATO capitals and migration challenges allies’
+ability to cope and can be used as an excuse to drift further from NATO’s
+NATO Secretary General Jens Stoltenberg and EU High Representative/Vice President Federica
+Mogherini following the meeting of the North Atlantic Council, December 2017. (NATO Photo)
+32 NATO at Seventy: An Alliance in Crisis
+values. Beyond the value of political consultations, the current partnership
+program does little to improve the situation.86
+It is time to recast NATO’s partnerships to better serve NATO’s interests. In
+practice, the programs suffer from two inter-related limitations: too few
+resources and too little focus. NATO invests insufficient resources to promote
+stability and effect meaningful change even among priority partners. Less than
+1 percent of NATO’s common funding budget, or about $20 million annually,
+goes to partner programs. This means that NATO’s impact on regional stability
+is minimal, even in priority partner states like Ukraine, Georgia, Jordan, Iraq
+and Tunisia.87 NATO must rely on member states’ national contributions,
+sometimes placed under a NATO flag, while most members run their own
+assistance programs. NATO’s common budget is unlikely to increase. We recommend
+another approach. NATO should serve as a clearinghouse for
+security-related national assistance programs among its member states. NATO
+would convene allies interested in assisting partner states and promote the
+sharing of information of national assistance programs. NATO’s role would be
+to promote transparency and improve effectiveness by exposing gaps, seams
+and redundancies. Such an effort would be completely voluntary for allies and
+some may prefer not to participate or to share only partial information on their
+programs. Nonetheless, any gains in effectiveness among allies would likely be
+more impactful than the current minute resources from NATO itself.
+Migrants sit in a rubber dinghy after Proactiva Open Arms, a Spanish NGO, spotted and rescued
+them in the Central Mediterranean Sea at 45 miles (72 kilometers) from Al Khums, Libya,
+December 21, 2018. (AP Photo/Olmo Calvo)
+Belfer Center for Science and International Affairs | Harvard Kennedy School 33
+Further, NATO should shift the focus of its partnership efforts from individual
+states to regional international organizations. The European Union is the
+most natural partner for NATO, sharing core values, twenty-two member
+states and geographic focus. The EU is NATO’s most critical strategic partner.
+88 While much has been accomplished with the EU, there is much greater
+potential for enhancing NATO’s mission by coordinating further with the
+EU than by engaging any other combination of the current forty partner
+states.89 Prime topics include developing complementary defense capabilities
+while avoiding duplication, countering hybrid tactics especially focusing
+on cybersecurity and conducting joint exercises to improve coordination.
+NATO should do much more to support ongoing EU operations to contend
+with migration from Africa and the Middle East—the critical challenge in
+Europe that destabilizes governments, inflames populism and erodes the solidarity
+of the EU. For example, NATO could support the EU with high-end
+surveillance aircraft to provide early warning of migration flows in North
+Africa and the Sahel. Much more can be done to share and fuse information
+between the two institutions to improve crisis awareness and response times.
+NATO and the EU should collaborate on assistance to enhance stability
+along Europe’s periphery.
+NATO’s comparative advantage is providing multinational institutions a
+model for security cooperation: values, structures and procedures. Beyond
+the EU, NATO could seek partnerships with the African Union, the Arab
+League and the Gulf Cooperation Council, all of which could benefit from
+NATO’s experience in building a durable political institution and framework
+for regional military cooperation. Such institutional partnerships
+would not have to replace NATO’s current state partnerships, but over time
+could significantly increase the impact NATO has beyond its borders.
+34 NATO at Seventy: An Alliance in Crisis
+Maintaining an Open Door to Future Members
+Article 10 of the Washington Treaty is clear: any
+European state may aspire to NATO membership.
+Given the range of strategic challenges facing the
+Alliance outlined in this report, however, the priority
+should be on consolidating Alliance cohesion after
+the historic enlargement of the past two decades,
+rather than taking on new members in the short term.
+The addition of thirteen members since the end of
+the Cold War was right on strategic grounds. The
+desire for membership in NATO led many European
+countries to reform their political systems, resolve
+differences with neighbors and meet other conditions
+for membership that advance the NATO Treaty’s aims of peace, security and
+shared values.90 North Macedonia, just beginning the formal accession process
+to become NATO’s thirtieth member, is the most recent example. The
+door to membership must remain open. The Treaty specifies that aspirants
+must “further the principles” of the treaty and “contribute to the security”
+of the Alliance.91 Especially in the current security environment, these are
+high standards. In purely military terms, security on NATO’s flanks may be
+improved with new allies in the Nordic region and in the Western Balkans—
+but NATO’s most significant challenge is not flank security. For Georgia and
+Ukraine in particular, the door is open, there is a path, but this may be a
+long journey. NATO must remain firm with its position: no one outside the
+Alliance has a vote or veto on enlargement.92 In the longer run, NATO may
+add new members, but the “unanimous agreement” among current allies
+required by the Treaty does not exist today, so pressing enlargement now
+would only erode NATO’s internal cohesion—cohesion required to contend
+with all the other challenges at hand.
+“The Parties may, by
+unanimous agreement,
+invite any other
+European State in a
+position to further
+the principles of
+this Treaty and
+to contribute to
+the security of
+the North Atlantic
+area to accede to
+this Treaty.”
+— Article 10,
+Washington Treaty
+Belfer Center for Science and International Affairs | Harvard Kennedy School 35
+Challenges on the Horizon
+Winning the Technology Battle in the Digital Age
+Mid-term developments in digital technologies threaten to undermine NATO’s
+current military and intelligence advantages. The U.S. and China are in direct
+competition to develop new technologies—especially artificial intelligence
+(AI), cyber, robotics, quantum computing and biotechnology—that may well
+revolutionize warfare.93 The combination of these technologies may rival
+earlier advances like satellite-based navigation and even nuclear weapons.94
+Quantum computing, for example, will be a game-changer for the security of
+intelligence, cyber networks and communications, including systems on which
+the NATO command structure and nuclear command and control depend.95
+Civilian and military communications that rely on 5G mobile phone networks
+will face new vulnerabilities.96 While NATO relies on individual allies to incorporate
+such technologies in their national defense capabilities, now is the time
+to assess how these will impact NATO’s ability to fight together in the future.97
+Even if some NATO allies master these technologies, not all allies will do so at
+the same pace, eroding decades of work to build interoperability.98 The Alliance
+may soon face an even greater separation between its most capable allies and
+the others, a divide between the haves and the have-nots.
+Now is the time to adapt the NATO Defense Planning Process to account for
+these new technologies. The current four-year process—that begins with agreed
+political guidance, considers scenarios and results in capability targets for each
+ally99—is insufficiently agile to contend with rapid and fundamental technological
+change. NATO’s Allied Command Transformation in Norfolk, Virginia,
+should lead now an in-depth assessment of the potential impact of these
+changes on NATO’s war-fighting capabilities. Allies should increase spending to
+acquire these emerging technologies lest China and Russia gain a critical advantage
+in the next decade. As a subset of overall defense spending, NATO should
+track national investments in these areas. The most technologically capable
+allies also have a responsibility to consider these impacts. The U.S. should work
+alongside NATO allies to integrate with them these new technologies.
+36 NATO at Seventy: An Alliance in Crisis
+Competing with China
+China will not likely pose a military
+threat to Europe in the foreseeable
+future, but its inexorable economic
+growth as well as its efforts to undermine
+the international rules-based
+order present other challenges that
+NATO should begin to assess. China,
+of course, is the main competitor of
+the U.S. in developing the emerging
+defense technologies. More
+immediate is the impact of Chinese
+commercial investment in European
+transportation and communications
+infrastructure.100 China’s annual
+foreign direct investment in Europe
+grew to $42 billion in 2017, a huge
+increase from $840 million invested in 2008.101 Total Chinese investments
+in Europe amount to $318 billion, 45 percent more than Chinese investment
+in the U.S. between 2008 and 2017. It is clear that one of the primary
+destinations of China’s Belt and Road Initiative (BRI) is the European
+market of over 500 million people and over 25 percent of global GDP.102
+China focuses particularly on infrastructure in Eastern Europe that can
+solidify links between Europe and BRI projects further east.103 China also
+invests in the opening of Arctic Sea channels to the west.104
+Chinese commercial in-roads today can lead to political influence, as seen
+already in some EU decisions.105 For example, in June 2017, Greece vetoed
+an EU statement at the UN Human Rights Council (UNHRC) regarding
+China’s human rights violations, marking the first time the EU had failed
+to make a joint statement at the UNHRC.106 In March 2017, Hungary
+derailed EU consensus by refusing to sign a joint letter denouncing the
+reported torture of detained lawyers in China.107 Such political influence
+can widen divisions among European allies, eroding NATO’s and the EU’s
+political cohesion. NATO should anticipate that increased Chinese military
+presence will eventually follow commercial and political inroads.
+Source: “Chinese investment in
+Europe is increasing,” The Economist,
+October 18, 2018. www.economist.
+com/graphic-detail/2018/10/10/
+chinese-investment-in-europe-is-increasing
+Belfer Center for Science and International Affairs | Harvard Kennedy School 37
+To begin to contend with this looming challenge, NATO should expand
+and deepen its military and political cooperation with its partners and
+America’s allies in East Asia. Japan, South Korea, Australia and New
+Zealand—already NATO partners—understand China and its strategies
+and can help the Alliance assess this challenge. The U.S. and Canada
+should work much more closely with European allies to develop common
+strategies toward China—political, economic and security—underlining
+the importance of the trans-Atlantic alliance as a strategic advantage that
+China cannot match. Within NATO, more attention
+should be paid to China’s economic
+development funding that can lead to political
+influence, both among allies and on NATO’s
+periphery. China should be a priority topic for
+NATO-EU consultations. More specifically, NATO
+should welcome recent EU initiatives to implement
+measures to control foreign investment, similar to the Committee on
+Foreign Investment in the United States (CFIUS). 108
+Most important, on the scale of grand strategy, the rising challenge from China
+underlines the enduring importance of the NATO alliance. The defining
+geo-strategic contest of the 21st century will be between the U.S. and China,
+which will play out in political, economic and perhaps military dimensions.
+Both Europe and America are best postured for this competition inside a
+strong, cohesive NATO that balances the security burden equitably and enables
+the U.S. increasingly to focus on China. This looming strategic reality amplifies
+the recommendations of this report. NATO, the trans-Atlantic bond, will
+become even more important as China’s power grows. The goal is to live and
+work with China where possible but to compete to maintain the primacy of the
+free, democratic countries in both Europe and the Indo-Pacific.
+“The Parties will...
+encourage economic
+collaboration between
+any or all of them.”
+— Article 2,
+Washington Treaty
+38 NATO at Seventy: An Alliance in Crisis
+Meeting the Challenges
+Against this imposing set of issues, NATO should adapt a “back to basics”
+approach. First, back to basics means focusing on the two fundamentals
+highlighted throughout this report: American leadership and Alliance
+cohesion. As stated at the report’s outset, the single greatest challenge today
+is the need to renew U.S. presidential leadership. But NATO cannot sit in
+a holding pattern, simply waiting for the next American president. The
+stage must be set now for a time when the U.S. not only continues to lead
+from the front with its actions, but also restores trust that has eroded under
+President Trump. Further, much can be done to strengthen NATO, including
+alliance cohesion, in the next two years under the strong leadership
+of Secretary General Stoltenberg and other NATO civilian and military
+leaders. When the time is right, with renewed American leadership, the
+challenges outlined here should be addressed in a revision of the Strategic
+Concept—after the North Atlantic Treaty—the fundamental policy document
+guiding the Alliance. The current document dates to 2010 and was
+drafted in a much different European and global security environment.109
+Alliance cohesion remains a key element and a revised Concept will help
+strengthen cohesion. Cohesion enables NATO’s major decisions requiring
+consensus: notable are invoking Article 5, increasing military capabilities
+and deployments, adding new members and adapting major policies.
+Alliance cohesion is the product of shared values and unquestioned commitment
+to Article 5. These are the essence of NATO and must be guarded
+vigilantly. In short, with renewed American leadership and Alliance cohesion,
+NATO certainly can adapt, remain relevant and continue as a pillar of
+international security as it enters its eighth decade.
+Second, it is important to remember that today is not the first time in
+NATO’s long history that it faces such fundamental challenges. The
+Alliance should draw strength from its past. With the fall of the Berlin Wall
+in 1989 and the dissolution of the Soviet Union two years later, forty-five
+years of Cold War came to an end. At this strategic inflection point
+NATO confronted the existential question of what its purpose should be.
+Under the leadership of U.S. President George H. W. Bush, U.K. Prime
+Minister Margaret Thatcher, German Chancellor Helmut Kohl and
+French President François Mitterrand, the Alliance adopted the vision
+Belfer Center for Science and International Affairs | Harvard Kennedy School 39
+of a Europe “whole, free and at peace.”110 NATO
+later welcomed to its ranks Central and Eastern
+European states newly free to choose their own
+path, while deepening its partnership with Russia
+under the 1997 NATO-Russia Founding Act and 2002
+Rome Declaration. As a result, one hundred million
+Europeans became NATO citizens as thirteen new
+member states joined the Alliance.111 The EU, too,
+added members on a path parallel to NATO’s. NATO
+also welcomed over forty states as partners, offering
+political consultations and military standards to states outside the Alliance.112
+On the military front, NATO shifted attention to stability on its periphery,
+initially to the Balkans, bringing peace to Bosnia and later Kosovo.113
+Then after the al-Qa’ida attacks on the United States on 9/11, NATO took
+the historic decision to invoke Article 5 of the Washington Treaty, the
+following day declaring that the attack on America was considered an
+attack on all allies. Within twenty-four hours of the attacks, the Alliance—
+formed more than fifty years earlier to bring the United States to defend
+Europe against an attack by the Soviet Union—brought European allies
+to help defend the United States against an attack by a non-state terrorist
+group.114 In the aftermath of 9/11 and U.S. intervention against al-Qai’da
+and its Taliban enablers in Afghanistan, NATO later reinforced the United
+States in the effort to forestall security threats from that country and to
+try creating a better security and political future. NATO remains together
+there today, seventeen years later, with allies and partners who lost over
+1,000 soldiers alongside 2,350 Americans.115 There is no clearer evidence
+of NATO’s ability to adapt to changes in the security setting and no clearer
+evidence of the political durability of an alliance founded on common
+values and principles.
+Beginning in 2014, twenty-five years after the end of the Cold War, NATO again
+saw fundamental shifts in the security setting challenging the NATO alliance.
+In the first six months of that year, President Putin’s Russia seized and illegally
+annexed Crimea, a part of sovereign Ukraine. This is the first time since the end
+of World War II that one European state had seized territory of another by force,
+violating the United Nations Charter, the Helsinki Final Act, the Bucharest
+“Let Europe be
+whole and free.
+To the founders of
+the alliance, this
+aspiration was a
+distant dream, and
+now it’s the new
+mission of NATO.”
+— President George H.W. Bush
+Mainz, Federal Republic of
+Germany, May 31, 1989
+40 NATO at Seventy: An Alliance in Crisis
+Memorandum and the NATO-Russia Founding Act. President Putin had
+thrown out the rulebook that had governed security in Europe for a generation.
+Weeks after Crimea, Russian-supported separatists destabilized two provinces
+in eastern Ukraine, with Russia providing overt military support in an effort to
+end Ukraine’s alignment with the European Union and NATO.116
+In June 2014, the so-called Islamic State declared a caliphate across northern
+Syria and Iraq, along Turkey’s—and NATO’s—southern border. This move
+worsened the tragic civil war in Syria and sparked Islamic State-inspired
+terrorist attacks in European cities and a flood of refugees from the war
+zone into Europe.117 In 2015 and 2016, migration into Europe from the
+Middle East and Africa spiked, posing existential challenges to European
+democracies and the European Union.118 The security setting had changed
+dramatically, presenting NATO its second strategic inflection point, comparable
+only to the end of the Cold War in 1989-1991. NATO weathered earlier
+crises, including Suez in 1956, theater nuclear force debates in the 1980s, the
+Balkan fighting in the 1990s and the Iraq War in 2003. None of these, however,
+rose to the scale and scope of today’s challenges.
+Today, even as the Alliance continues to come to grips with these recent
+events to the east and to the south, new challenges emerge, both from
+within the Alliance and from beyond, leaving allies on both sides of the
+Atlantic to consider the way forward. As NATO stands today at a new historic
+inflection point, its leaders should draw strength and confidence from
+the post-Cold War experience. In the period following 1989-1991, NATO
+faced fundamental challenges and adapted. NATO has been tested before
+and emerged reshaped, revitalized and refocused.
+Finally, for Americans especially, “back to basics” means remembering
+why they should value NATO. Americans need to remember that NATO
+is in America’s vital national interest.119 Recently, President Trump has
+charged that over the years NATO allies have taken advantage of America
+and past administrations of both parties have supported NATO because
+of misplaced generosity, altruism and naiveté.120 This narrative is false
+and dangerous. In fact, Americans learned the perils of disengagement
+from Europe in the years leading up to World War II and, following that
+terrible conflict, committed to sustained involvement with a strong Europe
+Belfer Center for Science and International Affairs | Harvard Kennedy School 41
+as the best way to advance America’s own interests. This worked: for the
+past seventy-plus years, Europe has been at peace, secured by NATO, and
+both America and Europe have prospered as a result.121 With stability
+and predictability underpinned by NATO, individual nations and collective
+effort—notably what is today the European Union—produced a
+miracle without precedent. The trans-Atlantic economy is the largest and
+most integrated in the world, accounting for 46 percent of global GDP,
+11 percent of world population, one-third of goods traded, over half of
+global foreign direct investment and the highest level of cross-border data
+flows.122 Europe and America are each other’s largest trading partners and
+each other’s largest sources of foreign direct investment.123 NATO’s military
+power protects and buttresses these economic ties.
+Politically, too, America benefits from the Alliance. In Europe and Canada,
+the United States enjoys more treaty allies than in any other region of the
+world. The twenty-nine NATO allies, bound together by common democratic
+values, are a powerful political bloc on the world stage, the place to
+start when forming political coalitions to address global problems. This
+political strength begins with the values found in the second sentence of the
+NATO Treaty: democracy, individual liberty and rule of law.124 NATO allies
+are three of five permanent members of the United Nations Security Council,
+six of seven members of the G7 and seven members of the G20. Political
+cohesion translates into political staying power: consider NATO’s continued
+engagement in the Balkans more than twenty years after the 1995 intervention,
+or the forty-nation NATO-based coalition in Afghanistan seventeen
+years after 9/11. NATO allies know one another well, each with a permanent
+diplomatic mission under one roof at NATO Headquarters in Brussels and
+with five annual meetings of foreign and defense ministers, a firm foundation
+for trusting political engagement. Allies do not always agree on political
+issues, of course, but NATO provides a forum for regular consultations and a
+starting point to address common problems.
+As a military alliance, NATO’s most important contribution to American
+interests is security. Above all, NATO has helped keep the peace in Europe
+after centuries of division and war. NATO has invested for decades in the
+ability of its members to operate together—so-called “interoperability”—
+based on practiced procedures, common standards and NATO’s
+42 NATO at Seventy: An Alliance in Crisis
+historically unique integrated military command structure. Many of
+NATO’s partners also share in this interoperability. This military potential
+means that when America faces security challenges anywhere, it has ready
+teammates based on NATO, either with the Alliance as a collective whole
+or with select allies to form a purpose-built military coalition. Further,
+NATO allies provide America basing and access rights across Europe;
+bringing U.S. forces a continent closer to trouble spots in the Middle East,
+Africa and beyond, and providing improved response times and sustainability.
+Bases like Lakenheath in the U.K., Ramstein in Germany, Aviano in
+Italy, Rota in Spain, Souda Bay in Greece and İncirlik in Turkey are strategic
+assets. NATO allies employ tens of thousands of intelligence personnel,
+extending the reach of the United States’ eyes and ears.125 In short, NATO
+reinforces America’s national military strength with increased scale, diversity
+and geographic position.
+NATO is not perfect. This report addresses the array of significant challenges
+the Alliance must face. At heart, however, Americans must remember that
+a Europe “whole, free and at peace” is fundamentally in the U.S. interest
+and NATO is America’s primary bridge across the
+Atlantic.126 In fact, most Americans continue to
+support NATO overwhelmingly.127 America by itself
+enjoys great human capital, vast resources and favorable
+geographic position. Together with its allies,
+both in NATO and in East Asia, America holds
+an unmatched geo-strategic advantage over any
+potential competitor, today and for the foreseeable
+future. America’s main strategic competitors, China
+and Russia, do not compare. Sustaining this strategic
+advantage by nurturing and investing in alliances,
+beginning with NATO, is therefore in America’s vital
+national interest. Allies are the ultimate guarantee of
+American security and prosperity.
+“Three quarters of
+Americans favor
+maintaining or
+increasing the US
+commitment to NATO,
+and nearly one
+in five Americans
+want to see that
+commitment increased
+– the highest
+level of support
+ever surveyed.”
+— Chicago Council on Global
+Affairs, 2018
+Belfer Center for Science and International Affairs | Harvard Kennedy School 43
+Conclusion
+This report outlines a daunting array of challenges facing NATO. The scale
+and scope of today’s challenges combine to mark dramatic change—a strategic
+inflection point—unlike any moment in NATO history except 1989-1991.
+The end of the Cold War, however, was a time of promise and optimism. In
+sharp contrast, today the trend lines are negative. NATO faces a crisis, with
+severe challenges from both within and beyond. The fundamental question
+now is whether the Alliance can adapt to contend with the dramatic changes
+in the security environment and remain relevant. The need for action is
+urgent. Just maintaining the status quo would spell failure. Renewing U.S.
+presidential leadership is a crucial requirement. U.S. congressional support
+for protecting and extending NATO as a vital U.S. national interest is key.
+Allies, too, must step up to provide the resources required, share in Alliance
+leadership and commitment and sustain Alliance cohesion.
+We hope this report serves as food for thought within the Alliance,
+prompting a focused look at tough issues, including some requiring deep
+introspection among allies themselves. At the Alliance’s seventieth birthday,
+the NATO allies must individually and collectively be mature and
+confident enough to look at themselves in the mirror, assess challenges and
+weaknesses and hold themselves accountable. As the world’s premier security
+institution, NATO proved resilient in the past and continues to provide
+unmatched value for its members today.
+44 NATO at Seventy: An Alliance in Crisis
+Endnotes
+1 Donald Trump, “Remarks by President Trump at NATO Unveiling of the Article 5 and Berlin Wall
+Memorials – Brussels, Belgium,” May 25, 2017, https://www.whitehouse.gov/briefings-statements/
+remarks-president-trump-nato-unveiling-article-5-berlin-wall-memorials-brussels-belgium/.
+2 Former Ambassador to NATO Robert Hunter argues that while President Trump is indeed fostering
+uncertainty about the U.S. commitment to Europe, his words and deeds represent less of a break
+from the past and more of an acceleration of the shift in U.S. engagement in and with Europe seen
+under George W. Bush and Barack Obama administrations, who shifted U.S. attention significantly
+away from Europe toward the Middle East and Asia. See Robert Hunter, “Trump in Europe: Reinforcing
+His Predecessors’ Errors,” LobeLog, June 1, 2017, http://lobelog.com/trump-in-europe-reinforcing-
+his-predecessors-errors/.
+3 See, for example, Thomas Schelling, The Strategy of Conflict (Cambridge, MA: Harvard University
+Press, 1960); Thomas Schelling, Arms and Influence (New Haven, CT: Yale University Press,
+1966); André Beaufre, Deterrence and Strategy (New York: Frederick A. Praeger, 1966); Lawrence
+Freedman, Deterrence (London, U.K.: Polity, 2004); and Glenn H. Snyder, Deterrence by Denial and
+Punishment (Princeton, NJ: Center of International Studies, January 1959).
+4 United States Congress, Senate, A resolution expressing the unwavering commitment of the United
+States to the North Atlantic Treaty Organization, S Res. 54, 115th Congress, 1st sess., introduced in
+Senate February 7, 2017, https://www.congress.gov/bill/115th-congress/senate-resolution/54/
+text; United States Congress, House, Expressing support for the North Atlantic Treaty Organization
+and the countries of Central and Eastern Europe, HR 256, 115th Congress, 1st sess., introduced
+in House April 6, 2017, https://www.congress.gov/115/bills/hres256/BILLS- 115hres256ih.
+pdf; “Shaheen & Tillis Announce Re-establishment of Senate NATO Observer Group,” Press
+Release, February 28, 2018, https://www.shaheen.senate.gov/news/press/shaheen-and-tillis-announce-
+re-establishment-of-senate-nato-observer-group; “Kaine, Gardner, Reed, McCain Introduce
+Bill To Prevent The President From Leaving NATO,” Press Release, July 26, 2018, https://www.kaine.
+senate.gov/press-releases/kaine-gardner-reed-mccain-introduce-bill-to-prevent-the-presidentfrom-
+leaving-nato; United States Congress, Senate, A joint resolution requiring the advice and
+consent of the Senate or an Act of Congress to suspend, terminate, or withdraw the United States
+from the North Atlantic Treaty and authorizing related litigation, and for other purposes, S Res.
+4, 116th Congress, 1st sess., introduced in Senate January 17, 2019, https://www.congress.gov/
+bill/116th-congress/senate-joint-resolution/4; United States Congress, House, NATO Support
+Act, HR 676, 116th Congress, 1st sess., introduced January 17, 2019, https://www.congress.gov/
+bill/116th-congress/house-bill/676; The European Deterrence Initiative (EDI) funds U.S. rotational
+troop deployments to Europe, participation in NATO exercises, prepositioning of heavy equipment
+in Europe to promote rapid reinforcement, improvements in transportation infrastructure to
+improve mobility of forces, and investments in allied defense capabilities especially in the Baltics.
+See U.S. Department of Defense, Office of the Undersecretary of Defense (Comptroller), European
+Deterrence Initiative Department of Defense Budget FY 2019 (February 2018), https://comptroller.
+defense.gov/Portals/45/Documents/defbudget/fy2019/fy2019_EDI_JBook.pdf.
+5 54 percent of Americans favor using U.S. troops if Russia invaded a NATO ally like Estonia, Latvia,
+or Lithuania, while 42 percent oppose. See Dina Smeltz, Ivo Daalder, Karl Friedhoff, Craig Kafura,
+Lily Wojtowicz, America Engaged: American Public Opinion and U.S. Foreign Policy (Chicago, IL:
+Chicago Council on Global Affairs, 2018), https://www.thechicagocouncil.org/sites/default/files/
+report_ccs18_america-engaged_181002.pdf, p. 20.
+6 Germany, U.K., Italy, Poland, France and the Netherlands rank among the top ten largest diaspora
+populations in the United States. See “America’s Largest Diaspora Populations,” International
+Diaspora Engagement Alliance, accessed December 27, 2018, http://www.diasporaalliance.org/
+americas-largest-diaspora-populations/.
+Belfer Center for Science and International Affairs | Harvard Kennedy School 45
+7 “Events,” NATO, accessed December 27, 2018, https://www.nato.int/cps/en/natohq/events.htm.
+8 Anthony Blinken, “No People. No Process. No Policy,” The New York Times, January 28, 2019,
+https://www.nytimes.com/2019/01/28/opinion/trump-foreign-policy-crisis.html.
+9 The House passed the NATO Support Act on January 22, 2019, which prohibits the appropriation or
+use of funds to withdraw the United States from the North Atlantic Treaty Organization. See NATO
+Support Act, 2019.
+10 “Wales Summit Declaration: Issued by the Heads of State and Government participating in the
+meeting of the North Atlantic Council in Wales,” NATO, September 5, 2014, https://www.nato.int/
+cps/en/natohq/official_texts_112964.htm.
+11 “NATO Leaders Pledge Strong Support to Ukraine at Wales Summit,” NATO News, September 4,
+2014, https://www.nato.int/cps/en/natohq/news_112459.htm.
+12 “Defence Expenditure of NATO countries (2011-2018),” NATO Press Release PR/CP(2018)091,July
+10, 2018, https://www.nato.int/nato_static_fl2014/assets/pdf/pdf_2018_07/20180709_180710-
+pr2018-91-en.pdf.
+13 There are two conceptually distinct forms of financial contribution to NATO: common funding
+and national defense spending. The United States, whose economy represents roughly half of the
+Alliance’s total Gross Domestic Product, contributes 22 percent of NATO common funding, with
+the other 28 Allies providing the remaining 78 percent of the budget. See “Funding NATO,” NATO,
+last updated June 27, 2018, https://www.nato.int/cps/en/natohq/topics_67655.htm.
+14 Julie Hirshfeld Davis, “Trump Warns NATO Allies to Spend More on Defense – Or Else,” The New
+York Times, July 2, 2018, https://www.nytimes.com/2018/07/02/world/europe/trump-nato.html.
+15 Allies could be pushed for an even higher level of ambition. See Alexander Vershbow, “European
+Defense: Time for a Higher Ambition,” Lithuanian Foreign Policy Review, vol. 34 (2018), http://www.
+eesc.lt/uploads/Lithuanian%20Foreign%20Policy%20Review%202018.pdf.
+16 “Defence Expenditure of NATO Countries (2011-2018),” 2018.
+17 “NATO Secretary General Jens Stoltenberg following the meeting of the North Atlantic Council
+at the level of Defence Ministers,” NATO, June 29, 2017, https://www.nato.int/cps/en/natohq/
+opinions_145385.htm.
+18 According to the SIPRI Military Expenditure Database: In millions of 2017 USD, European NATO
+members spent $269,994, while China spent $228,231. However, comparing defense spending can
+be deceptive due to the disparity in purchasing power. See “SIPRI Military Expenditure Database,”
+Stockholm International Peace Research Institute (SIPRI), accessed December 31, 2018, https://
+www.sipri.org/databases/milex.
+19 “Trends in World Military Expenditure, 2017,” SIPRI, May 2018, https://www.sipri.org/sites/default/
+files/2018-05/sipri_fs_1805_milex_2017.pdf; “Global military spending remains high at $1.7 trillion,”
+SIPRI, May 2, 2018, https://www.sipri.org/media/press-release/2018/global-military-spending-remains-
+high-17-trillion.
+20 NATO has developed eleven input and output metrics for individual NATO members, but this is
+information that most allies prefer to keep hidden, aside from Denmark that has published the full
+overview of all eleven indicators. See Garrett Martin and Balazs Martonffy, “Abandon the 2 Percent
+Obsession: A New Rating For Pulling Your Weight in NATO,” War on the Rocks, May 19, 2017, https://
+warontherocks.com/2017/05/abandon-the-2-percent-obsession-a-new-rating-for-pulling-yourweight-
+in-nato/.
+46 NATO at Seventy: An Alliance in Crisis
+21 For example, in the defense expenditure data collected from allies on a regular basis, NATO
+captures the distribution of defense expenditure by equipment, personnel, and infrastructure. See
+“Defence Expenditure of NATO Countries (2011-2018),” 2018, p. 12-13.
+22 Jordan Becker and Edmund Malesky. “The Continent or the ‘Grand Large’? Strategic Culture and
+Operational Burden-Sharing in NATO” International Studies Quarterly 61 no. 1 (2017): p. 163-180.
+23 “NATO defines defense expenditure as payments made by a national government specifically
+to meet the needs of its armed forces, those of Allies or of the Alliance. A major component of
+defense expenditure is payments on Armed Forces financed within the Ministry of Defence (MoD)
+budget. Armed Forces include Land, Maritime and Air forces as well as Joint formations such as
+Administration and Command, Special Operations Forces, Medical Service, Logistic Command
+etc. They might also include ‘Other Forces’ like Ministry of Interior troops, national police forces,
+gendarmerie, carabinieri, coast guards etc. In such cases, expenditure should be included only in
+proportion to the forces that are trained in military tactics, are equipped as a military force, can
+operate under direct military authority in deployed operations, and can, realistically, be deployed
+outside national territory in support of a military force. Also, expenditure on Other Forces financed
+through the budgets of ministries other than MoD should be included in defense expenditure.” See
+“Defence Expenditure of NATO Countries (2011-2018),” 2018, p.14.
+24 Security-relevant contributions that currently do not count towards the NATO defense budget
+include: domestic counterterrorism, intelligence and cybersecurity of strategic civilian infrastructures.
+See Elizabeth Braw, “The 2% Benchmark Is Blinding Us to NATO Members’ Actual
+Contributions,” Defense One, October 12, 2017, https://www.defenseone.com/ideas/2017/10/
+benchmark-blinding-us-nato-members-contributions/141736/.
+25 See, for example, Ben Hodges and Carsten Schmiedl, Targeting 2%: The Logistics of a More
+Sophisticated Approach to Burdensharing (Washington, DC: Center for European Policy Analysis,
+September 2018), https://www.cepa.org/targeting-2-percent, p. 6.
+26 For example, Chairman of the Munich Security Conference Wolfgang Ischinger suggested that
+the EU should “spend at least 3 percent of our GDP for crisis prevention, development assistance,
+and defense… A holistic discussion of the necessary expenditures would truly benefit the public
+discourse on foreign policy.” See Wolfgang Ischinger, “More EU Foreign and Security Policy,” Munich
+Security Conference, February 17, 2017, https://www.securityconference.de/en/news/article/
+more-eu-foreign-and-security-policy/.
+27 For additional reading on NATO-EU security issues, along with practical steps for NATO to maximize
+European Security and Defense Policy, see Robert Hunter, The European Security and Defense
+Policy: NATO’s Companion or Competitor? (Santa Monica, CA: RAND Corporation, 2001).
+28 After Brexit, 80 percent of NATO defense spending will come from non-EU NATO allies. See Jens
+Stoltenberg, “Remarks by NATO Secretary General Jens Stoltenberg at the ‘NATO Talk around
+the Brandenburg Tor’ Conference,” Keynote Speech at the Brandenburg Tor Conference, Berlin,
+NATO Speeches and Transcripts, November 12, 2018, https://www.nato.int/cps/en/natohq/
+opinions_160241.htm; Douglas Barrie, “Could the EU deliver on its military ambitions after Brexit?”
+International Institute for Strategic Studies, November 28, 2018, https://www.iiss.org/blogs/
+military-balance/2018/11/could-eu-deliver-military-ambitions-Brexit.
+29 For example, a 2017 special report by the Munich Security Conference offers recommendations
+for how European governments considering increasing defense budgets can make smart choices
+and lay a foundation for a more capable European security policy. See Wolfgang Ischinger et. al,
+More European, More Connected, More Capable: Building the European Armed Forces of the Future
+(Munich, Germany: Munich Security Conference, November 2017), https://www.securityconference.
+de/en/news/article/more-european-more-connected-and-more-capable-msc-presents-newreport-
+on-european-defense-coope/.
+Belfer Center for Science and International Affairs | Harvard Kennedy School 47
+30 “Brussels Summit Declaration: Issued by the Heads of State and Government participating in
+the meeting of the North Atlantic Council in Brussels 11-12 July 2018,” NATO, September 5, 2014,
+https://www.nato.int/cps/en/natohq/official_texts_156624.htm.
+31 For a partial illustration of the problem, see Niall McCarthy, “Europe Has Six Times As Many
+Weapon Systems As the US,” Forbes, February 19, 2018, https://www.forbes.com/sites/niallmccarthy/
+2018/02/19/europe-has-six-times-as-many-weapon-systems-as-the-u-s-infographic/#67cd-
+90fa6e7a; for additional measures to address these issues in Europe, see Ischinger, More European,
+More Connected…, 2017; finally, the United States should welcome EU initiatives such as the
+Capability Development Process and Coordinated Annual Review on Defense (CARD), the European
+Defense Fund (EDF), and Permanent Structured Cooperation on defense (PESCO) that have the
+potential to strengthen allied security as a complement to NATO.
+32 The European Global Strategy called for an end-state of “strategic autonomy,” while simultaneously
+reiterating the need to “deepen” the EU’s “partnership” with NATO Shared Vision, See “Shared
+Vision, Common Action: A Stronger Europe: A Global Strategy for the European Union’s Foreign
+And Security Policy,” European Union, June 2016, https://europa.eu/globalstrategy/sites/globalstrategy/
+files/regions/files/eugs_review_web_0.pdf.
+33 “The North Atlantic Treaty,” NATO, April 4, 1949, accessed December 27, 2018, https://www.nato.
+int/cps/ie/natohq/official_texts_17120.htm.
+34 NATO was criticized for an overly accommodating approach toward authoritarian-leaning allies
+in the 1960s and 1970s. A junta known as the Regime of the Colonels seized power in Greece
+from April 1967 to 1974; Turkish military coups forced its government from power in 1960 and
+1971; in Portugal, the authoritarian Estado Novo regime (1933-1974) ruled when Portugal joined
+NATO as a founding member in 1949. See Lisa Sawyer Samp, “How to Deal with Authoritarianism
+Inside NATO,” War on the Rocks, August 25, 2017, https://warontherocks.com/2017/08/
+how-to-deal-with-authoritarianism-inside-nato/; Timothy Andrews Sayle, Enduring Alliance: A
+History of NATO and the Postwar Global Order (Ithaca, NY: Cornell University Press, 2019).
+35 While twenty-six of the twenty-nine allies are still rated as “free”, compared with only 45 percent
+of states worldwide, trends are disturbing. See Michael J. Abramowitz, Freedom in the World 2018
+(Washington, DC: Freedom House, 2018), https://freedomhouse.org/sites/default/files/FH_NationsInTransit_
+Web_PDF_FINAL_2018_03_16.pdf.
+36 Other reports echo Freedom House observations. According to the Economist Intelligence Unit’s
+Democracy Index 2018, for example, Hungary’s score for political culture declined, resulting in an
+overall score decline (p. 17) and Hungary’s score has been worsening since 2006 (p. 41); Turkey’s
+ranking fell by 10 places in 2018 (p. 8) and its score has been declining since 2012 (p. 41); and
+Poland’s trajectory has also been declining since 2014 (p. 42). See Economist Intelligence Unit,
+Democracy Index 2018: Me Too?: Political participation, protest and democracy (London, UK:
+Economist Intelligence Unit January 2019), https://www.eiu.com/topic/democracy-index.
+37 Nate Schenkkan, Nations in Transit 2018: Confronting Illiberalism (Washington, DC: Freedom
+House, 2018), https://freedomhouse.org/sites/default/files/FH_NationsInTransit_Web_PDF_FINAL_
+2018_03_16.pdf, p. 3.
+48 NATO at Seventy: An Alliance in Crisis
+38 Abramowitz, Freedom in the World, 2018, p. 7 and p. 10. Other allies face challenges as well,
+including the United States. Albania, for example, continues to be ranked by Freedom House as
+“partly free,” a status it has maintained for over two decades due to a historical legacy of corruption
+and organized crime. Montenegro – the lowest scoring NATO ally after Turkey according to
+Freedom House – has been ranked as “partly free” since 2016, a decline after five years of “free”
+status from 2010 to 2015. Bulgaria and Romania, each facing entrenched political corruption
+and problems with the discrimination of ethnic minorities, have received worse Freedom House
+scores than Poland every year since they were admitted to the Alliance in 2004. Latvia received
+a worse Freedom House score than Hungary each year since 2008 until as recently as 2017. See
+“Country Reports,” Freedom House, accessed January 7, 2018, https://freedomhouse.org/report/
+freedom-world/freedom-world-2018.
+39 Abramowitz, Freedom in the World, 2018, p. 3.
+40 Celeste Wallander, “NATO’s Enemies Within: How Democratic Decline Could Destroy the
+Alliance,” Foreign Affairs, vol. 97 no. 4 (July/August 2018), https://www.foreignaffairs.com/articles/
+2018-06-14/natos-enemies-within.
+41 Treaties are generally considered binding. See R. Jennings and A. Watts (ed.s), Oppenheim’s International
+Law, vol. 1 (London, U.K.: Longman, 9th edition, 1996), p. 1206; “Vienna Convention on the
+Law of Treaties,” adopted on 23 May 23, 1969, entered into force on January 27, 1980, 1155 UNTS
+331, accessed December 29, 2018, https://treaties.un.org/doc/Treaties/1986/03/19860321%20
+08-45%20AM/Ch_XXIII_03p.pdf.
+42 “Press release Rule of Law: European Commission acts to defend judicial independence in
+Poland,” European Commission, December 20, 2017, http://europa.eu/rapid/press-release_IP-17-
+5367_en.htm; “Rule of law in Hungary: Parliament calls on the EU to act,” European Parliament,
+September 12, 2018, http://www.europarl.europa.eu/news/en/press-room/20180906IPR12104/
+rule-of-law-in-hungary-parliament-calls-on-the-eu-to-act/; Pawel Florkiewicz and Pawel Sobczak,
+“Poland reverses Supreme Court law changes after EU ruling,” Reuters, November 21, 2018, https://
+www.reuters.com/article/us-poland-eu-court/poland-backtracks-on-supreme-court-law-contested-
+by-eu-idUSKCN1NQ0VD.
+43 As the Assembly has done in the past. See, for example, Stanley R. Sloan, “Turbulence and
+Transitions in Transatlantic Relations,” Remarks before the Political Committee of the NATO
+Parliamentary Assembly in Halifax, Nova Scotia, Canada, November 18, 2018, https://server2.
+charityadvantageservers.com/client/Atlantic_Community_Initiative_QCYIEC/Sloan%20NPA%20
+Pol%20Comm%20Statement%20as%20presented.pdf.
+44 For other options, see Celeste Wallander, “NATO’s Enemies Within: How Democratic Decline Could
+Destroy the Alliance,” Foreign Affairs, vol. 97 no. 4 (July/August 2018), https://www.foreignaffairs.
+com/articles/2018-06-14/natos-enemies-within; Norman Eisen and James Kirchick, “Yes, Russia
+is a threat to NATO. So are the alliance’s anti-democratic members,” The Washington Post, July
+11, 2018, https://www.washingtonpost.com/news/posteverything/wp/2018/07/11/yes-russiais-
+a-threat-to-nato-so-are-the-alliances-anti-democratic-members/; Katz and Taussig, “An
+inconvenient truth”; Kemal Kirisci and Ilke Toygur, “As Turkish democracy Declines, What’s the Role
+for Other NATO members?” Brookings Institution, July 23, 2018, https://www.brookings.edu/blog/
+order-from-chaos/2018/07/23/as-turkish-democracy-declines-whats-the-role-for-fellow-natomembers/.
+45 Sloan, Stanley R. Transatlantic traumas: has illiberalism brought the West to the brink of collapse?
+(Manchester, U.K.: Manchester University Press, 2018).
+46 All NATO decisions are made via the consensus procedure; no “votes” are currently taken in NATO
+decision-making.
+47 Seth A. Johnston, How NATO Adapts: Strategy and Organization in the Atlantic Alliance since 1950,
+(Baltimore, MD: Johns Hopkins University Press, 2017).
+Belfer Center for Science and International Affairs | Harvard Kennedy School 49
+48 For example, in May 2017, Turkey blocked NATO cooperation with more than 40 partner countries
+in retaliation for Austria blocking Turkey from joining the EU. Austria was prevented from taking
+part in exercises or future operations with the Alliance despite the fact it has more than 400 troops
+serving alongside NATO forces in Kosovo. See Justin Huggle, “Turkey blocks Nato partnerships in
+row with Austria,” The Telegraph, May 27, 2017, https://www.telegraph.co.uk/news/2017/05/23/
+turkey-blocks-nato-partnerships-row-austria.
+49 General Curtis Scaparotti, “Opening Remarks,” Remarks by Supreme Allied Commander Europe,
+General Curtis Scaparrotti at the joint press conference with General Petr Pavel and General Denis
+Mercier at the 178th Military Committee in Chiefs of Defence Session,” NATO, January 17, 2018,
+https://www.nato.int/cps/en/natohq/opinions_150789.htm.
+50 Kathleen Hicks, Lisa Sawyer Samp, Olga Oliker, Jeffrey Rathke, Jeffrey Mankoff, Anthony Bell and
+Heather Conley, Recalibrating U.S. Strategy Toward Russia: A New Time for Choosing (Washington,
+DC: Center for Strategic and International Studies, March 2017), https://csis-prod.s3.amazonaws.
+com/s3fs-public/publication/170329_Hicks_USStrategyTowardRussia_Web.pdf, p. 65-86; Russia
+also frequently holds large, destabilizing military exercises—most recently the Zapad 2017 military
+exercise—without taking the proper pre-notification and observation requirements mandated
+by the Organization for Security and Cooperation in Europe, to which Russia is a party. See Lee
+Litzenberger, “Beyond Zapad 2017: Russia’s Destabilizing Approach to Military Exercises,” War
+of the Rocks, November 28, 2017, https://warontherocks.com/2017/11/beyond-zapad-2017-russias-
+destabilizing-approach-military-exercises/.
+51 Paul Stronski and Richard Sokolsky, The Return of Global Russia: An Analytical Framework
+(Washington, DC: The Carnegie Endowment for International Peace, December 2017), https://
+carnegieendowment.org/2017/12/14/return-of-global-russia-analytical-framework-pub-75003, p.
+3-30.
+52 The Harmel Report, published in 1967, introduced the notion of deterrence and détente. See “The
+Harmel Report,” NATO, last updated November 17, 2017, https://www.nato.int/cps/en/natohq/topics_
+67927.htm. Since 2014, NATO repeatedly has reaffirmed this two-track approach; see “Wales
+Summit Declaration,” paragraphs 21 and 49; “Warsaw Summit Communique: Issued by the Heads
+of State and Government participating in the meeting of the North Atlantic Council in Warsaw 8-9
+July 2016,” NATO, paragraph 11, https://www.nato.int/cps/en/natohq/official_texts_133169.htm;
+“Brussels Summit Declaration,” paragraph 5.
+53 Mariusz Fryc, “From Wales to Warsaw and Beyond: NATO’s Strategic Adaptation to the Russian
+Resurgence on Europe’s Eastern Flank,” Connection: The Quarterly Journal No. 4 (2016): 45-65.
+54 For an in-depth analysis on this point, see Philip Breedlove and Alexander Vershbow, Permanent
+Deterrence: Enhancements to the U.S. Military Presence in North Central Europe (Washington, DC:
+The Atlantic Council, December 2018), https://www.atlanticcouncil.org/images//publications/
+Permanent-Deterrence-Enhancements-to-the-US-Military-Presence-in-North-Central-Europe.pdf.
+55 For other capabilities needed to enhance deterrence, see Scott Boston, Abby Doll, David Ochmanek
+and David A. Shlapak, “A ‘Glass Half-Full’: Next Steps for Enhancing Deterrence on NATO’s Eastern
+Flank,” RAND Corporation, February 12, 2018, https://www.rand.org/blog/2018/02/a-glass-halffull-
+next-steps-for-enhancing-deterrence.html.
+56 In a joint press briefing on August 28, 2018, Secretary James Mattis noted that the United States
+had “gained full commitment to what we call the four 30s: 30 air squadrons, 30 naval ships, 30
+combat battalions, all available to fight within 30 days.” See James Mattis and Joseph Dunford,
+“Department Of Defense Press Briefing by Secretary Mattis and General Dunford in the Pentagon
+Briefing Room,” Transcript, United States Department of Defense, August 28, 2018, https://dod.
+defense.gov/News/Transcripts/Transcript-View/Article/1615116/department-of-defense-pressbriefing-
+by-secretary-mattis-and-general-dunford-in/.
+50 NATO at Seventy: An Alliance in Crisis
+57 Rebecca Friedman Lissner, “Preventing a Credibility Crisis in America’s Most Important Alliance,”
+War on the Rocks, March 10, 2017, https://warontherocks.com/2017/03/preventing-a-credibility-
+crisis-in-americas-most-important-alliance/.
+58 Christopher Chivvis, Understanding Russia ‘Hybrid War,’ and What Can be Done About it: Testimony
+before the House Armed Services Committee, 115th Congress, March 22, 2017, https://www.rand.
+org/content/dam/rand/pubs/testimonies/CT400/CT468/RAND_CT468.pdf.
+59 Oren Dorell, “Alleged Russian political meddling documented in 27 countries since 2004,” USA
+Today, September 7, 2017, https://www.usatoday.com/story/news/world/2017/09/07/alleged-russian-
+political-meddling-documented-27-countries-since-2004/619056001/; NATO has taken
+initial steps to deter cyber attacks by declaring in 2014 that a cyber attack can trigger Article 5. The
+Wales Declaration affirmed that “cyber defence is part of NATO’s core task of collective defence. A
+decision as to when a cyber attack would lead to the invocation of Article 5 would be taken by the
+North Atlantic Council on a case-by-case basis.” See “Wales Declaration,” NATO.
+60 “The North Atlantic Treaty.”
+61 Glenn H. Snyder, Deterrence by Denial and Punishment (Princeton, NJ: Center of International
+Studies, January 1959).
+62 Kristi Raik and Pauli Jarvenpaa, A New Era of EU-NATO Cooperation: How to Make the Best of a
+Marriage of Necessity (Estonia: Rahvusvahheline Kaitseuuringute Keskus International Centre for
+Defence and Security, May 2017), https://icds.ee/wp-content/uploads/2018/ICDS_Report_A_
+New_Era_of_EU-NATO.pdf, p. 12-14; Kevin Koehler, Enhancing EU-NATO Cooperation: Looking South
+and Beyond (Zurich: ETH Zurich Center for Security Studies, June 2017) http://www.css.ethz.ch/
+en/services/digital-library/articles/article.html/57da453c-b94e-44dd-b1c2-a35d12eed6e2/pdf.
+63 Russia is already benefitting from and leveraging its relationships with Hungary and Turkey to
+exacerbate discord within Europe and NATO. See Katz and Taussig, “An inconvenient truth.”
+64 The Warsaw Summit Communique (2016) and Brussels Summit Communique (2018) both state
+that the primary responsibility to respond to hybrid threats rests with the targeted nation, but
+NATO is prepared to assist an ally at any stage of a hybrid campaign. NATO also established the
+Counter Hybrid Support Teams at the 2018 Brussels Summit, which provide “targeted, tailored
+assistances to Allies” in preparing for and responding to hybrid activities.
+65 Stronski and Sokolsky, The Return of Global Russia, p. 11, 15-19.
+66 Andrew Foxall, “Russia used to see itself as part of Europe. Here’s why that changed.” The Washington
+Post, June 18, 2018, https://www.washingtonpost.com/news/monkey-cage/wp/2018/06/18/
+russias-relations-with-the-e-u-werent-always-this-bad-but-theyve-been-deteriorating-for-a-longtime/
+67 Stephen Hadley, “It’s Time to Stand up to Russia’s Aggression in Ukraine,” United States Institute
+for Peace, January 30, 2019, https://www.usip.org/publications/2019/01/its-time-stand-russiasaggression-
+ukraine.
+68 Former Ambassador to NATO Robert Hunter recommends several general principles for Western
+policies to address the continuing problem of Russian power in Europe. See Robert Hunter, “NATO
+in Context: Geopolitics and the Problem of Russian Power,” Prism: A Journal of the Center for
+Complex Operations, vol. 6 iss. 2 (July 2016).
+69 See the Organization for Security and Cooperation in Europe, “Vienna Document,” FSC DEL/94/10,
+Forum for Security Cooperation, Vienna, December 22, 2011, https://www.osce.org/fsc/86597.
+Belfer Center for Science and International Affairs | Harvard Kennedy School 51
+70 Perceptions of Russia as a military threat following the Ukrainian crisis differ sharply across Europe
+and are heavily influenced by geographical proximity to Russia. See Stephanie Pezard, Andrew
+Radin, Thomas S. Szayna and F. Stephen Larrabee, European Relations with Russia: Threat Perceptions,
+Responses, and Strategies in the Wake of the Ukrainian Crisis (Santa Monica, CA: RAND
+Corporation, 2017), https://www.rand.org/content/dam/rand/pubs/research_reports/RR1500/
+RR1579/RAND_RR1579.pdf.
+71 Steven Pifer, “Arms control, security cooperation, and US-Russian relations,” Brookings Institution,
+November 17, 2017, https://www.brookings.edu/research/arms-control-security-cooperation-
+and-u-s-russian-relations/.
+72 Amy Woolf, Russian Compliance with the Intermediate Range Nuclear Forces (INF) Treaty: Background
+and Issues for Congress Report for Congress No. R43832 (Congressional Research Service,
+December, 2018), https://crsreports.congress.gov/product/pdf/R/R43832.
+73 James Acton suggests three ideas for NATO that may induce Russia to reverse its violation of the
+INF Treaty. First, NATO allies could deploy cruise missile defenses, such as the Patriot Advanced
+Capability-3, to protect transport and logistics facilities in Europe that are vulnerable to Russia’s
+new ground-launched cruise missile. Second, NATO could deploy non-nuclear air-launch cruise
+missiles and bombers to Europe to impose military costs on Russia. Third, NATO could implement
+reciprocal inspection arrangements to resolve concerns each side has over Treaty violations. See
+James Acton, “NATO Should Save the INF Treaty,” Carnegie Endowment for International Peace,
+December 6, 2018, https://carnegieendowment.org/2018/12/06/nato-should-save-inf-treatypub-
+77893.
+74 See, for example, Alexander J. Motyl, “Lights Out for the Putin Regime: The Coming Russian
+Collapse,” Foreign Affairs, January 27, 2016, https://www.foreignaffairs.com/articles/russian-federation/
+2016-01-27/lights-out-putin-regime.
+75 NATO led the UN-mandated International Security Assistance Force (ISAF) from August 2003 to
+December 2014. In January 2015, NATO launched the Resolute Support Mission to train, advise and
+assist Afghan security forces and institutions. See “NATO and Afghanistan,” NATO, last updated
+November 27, 2018, https://www.nato.int/cps/en/natohq/topics_8189.htm.
+76 “NATO and Afghanistan,” 2018.
+77 “Afghanistan,” United Nations High Commissioner for Refugees, accessed December 27, 2018,
+https://www.unhcr.org/afghanistan.html.
+78 “Quarterly Report on the Protection of Civilians in Armed Conflict: 1 January to 30 September,
+2018,” UN Assistance Mission in Afghanistan, October 10, 2018, https://unama.unmissions.
+org/sites/default/files/unama_protection_of_civilians_in_armed_conflict_3rd_quarter_report_
+2018_10_oct.pdf; Idrees Ali, “Afghan security forces’ deaths unsustainable: U.S. military
+official,” Reuters, December 4, 2018, https://www.reuters.com/article/us-usa-afghanistan-military/
+afghan-security-forces-deaths-unsustainable-u-s-military-official-idUSKBN1O32CS.
+79 The United States dropped more bombs on Afghanistan in 2018 than any other year. According to
+U.S. Air Forces Central Command data, manned and unmanned aircraft released 5213 weapons
+between January and the end of September 2018. See “Airpower Summaries,” United States Air
+Forces Central Command, last updated December 2018, http://www.afcent.af.mil/About/Airpower-
+Summaries/.
+80 Jessica Donati, “US Envoy, Taliban Officials Meet to Discuss Afghan Peace Talks,” Wall Street
+Journal, July 25, 2018, https://www.wsj.com/articles/u-s-envoy-taliban-officials-meet-to-discussafghan-
+peace-talks-1532547118
+52 NATO at Seventy: An Alliance in Crisis
+81 Historically, the key to ending protracted insurgencies has usually been to accommodate the insurgents
+within the new political order. See Colin P. Clarke and Christopher Paul, From Stalemate to
+Settlement: Lessons for Afghanistan from Historical Insurgencies That Have Been Resolved Through
+Negotiations (Santa Monica, CA: RAND Corporation, 2014), https://www.rand.org/content/dam/
+rand/pubs/research_reports/RR400/RR469/RAND_RR469.pdf.
+82 Asfandyar Mir, “US troop drawdown in Afghanistan raises big questions,” The Washington Post,
+December 23, 2018, https://www.washingtonpost.com/news/monkey-cage/wp/2018/12/23/u-stroop-
+drawdown-in-afghanistan-raises-big-questions/.
+83 The financial commitments made at the Geneva donor conference in November 2018 make clear
+just how large and continuous the financial aid to Afghanistan will have to be for a long time: The
+international community reaffirmed its intention to provide $15.2 billion for Afghanistan’s development
+priorities up to 2020 and to direct continuing but gradually declining financial support
+to Afghanistan’s social and economic development throughout the Transformation Decade. See
+“Securing Afghanistan’s Future: Peace, Self-Reliance and Connectivity,” Geneva Conference on
+Afghanistan: Joint Communique, November 27-28, 2018, https://unama.unmissions.org/geneva-
+conference-afghanistan.
+84 Partnership for Peace: Armenia, Austria, Azerbaijan, Belarus, Bosnia and Herzegovina, Finland,
+Georgia, Ireland, Kazakhstan, Kyrgyz Republic, Malta, The Republic of Moldova, Russia, Serbia,
+Sweden, Switzerland, Tajikistan, the former Yugoslav Republic of Macedonia, Turkmenistan,
+Ukraine, Uzbekistan; Mediterranean Dialog: Algeria, Egypt, Israel, Jordan, Mauritania, Morocco,
+Tunisia; Istanbul Cooperation Initiative: Bahrain, Kuwait, Qatar, United Arab Emirates; Partners
+from across the globe: Afghanistan, Australia, Colombia, Iraq, Japan, Republic of Korea, Mongolia,
+New Zealand, Pakistan; International organizations: United Nations, European Union, Organization
+for Security and Cooperation in Europe. See “Partners,” NATO, last updated November 11, 2015,
+https://www.nato.int/cps/en/natohq/51288.htm.
+85 Ruben Díaz-Plaja, “Projecting Stability: an agenda for action,” NATO Review Magazine, March 13,
+2018, https://www.nato.int/docu/review/2018/Also-in-2018/projecting-stability-an-agenda-for-action-
+nato-partners/EN/index.htm.
+86 Markus Kaim, Reforming NATO’s Partnerships (Berlin, Germany: Stiftung Wissenschaft und Politik
+German Institute for International and Security Affairs, 2017), https://www.swp-berlin.org/fileadmin/
+contents/products/research_papers/2017RP01_kim.pdf.
+87 The report’s authors list these partners as “priority” because of either their special arrangements
+with NATO or prominence in Summit declarations. For example, NATO and Ukraine have a
+“Distinctive Partnership” that is defined by the “Charter on a Distinctive Partnership between
+the North Atlantic Treaty Organization and Ukraine.” In the case of Georgia, the Wales, Warsaw
+and Brussels Summit Declarations have each noted that “Georgia’s relationship with the Alliance
+contains the tools necessary to continue moving Georgia forward towards eventual membership.”
+See the Wales Declaration, paragraph 93; the Warsaw Declaration, paragraph 111; the Brussels
+Declaration, paragraph 65. For Iraq, paragraphs 34 and 94 Wales and Warsaw Summit Declarations,
+respectively, re-affirm NATO’s continued commitment to the NATO-Iraq partnership. In the case
+of Jordan, paragraphs 106 and 56 of the Warsaw and Brussels Declarations, respectively, reaffirm
+commitment to NATO’s “longstanding partnership with Jordan.” In the case of Tunisia, paragraph
+57 of the Brussels Declaration states, “We are committed to further developing our cooperation
+with Tunisia.” Finally, Georgia, Jordan, Iraq and Tunisia are also part of NATO’s Defense and
+Related Security Capacity Building Initiative. See “Defence and Related Security Capacity Building
+Initiative,” NATO, last updated July 12, 2018, https://www.nato.int/cps/en/natohq/topics_132756.
+htm.
+88 Kevin Drawbaugh,“Trump calls EU a ‘foe’ on trade: CBS News interview,” Reuters, July 5, 2018,
+https://www.reuters.com/article/us-usa-trump-eu-foe/trump-calls-eu-a-foe-on-trade-cbs-newsinterview-
+idUSKBN1K50R6.
+Belfer Center for Science and International Affairs | Harvard Kennedy School 53
+89 For further reading on ways to increase EU-NATO-US cooperation, see Robert Hunter and Sven
+Biscop, The United States, NATO and the EU: Partnership in the Balance (Washington, DC: The
+Atlantic Council, February 2010), https://www.atlanticcouncil.org/publications/issue-briefs/theus-
+nato-and-the-eu-partnership-in-the-balance.
+90 Rachel A. Epstein, “NATO Enlargement and the Spread of Democracy: Evidence and Expectations,”
+Security Studies 14 no. 1 (2005); Wallace J. Thies, Dorle Hellmuth and Ray Millen, “Does NATO
+Enlargement Spread Democracy? Evidence from Three Cases,” Democracy and Security 2 no. 2
+(January 2007); Wallander, “NATO’s Enemies Within.”
+91 “The North Atlantic Treaty.”
+92 “NATO decisions, however, cannot be subject to any veto or droit de regard by a non-member
+state.” See “Study on NATO Enlargement,” NATO, September 3, 1995, https://www.nato.int/cps/en/
+natohq/official_texts_24733.htm; “Brussels Summit Declaration,” paragraph 62; “Warsaw Summit
+Declaration,” paragraph 110; “Wales Summit Declaration,” paragraph 92.
+93 Burns, Nicholas, Joseph S. Nye, Jr. and Condoleezza Rice. “Maintaining America’s Edge: Technology
+and National Security,” Washington, DC: The Aspen Institute, 2019.
+94 Robert Work, “Remarks by Deputy Secretary Work on Third Offset Strategy, Remarks as Delivered
+by Deputy Secretary,” United States Department of Defense, April 28, 2016, https://dod.
+defense.gov/News/Speeches/Speech-View/Article/753482/remarks-by-d%20eputy-secretary-
+work-on-third-offset-strategy/.
+95 Burns et al., “Technology and National Security”; Steve Grobman, “Quantum Computing Must Be a
+National Security Priority,” The Scientific American, October 25, 2018, https://blogs.scientificamerican.
+com/observations/quantum-computing-must-be-a-national-security-priority/; Will Hurd,
+“Quantum Computing is the Next Big Security Risk,” WIRED, December 7, 2017, https://www.wired.
+com/story/quantum-computing-is-the-next-big-security-risk/.
+96 Scholars have raised concerns about Huwei’s deployment of 5G networks in Europe, which could
+be used by the Chinese government for espionage. See Erik Brattberg and Philippe Le Corre,
+“Huawei and Europe’s 5G Conundrum,” National Interest, December 27, 2018, https://nationalinterest.
+org/feature/huawei-and-europe%E2%80%99s-5g-conundrum-39972.
+97 For example, advanced technologies like Artificial Intelligence could make it easier for adversaries
+to “divide and dishearten” alliances. See Tomáš Valášek, “How Artificial Intelligence Could Disrupt
+Alliances,” Carnegie Europe, August 31, 2017, https://carnegieeurope.eu/strategiceurope/72966.
+98 NATO’s lack of action on AI stands in stark contrast to China’s rise as a global AI leader. China
+released its 2020 AI ambitions and aims to be world leader by 2030, while in Europe, only a few
+individual member states have been working on national AI strategies, with one of the most notable
+being France. In April 2018, 25 European countries signed a declaration of cooperation on AI,
+declaring their intentions to engage in an European approach to deal with AI. Meanwhile, Russia
+has set a target of making 30 percent of military equipment robotic by 2025. See Karlijin Jans,
+“NATO Needs to Get Smarter About AI,” Atlantic Council, July 10, 2018, https://www.atlanticcouncil.
+org/blogs/new-atlanticist/nato-needs-to-get-smarter-about-ai.
+99 “NATO Defence Planning Process,” NATO, last updated June 28, 2018, https://www.nato.int/cps/
+en/natohq/topics_49202.htm.
+100 “Chinese investment in Europe is increasing,” The Economist, October 20, 2018, https://www.
+economist.com/graphic-detail/2018/10/10/chinese-investment-in-europe-is-increasing.
+101 Philippe Le Corre, On Chinese Investment and Influence in Europe: Testimony before the House
+Foreign Affairs Committee,” 115th Congress, May 23, 2018, https://docs.house.gov/meetings/FA/
+FA14/20180523/108355/HHRG-115-FA14-Wstate-LeCorreP-20180523.pdf.
+54 NATO at Seventy: An Alliance in Crisis
+102 The GDP value of the European Union represents 27.87 percent of the world economy. See “European
+Union GDP,” Trading Economics, accessed December 27, 2018, https://tradingeconomics.com/
+european-union/gdp; “Living in the EU,” European Union, accessed December 27, 2018, https://
+europa.eu/european-union/about-eu/figures/living_en
+103 “Chinese investment, and influence, in Europe is growing,” The Economist, October 14, 2018,
+https://www.economist.com/briefing/2018/10/04/chinese-investment-and-influence-in-europe-
+is-growing
+104 “China to develop Arctic shipping routes opened by global warming,” BBC News, January 26, 2018,
+https://www.bbc.com/news/world-asia-china-42833178.
+105 Thorsten Benner, Jan Gaspers, Mareike Ohlberg, Lucrezia Poggetti, and Kristin Shi-Kupfer, Authoritarian
+Advance: Responding to China’s Growing Political Influence in Europe (Berlin, Germany:
+Mercator Institute for China Studies, February 2018), https://www.merics.org/sites/default/
+files/2018-02/GPPi_MERICS_Authoritarian_Advance_2018_1.pdf.
+106 Benner et. al, “Authoritarian Advance,” p. 16.
+107 Benner et. al, “Authoritarian Advance,” p. 16.
+108 Philip Blenkinsop, “With eyes on China, EU agrees investment screening rules,” Reuters, November
+20, 2018, https://www.reuters.com/article/us-eu-china-investment/with-eyes-on-china-eu-agreesinvestment-
+screening-rules-idUSKCN1NP1IJ.
+109 See, for example, Stanley R. Sloan, “Don’t Expect a New NATO Strategic Concept Any Time Soon,”
+Atlantic Council, February 24, 2017, https://www.atlanticcouncil.org/blogs/new-atlanticist/don-texpect-
+a-new-nato-strategic-concept-any-time-soon.
+110 President George H.W. Bush, “A Europe Whole and Free,” Remarks to the Citizens in Mainz,
+Rheingoldhalle, U.S. Diplomatic Mission to the Federal Republic of Germany, May 31, 1989, https://
+usa.usembassy.de/etexts/ga6-890531.htm.
+111 “Member Countries,” NATO, last updated March 26, 2018, https://www.nato.int/cps/em/natohq/
+topics_52044.htm.
+112 “Member Countries,” NATO; “Partners,” NATO.
+113 Ivo Daalder, NATO in the 21st Century: What Purpose, What Missions? (Washington, D.C.: The Brookings
+Institution, April 1999), https://www.brookings.edu/wp-content/uploads/2016/06/reportch1.pdf.
+114 To be sure, the September 12, 2001 decision was contingent on evidence that the attacks originated
+from a foreign source. When U.S. officials confirmed this to the North Atlantic Council early in
+October, 2001 invocation of Article 5 became official. See North Atlantic Council, “Statement by the
+North Atlantic Council,” September 12, 2001, https://www.nato.int/docu/pr/2001/p01-124e.htm;
+Lord George Robertson, “Statement by NATO Secretary General,” October 2, 2001, https://www.
+nato.int/docu/speech/2001/s011002a.htm.
+115 “Casualty Status as of 10 a.m. EST Feb. 4, 2019,” United States Department of Defense, accessed
+February 4, 2019, https://dod.defense.gov/News/Casualty-Status/; “Afghanistan Fatalities,
+Fatalities by Country,” iCasualties, www.iCasualties.org,”
+116 The Washington Post Editorial Board, “Russia marches on uninhibited in eastern Ukraine,” The
+Washington Post, February 18, 2015, https://www.washingtonpost.com/opinions/russia-marches-
+on-uninhibited-in-eastern-ukraine/2015/02/18/d43a48d4-b78b-11e4-aa05-1ce812b3fdd2_story.
+html.
+Belfer Center for Science and International Affairs | Harvard Kennedy School 55
+117 “Terrorism in the EU: terror attacks, deaths and arrests,” European Parliament, July 25, 2018,
+http://www.europarl.europa.eu/news/en/headlines/security/20180703STO07125/terrorismin-
+the-eu-terror-attacks-deaths-and-arrests; Philipp Connor, “Most displaced Syrians are in the
+Middle East, and about a million are in Europe,” Pew Research Center, January 29, 2018, http://
+www.pewresearch.org/fact-tank/2018/01/29/where-displaced-syrians-have-resettled/ .
+118 “Mediterranean Situation,” United Nations High Commissioner for Refugees, accessed December
+4, 2018, https://data2.unhcr.org/en/situations/mediterranean.
+119 See, for example, United States Congress, Senate, Committee on Foreign Relations, Assessing the
+Value of the NATO Alliance, 115th Congress, September 5, 2018, https://www.foreign.senate.gov/
+hearings/assessing-the-value-of-the-nato-alliance-090518.
+120 James Goldgeier, “When President Trump heads to Europe, discussion turns to burden-sharing,”
+The Washington Post, November 14, 2018, //https://www.washingtonpost.com/news/monkey-
+cage/wp/2018/07/09/president-trump-goes-to-europe-this-week-its-leaders-are-bracing-forthe-
+impact/.
+121 Jens Stoltenberg, “The Value of NATO in the 21st Century,” Heritage Foundation, Washington, DC,
+September 14, 2018, https://www.heritage.org/defense/event/the-value-nato-the-21st-century/.
+122 Shayerah Illias Akhtar, US-EU Trade and Investment Ties: Magnitude and Scope Report for Congress
+(Congressional Research Service, July 20, 2018), https://fas.org/sgp/crs/row/IF10930.pdf.
+123 European allies are the largest foreign investors in the United States, over $2.3 trillion in 2017, and
+the U.S.’s largest trading partners in goods and services, approximately $1.2 trillion in 2017. See
+Akhtar, US-EU Trade and Investment Ties, 2018.
+124 “The North Atlantic Treaty.”
+125 Stoltenberg, “The Value of NATO in the 21st Century.”
+126 Bush, “A Europe Whole and Free.”
+127 Smeltz et al., “America Engaged,” p. 4.
+
+
+Project on Europe and the Transatlantic Relationship
+Belfer Center for Science and International Affairs
+Harvard Kennedy School
+79 John F. Kennedy Street
+Cambridge, MA 02138
+www.belfercenter.org/Transatlantic
+Copyright 2019, President and Fellows of Harvard College
+Printed in the United States of America

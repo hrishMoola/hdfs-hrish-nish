@@ -1,7 +1,7 @@
 package edu.usfca.cs.chat.net;
 
-import edu.usfca.cs.chat.ChatMessages;
-
+import com.google.protobuf.GeneratedMessageV3;
+import edu.usfca.cs.chat.DfsMessages;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -14,9 +14,11 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 public class MessagePipeline extends ChannelInitializer<SocketChannel> {
 
     private ChannelInboundHandlerAdapter inboundHandler;
+    private GeneratedMessageV3 messageWrapper;
 
-    public MessagePipeline(ChannelInboundHandlerAdapter inboundHandler) {
+    public MessagePipeline(ChannelInboundHandlerAdapter inboundHandler, GeneratedMessageV3 messagesWrapper) {
         this.inboundHandler = inboundHandler;
+        this.messageWrapper = messagesWrapper;
     }
 
     @Override
@@ -24,10 +26,11 @@ public class MessagePipeline extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = ch.pipeline();
 
         /* Here, we limit message sizes to 8192: */
-        pipeline.addLast(new LengthFieldBasedFrameDecoder(8192, 0, 4, 0, 4));
+        pipeline.addLast(new LengthFieldBasedFrameDecoder(75000, 0, 4, 0, 4));
         pipeline.addLast(
                 new ProtobufDecoder(
-                    ChatMessages.ChatMessagesWrapper.getDefaultInstance()));
+//                    DfsMessages.DfsMessagesWrapper.getDefaultInstance()));
+                    this.messageWrapper));
 
         pipeline.addLast(new LengthFieldPrepender(4));
         pipeline.addLast(new ProtobufEncoder());

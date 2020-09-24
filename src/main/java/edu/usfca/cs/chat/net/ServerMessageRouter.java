@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.protobuf.GeneratedMessageV3;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -22,11 +23,11 @@ public class ServerMessageRouter {
 
     private Map<Integer, Channel> ports = new HashMap<>();
 
-    public ServerMessageRouter(ChannelInboundHandlerAdapter inboundHandler) {
+    public ServerMessageRouter(ChannelInboundHandlerAdapter inboundHandler, GeneratedMessageV3 messagesWrapper) {
         bossGroup = new NioEventLoopGroup();
         workerGroup = new NioEventLoopGroup(4);
 
-        pipeline = new MessagePipeline(inboundHandler);
+        pipeline = new MessagePipeline(inboundHandler, messagesWrapper);
 
         bootstrap = new ServerBootstrap()
             .group(bossGroup, workerGroup)

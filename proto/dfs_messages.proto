@@ -1,0 +1,109 @@
+syntax = "proto3";
+option java_package = "edu.usfca.cs.chat";
+
+//sent from client to leader during store. sent from leader to client during retrieve.
+message FileChunk{ //from client to primary datanode, and primary datanode to others
+    string filepath = 1;        //contains chunk serial number
+    bytes chunks = 2;           // byte array of data
+    string checksum = 3;        // checksum calc at client
+}
+
+message FileAck{
+    int32 filepath = 1; //does not contain the chunk serial number, just the filename
+    bool success = 2;
+    Type type = 3;
+    enum Type{
+        FILE_OVERWRITE = 0; //blindly send to all and ask them to delete during store
+        FILE_RETRIEVAL = 1; // send to all nodes, they can check themselves and return with whoever is ready with this message
+        STORAGE_STATUS = 2; //message from leader to controller and to client to add to bloomfilter and remove from processing queue
+    }
+}
+
+//send only to leader before sending first chunk for store.
+message FileChunkHeader{
+    int32 total_chunks = 1;
+    string filepath = 2; //does not contain the chunk serial number, just the filename
+    repeated DataNodeMetadata replicas = 3;
+}
+
+//from client to controller
+message FileRequest{
+    string directory = 1;
+    string filepath = 2;
+    int32 num_chunks = 3;
+    int64 size = 4; // exclusively in mb and Math.ceil()
+    Type type = 5;
+    enum Type{
+        STORE = 0;
+        RETRIEVE = 1;
+    }
+}
+
+
+//sent from namenode
+message FileResponse{
+    string filepath = 1;
+    repeated DataNodeMetadata dataNodes = 2;
+}
+message DataNodeMetadata{
+    string hostname = 1;
+    string ip = 2;
+    string memory = 3;
+}
+
+//sent from datanodes every five sec
+message HeartBeat{
+    DataNodeMetadata node_meta_data = 2;
+    int32 store_count = 3;
+    int32 retrieve_count = 4;
+}
+
+//message during pipelining from replica to leader
+message ReplicationStatus{
+    string filepath = 1;        //contains chunk serial number
+    int32 chunk_num = 2;
+    bool success = 3;
+}
+
+message DfsMessagesWrapper {
+    oneof msg {
+        FileChunk fileChunk = 1;
+        FileRequest fileRequest = 2;
+        FileResponse fileResponse = 3;
+        HeartBeat heartBeat = 4;
+        ReplicationStatus replicationStatus = 5;
+        FileAck fileAck = 6;
+        FileChunkHeader fileChunkHeader = 7;
+    }
+}
+
+//only what the client receives
+message ClientMessagesWrapper{
+    oneof msg{
+        FileChunk fileChunk = 1;
+        FileResponse fileResponse = 2;
+        FileAck fileAck = 3;
+        FileChunkHeader fileChunkHeader = 4;
+    }
+}
+
+//only what the datanode receives
+message DataNodeMessagesWrapper{
+    oneof msg{
+        FileChunk fileChunk = 1;
+        FileAck fileAck = 2;
+        FileChunkHeader fileChunkHeader = 3;
+        ReplicationStatus replicationStatus = 4;
+
+    }
+}
+
+message ControllerMessagesWrapper{
+    oneof msg{
+        FileRequest fileRequest = 1 ;
+        FileAck fileAck = 2;
+        FileChunkHeader fileChunkHeader = 3;
+        ReplicationStatus replicationStatus = 4;
+        HeartBeat heartBeat = 5;
+}
+}
