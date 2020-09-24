@@ -3,20 +3,43 @@ package edu.usfca.cs.chat;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import edu.usfca.cs.chat.net.ServerMessageRouter;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+class StorageNodeInfo {
+    String hostname;
+    String IP;
+    String memory;
+    int port;
+
+    public StorageNodeInfo(String hostname, String IP, String memory, int port) {
+        this.hostname = hostname;
+        this.IP = IP;
+        this.memory = memory;
+        this.port = port;
+    }
+}
+
 @ChannelHandler.Sharable
 public class Controller
         extends SimpleChannelInboundHandler<DfsMessages.ControllerMessagesWrapper> {
 
-    private
+
+    // storage node map with key as hostname and sotrageNodeInfoObj
+    private ConcurrentMap<String, DfsMessages.DataNodeMetadata> activeStorageNodes;
     ServerMessageRouter messageRouter;
 
     public Controller() {
-
+        activeStorageNodes = new ConcurrentHashMap<>();
     }
 
     public void start(int port) throws IOException {
@@ -63,7 +86,7 @@ public class Controller
         int messageType = message.getMsgCase().getNumber();
 
         switch(messageType){
-            case 1:
+            case 1: // File Request
                 try {
                     System.out.println("Received a file request for " + message.getFileRequest().getFilepath());
                     System.out.println("Request type is  " + message.getFileRequest().getType().name());
@@ -71,16 +94,27 @@ public class Controller
                     //get list of nodes client can write to and reply to client with FileResponse
                     replyWithNodeInfo(ctx, message.getFileRequest().getFilepath());
                 } catch (Exception e) {
-                    System.out.println("An error in Controller while reading FileRequest");
+                    System.out.println("An error in Controller while reading FileRequest " + e);
                     e.printStackTrace();
                 }
                 break;
-            case 6:
+            case 5: // Heart Beat
                 try {
-                    System.out.println("New Storage Node connected");
-                    System.out.println("Hostname: " + message.getIntroMessage().getHostname());
-                    System.out.println("IP: " + message.getIntroMessage().getIp());
-                    System.out.println("Available Memory: " + message.getIntroMessage().getMemory());
+                    DfsMessages.DataNodeMetadata info = message.getHeartBeat().getNodeMetaData();
+                    System.out.println("Node: " + info.getHostname() + " alive at port: " + info.getPort() + " with memory: " + info.getMemory());
+                } catch (Exception e) {
+                    System.out.println("An error in Controller while reading HeartBeat from node: " + e);
+                }
+                break;
+            case 6: // Intro Message
+                try {
+                    String hostname = message.getIntroMessage().getHostname();
+                    String IP = message.getIntroMessage().getIp();
+                    String memory = message.getIntroMessage().getMemory();
+                    int port = message.getIntroMessage().getPort();
+                    // print controller
+                    printMsg(message);
+//                    activeStorageNodes.put(hostname, new StorageNodeInfo(hostname, IP, memory, port));
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading DataNodeMetaData");
                 }
@@ -90,6 +124,14 @@ public class Controller
                 break;
         }
 
+    }
+
+    private void printMsg(DfsMessages.ControllerMessagesWrapper message) {
+        System.out.println("**** New Storage Node connected ****");
+        System.out.println("Hostname: " + message.getIntroMessage().getHostname());
+        System.out.println("IP: " + message.getIntroMessage().getIp());
+        System.out.println("Available Memory: " + message.getIntroMessage().getMemory());
+        System.out.println("X - X - X - X - X - X - X - X - X - X");
     }
 
     //just populating with three known nodes right now. ideally here the bloomfilter stuff should come into play to create the response

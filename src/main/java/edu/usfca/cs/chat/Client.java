@@ -156,6 +156,7 @@ public class Client
         ChannelFuture write = serverChannel.writeAndFlush(msgWrapper);
 
         write.syncUninterruptibly();
+//        serverChannel.close();
     }
 
     public void sendGreeting() {

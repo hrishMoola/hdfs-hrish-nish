@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 import edu.usfca.cs.chat.Utils.FileUtils;
@@ -30,14 +34,18 @@ public class StorageNode
     ServerMessageRouter messageRouter;
     private String storagePath;
     private String controllerHostname;    // controller to connect to and send heartbeats to
-    private Integer controllerPort;
+    private int controllerPort;
     private String hostName;        // host and part where storage node will be listening as a server
-    private Integer hostPort;
+    private int hostPort;
+
+    private int totalStorageReqs;
+    private int totalRetrievalReqs;
 
     private Channel controllerChannel;
     private String localAddr;
 
     Map<String, List<Channel>> filePathToReplicaChannels;
+    ScheduledExecutorService executorService;
 
     public StorageNode(String[] args) {
         this.storagePath = args[0];
@@ -45,7 +53,11 @@ public class StorageNode
         this.hostPort = Integer.parseInt(args[2]);
         this.controllerHostname = args[3]; // sto
         this.controllerPort = Integer.parseInt(args[4]);
+
+        totalStorageReqs = 0;
+        totalRetrievalReqs = 0;
         filePathToReplicaChannels = new HashMap<>();
+        executorService = Executors.newSingleThreadScheduledExecutor();
     }
 
     public void start() throws IOException {
@@ -53,7 +65,7 @@ public class StorageNode
         messageRouter.listen(this.hostPort);
         System.out.println("Data node " + this.hostName + " on port " + this.hostPort + "...");
 
-        // before start clear directroy contents
+        // before start clear directory contents
         FileUtils.clearDirectoryContents(storagePath);
         // on start connect to controller and send alive notification
         this.connect();
@@ -68,17 +80,46 @@ public class StorageNode
         }
     }
 
-    private void sendIntroMessage() {
-        DfsMessages.ControllerMessagesWrapper wrapper = DfsMessages.ControllerMessagesWrapper.newBuilder()
-                .setIntroMessage(DfsMessages.DataNodeMetadata.newBuilder()
+    private void initiateHeartbeat() {
+        Runnable runnable =
+                () -> {
+            DfsMessages.ControllerMessagesWrapper heartBeatWrapper = sendHeartbeat();
+            ChannelFuture write = controllerChannel.writeAndFlush(heartBeatWrapper);
+            write.syncUninterruptibly();
+        };
+
+
+        executorService.scheduleAtFixedRate(runnable, 5, 5, TimeUnit.SECONDS);
+    }
+
+    private DfsMessages.DataNodeMetadata buildDataNodeMetaData() {
+        return DfsMessages.DataNodeMetadata.newBuilder()
                 .setHostname(hostName)
                 .setIp(localAddr)
                 .setPort(hostPort)
                 .setMemory("10GB")
-                .build()).build();
+                .build();
+    }
+
+    private void sendIntroMessage() {
+        DfsMessages.ControllerMessagesWrapper wrapper = DfsMessages.ControllerMessagesWrapper.newBuilder()
+                .setIntroMessage(buildDataNodeMetaData()).build();
 
         ChannelFuture write = controllerChannel.writeAndFlush(wrapper);
         write.syncUninterruptibly();
+
+        // Start a fixed rate thread to send heartbeats
+        initiateHeartbeat();
+    }
+
+    private DfsMessages.ControllerMessagesWrapper sendHeartbeat() {
+        return DfsMessages.ControllerMessagesWrapper.newBuilder()
+                .setHeartBeat(DfsMessages.HeartBeat.newBuilder()
+                .setNodeMetaData(buildDataNodeMetaData())
+                .setRetrieveCount(totalRetrievalReqs)
+                .setStoreCount(totalStorageReqs)
+                .build())
+                .build();
     }
 
     //connect to controller node upon startup
@@ -114,6 +155,8 @@ public class StorageNode
         InetSocketAddress addr
             = (InetSocketAddress) ctx.channel().remoteAddress();
         System.out.println("Connection lost: " + addr);
+
+        // todo: Shutdown executor service here?
     }
 
     @Override
@@ -128,7 +171,7 @@ public class StorageNode
         int messageType = message.getMsgCase().getNumber();
 
         switch(messageType){
-            case 1:
+            case 1: // File Chunk
                 //basically store the chunks being provided and send for replication to replicas
                 try {
                     writeToFile(message.getFileChunk(),storagePath);
@@ -139,11 +182,10 @@ public class StorageNode
                     e.printStackTrace();
                 }
                 break;
-            case 3:// chunk header from client.
+            case 3: // chunk header from client.
                 System.out.println("Received chunk header and replica information");
                 prepareForStorage(message.getFileChunkHeader());
-            case 4:
-                //replication status. not currently doing anything
+            case 4: //replication status. not currently doing anything
                 System.out.println("Replication Status of " + ctx.channel().remoteAddress().toString());
                 System.out.println("Chunk num and success" + message.getReplicationStatus().getChunkNum() + " is " + message.getReplicationStatus().getSuccess());
                 break;
@@ -207,5 +249,16 @@ public class StorageNode
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
+    }
+
+    public class RunnableTask implements Runnable {
+
+        public RunnableTask() {
+
+        }
+
+        public void run() {
+
+        }
     }
 }
