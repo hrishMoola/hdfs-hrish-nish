@@ -2,6 +2,9 @@ package edu.usfca.cs.chat;
 
 import java.io.*;
 import java.net.InetSocketAddress;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.google.protobuf.ByteString;
 import edu.usfca.cs.chat.net.MessagePipeline;
@@ -24,10 +27,13 @@ public class Client
     private Channel serverChannel;
     private Channel leaderChannel;
 
-    public Client(String controllerHostName, int controllerPort, String username) {
+    private Integer CHUNK_SIZE;
+
+    public Client(String controllerHostName, int controllerPort, String username, Integer chunkSize) {
         this.controllerHostName = controllerHostName;
         this.controllerPort = controllerPort;
         this.username = username;
+        this.CHUNK_SIZE = chunkSize * 1024;
     }
 
 
@@ -35,7 +41,8 @@ public class Client
     public static void main(String[] args) throws IOException {
         Client c = null;
         if (args.length >= 3) {
-            c = new Client(args[0], Integer.parseInt(args[1]), args[2]);
+            c = new Client(args[0], Integer.parseInt(args[1]), args[2],Integer.parseInt(args[3]));
+//            c.serverChannel =  c.connectToNode(c.controllerHostName, c.controllerPort);
             c.connect();
         }
 
@@ -68,16 +75,15 @@ public class Client
         serverChannel = cf.channel();
     }
 
-    private void chunkFileAndSendToLeader(DfsMessages.FileResponse fileResponse) throws IOException {
+    private void chunkFileAndSendToNodes(DfsMessages.FileResponse fileResponse) throws IOException {
         File f = new File(fileResponse.getFilepath());
+        LRUCache lruCache = new LRUCache(CHUNK_SIZE);
+        Map<String, Channel> channelMap = createChannels(fileResponse.getDataNodesList());
+        lruCache.addAll(fileResponse.getDataNodesList());
         int partCounter = 0;
-        int sizeOfFile = 128 * 1024 * 1024; // 50kb chunks
-//        int sizeOfFile = 128 * 1024 * 1024; // 128/chunk
-        byte[] buffer = new byte[sizeOfFile];
-
+        byte[] buffer = new byte[CHUNK_SIZE];
+        System.out.println("lruCache = " + lruCache.nodeAge);
         String fileName = f.getName();
-        sendChunkHeaderToLeader((int)Math.ceil(f.length() / (float)sizeOfFile), fileResponse);
-
         //try-with-resources to ensure closing stream
         try (FileInputStream fis = new FileInputStream(f);
              BufferedInputStream bis = new BufferedInputStream(fis)) {
@@ -86,7 +92,7 @@ public class Client
             while ((bytesAmount = bis.read(buffer)) > 0) {
                 //write each chunk of data into separate file with different number in name
                 String filePartName = String.format("%s-%03d", fileName, partCounter++);
-                    sendChunks(filePartName, buffer);
+                    sendChunks(filePartName, buffer, channelMap.get(lruCache.get()));
                     System.out.println("Sent");
             }
         }
@@ -94,8 +100,17 @@ public class Client
             System.out.println("Error while splitting file in chunkFile " + e);
         }
         System.out.println("Total chunks: " + partCounter);
-        leaderChannel.flush();
-        leaderChannel.close();
+        channelMap.values().forEach(ChannelOutboundInvoker::close);
+        channelMap.clear();
+        System.out.println("lruCache remaining memory= " + lruCache.getRemainingMemory());
+    }
+
+    private Map<String, Channel> createChannels(List<DfsMessages.DataNodeMetadata> dataNodesList) {
+        Map<String, Channel> channelMap = new HashMap<>();
+        dataNodesList.forEach(node->{
+                channelMap.put(node.getHostname(), connectToNode(node.getIp().split(":")[0], node.getPort()));
+        });
+        return channelMap;
     }
 
     private void sendChunkHeaderToLeader(int numChunks, DfsMessages.FileResponse fileResponse) {
@@ -105,15 +120,15 @@ public class Client
                         .addReplicas(0,fileResponse.getDataNodes(1))
                         .addReplicas(1,fileResponse.getDataNodes(2))
                                 .build()).build();
-        connectToLeaderNode(fileResponse.getDataNodes(0).getHostname() , Integer.parseInt(fileResponse.getDataNodes(0).getIp()));
+//        connectToLeaderNode(fileResponse.getDataNodes(0).getHostname() , Integer.parseInt(fileResponse.getDataNodes(0).getIp()));
         ChannelFuture write = leaderChannel.writeAndFlush(wrapper);
         System.out.println("Sent chunk header to leader");
         write.syncUninterruptibly();
     }
 
-    public void connectToLeaderNode(String leadername, Integer port) {
+    public Channel connectToNode(String hostname, Integer port) {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.ClientMessagesWrapper.getDefaultInstance());
+        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
 
         Bootstrap bootstrap = new Bootstrap()
                 .group(workerGroup)
@@ -121,42 +136,17 @@ public class Client
                 .option(ChannelOption.SO_KEEPALIVE, true)
                 .handler(pipeline);
 
-        System.out.println("Connecting to " + leadername + ":" + port);
-        ChannelFuture cf = bootstrap.connect(leadername, port);
+        System.out.println("Connecting to " + hostname + ":" + port);
+        ChannelFuture cf = bootstrap.connect(hostname, port);
         cf.syncUninterruptibly();
-        leaderChannel = cf.channel();
+        return cf.channel();
     }
-    private void sendChunks(String filePartName, byte[] buffer) {
+
+    private void sendChunks(String filePartName, byte[] buffer, Channel channel) {
         DfsMessages.FileChunk fileChunkMessage = DfsMessages.FileChunk.newBuilder().setFilepath(filePartName).setChunks(ByteString.copyFrom(buffer)).build();
         DfsMessages.DataNodeMessagesWrapper msgWrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileChunk(fileChunkMessage).build();
-        ChannelFuture write = leaderChannel.writeAndFlush(msgWrapper);
+        ChannelFuture write = channel.writeAndFlush(msgWrapper);
         write.syncUninterruptibly();
-    }
-
-
-    public void sendMessage(String message) {
-
-        ChatMessages.ChatMessage msg
-            = ChatMessages.ChatMessage.newBuilder()
-            .setUsername(username)
-            .setMessageBody(message)
-        .build();
-
-        ChatMessages.ChatMessagesWrapper msgWrapper =
-            ChatMessages.ChatMessagesWrapper.newBuilder()
-                .setChatMessage(msg)
-                .build();
-
-        /* Note: you could also do:
-         * serverChannel.write(msgWrapper);
-         * serverChannel.flush();
-         * In this case there is no difference, but if you needed to do several
-         * writes it would be more efficient to only do a single flush() after
-         * the writes. */
-        ChannelFuture write = serverChannel.writeAndFlush(msgWrapper);
-
-        write.syncUninterruptibly();
-//        serverChannel.close();
     }
 
     public void sendGreeting() {
@@ -196,7 +186,7 @@ public class Client
             switch(messageType){
                 case 2:
                     System.out.println("Received a file response for " + message.getFileResponse().getFilepath());
-                    chunkFileAndSendToLeader(message.getFileResponse());
+                    chunkFileAndSendToNodes(message.getFileResponse());
                 case 6:
                     try {
                         System.out.println("received file ack");
@@ -249,7 +239,7 @@ public class Client
     private void sendFileRequestToController(String line) {
         String localFile = line.split("\\s")[1];
         String dfsPath = line.split("\\s")[2];
-        DfsMessages.ControllerMessagesWrapper wrapper = DfsMessages.ControllerMessagesWrapper.newBuilder().setFileRequest(getFileRequest(localFile,dfsPath)).build();
+        DfsMessages.ControllerMessagesWrapper wrapper = DfsMessages.ControllerMessagesWrapper.newBuilder().setFileRequest(getFileRequest(localFile,dfsPath, Double.valueOf(this.CHUNK_SIZE))).build();
         serverChannel.write(wrapper);
         serverChannel.flush();
     }

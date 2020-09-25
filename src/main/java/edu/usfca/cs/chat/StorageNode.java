@@ -37,6 +37,9 @@ public class StorageNode
     private String hostName;        // host and part where storage node will be listening as a server
     private int hostPort;
 
+    private int tempMemory;
+    private int chunkSize;
+
     private AtomicInteger totalStorageReqs;
     private AtomicInteger totalRetrievalReqs;
 
@@ -52,6 +55,8 @@ public class StorageNode
         this.hostPort = Integer.parseInt(args[2]);
         this.controllerHostname = args[3]; // sto
         this.controllerPort = Integer.parseInt(args[4]);
+        this.tempMemory = Integer.parseInt(args[5]) * 1024;
+        this.chunkSize = Integer.parseInt(args[6]) * 1024;
 
         totalStorageReqs = new AtomicInteger(0);
         totalRetrievalReqs = new AtomicInteger(0);
@@ -86,9 +91,7 @@ public class StorageNode
             ChannelFuture write = controllerChannel.writeAndFlush(heartBeatWrapper);
             write.syncUninterruptibly();
         };
-
-
-        executorService.scheduleAtFixedRate(runnable, 5, 5, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(runnable, 5, 30, TimeUnit.SECONDS);
     }
 
     private DfsMessages.DataNodeMetadata buildDataNodeMetaData() {
@@ -96,7 +99,7 @@ public class StorageNode
                 .setHostname(hostName)
                 .setIp(localAddr)
                 .setPort(hostPort)
-                .setMemory(1024) // todo figure out directory size
+                .setMemory(tempMemory) // todo figure out directory size
                 .build();
     }
 
@@ -124,7 +127,7 @@ public class StorageNode
     //connect to controller node upon startup
     public void connect() {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
+        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.ControllerMessagesWrapper.getDefaultInstance());
 
         Bootstrap bootstrap = new Bootstrap()
                 .group(workerGroup)
@@ -168,13 +171,15 @@ public class StorageNode
     public void channelRead0(
             ChannelHandlerContext ctx, DfsMessages.DataNodeMessagesWrapper message) {
         int messageType = message.getMsgCase().getNumber();
-
+        System.out.println(message);
         switch(messageType){
             case 1: // File Chunk
                 //basically store the chunks being provided and send for replication to replicas
                 try {
                     writeToFile(message.getFileChunk(),storagePath);
-                    sendFileToReplicas(message.getFileChunk());
+//                    sendFileToReplicas(message.getFileChunk());
+                    tempMemory -= this.chunkSize;
+                    totalStorageReqs.incrementAndGet();
                     System.out.println("Successfully wrote to the file.");
                 } catch (Exception e) {
                     System.out.println("An error occurred.");
