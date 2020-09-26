@@ -71,7 +71,7 @@ public class Client
     private void chunkFileAndSendToLeader(DfsMessages.FileResponse fileResponse) throws IOException {
         File f = new File(fileResponse.getFilepath());
         int partCounter = 0;
-        int sizeOfFile = 50 * 1024; // 50kb chunks
+        int sizeOfFile = 128 * 1024 * 1024; // 50kb chunks
 //        int sizeOfFile = 128 * 1024 * 1024; // 128/chunk
         byte[] buffer = new byte[sizeOfFile];
 
@@ -156,6 +156,7 @@ public class Client
         ChannelFuture write = serverChannel.writeAndFlush(msgWrapper);
 
         write.syncUninterruptibly();
+//        serverChannel.close();
     }
 
     public void sendGreeting() {

@@ -9,8 +9,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
+import edu.usfca.cs.chat.Utils.FileUtils;
 import edu.usfca.cs.chat.net.MessagePipeline;
 import edu.usfca.cs.chat.net.ServerMessageRouter;
 import io.netty.bootstrap.Bootstrap;
@@ -22,45 +27,117 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import static edu.usfca.cs.chat.Utils.FileUtils.writeToFile;
 
 @ChannelHandler.Sharable
-public class DataNode
+public class StorageNode
     extends SimpleChannelInboundHandler<DfsMessages.DataNodeMessagesWrapper> {
 
     ServerMessageRouter messageRouter;
     private String storagePath;
-    private String nameNodeHost;    //namenode to connect to and send heartbeats to
-    private Integer nameNodePort;
-    private String hostName;        //host and part where datanode will be listening as a server
-    private Integer hostPort;
+    private String controllerHostname;    // controller to connect to and send heartbeats to
+    private int controllerPort;
+    private String hostName;        // host and part where storage node will be listening as a server
+    private int hostPort;
+
+    private AtomicInteger totalStorageReqs;
+    private AtomicInteger totalRetrievalReqs;
+
+    private Channel controllerChannel;
+    private String localAddr;
 
     Map<String, List<Channel>> filePathToReplicaChannels;
+    ScheduledExecutorService executorService;
 
-    public DataNode(String[] args) {
+    public StorageNode(String[] args) {
         this.storagePath = args[0];
         this.hostName = args[1];
         this.hostPort = Integer.parseInt(args[2]);
-        this.nameNodeHost = args[3];
-        this.nameNodePort = Integer.parseInt(args[4]);
+        this.controllerHostname = args[3]; // sto
+        this.controllerPort = Integer.parseInt(args[4]);
+
+        totalStorageReqs = new AtomicInteger(0);
+        totalRetrievalReqs = new AtomicInteger(0);
         filePathToReplicaChannels = new HashMap<>();
+        executorService = Executors.newSingleThreadScheduledExecutor();
     }
 
-    public void start()
-    throws IOException {
+    public void start() throws IOException {
         messageRouter = new ServerMessageRouter(this,  DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
         messageRouter.listen(this.hostPort);
-        System.out.println("Data node" + this.hostName + " on port " + this.hostPort + "...");
+        System.out.println("Data node " + this.hostName + " on port " + this.hostPort + "...");
+
+        // before start clear directory contents
+        FileUtils.clearDirectoryContents(storagePath);
+        // on start connect to controller and send alive notification
+        this.connect();
+        this.sendIntroMessage();
     }
 
     public static void main(String[] args)
     throws IOException {
         if (args.length >= 4) {
-            DataNode s = new DataNode(args);
+            StorageNode s = new StorageNode(args);
             s.start();
-
-            //todo connect to namenode as a client
-//            c = new Client(args[0], Integer.parseInt(args[1]), args[2]);
-//            c.connect();
         }
+    }
 
+    private void initiateHeartbeat() {
+        Runnable runnable =
+                () -> {
+            DfsMessages.ControllerMessagesWrapper heartBeatWrapper = sendHeartbeat();
+            ChannelFuture write = controllerChannel.writeAndFlush(heartBeatWrapper);
+            write.syncUninterruptibly();
+        };
+
+
+        executorService.scheduleAtFixedRate(runnable, 5, 5, TimeUnit.SECONDS);
+    }
+
+    private DfsMessages.DataNodeMetadata buildDataNodeMetaData() {
+        return DfsMessages.DataNodeMetadata.newBuilder()
+                .setHostname(hostName)
+                .setIp(localAddr)
+                .setPort(hostPort)
+                .setMemory(1024) // todo figure out directory size
+                .build();
+    }
+
+    private void sendIntroMessage() {
+        DfsMessages.ControllerMessagesWrapper wrapper = DfsMessages.ControllerMessagesWrapper.newBuilder()
+                .setIntroMessage(buildDataNodeMetaData()).build();
+
+        ChannelFuture write = controllerChannel.writeAndFlush(wrapper);
+        write.syncUninterruptibly();
+
+        // Start a fixed rate thread to send heartbeats
+        initiateHeartbeat();
+    }
+
+    private DfsMessages.ControllerMessagesWrapper sendHeartbeat() {
+        return DfsMessages.ControllerMessagesWrapper.newBuilder()
+                .setHeartBeat(DfsMessages.HeartBeat.newBuilder()
+                .setNodeMetaData(buildDataNodeMetaData())
+                .setRetrieveCount(totalRetrievalReqs.intValue())
+                .setStoreCount(totalStorageReqs.intValue())
+                .build())
+                .build();
+    }
+
+    //connect to controller node upon startup
+    public void connect() {
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
+
+        Bootstrap bootstrap = new Bootstrap()
+                .group(workerGroup)
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .handler(pipeline);
+
+        System.out.println("Storage node connecting to " + controllerHostname + ":" + controllerPort);
+        ChannelFuture cf = bootstrap.connect(controllerHostname, controllerPort);
+        cf.syncUninterruptibly();
+        controllerChannel = cf.channel();
+        // gets storage node's IP addr to send to controller and also removes the '/' prefix
+        localAddr = this.controllerChannel.localAddress().toString().substring(1);
     }
 
     @Override
@@ -77,6 +154,8 @@ public class DataNode
         InetSocketAddress addr
             = (InetSocketAddress) ctx.channel().remoteAddress();
         System.out.println("Connection lost: " + addr);
+
+        // todo: Shutdown executor service here?
     }
 
     @Override
@@ -91,7 +170,7 @@ public class DataNode
         int messageType = message.getMsgCase().getNumber();
 
         switch(messageType){
-            case 1:
+            case 1: // File Chunk
                 //basically store the chunks being provided and send for replication to replicas
                 try {
                     writeToFile(message.getFileChunk(),storagePath);
@@ -102,11 +181,10 @@ public class DataNode
                     e.printStackTrace();
                 }
                 break;
-            case 3:// chunk header from client.
+            case 3: // chunk header from client.
                 System.out.println("Received chunk header and replica information");
                 prepareForStorage(message.getFileChunkHeader());
-            case 4:
-                //replication status. not currently doing anything
+            case 4: //replication status. not currently doing anything
                 System.out.println("Replication Status of " + ctx.channel().remoteAddress().toString());
                 System.out.println("Chunk num and success" + message.getReplicationStatus().getChunkNum() + " is " + message.getReplicationStatus().getSuccess());
                 break;
@@ -170,5 +248,16 @@ public class DataNode
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
+    }
+
+    public class RunnableTask implements Runnable {
+
+        public RunnableTask() {
+
+        }
+
+        public void run() {
+
+        }
     }
 }

@@ -39,16 +39,17 @@ message FileRequest{
     }
 }
 
-
 //sent from namenode
 message FileResponse{
     string filepath = 1;
     repeated DataNodeMetadata dataNodes = 2;
 }
+
 message DataNodeMetadata{
     string hostname = 1;
     string ip = 2;
-    string memory = 3;
+    int32 memory = 3; // in mb 1GB=1024MB
+    int32 port = 4;
 }
 
 //sent from datanodes every five sec
@@ -94,7 +95,6 @@ message DataNodeMessagesWrapper{
         FileAck fileAck = 2;
         FileChunkHeader fileChunkHeader = 3;
         ReplicationStatus replicationStatus = 4;
-
     }
 }
 
@@ -105,5 +105,6 @@ message ControllerMessagesWrapper{
         FileChunkHeader fileChunkHeader = 3;
         ReplicationStatus replicationStatus = 4;
         HeartBeat heartBeat = 5;
+        DataNodeMetadata IntroMessage = 6;
 }
 }
