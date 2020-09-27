@@ -31,7 +31,8 @@ public class Controller
     BloomFilter masterBloomFilter;
     ServerMessageRouter messageRouter;
 
-    public static int CHUNK_SIZE = 128; // MB
+//    public static int CHUNK_SIZE = 128; // MB
+    public static int CHUNK_SIZE = 10 * 1024; // 10kb
 
     int m = 1000;
     int k = 20;
@@ -137,7 +138,7 @@ public class Controller
         List<DfsMessages.DataNodeMetadata> nodes = new ArrayList<>();
 
         Set<String> keyset = activeStorageNodes.keySet();
-
+        System.out.println(activeStorageNodes);
         for(String hostname : keyset) {
             DfsMessages.DataNodeMetadata node = activeStorageNodes.get(hostname);
             if(node.getMemory() > CHUNK_SIZE) {
@@ -168,7 +169,7 @@ public class Controller
         ConcurrentMap<BloomFilter, String> bfMap = routingTable.getOrDefault(filepath, null);
 
         // 2. if no, add to routing table, FS and master bloom filter
-        if(bfMap == null) {
+//        if(bfMap == null) {
             byte[] data = filepath.getBytes();
             // todo FIX BLOOMFILTER
 //            masterBloomFilter.put(data);
@@ -190,15 +191,15 @@ public class Controller
             // insert entry into routingTable
             routingTable.put(filepath, map);
 
-        }
-        else {
+//        }
+        //else {
             // 3. if yes, get all bloom filters that might have file and return to client with overwrite flag turned on
 
-        }
+//        }
 
         // send message to clients with all available nodes
         DfsMessages.ClientMessagesWrapper wrapper = createClientFileResponseMsg(filepath, availableNodes);
-
+        System.out.println("client wrapper = " + wrapper);
         ctx.channel().writeAndFlush(wrapper);
     }
 
