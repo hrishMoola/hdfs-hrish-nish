@@ -170,7 +170,7 @@ public class Controller
         // 2. if no, add to routing table, FS and master bloom filter
         if(bfMap == null) {
             byte[] data = filepath.getBytes();
-            // todo FIX BLOOMFILTER
+            // todo FIX BLOOMFILTERLengthFieldBasedFrameDecoder
 //            masterBloomFilter.put(data);
             // todo add to FS
             ConcurrentMap<BloomFilter, String> map = new ConcurrentHashMap<>();
