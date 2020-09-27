@@ -29,7 +29,6 @@ public class BloomFilter {
     }
 
     private ArrayList<Integer> getHashedBits(byte[] data) {
-        System.out.println("inside gethashed: " + data);
         ArrayList<Integer> bitsList = new ArrayList<>();
         int i, idx;
         long hash2;
@@ -43,7 +42,6 @@ public class BloomFilter {
             bitsList.add(idx);
             hashedData = longToBytes(hash2);
         }
-        System.out.println("normal bits: " + bitsList);
 
         return bitsList;
     }
@@ -60,7 +58,6 @@ public class BloomFilter {
             idx = (int)((hash1 + i * hash2) % m);
             bitsList.add(idx);
         }
-        System.out.println("opt bitsList: " + bitsList);
         return bitsList;
     }
 
@@ -76,11 +73,9 @@ public class BloomFilter {
         n++; // increment total elements
     }
     boolean get(byte[] data) {
-        int idx;
         ArrayList<Integer> indexes = getHashedBits(data);
         for(Integer i : indexes) {
-            idx =  i;
-            if(!bits.get(idx)) return false;
+            if(!bits.get(i)) return false;
         }
 
         return true;
@@ -115,6 +110,8 @@ public class BloomFilter {
         bf.put(data);
 
         System.out.println("bits len: " + bf.bits.length());
+
+        System.out.println(bf.get(data));
 //
 //        long currTime = System.currentTimeMillis();
 //        for(int i = 0; i < 100; i ++) {
