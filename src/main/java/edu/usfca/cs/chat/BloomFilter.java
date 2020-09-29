@@ -2,9 +2,7 @@ package edu.usfca.cs.chat;
 
 import com.sangupta.murmur.Murmur3;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.BitSet;
 
 public class BloomFilter {
@@ -21,10 +19,13 @@ public class BloomFilter {
         this.n = 0;
     }
 
-    public byte[] longToBytes(long x) {
-        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-        buffer.putLong(x);
-        return buffer.array();
+    private byte[] longToBytes(long x) {
+        byte[] result = new byte[8];
+        for (int i = 7; i >= 0; i--) {
+            result[i] = (byte)(x & 0xFF);
+            x >>= 8;
+        }
+        return result;
     }
 
     private ArrayList<Integer> getHashedBits(byte[] data) {
@@ -36,14 +37,27 @@ public class BloomFilter {
         byte[] hashedData = longToBytes(hash1);
 
         for(i = 0; i < k; i++) {
-            hash2 = Murmur3.hash_x86_32(hashedData, data.length, 0);
+            hash2 = Murmur3.hash_x86_32(hashedData, hashedData.length, 0);
             idx = (int) (hash2 % m);
             bitsList.add(idx);
             hashedData = longToBytes(hash2);
         }
 
-        System.out.println("bitsList: " + bitsList);
+        return bitsList;
+    }
 
+    private ArrayList<Integer> getOptHashedBits(byte[] data) {
+        int idx;
+        ArrayList<Integer> bitsList = new ArrayList<>();
+
+        // Create two 32-bit hashes:
+        long hash1 = Murmur3.hash_x86_32(data, data.length, 0);
+        long hash2 = Murmur3.hash_x86_32(data, data.length, hash1);
+
+        for(int i = 0 ; i < k ;i++){
+            idx = (int)((hash1 + i * hash2) % m);
+            bitsList.add(idx);
+        }
         return bitsList;
     }
 
@@ -51,15 +65,27 @@ public class BloomFilter {
         ArrayList<Integer> indexes = getHashedBits(data);
         indexes.forEach(idx -> bits.set(idx));
         n++; // increment total elements
-        System.out.println(bits);
     }
 
+    void putOpt(byte[] data) {
+        ArrayList<Integer> indexes = getOptHashedBits(data);
+        indexes.forEach(idx -> bits.set(idx));
+        n++; // increment total elements
+    }
     boolean get(byte[] data) {
         ArrayList<Integer> indexes = getHashedBits(data);
         for(Integer i : indexes) {
             if(!bits.get(i)) return false;
         }
 
+        return true;
+    }
+
+    boolean getOpt(byte[] data) {
+        ArrayList<Integer> indexes = getOptHashedBits(data);
+        for(Integer i : indexes) {
+            if(!bits.get(i)) return false;
+        }
         return true;
     }
 
@@ -74,14 +100,44 @@ public class BloomFilter {
 
         long a = 1000;
 
-        for(int i = 0; i < 100; i ++) {
-            a += i;
-            byte[] arr = bf.longToBytes(a);
-            bf.put(arr);
-            System.out.println(bf.get(arr));
-            System.out.println(bf.bits.length());
-            System.out.println(bf.falsePositiveProb());
-            System.out.println("****************");
-        }
+        String testFile = "/Users/Desktop/Videos/MyQuar.mov";
+        byte[] data = testFile.getBytes();
+
+        System.out.println("data: " + data);
+
+        System.out.println("bits len: " + bf.bits.length());
+
+        bf.put(data);
+
+        System.out.println("bits len: " + bf.bits.length());
+
+        System.out.println(bf.get(data));
+//
+//        long currTime = System.currentTimeMillis();
+//        for(int i = 0; i < 100; i ++) {
+//            a += i;
+//            byte[] arr = bf.longToBytes(a);
+//            bf.put(arr);
+//            System.out.println(bf.get(arr));
+////            System.out.println(bf.bits.length());
+////            System.out.println(bf.falsePositiveProb());
+//            System.out.println("****************");
+//        }
+//        long normalTime = System.currentTimeMillis() - currTime;
+//
+//        currTime = System.currentTimeMillis();
+//        for(int i = 0; i < 100; i ++) {
+//            a += i;
+//            byte[] arr = bf.longToBytes(a);
+//            bf.putOpt(arr);
+//            System.out.println(bf.getOpt(arr));
+////            System.out.println(bf.bits.length());
+////            System.out.println(bf.falsePositiveProb());
+//            System.out.println("****************");
+//        }
+//        long optTime = System.currentTimeMillis() - currTime;
+//
+//        System.out.println("normalTime = " + normalTime);
+//        System.out.println("optTime = " + optTime);
     }
 }
