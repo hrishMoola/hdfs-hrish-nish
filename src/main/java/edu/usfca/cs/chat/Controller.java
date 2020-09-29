@@ -15,12 +15,15 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+import javax.lang.model.SourceVersion;
+
 @ChannelHandler.Sharable
 public class Controller
-        extends SimpleChannelInboundHandler<DfsMessages.ControllerMessagesWrapper> {
+        extends SimpleChannelInboundHandler<DfsMessages.MessagesWrapper> {
 
 
     // storage node map with key as hostname and DataNodeMetadata
+    //todo update this with every heartbeat
     private ConcurrentMap<String, DfsMessages.DataNodeMetadata> activeStorageNodes;
 
     // routing table key is dir name
@@ -44,7 +47,7 @@ public class Controller
     }
 
     public void start(int port) throws IOException {
-        messageRouter = new ServerMessageRouter(this, DfsMessages.ControllerMessagesWrapper.getDefaultInstance());
+        messageRouter = new ServerMessageRouter(this);
         messageRouter.listen(port);
         System.out.println("Controller started on port " + port + "...");
     }
@@ -82,7 +85,8 @@ public class Controller
 
     @Override
     public void channelRead0(
-            ChannelHandlerContext ctx, DfsMessages.ControllerMessagesWrapper message) {
+            ChannelHandlerContext ctx, DfsMessages.MessagesWrapper msg) {
+        DfsMessages.ControllerMessagesWrapper message = msg.getControllerWrapper();
 
         int messageType = message.getMsgCase().getNumber();
 
@@ -94,7 +98,11 @@ public class Controller
                     //todo blast file overwrite ack to all
                     //get list of nodes client can write to and reply to client with FileResponse
 //                    replyWithNodeInfo(ctx, message.getFileRequest().getFilepath());
-                    storeFile(ctx, message.getFileRequest());
+                    if(message.getFileRequest().getType().equals(DfsMessages.FileRequest.Type.STORE))
+                        storeFile(ctx, message.getFileRequest());
+                    else
+                        storeFile(ctx, message.getFileRequest());
+//                        retrieveFile(ctx, message.getFileRequest());
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading FileRequest " + e);
                     e.printStackTrace();
@@ -126,6 +134,11 @@ public class Controller
 
     }
 
+    private void retrieveFile(ChannelHandlerContext ctx, DfsMessages.FileRequest fileRequest) {
+        replyWithNodeInfo(ctx, fileRequest.getFilepath());
+//        storeFile
+    }
+
     private void printMsg(DfsMessages.ControllerMessagesWrapper message) {
         System.out.println("**** New Storage Node connected ****");
         System.out.println("Hostname: " + message.getIntroMessage().getHostname());
@@ -147,16 +160,18 @@ public class Controller
         }
 
         // this returns AT-MAX as many nodes as the number of chunks of file
+
         if(nodes.size() <= chunks) return nodes;
         return nodes.subList(0, chunks);
     }
 
-    private DfsMessages.ClientMessagesWrapper createClientFileResponseMsg(String filepath, List<DfsMessages.DataNodeMetadata> availableNodes) {
-        return DfsMessages.ClientMessagesWrapper.newBuilder()
+    private DfsMessages.MessagesWrapper createClientFileResponseMsg(String filepath, List<DfsMessages.DataNodeMetadata> availableNodes, DfsMessages.FileRequest.Type type) {
+        return DfsMessages.MessagesWrapper.newBuilder().setClientWrapper((DfsMessages.ClientMessagesWrapper.newBuilder()
                 .setFileResponse(DfsMessages.FileResponse.newBuilder()
                 .setFilepath(filepath)
+                        .setType(type.equals(DfsMessages.FileRequest.Type.STORE) ? DfsMessages.FileResponse.Type.STORE : DfsMessages.FileResponse.Type.RETRIEVE )
                 .addAllDataNodes(availableNodes))
-                .build();
+                )).build();
     }
 
     private void storeFile(ChannelHandlerContext ctx, DfsMessages.FileRequest message) {
@@ -196,19 +211,21 @@ public class Controller
             // 3. if yes, get all bloom filters that might have file and return to client with overwrite flag turned on
 
 //        }
-
+        System.out.println("availableNodes = " + availableNodes);
+        availableNodes.addAll(activeStorageNodes.values());
         // send message to clients with all available nodes
-        DfsMessages.ClientMessagesWrapper wrapper = createClientFileResponseMsg(filepath, availableNodes);
+        DfsMessages.MessagesWrapper wrapper = createClientFileResponseMsg(filepath,availableNodes, message.getType());
         System.out.println("client wrapper = " + wrapper);
         ctx.channel().writeAndFlush(wrapper);
     }
 
+
     //just populating with three known nodes right now. ideally here the bloomfilter stuff should come into play to create the response
     private void replyWithNodeInfo(ChannelHandlerContext ctx, String filepath) {
         DfsMessages.FileResponse fileResponse = DfsMessages.FileResponse.newBuilder()
-                .addDataNodes(0, DfsMessages.DataNodeMetadata.newBuilder().setHostname("localhost").setIp("8000").build())
-                .addDataNodes(1, DfsMessages.DataNodeMetadata.newBuilder().setHostname("localhost").setIp("8001").build())
-                .addDataNodes(2, DfsMessages.DataNodeMetadata.newBuilder().setHostname("localhost").setIp("8002").build())
+                .addDataNodes(0, DfsMessages.DataNodeMetadata.newBuilder().setHostname("alpha").setIp("8000").build())
+                .addDataNodes(1, DfsMessages.DataNodeMetadata.newBuilder().setHostname("beta").setIp("8001").build())
+                .addDataNodes(2, DfsMessages.DataNodeMetadata.newBuilder().setHostname("gamma").setIp("8002").build())
                 .setFilepath(filepath)
                 .build();
         DfsMessages.ClientMessagesWrapper wrapper = DfsMessages.ClientMessagesWrapper.newBuilder().setFileResponse(fileResponse).build();

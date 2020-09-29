@@ -1,14 +1,19 @@
 package edu.usfca.cs.chat.Utils;
 
 import com.google.protobuf.ByteString;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import edu.usfca.cs.chat.DfsMessages;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
@@ -31,6 +36,10 @@ public class FileUtils {
         Files.write(path, getCRC32Checksum(fileChunk.getChunks().toByteArray()));
     }
 
+    public static void storeFile(String fileName, byte[] fileContents) throws IOException {
+        Path path = Paths.get(fileName);
+        Files.write(path, fileContents);
+    }
     public static byte[] getCRC32Checksum(byte[] bytes) {
         Checksum crc32 = new CRC32();
         crc32.update(bytes, 0, bytes.length);
@@ -56,6 +65,19 @@ public class FileUtils {
         }
     }
 
+    public static DfsMessages.FileChunk getChunks(File filepath) throws IOException {
+
+        byte[] fileChunkString = Files.readAllBytes(Paths.get(filepath.getCanonicalPath()));
+        byte[]  checkSum = Files.readAllBytes(Paths.get(filepath.getCanonicalPath() + "_checksum"));
+        if(Arrays.equals(getCRC32Checksum(ByteString.copyFrom(fileChunkString).toByteArray()), checkSum)){
+            System.out.println("issokay");
+            return DfsMessages.FileChunk.newBuilder().setFilepath(filepath.getName()).setChunks(ByteString.copyFrom(fileChunkString)).build();
+        } else { //request replica
+            System.out.println("Time to request replicas");
+        }
+        return null;
+    }
+
 
     public static DfsMessages.FileRequest getFileRequest(String localFile, String dfsPath, double chunkSize){
         File f = new File(localFile);
@@ -73,14 +95,25 @@ public class FileUtils {
 //        writeToFile(fileChunkMessage);
 //        writeToFile(fileChunkMessage2);
 //        writeToFile(fileChunkMessage3);
-        Path path = Paths.get("_checksum");
-        Files.write(path, getCRC32Checksum(test.getBytes()));
-        System.out.println("getCRC32Checksum(test.getBytes()) = " + Arrays.toString(getCRC32Checksum(test.getBytes())));
-
-        path = Paths.get("_checksum");
-        String read = Arrays.toString(Files.readAllBytes(path));
-        System.out.println("read = " + read);
+//        Path path = Paths.get("_checksum");
+//        Files.write(path, getCRC32Checksum(test.getBytes()));
+//        System.out.println("getCRC32Checksum(test.getBytes()) = " + Arrays.toString(getCRC32Checksum(test.getBytes())));
+//
+//        path = Paths.get("_checksum");
+//        String read = Arrays.toString(Files.readAllBytes(path));
+//        System.out.println("read = " + read);
 //        System.out.println(getFileRequest("nato_trial_file.txt", "something/nato_file", 0.0));
+
+
+        String storageDirectory = "storage1/original/";
+        String file = "nato_trial_file.txt";
+        File dir = new File(storageDirectory + file);
+        List<DfsMessages.FileChunk> chunks = new ArrayList<>();
+        for (File eachFile: dir.listFiles()) {
+            if (!eachFile.getName().contains("checksum") &&  !eachFile.getName().contains("metadata"))
+                chunks.add(getChunks(eachFile));
+        }
+        System.out.println(chunks);
     }
 
 }

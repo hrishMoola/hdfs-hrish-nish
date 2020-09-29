@@ -9,7 +9,7 @@ message FileChunk{ //from client to primary datanode, and primary datanode to ot
 }
 
 message FileAck{
-    int32 filepath = 1; //does not contain the chunk serial number, just the filename
+    string filepath = 1; //does not contain the chunk serial number, just the filename
     bool success = 2;
     Type type = 3;
     enum Type{
@@ -43,6 +43,11 @@ message FileRequest{
 message FileResponse{
     string filepath = 1;
     repeated DataNodeMetadata dataNodes = 2;
+    Type type = 3;
+    enum Type{
+        STORE = 0;
+        RETRIEVE = 1;
+    }
 }
 
 message DataNodeMetadata{
@@ -78,6 +83,15 @@ message DfsMessagesWrapper {
     }
 }
 
+
+message MessagesWrapper{
+    oneof msg{
+        ClientMessagesWrapper clientWrapper = 1;
+        DataNodeMessagesWrapper dataNodeWrapper = 2;
+        ControllerMessagesWrapper controllerWrapper = 3;
+    }
+}
+
 //only what the client receives
 message ClientMessagesWrapper{
     oneof msg{
@@ -106,5 +120,5 @@ message ControllerMessagesWrapper{
         ReplicationStatus replicationStatus = 4;
         HeartBeat heartBeat = 5;
         DataNodeMetadata IntroMessage = 6;
-}
+    }
 }

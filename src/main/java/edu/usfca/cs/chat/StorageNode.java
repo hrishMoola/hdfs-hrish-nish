@@ -1,5 +1,6 @@
 package edu.usfca.cs.chat;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
@@ -24,11 +25,12 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 
+import static edu.usfca.cs.chat.Utils.FileUtils.getChunks;
 import static edu.usfca.cs.chat.Utils.FileUtils.writeToFile;
 
 @ChannelHandler.Sharable
 public class StorageNode
-    extends SimpleChannelInboundHandler<DfsMessages.DataNodeMessagesWrapper> {
+    extends SimpleChannelInboundHandler<DfsMessages.MessagesWrapper> {
 
     ServerMessageRouter messageRouter;
     private String storagePath;
@@ -65,7 +67,7 @@ public class StorageNode
     }
 
     public void start() throws IOException {
-        messageRouter = new ServerMessageRouter(this,  DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
+        messageRouter = new ServerMessageRouter(this);
         messageRouter.listen(this.hostPort);
         System.out.println("Data node " + this.hostName + " on port " + this.hostPort + "...");
 
@@ -87,7 +89,7 @@ public class StorageNode
     private void initiateHeartbeat() {
         Runnable runnable =
                 () -> {
-            DfsMessages.ControllerMessagesWrapper heartBeatWrapper = sendHeartbeat();
+            DfsMessages.MessagesWrapper heartBeatWrapper = sendHeartbeat();
             ChannelFuture write = controllerChannel.writeAndFlush(heartBeatWrapper);
             write.syncUninterruptibly();
         };
@@ -104,8 +106,8 @@ public class StorageNode
     }
 
     private void sendIntroMessage() {
-        DfsMessages.ControllerMessagesWrapper wrapper = DfsMessages.ControllerMessagesWrapper.newBuilder()
-                .setIntroMessage(buildDataNodeMetaData()).build();
+        DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(DfsMessages.ControllerMessagesWrapper.newBuilder()
+                .setIntroMessage(buildDataNodeMetaData())).build();
 
         ChannelFuture write = controllerChannel.writeAndFlush(wrapper);
         write.syncUninterruptibly();
@@ -114,20 +116,20 @@ public class StorageNode
         initiateHeartbeat();
     }
 
-    private DfsMessages.ControllerMessagesWrapper sendHeartbeat() {
-        return DfsMessages.ControllerMessagesWrapper.newBuilder()
+    private DfsMessages.MessagesWrapper sendHeartbeat() {
+
+        return DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(DfsMessages.ControllerMessagesWrapper.newBuilder()
                 .setHeartBeat(DfsMessages.HeartBeat.newBuilder()
-                .setNodeMetaData(buildDataNodeMetaData())
-                .setRetrieveCount(totalRetrievalReqs.intValue())
-                .setStoreCount(totalStorageReqs.intValue())
-                .build())
-                .build();
+                        .setNodeMetaData(buildDataNodeMetaData())
+                        .setRetrieveCount(totalRetrievalReqs.intValue())
+                        .setStoreCount(totalStorageReqs.intValue()))).build();
+
     }
 
     //connect to controller node upon startup
     public void connect() {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.ControllerMessagesWrapper.getDefaultInstance());
+        MessagePipeline pipeline = new MessagePipeline(this);
 
         Bootstrap bootstrap = new Bootstrap()
                 .group(workerGroup)
@@ -169,7 +171,8 @@ public class StorageNode
 
     @Override
     public void channelRead0(
-            ChannelHandlerContext ctx, DfsMessages.DataNodeMessagesWrapper message) {
+            ChannelHandlerContext ctx, DfsMessages.MessagesWrapper msg) {
+        DfsMessages.DataNodeMessagesWrapper message = msg.getDataNodeWrapper();
         int messageType = message.getMsgCase().getNumber();
         System.out.println(message);
         switch(messageType){
@@ -183,6 +186,18 @@ public class StorageNode
                     System.out.println("Successfully wrote to the file.");
                 } catch (Exception e) {
                     System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+                break;
+            case 2:
+                try{
+                    //send metadata first if I have it?
+                    //then send the chunks
+                    if(message.getFileAck().getType().equals(DfsMessages.FileAck.Type.FILE_RETRIEVAL)){
+                        getAndSendChunks(ctx, message.getFileAck().getFilepath());
+                    }
+                    totalRetrievalReqs.incrementAndGet();
+                }catch (Exception e){
                     e.printStackTrace();
                 }
                 break;
@@ -200,7 +215,6 @@ public class StorageNode
         //later on replicate
 
         //send back ok (?)
-
         /* Hmm... */
 
     }
@@ -225,9 +239,25 @@ public class StorageNode
         System.out.println("filePathToReplicaChannels = " + filePathToReplicaChannels);
     }
 
+
+    private void getAndSendChunks(ChannelHandlerContext ctx, String filepath) throws IOException {
+        String storageDirectory = this.storagePath + "/original/";
+
+        File dir = new File(storageDirectory + filepath);
+        List<DfsMessages.FileChunk> chunks = new ArrayList<>();
+        for (File eachFile: dir.listFiles()) {
+            if (!eachFile.getName().contains("checksum") &&  !eachFile.getName().contains("metadata")){
+                ctx.channel().writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setClientWrapper(DfsMessages.ClientMessagesWrapper.newBuilder().setFileChunk(getChunks(eachFile))));
+                System.out.println("Written " + eachFile.getName());
+            }
+//                chunks.add(getChunks(eachFile));
+        }
+    }
+
+
     public Channel getChannel(String leadername, Integer port) {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
+        MessagePipeline pipeline = new MessagePipeline(this);
 
         Bootstrap bootstrap = new Bootstrap()
                 .group(workerGroup)

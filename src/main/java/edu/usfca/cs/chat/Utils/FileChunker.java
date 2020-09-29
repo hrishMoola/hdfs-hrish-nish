@@ -1,6 +1,10 @@
 package edu.usfca.cs.chat.Utils;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class FileChunker {
 
@@ -53,6 +57,53 @@ public class FileChunker {
 
             for(i = 0; i < files.length; i++) {
                 inFile = new File(files[i]);
+
+                instream = new FileInputStream(inFile);
+
+                byte[] buffer = new byte[1024];
+
+                int length;
+                /* copying the contents from input stream to
+                 * output stream using read and write methods
+                 */
+                while ((length = instream.read(buffer)) > 0){
+                    outstream.write(buffer, 0, length);
+                }
+
+                // Closing the input file streams
+                instream.close();
+            }
+            outstream.close();
+
+            System.out.println("File copied successfully!!");
+        }catch(IOException ioe){
+            ioe.printStackTrace();
+        }
+    }
+
+    public static void mergeFiles(String inputFilePath, String outputFilePath) throws IOException {
+        FileInputStream instream = null;
+        FileOutputStream outstream = null;
+
+        List<String> files = Arrays.stream(Objects.requireNonNull(new File(inputFilePath).listFiles())).map(ele-> {
+            try {
+                return ele.getCanonicalPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).collect(Collectors.toList());
+//        files = new String[]{"/Users/nishantmehta/Desktop/Videos/000-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/001-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/002-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/003-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/004-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/005-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/006-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/007-My Movie 2.mp4"};
+//        outputFilePath = "/Users/nishantmehta/Desktop/Videos/MyMovie2Merged.mov";
+
+        try{
+            int i;
+            File inFile;
+            File outFile = new File(outputFilePath+"_new");
+            outstream = new FileOutputStream(outFile);
+
+            for(i = 0; i < files.size(); i++) {
+                inFile = new File(files.get(i));
 
                 instream = new FileInputStream(inFile);
 
