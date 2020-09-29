@@ -2,9 +2,8 @@ package edu.usfca.cs.chat;
 
 import java.io.*;
 import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.protobuf.ByteString;
 import edu.usfca.cs.chat.net.MessagePipeline;
@@ -12,13 +11,15 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import sun.reflect.generics.tree.Tree;
 
+import static edu.usfca.cs.chat.Utils.FileChunker.mergeFiles;
 import static edu.usfca.cs.chat.Utils.FileUtils.getFileRequest;
+import static edu.usfca.cs.chat.Utils.FileUtils.storeFile;
 
 @ChannelHandler.Sharable
 public class Client
-//    extends SimpleChannelInboundHandler<ChatMessages.ChatMessagesWrapper> {
-    extends SimpleChannelInboundHandler<DfsMessages.ClientMessagesWrapper> {
+    extends SimpleChannelInboundHandler<DfsMessages.MessagesWrapper> {
 
     private String username;    //client name
     private String controllerHostName;
@@ -29,11 +30,15 @@ public class Client
 
     private Integer CHUNK_SIZE;
 
+    private static AtomicInteger chunksReceived;
+    private final Integer totalChunks = 15;
+
     public Client(String controllerHostName, int controllerPort, String username, Integer chunkSize) {
         this.controllerHostName = controllerHostName;
         this.controllerPort = controllerPort;
         this.username = username;
         this.CHUNK_SIZE = chunkSize * 1024;
+        chunksReceived = new AtomicInteger(0);
     }
 
 
@@ -61,7 +66,7 @@ public class Client
     //connect to controller node upon startup
     public void connect() {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.ClientMessagesWrapper.getDefaultInstance());
+        MessagePipeline pipeline = new MessagePipeline(this);
 
         Bootstrap bootstrap = new Bootstrap()
             .group(workerGroup)
@@ -128,7 +133,7 @@ public class Client
 
     public Channel connectToNode(String hostname, Integer port) {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        MessagePipeline pipeline = new MessagePipeline(this, DfsMessages.DataNodeMessagesWrapper.getDefaultInstance());
+        MessagePipeline pipeline = new MessagePipeline(this);
 
         Bootstrap bootstrap = new Bootstrap()
                 .group(workerGroup)
@@ -144,7 +149,7 @@ public class Client
 
     private void sendChunks(String filePartName, byte[] buffer, Channel channel) {
         DfsMessages.FileChunk fileChunkMessage = DfsMessages.FileChunk.newBuilder().setFilepath(filePartName).setChunks(ByteString.copyFrom(buffer)).build();
-        DfsMessages.DataNodeMessagesWrapper msgWrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileChunk(fileChunkMessage).build();
+        DfsMessages.MessagesWrapper msgWrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileChunk(fileChunkMessage)).build();
         ChannelFuture write = channel.writeAndFlush(msgWrapper);
         write.syncUninterruptibly();
     }
@@ -178,15 +183,29 @@ public class Client
 
     @Override
     public void channelRead0(
-            ChannelHandlerContext ctx, DfsMessages.ClientMessagesWrapper message) {
+            ChannelHandlerContext ctx, DfsMessages.MessagesWrapper msg) {
 
+        DfsMessages.ClientMessagesWrapper message = msg.getClientWrapper();
         System.out.println(message);
         int messageType = message.getMsgCase().getNumber();
         try{
             switch(messageType){
+                case 1:
+                    storeFile("cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
+                    System.out.println("chunksReceived = " + chunksReceived);
+                    if(chunksReceived.incrementAndGet() == totalChunks)
+                        mergeFiles("cache", message.getFileChunk().getFilepath().split("-")[0]);
+                    break;
                 case 2:
                     System.out.println("Received a file response for " + message.getFileResponse().getFilepath());
-                    chunkFileAndSendToNodes(message.getFileResponse());
+                    System.out.println("Request type is  " + message.getFileResponse().getType().name());
+                    if(message.getFileResponse().getType().equals(DfsMessages.FileResponse.Type.RETRIEVE)){
+                        getChunksFromDataNodes(message.getFileResponse());
+                    }
+                    else{
+                        chunkFileAndSendToNodes(message.getFileResponse());
+                    }
+                    break;
                 case 6:
                     try {
                         System.out.println("received file ack");
@@ -205,10 +224,30 @@ public class Client
         }
     }
 
+    private void getChunksFromDataNodes(DfsMessages.FileResponse fileResponse) {
+        Map<String, Channel> channelMap = createChannels(fileResponse.getDataNodesList());
+        channelMap.values().stream().forEach(channel->{
+            DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder()
+                    .setFileAck(DfsMessages.FileAck.newBuilder()
+                            .setFilepath(fileResponse.getFilepath())
+                            .setType(DfsMessages.FileAck.Type.FILE_RETRIEVAL))).build();
+            channel.writeAndFlush(wrapper);
+//            while(channel.isOpen()){
+//                channel.eventLoop().inEventLoop(Thread)
+//                TempChannel tempChannel = channel;
+//                System.out.println(channel.read());
+////                storeFile("cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
+//            }
+            System.out.println("req");
+        });
+
+    }
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
     }
+
 
     private static class InputReader implements Runnable {
         private Client client;
@@ -227,7 +266,9 @@ public class Client
                     System.out.println("What do you want to do: ");
                     line = reader.readLine();
                     if (line.startsWith("store"))
-                        client.sendFileRequestToController(line);
+                        client.sendFileStoreToController(line);
+                    else if (line.startsWith("retrieve"))
+                        client.sendFileRetrieveToController(line);
                 } catch (IOException e) {
                     e.printStackTrace();
                     break;
@@ -236,10 +277,20 @@ public class Client
         }
     }
 
-    private void sendFileRequestToController(String line) {
+    private void sendFileRetrieveToController(String line) {
+        DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(DfsMessages.ControllerMessagesWrapper.newBuilder()
+                .setFileRequest(DfsMessages.FileRequest.newBuilder()
+                        .setFilepath(line.split("\\s")[1]).setType(DfsMessages.FileRequest.Type.RETRIEVE))).build();
+        serverChannel.write(wrapper);
+        serverChannel.flush();
+    }
+
+    private void sendFileStoreToController(String line) {
         String localFile = line.split("\\s")[1];
         String dfsPath = line.split("\\s")[2];
-        DfsMessages.ControllerMessagesWrapper wrapper = DfsMessages.ControllerMessagesWrapper.newBuilder().setFileRequest(getFileRequest(localFile,dfsPath, Double.valueOf(this.CHUNK_SIZE))).build();
+        DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(
+                DfsMessages.ControllerMessagesWrapper.newBuilder().setFileRequest(
+                        getFileRequest(localFile,dfsPath, Double.valueOf(this.CHUNK_SIZE)))).build();
         serverChannel.write(wrapper);
         serverChannel.flush();
     }
