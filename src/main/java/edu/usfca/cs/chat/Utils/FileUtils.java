@@ -1,7 +1,6 @@
 package edu.usfca.cs.chat.Utils;
 
 import com.google.protobuf.ByteString;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import edu.usfca.cs.chat.DfsMessages;
 
 import java.io.File;
@@ -13,7 +12,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
@@ -82,7 +80,8 @@ public class FileUtils {
     public static DfsMessages.FileRequest getFileRequest(String localFile, String dfsPath, double chunkSize){
         File f = new File(localFile);
         return DfsMessages.FileRequest.newBuilder()
-                .setFilepath(localFile).setType(DfsMessages.FileRequest.Type.STORE)
+                .setFilepath(dfsPath).setType(DfsMessages.FileRequest.Type.STORE)
+                .setDirectory(localFile)
                 .setNumChunks(new Double(Math.ceil(f.length() / chunkSize)).intValue()).setSize(f.length()).build();
     }
     public static void main(String[] args) throws Exception{
@@ -114,6 +113,20 @@ public class FileUtils {
                 chunks.add(getChunks(eachFile));
         }
         System.out.println(chunks);
+    }
+
+    public static String getDirPath(String filepath) {
+        System.out.println("filepath: " + filepath);
+        int fileNameStart = filepath.lastIndexOf('/');
+        System.out.println("fileNameStart: " + fileNameStart);
+
+        if(fileNameStart == -1) return "";
+        return filepath.substring(0, fileNameStart);
+    }
+
+    public static boolean doesFileExist(String filepath) {
+        System.out.println(new File(filepath).isFile());
+        return new File(filepath).isFile();
     }
 
 }

@@ -6,13 +6,14 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.protobuf.ByteString;
+import edu.usfca.cs.chat.Utils.FileUtils;
 import edu.usfca.cs.chat.net.MessagePipeline;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import sun.reflect.generics.tree.Tree;
 
+import static edu.usfca.cs.chat.DfsMessages.FileAck.Type.FILE_OVERWRITE;
 import static edu.usfca.cs.chat.Utils.FileChunker.mergeFiles;
 import static edu.usfca.cs.chat.Utils.FileUtils.getFileRequest;
 import static edu.usfca.cs.chat.Utils.FileUtils.storeFile;
@@ -80,22 +81,26 @@ public class Client
         serverChannel = cf.channel();
     }
 
-    private void chunkFileAndSendToNodes(DfsMessages.FileResponse fileResponse) throws IOException {
-        File f = new File(fileResponse.getFilepath());
+    private void chunkFileAndSendToNodes(DfsMessages.FileResponse fileResponse, Map<String, Channel> channelMap) throws IOException {
+        File f = new File(fileResponse.getSystemFilePath());
         LRUCache lruCache = new LRUCache(CHUNK_SIZE);
-        Map<String, Channel> channelMap = createChannels(fileResponse.getDataNodesList());
+
+//        Map<String, Channel> channelMap = createChannels(fileResponse.getDataNodesList());
         lruCache.addAll(fileResponse.getDataNodesList());
+
         int partCounter = 0;
         byte[] buffer = new byte[CHUNK_SIZE];
+
         System.out.println("lruCache = " + lruCache.nodeAge);
         String fileName = f.getName();
+
         //try-with-resources to ensure closing stream
         try (FileInputStream fis = new FileInputStream(f);
              BufferedInputStream bis = new BufferedInputStream(fis)) {
 
             int bytesAmount = 0;
             while ((bytesAmount = bis.read(buffer)) > 0) {
-                //write each chunk of data into separate file with different number in name
+                // write each chunk of data into separate file with different number in name
                 String filePartName = String.format("%s-%03d", fileName, partCounter++);
                     sendChunks(filePartName, buffer, channelMap.get(lruCache.get()));
                     System.out.println("Sent");
@@ -121,7 +126,7 @@ public class Client
     private void sendChunkHeaderToLeader(int numChunks, DfsMessages.FileResponse fileResponse) {
         DfsMessages.DataNodeMessagesWrapper wrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder()
                         .setFileChunkHeader(DfsMessages.FileChunkHeader.newBuilder()
-                        .setFilepath(fileResponse.getFilepath()).setTotalChunks(numChunks)
+                        .setFilepath(fileResponse.getDfsFilePath()).setTotalChunks(numChunks)
                         .addReplicas(0,fileResponse.getDataNodes(1))
                         .addReplicas(1,fileResponse.getDataNodes(2))
                                 .build()).build();
@@ -190,20 +195,20 @@ public class Client
         int messageType = message.getMsgCase().getNumber();
         try{
             switch(messageType){
-                case 1:
+                case 1: // FileChunk
                     storeFile("cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
                     System.out.println("chunksReceived = " + chunksReceived);
                     if(chunksReceived.incrementAndGet() == totalChunks)
                         mergeFiles("cache", message.getFileChunk().getFilepath().split("-")[0]);
                     break;
-                case 2:
-                    System.out.println("Received a file response for " + message.getFileResponse().getFilepath());
+                case 2: // FileResponse
+                    System.out.println("Received a file response for " + message.getFileResponse().getSystemFilePath());
                     System.out.println("Request type is  " + message.getFileResponse().getType().name());
                     if(message.getFileResponse().getType().equals(DfsMessages.FileResponse.Type.RETRIEVE)){
                         getChunksFromDataNodes(message.getFileResponse());
                     }
                     else{
-                        chunkFileAndSendToNodes(message.getFileResponse());
+                        startFileStorage(message.getFileResponse());
                     }
                     break;
                 case 6:
@@ -216,7 +221,7 @@ public class Client
                     }
                     break;
                 default:
-                    System.out.println("whaaaa");
+                    System.out.println("Default channelRead switch case statement");
                     break;
             }
         } catch (Exception e){
@@ -224,12 +229,45 @@ public class Client
         }
     }
 
+    private DfsMessages.FileAck createFileAckMsg(DfsMessages.FileResponse message) {
+        return DfsMessages.FileAck.newBuilder().setFilepath(message.getDfsFilePath()).setSuccess(true).setType(FILE_OVERWRITE).build();
+    }
+
+    private void startFileStorage(DfsMessages.FileResponse message) {
+        List<DfsMessages.DataNodeMetadata> availableNodes = message.getDataNodesList();
+        Map<String, Channel> channelMap = createChannels(availableNodes);
+
+        if(message.getShouldOverwrite()) {
+            System.out.println("NEED TO SEND OVERWRITE ACK MSG: " + message.getDfsFilePath());
+            DfsMessages.FileAck ackMsg = createFileAckMsg(message);
+            DfsMessages.DataNodeMessagesWrapper wrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileAck(ackMsg).build();
+            DfsMessages.MessagesWrapper msgWrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(wrapper).build();
+
+            try {
+                channelMap.values().forEach(channel -> channel.writeAndFlush(msgWrapper));
+            }
+            catch(Exception e) {
+                System.out.println("error sending overwrite ack to storage nodes: " + e);
+            }
+
+        }
+
+        try {
+            chunkFileAndSendToNodes(message, channelMap);
+        }
+        catch(Exception e) {
+            System.out.println("error while starting file storage in client: " + e);
+        }
+
+
+    }
+
     private void getChunksFromDataNodes(DfsMessages.FileResponse fileResponse) {
         Map<String, Channel> channelMap = createChannels(fileResponse.getDataNodesList());
         channelMap.values().stream().forEach(channel->{
             DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder()
                     .setFileAck(DfsMessages.FileAck.newBuilder()
-                            .setFilepath(fileResponse.getFilepath())
+                            .setFilepath(fileResponse.getDfsFilePath())
                             .setType(DfsMessages.FileAck.Type.FILE_RETRIEVAL))).build();
             channel.writeAndFlush(wrapper);
 //            while(channel.isOpen()){
@@ -286,11 +324,22 @@ public class Client
     }
 
     private void sendFileStoreToController(String line) {
-        String localFile = line.split("\\s")[1];
-        String dfsPath = line.split("\\s")[2];
+        String[] args = line.split("\\s");
+
+        // input error checking
+        if(args.length < 3 || !FileUtils.doesFileExist(args[1])) {
+            System.out.println("Sorry, invalid arguments or this file does not exist locally, try again :(");
+            return;
+        }
+
+        String localFile = args[1];
+        String dfsPath = args[2];
+        System.out.println("LOCAL FILE: " + localFile);
+        System.out.println("DFS PATH: " + dfsPath);
+
         DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(
                 DfsMessages.ControllerMessagesWrapper.newBuilder().setFileRequest(
-                        getFileRequest(localFile,dfsPath, Double.valueOf(this.CHUNK_SIZE)))).build();
+                        getFileRequest(localFile, dfsPath, Double.valueOf(this.CHUNK_SIZE)))).build();
         serverChannel.write(wrapper);
         serverChannel.flush();
     }

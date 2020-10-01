@@ -15,7 +15,6 @@ message FileAck{
     enum Type{
         FILE_OVERWRITE = 0; //blindly send to all and ask them to delete during store
         FILE_RETRIEVAL = 1; // send to all nodes, they can check themselves and return with whoever is ready with this message
-        STORAGE_STATUS = 2; //message from leader to controller and to client to add to bloomfilter and remove from processing queue
     }
 }
 
@@ -28,8 +27,8 @@ message FileChunkHeader{
 
 //from client to controller
 message FileRequest{
-    string directory = 1;
-    string filepath = 2;
+    string directory = 1; // local file
+    string filepath = 2; // file path to be stored as in DFS
     int32 num_chunks = 3;
     int64 size = 4; // exclusively in mb and Math.ceil()
     Type type = 5;
@@ -39,15 +38,17 @@ message FileRequest{
     }
 }
 
-//sent from namenode
+//sent from controller
 message FileResponse{
-    string filepath = 1;
-    repeated DataNodeMetadata dataNodes = 2;
-    Type type = 3;
+    string systemFilePath = 1; // file path in client system
+    string dfsFilePath = 2;
+    repeated DataNodeMetadata dataNodes = 3;
+    Type type = 4;
     enum Type{
         STORE = 0;
         RETRIEVE = 1;
     }
+    bool shouldOverwrite = 5; // used when returned nodes have the same filename to be overwritten
 }
 
 message DataNodeMetadata{
@@ -102,7 +103,7 @@ message ClientMessagesWrapper{
     }
 }
 
-//only what the datanode receives
+//only what the storage node receives
 message DataNodeMessagesWrapper{
     oneof msg{
         FileChunk fileChunk = 1;

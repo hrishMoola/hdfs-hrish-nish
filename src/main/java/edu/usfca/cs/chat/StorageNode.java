@@ -69,7 +69,7 @@ public class StorageNode
     public void start() throws IOException {
         messageRouter = new ServerMessageRouter(this);
         messageRouter.listen(this.hostPort);
-        System.out.println("Data node " + this.hostName + " on port " + this.hostPort + "...");
+        System.out.println("Storage node " + this.hostName + " on port " + this.hostPort + "...");
 
         // before start clear directory contents
         FileUtils.clearDirectoryContents(storagePath);
@@ -174,7 +174,6 @@ public class StorageNode
             ChannelHandlerContext ctx, DfsMessages.MessagesWrapper msg) {
         DfsMessages.DataNodeMessagesWrapper message = msg.getDataNodeWrapper();
         int messageType = message.getMsgCase().getNumber();
-        System.out.println(message);
         switch(messageType){
             case 1: // File Chunk
                 //basically store the chunks being provided and send for replication to replicas
@@ -185,19 +184,29 @@ public class StorageNode
                     totalStorageReqs.incrementAndGet();
                     System.out.println("Successfully wrote to the file.");
                 } catch (Exception e) {
-                    System.out.println("An error occurred.");
+                    System.out.println("An error occurred while writing to file in storage node.");
                     e.printStackTrace();
                 }
                 break;
-            case 2:
+            case 2: // File Ack
                 try{
+                    System.out.println("File ACK received in storage node");
                     //send metadata first if I have it?
                     //then send the chunks
-                    if(message.getFileAck().getType().equals(DfsMessages.FileAck.Type.FILE_RETRIEVAL)){
+                    DfsMessages.FileAck.Type ackMsgType = message.getFileAck().getType();
+                    if (ackMsgType.equals(DfsMessages.FileAck.Type.FILE_RETRIEVAL)){
                         getAndSendChunks(ctx, message.getFileAck().getFilepath());
+                        totalRetrievalReqs.incrementAndGet();
                     }
-                    totalRetrievalReqs.incrementAndGet();
+                    else if (ackMsgType.equals(DfsMessages.FileAck.Type.FILE_OVERWRITE)) {
+                        String dirPath = message.getFileAck().getFilepath();
+                        System.out.println("dirPath to overwrite is: " + dirPath);
+                        // delete directory from node to make space for new file
+                        FileUtils.clearDirectoryContents(storagePath);
+                        // todo do we need to overwrite .replica folders here as well?
+                    }
                 }catch (Exception e){
+                    System.out.println("Error in fileAck in storage node: " + hostName + " at port: " + hostPort);
                     e.printStackTrace();
                 }
                 break;
