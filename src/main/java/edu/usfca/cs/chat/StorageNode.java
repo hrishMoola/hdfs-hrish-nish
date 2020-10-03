@@ -251,10 +251,8 @@ public class StorageNode
 
 
     private void getAndSendChunks(ChannelHandlerContext ctx, String filepath) throws IOException {
-        System.out.println("inside getAndSendchunks filepath: " + filepath);
         String storageDirectory = this.storagePath + "/original/";
 
-        System.out.println("dfs filepath: " + storageDirectory + filepath);
         File dir = new File(storageDirectory + filepath);
         List<DfsMessages.FileChunk> chunks = new ArrayList<>();
         for (File eachFile: dir.listFiles()) {
