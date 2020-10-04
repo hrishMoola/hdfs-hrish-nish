@@ -95,12 +95,10 @@ public class Controller
                     System.out.println("Request type is  " + message.getFileRequest().getType().name());
                     // todo blast file overwrite ack to all
                     //get list of nodes client can write to and reply to client with FileResponse
-//                    replyWithNodeInfo(ctx, message.getFileRequest().getFilepath());
                     if(message.getFileRequest().getType().equals(DfsMessages.FileRequest.Type.STORE))
                         storeFile(ctx, message.getFileRequest());
                     else
-                        storeFile(ctx, message.getFileRequest());
-//                        retrieveFile(ctx, message.getFileRequest());
+                        retrieveFile(ctx, message.getFileRequest());
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading FileRequest " + e);
                     e.printStackTrace();
@@ -130,11 +128,6 @@ public class Controller
                 break;
         }
 
-    }
-
-    private void retrieveFile(ChannelHandlerContext ctx, DfsMessages.FileRequest fileRequest) {
-//        replyWithNodeInfo(ctx, fileRequest.getFilepath());
-//        storeFile
     }
 
     private void printMsg(DfsMessages.ControllerMessagesWrapper message) {
@@ -174,6 +167,43 @@ public class Controller
                 )).build();
     }
 
+    /**
+     * checks to see if directory exists on file request for store and retreive
+     */
+    private ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> getDirBloomFilters(DfsMessages.FileRequest message) {
+        String dfsFilePath = message.getFilepath();
+
+        // get absolute parent directory path without filename
+        String dirPath = FileUtils.getDirPath(dfsFilePath);
+
+        // check if directory exists in bloom filter
+        return routingTable.getOrDefault(dirPath, null);
+    }
+
+
+    private void retrieveFile(ChannelHandlerContext ctx, DfsMessages.FileRequest message) {
+        DfsMessages.MessagesWrapper wrapper;
+        String dfsFilePath = message.getFilepath();
+        ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> bfMap = getDirBloomFilters(message);
+
+        try {
+            if(bfMap == null) {
+                // todo file does not exist
+                wrapper = createClientFileResponseMsg("", dfsFilePath, null, message.getType(), false);
+            }
+            else {
+                    // get all storage nodes corresponding to the bloom filters
+                    List<DfsMessages.DataNodeMetadata> availableNodes = new ArrayList<>(bfMap.values());
+                    // send FileResponse with storage nodes that potentially have file chunks
+                    wrapper = createClientFileResponseMsg("", dfsFilePath, availableNodes, message.getType(), false);
+                }
+            ctx.channel().writeAndFlush(wrapper);
+        }
+        catch(Exception e) {
+            System.out.println("error in controller during retrieveFile: " + e);
+        }
+    }
+
     private void storeFile(ChannelHandlerContext ctx, DfsMessages.FileRequest message) {
         List<DfsMessages.DataNodeMetadata> availableNodes;
         // 1. check if it exists in routing table
@@ -181,8 +211,8 @@ public class Controller
         String systemFilePath = message.getDirectory();
 
 
-        System.out.println("File path is: " + dfsFilePath);
-        System.out.println("DFS File path: " + message.getDirectory());
+        System.out.println("dfs file path is: " + dfsFilePath);
+        System.out.println("system file path is: " + message.getDirectory());
 
         long size = message.getSize();
         int chunks = message.getNumChunks();

@@ -264,18 +264,13 @@ public class Client
 
     private void getChunksFromDataNodes(DfsMessages.FileResponse fileResponse) {
         Map<String, Channel> channelMap = createChannels(fileResponse.getDataNodesList());
-        channelMap.values().stream().forEach(channel->{
+        channelMap.values().forEach(channel->{
             DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder()
                     .setFileAck(DfsMessages.FileAck.newBuilder()
                             .setFilepath(fileResponse.getDfsFilePath())
                             .setType(DfsMessages.FileAck.Type.FILE_RETRIEVAL))).build();
             channel.writeAndFlush(wrapper);
-//            while(channel.isOpen()){
-//                channel.eventLoop().inEventLoop(Thread)
-//                TempChannel tempChannel = channel;
-//                System.out.println(channel.read());
-////                storeFile("cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
-//            }
+
             System.out.println("req");
         });
 

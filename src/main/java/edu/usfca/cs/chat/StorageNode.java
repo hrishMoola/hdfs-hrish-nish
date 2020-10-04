@@ -147,15 +147,15 @@ public class StorageNode
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        /* A connection has been established */
-        InetSocketAddress addr
-            = (InetSocketAddress) ctx.channel().remoteAddress();
-        System.out.println("Connection established: " + addr);
-    }
+            /* A connection has been established */
+            InetSocketAddress addr
+                = (InetSocketAddress) ctx.channel().remoteAddress();
+            System.out.println("Connection established: " + addr);
+        }
 
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) {
-        /* A channel has been disconnected */
+        @Override
+        public void channelInactive(ChannelHandlerContext ctx) {
+            /* A channel has been disconnected */
         InetSocketAddress addr
             = (InetSocketAddress) ctx.channel().remoteAddress();
         System.out.println("Connection lost: " + addr);
@@ -190,7 +190,8 @@ public class StorageNode
                 break;
             case 2: // File Ack
                 try{
-                    System.out.println("File ACK received in storage node");
+                    String filePath = message.getFileAck().getFilepath();
+                    System.out.println("File ACK received in storage node for filepath: " + filePath);
                     //send metadata first if I have it?
                     //then send the chunks
                     DfsMessages.FileAck.Type ackMsgType = message.getFileAck().getType();
