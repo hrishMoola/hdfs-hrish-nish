@@ -92,7 +92,8 @@ public class Client
         byte[] buffer = new byte[CHUNK_SIZE];
 
         System.out.println("lruCache = " + lruCache.nodeAge);
-        String fileName = f.getName();
+        String fileName = fileResponse.getDfsFilePath();
+        System.out.println("filename in chunkfile is: " + fileName);
 
         //try-with-resources to ensure closing stream
         try (FileInputStream fis = new FileInputStream(f);
