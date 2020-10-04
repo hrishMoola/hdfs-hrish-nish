@@ -203,7 +203,7 @@ public class StorageNode
                         String dirPath = message.getFileAck().getFilepath();
                         System.out.println("dirPath to overwrite is: " + dirPath);
                         // delete directory from node to make space for new file
-                        FileUtils.clearDirectoryContents(storagePath);
+                        FileUtils.clearDirectoryContents(dirPath);
                         // todo do we need to overwrite .replica folders here as well?
                     }
                 }catch (Exception e){
