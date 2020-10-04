@@ -237,9 +237,7 @@ public class Client
         List<DfsMessages.DataNodeMetadata> availableNodes = message.getDataNodesList();
         Map<String, Channel> channelMap = createChannels(availableNodes);
 
-        System.out.println("should message overwrite: " + message.getShouldOverwrite());
         if(message.getShouldOverwrite()) {
-            System.out.println("NEED TO SEND OVERWRITE ACK MSG: " + message.getDfsFilePath());
             DfsMessages.FileAck ackMsg = createFileAckMsg(message);
             DfsMessages.DataNodeMessagesWrapper wrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileAck(ackMsg).build();
             DfsMessages.MessagesWrapper msgWrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(wrapper).build();

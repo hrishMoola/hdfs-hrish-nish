@@ -72,8 +72,6 @@ public class FileUtils {
     public static void clearDirectoryContents(String storagePath) {
         try {
             File dir = new File(storagePath);
-            System.out.println("dir in clearDirectoryContents is: " + dir);
-//            if(!dir.isDirectory()) throw new Error("Storage path given is not a directory");
             purgeDirectory(dir);
         }
         catch (Exception e) {

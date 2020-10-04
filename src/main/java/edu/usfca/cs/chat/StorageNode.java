@@ -236,7 +236,6 @@ public class StorageNode
     private void prepareForStorage(DfsMessages.FileChunkHeader fileChunkHeader) {
         try {
             Path path = Paths.get(storagePath + "/" + fileChunkHeader.getFilepath());
-            System.out.println("path to store file in storage node: " + path.toString());
             Files.createDirectories(path);
             path = Paths.get(storagePath + "/"  + fileChunkHeader.getFilepath() + "/metaData");
             Files.write(path, fileChunkHeader.toString().getBytes());
@@ -244,7 +243,7 @@ public class StorageNode
             e.printStackTrace();
         }
         //if list is not empty
-        //create channels for the two andz send them filechunk header without the list
+        //create channels for the two and send them filechunk header without the list
         if(fileChunkHeader.getReplicasCount()> 0){
             filePathToReplicaChannels.put(fileChunkHeader.getFilepath(), new ArrayList<>());
             filePathToReplicaChannels.get(fileChunkHeader.getFilepath()).add(getChannel(fileChunkHeader.getReplicas(0).getHostname(), Integer.parseInt(fileChunkHeader.getReplicas(0).getIp())));
