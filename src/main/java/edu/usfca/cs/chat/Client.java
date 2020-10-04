@@ -93,7 +93,6 @@ public class Client
 
         System.out.println("lruCache = " + lruCache.nodeAge);
         String fileName = fileResponse.getDfsFilePath();
-        System.out.println("filename in chunkfile is: " + fileName);
 
         //try-with-resources to ensure closing stream
         try (FileInputStream fis = new FileInputStream(f);
@@ -238,6 +237,7 @@ public class Client
         List<DfsMessages.DataNodeMetadata> availableNodes = message.getDataNodesList();
         Map<String, Channel> channelMap = createChannels(availableNodes);
 
+        System.out.println("should message overwrite: " + message.getShouldOverwrite());
         if(message.getShouldOverwrite()) {
             System.out.println("NEED TO SEND OVERWRITE ACK MSG: " + message.getDfsFilePath());
             DfsMessages.FileAck ackMsg = createFileAckMsg(message);

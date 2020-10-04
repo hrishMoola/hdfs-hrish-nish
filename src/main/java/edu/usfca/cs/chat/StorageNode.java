@@ -203,7 +203,10 @@ public class StorageNode
                         String dirPath = message.getFileAck().getFilepath();
                         System.out.println("dirPath to overwrite is: " + dirPath);
                         // delete directory from node to make space for new file
-                        FileUtils.clearDirectoryContents(dirPath);
+                        File dirToDelete = FileUtils.findDir(dirPath, new File(storagePath));
+                        String dirName = storagePath + '/' + dirToDelete.getName();
+                        System.out.println("dirname to delete is: " + dirName);
+                        FileUtils.clearDirectoryContents(dirName);
                         // todo do we need to overwrite .replica folders here as well?
                     }
                 }catch (Exception e){
@@ -233,6 +236,7 @@ public class StorageNode
     private void prepareForStorage(DfsMessages.FileChunkHeader fileChunkHeader) {
         try {
             Path path = Paths.get(storagePath + "/" + fileChunkHeader.getFilepath());
+            System.out.println("path to store file in storage node: " + path.toString());
             Files.createDirectories(path);
             path = Paths.get(storagePath + "/"  + fileChunkHeader.getFilepath() + "/metaData");
             Files.write(path, fileChunkHeader.toString().getBytes());
@@ -240,7 +244,7 @@ public class StorageNode
             e.printStackTrace();
         }
         //if list is not empty
-        //create channels for the two and send them filechunk header without the list
+        //create channels for the two andz send them filechunk header without the list
         if(fileChunkHeader.getReplicasCount()> 0){
             filePathToReplicaChannels.put(fileChunkHeader.getFilepath(), new ArrayList<>());
             filePathToReplicaChannels.get(fileChunkHeader.getFilepath()).add(getChannel(fileChunkHeader.getReplicas(0).getHostname(), Integer.parseInt(fileChunkHeader.getReplicas(0).getIp())));

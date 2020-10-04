@@ -93,7 +93,6 @@ public class Controller
                 try {
                     System.out.println("Received a file request for " + message.getFileRequest().getFilepath());
                     System.out.println("Request type is  " + message.getFileRequest().getType().name());
-                    // todo blast file overwrite ack to all
                     //get list of nodes client can write to and reply to client with FileResponse
                     if(message.getFileRequest().getType().equals(DfsMessages.FileRequest.Type.STORE))
                         storeFile(ctx, message.getFileRequest());
