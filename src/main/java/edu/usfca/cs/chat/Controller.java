@@ -11,10 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import edu.usfca.cs.chat.Utils.FileUtils;
+import edu.usfca.cs.chat.net.MessagePipeline;
 import edu.usfca.cs.chat.net.ServerMessageRouter;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.*;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
 
 @ChannelHandler.Sharable
 public class Controller
@@ -57,6 +59,22 @@ public class Controller
         s.start(Integer.parseInt(args[0]));
     }
 
+    public Channel connectToNode(String hostname, Integer port) {
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        MessagePipeline pipeline = new MessagePipeline(this);
+
+        Bootstrap bootstrap = new Bootstrap()
+                .group(workerGroup)
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .handler(pipeline);
+
+        System.out.println("Connecting to " + hostname + ":" + port);
+        ChannelFuture cf = bootstrap.connect(hostname, port);
+        cf.syncUninterruptibly();
+        return cf.channel();
+    }
+
     //todo register an active datanode and client connection over here.
     //todo figure out how to distinguish between the two of them to store accordingly. Mostly probably name them correctly
     @Override
@@ -78,7 +96,9 @@ public class Controller
         // remove from activeStorageNodes map
         removeNodeFromActiveStorage(nodeAddr);
         // get all nodes with replicas
-        getNodesWithReplicas(nodeAddr);
+        List<DfsMessages.DataNodeMetadata> replicaNodes = getNodesWithReplicas(nodeAddr);
+        // message all Nodes that nodeAddr is down
+        if(replicaNodes.size() != 0) startFaultTolerance(nodeAddr, replicaNodes);
     }
 
     private void removeNodeFromActiveStorage(String nodeAddr) {
@@ -96,7 +116,8 @@ public class Controller
         List<String> allKeys = new ArrayList<>(routingTable.keySet());
 
         for(int j = 0; j < allKeys.size(); j++) {
-            ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> nodes = routingTable.get(j);
+            String dirName = allKeys.get(j);
+            ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> nodes = routingTable.get(dirName);
             List<DfsMessages.DataNodeMetadata> allNodes = new ArrayList<>(nodes.values());
             boolean copy = false;
             for(int i = 0; i < allNodes.size(); i++) {
@@ -106,6 +127,28 @@ public class Controller
         }
 
         return new ArrayList<>(replicaNodeSet);
+    }
+
+    private DfsMessages.OnNodeDown createOnNodeDownMsg(String ip) {
+        return DfsMessages.OnNodeDown.newBuilder().setIp(ip).build();
+    }
+
+    private void startFaultTolerance(String nodeAddr, List<DfsMessages.DataNodeMetadata> replicaNodes) {
+        System.out.println("X-X-X Initiating Fault Tolerance Sequence for Node: X-X-X" + nodeAddr);
+        try {
+            int i;
+            for(i = 0; i < replicaNodes.size(); i++) {
+                DfsMessages.DataNodeMetadata node = replicaNodes.get(i);
+                Channel ch = connectToNode(node.getHostname(), node.getPort());
+
+                DfsMessages.DataNodeMessagesWrapper wrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setOnNodeDown(createOnNodeDownMsg(nodeAddr)).build();
+                ch.writeAndFlush(wrapper);
+                ch.close();
+            }
+        }
+        catch (Exception e) {
+            System.out.println("error initiating fault tolerance for node: " + nodeAddr);
+        }
     }
 
     @Override

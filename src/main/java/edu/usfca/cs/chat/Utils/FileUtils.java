@@ -2,6 +2,14 @@ package edu.usfca.cs.chat.Utils;
 
 import com.google.protobuf.ByteString;
 import edu.usfca.cs.chat.DfsMessages;
+import edu.usfca.cs.chat.net.MessagePipeline;
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
 
 import java.io.File;
 import java.io.IOException;
@@ -144,5 +152,4 @@ public class FileUtils {
         System.out.println(new File(filepath).isFile());
         return new File(filepath).isFile();
     }
-
 }
