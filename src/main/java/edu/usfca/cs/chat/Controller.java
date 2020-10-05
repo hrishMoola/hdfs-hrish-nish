@@ -4,6 +4,7 @@ package edu.usfca.cs.chat;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -76,6 +77,7 @@ public class Controller
         System.out.println("Connection lost: " + nodeAddr);
         // remove from activeStorageNodes map
         removeNodeFromActiveStorage(nodeAddr);
+        // get all nodes with replicas
         getNodesWithReplicas(nodeAddr);
     }
 
@@ -89,8 +91,21 @@ public class Controller
         });
     }
 
-    private void getNodesWithReplicas(String nodeAddr) {
+    private List<DfsMessages.DataNodeMetadata> getNodesWithReplicas(String nodeAddr) {
+        Set<DfsMessages.DataNodeMetadata> replicaNodeSet = new HashSet<>();
+        List<String> allKeys = new ArrayList<>(routingTable.keySet());
 
+        for(int j = 0; j < allKeys.size(); j++) {
+            ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> nodes = routingTable.get(j);
+            List<DfsMessages.DataNodeMetadata> allNodes = new ArrayList<>(nodes.values());
+            boolean copy = false;
+            for(int i = 0; i < allNodes.size(); i++) {
+                if(allNodes.get(i).getIp().equals(nodeAddr)) copy = true;
+            }
+            if (copy) replicaNodeSet = new HashSet<>(allNodes);
+        }
+
+        return new ArrayList<>(replicaNodeSet);
     }
 
     @Override
