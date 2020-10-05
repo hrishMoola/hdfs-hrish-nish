@@ -52,10 +52,26 @@ public class FileUtils {
         }
     }
 
+    public static File findDir(String name, File file) {
+        File[] list = file.listFiles();
+        if(list!=null)
+            for (File innerFile : list)
+            {
+                if (name.equals(innerFile.getName())) {
+                    return innerFile;
+                }
+                else if (innerFile.isDirectory())
+                {
+                    return findDir(name,innerFile);
+                }
+                else return null;
+            }
+        return null;
+    }
+
     public static void clearDirectoryContents(String storagePath) {
         try {
             File dir = new File(storagePath);
-            if(!dir.isDirectory()) throw new Error("Storage path given is not a directory");
             purgeDirectory(dir);
         }
         catch (Exception e) {
