@@ -72,7 +72,25 @@ public class Controller
         /* A channel has been disconnected */
         InetSocketAddress addr
                 = (InetSocketAddress) ctx.channel().remoteAddress();
-        System.out.println("Connection lost: " + addr);
+        String nodeAddr = ctx.channel().remoteAddress().toString().substring(1);
+        System.out.println("Connection lost: " + nodeAddr);
+        // remove from activeStorageNodes map
+        removeNodeFromActiveStorage(nodeAddr);
+        getNodesWithReplicas(nodeAddr);
+    }
+
+    private void removeNodeFromActiveStorage(String nodeAddr) {
+        activeStorageNodes.forEach((hostname, nodeMetadata) -> {
+            String addr = nodeMetadata.getIp();
+            if(addr.equals(nodeAddr)) {
+                // key to delete is hostname
+                activeStorageNodes.remove(nodeMetadata.getHostname());
+            }
+        });
+    }
+
+    private void getNodesWithReplicas(String nodeAddr) {
+
     }
 
     @Override
