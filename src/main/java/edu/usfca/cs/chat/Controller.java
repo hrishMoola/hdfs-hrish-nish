@@ -4,16 +4,19 @@ package edu.usfca.cs.chat;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import edu.usfca.cs.chat.Utils.FileUtils;
+import edu.usfca.cs.chat.net.MessagePipeline;
 import edu.usfca.cs.chat.net.ServerMessageRouter;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.*;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
 
 @ChannelHandler.Sharable
 public class Controller
@@ -56,6 +59,22 @@ public class Controller
         s.start(Integer.parseInt(args[0]));
     }
 
+    public Channel connectToNode(String hostname, Integer port) {
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        MessagePipeline pipeline = new MessagePipeline(this);
+
+        Bootstrap bootstrap = new Bootstrap()
+                .group(workerGroup)
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .handler(pipeline);
+
+        System.out.println("Connecting to " + hostname + ":" + port);
+        ChannelFuture cf = bootstrap.connect(hostname, port);
+        cf.syncUninterruptibly();
+        return cf.channel();
+    }
+
     //todo register an active datanode and client connection over here.
     //todo figure out how to distinguish between the two of them to store accordingly. Mostly probably name them correctly
     @Override
@@ -72,7 +91,64 @@ public class Controller
         /* A channel has been disconnected */
         InetSocketAddress addr
                 = (InetSocketAddress) ctx.channel().remoteAddress();
-        System.out.println("Connection lost: " + addr);
+        String nodeAddr = ctx.channel().remoteAddress().toString().substring(1);
+        System.out.println("Connection lost: " + nodeAddr);
+        // remove from activeStorageNodes map
+        removeNodeFromActiveStorage(nodeAddr);
+        // get all nodes with replicas
+        List<DfsMessages.DataNodeMetadata> replicaNodes = getNodesWithReplicas(nodeAddr);
+        // message all Nodes that nodeAddr is down
+        if(replicaNodes.size() != 0) startFaultTolerance(nodeAddr, replicaNodes);
+    }
+
+    private void removeNodeFromActiveStorage(String nodeAddr) {
+        activeStorageNodes.forEach((hostname, nodeMetadata) -> {
+            String addr = nodeMetadata.getIp();
+            if(addr.equals(nodeAddr)) {
+                // key to delete is hostname
+                activeStorageNodes.remove(nodeMetadata.getHostname());
+            }
+        });
+    }
+
+    private List<DfsMessages.DataNodeMetadata> getNodesWithReplicas(String nodeAddr) {
+        Set<DfsMessages.DataNodeMetadata> replicaNodeSet = new HashSet<>();
+        List<String> allKeys = new ArrayList<>(routingTable.keySet());
+
+        for(int j = 0; j < allKeys.size(); j++) {
+            String dirName = allKeys.get(j);
+            ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> nodes = routingTable.get(dirName);
+            List<DfsMessages.DataNodeMetadata> allNodes = new ArrayList<>(nodes.values());
+            boolean copy = false;
+            for(int i = 0; i < allNodes.size(); i++) {
+                if(allNodes.get(i).getIp().equals(nodeAddr)) copy = true;
+            }
+            if (copy) replicaNodeSet = new HashSet<>(allNodes);
+        }
+
+        return new ArrayList<>(replicaNodeSet);
+    }
+
+    private DfsMessages.OnNodeDown createOnNodeDownMsg(String ip) {
+        return DfsMessages.OnNodeDown.newBuilder().setIp(ip).build();
+    }
+
+    private void startFaultTolerance(String nodeAddr, List<DfsMessages.DataNodeMetadata> replicaNodes) {
+        System.out.println("X-X-X Initiating Fault Tolerance Sequence for Node: X-X-X" + nodeAddr);
+        try {
+            int i;
+            for(i = 0; i < replicaNodes.size(); i++) {
+                DfsMessages.DataNodeMetadata node = replicaNodes.get(i);
+                Channel ch = connectToNode(node.getHostname(), node.getPort());
+
+                DfsMessages.DataNodeMessagesWrapper wrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setOnNodeDown(createOnNodeDownMsg(nodeAddr)).build();
+                ch.writeAndFlush(wrapper);
+                ch.close();
+            }
+        }
+        catch (Exception e) {
+            System.out.println("error initiating fault tolerance for node: " + nodeAddr);
+        }
     }
 
     @Override

@@ -7886,6 +7886,582 @@ public final class DfsMessages {
 
   }
 
+  public interface OnNodeDownOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:OnNodeDown)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string ip = 1;</code>
+     * @return The ip.
+     */
+    java.lang.String getIp();
+    /**
+     * <code>string ip = 1;</code>
+     * @return The bytes for ip.
+     */
+    com.google.protobuf.ByteString
+        getIpBytes();
+  }
+  /**
+   * <pre>
+   * for fault tolerance when controller lets a related node know which node is down
+   * </pre>
+   *
+   * Protobuf type {@code OnNodeDown}
+   */
+  public static final class OnNodeDown extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:OnNodeDown)
+      OnNodeDownOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use OnNodeDown.newBuilder() to construct.
+    private OnNodeDown(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private OnNodeDown() {
+      ip_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new OnNodeDown();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private OnNodeDown(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              ip_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_OnNodeDown_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_OnNodeDown_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              edu.usfca.cs.chat.DfsMessages.OnNodeDown.class, edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder.class);
+    }
+
+    public static final int IP_FIELD_NUMBER = 1;
+    private volatile java.lang.Object ip_;
+    /**
+     * <code>string ip = 1;</code>
+     * @return The ip.
+     */
+    @java.lang.Override
+    public java.lang.String getIp() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ip_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ip = 1;</code>
+     * @return The bytes for ip.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIpBytes() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIpBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ip_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIpBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ip_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof edu.usfca.cs.chat.DfsMessages.OnNodeDown)) {
+        return super.equals(obj);
+      }
+      edu.usfca.cs.chat.DfsMessages.OnNodeDown other = (edu.usfca.cs.chat.DfsMessages.OnNodeDown) obj;
+
+      if (!getIp()
+          .equals(other.getIp())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + IP_FIELD_NUMBER;
+      hash = (53 * hash) + getIp().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(edu.usfca.cs.chat.DfsMessages.OnNodeDown prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * for fault tolerance when controller lets a related node know which node is down
+     * </pre>
+     *
+     * Protobuf type {@code OnNodeDown}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:OnNodeDown)
+        edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_OnNodeDown_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_OnNodeDown_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                edu.usfca.cs.chat.DfsMessages.OnNodeDown.class, edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder.class);
+      }
+
+      // Construct using edu.usfca.cs.chat.DfsMessages.OnNodeDown.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        ip_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_OnNodeDown_descriptor;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.OnNodeDown getDefaultInstanceForType() {
+        return edu.usfca.cs.chat.DfsMessages.OnNodeDown.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.OnNodeDown build() {
+        edu.usfca.cs.chat.DfsMessages.OnNodeDown result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.OnNodeDown buildPartial() {
+        edu.usfca.cs.chat.DfsMessages.OnNodeDown result = new edu.usfca.cs.chat.DfsMessages.OnNodeDown(this);
+        result.ip_ = ip_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof edu.usfca.cs.chat.DfsMessages.OnNodeDown) {
+          return mergeFrom((edu.usfca.cs.chat.DfsMessages.OnNodeDown)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(edu.usfca.cs.chat.DfsMessages.OnNodeDown other) {
+        if (other == edu.usfca.cs.chat.DfsMessages.OnNodeDown.getDefaultInstance()) return this;
+        if (!other.getIp().isEmpty()) {
+          ip_ = other.ip_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        edu.usfca.cs.chat.DfsMessages.OnNodeDown parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (edu.usfca.cs.chat.DfsMessages.OnNodeDown) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object ip_ = "";
+      /**
+       * <code>string ip = 1;</code>
+       * @return The ip.
+       */
+      public java.lang.String getIp() {
+        java.lang.Object ref = ip_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ip_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ip = 1;</code>
+       * @return The bytes for ip.
+       */
+      public com.google.protobuf.ByteString
+          getIpBytes() {
+        java.lang.Object ref = ip_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ip = 1;</code>
+       * @param value The ip to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIp() {
+        
+        ip_ = getDefaultInstance().getIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip = 1;</code>
+       * @param value The bytes for ip to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:OnNodeDown)
+    }
+
+    // @@protoc_insertion_point(class_scope:OnNodeDown)
+    private static final edu.usfca.cs.chat.DfsMessages.OnNodeDown DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new edu.usfca.cs.chat.DfsMessages.OnNodeDown();
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.OnNodeDown getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<OnNodeDown>
+        PARSER = new com.google.protobuf.AbstractParser<OnNodeDown>() {
+      @java.lang.Override
+      public OnNodeDown parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new OnNodeDown(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<OnNodeDown> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<OnNodeDown> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.OnNodeDown getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface DfsMessagesWrapperOrBuilder extends
       // @@protoc_insertion_point(interface_extends:DfsMessagesWrapper)
       com.google.protobuf.MessageOrBuilder {
@@ -12631,6 +13207,21 @@ public final class DfsMessages {
      */
     edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder();
 
+    /**
+     * <code>.OnNodeDown onNodeDown = 5;</code>
+     * @return Whether the onNodeDown field is set.
+     */
+    boolean hasOnNodeDown();
+    /**
+     * <code>.OnNodeDown onNodeDown = 5;</code>
+     * @return The onNodeDown.
+     */
+    edu.usfca.cs.chat.DfsMessages.OnNodeDown getOnNodeDown();
+    /**
+     * <code>.OnNodeDown onNodeDown = 5;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder getOnNodeDownOrBuilder();
+
     public edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper.MsgCase getMsgCase();
   }
   /**
@@ -12738,6 +13329,20 @@ public final class DfsMessages {
               msgCase_ = 4;
               break;
             }
+            case 42: {
+              edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder subBuilder = null;
+              if (msgCase_ == 5) {
+                subBuilder = ((edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_).toBuilder();
+              }
+              msg_ =
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.OnNodeDown.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_);
+                msg_ = subBuilder.buildPartial();
+              }
+              msgCase_ = 5;
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -12779,6 +13384,7 @@ public final class DfsMessages {
       FILEACK(2),
       FILECHUNKHEADER(3),
       REPLICATIONSTATUS(4),
+      ONNODEDOWN(5),
       MSG_NOT_SET(0);
       private final int value;
       private MsgCase(int value) {
@@ -12800,6 +13406,7 @@ public final class DfsMessages {
           case 2: return FILEACK;
           case 3: return FILECHUNKHEADER;
           case 4: return REPLICATIONSTATUS;
+          case 5: return ONNODEDOWN;
           case 0: return MSG_NOT_SET;
           default: return null;
         }
@@ -12939,6 +13546,37 @@ public final class DfsMessages {
       return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
     }
 
+    public static final int ONNODEDOWN_FIELD_NUMBER = 5;
+    /**
+     * <code>.OnNodeDown onNodeDown = 5;</code>
+     * @return Whether the onNodeDown field is set.
+     */
+    @java.lang.Override
+    public boolean hasOnNodeDown() {
+      return msgCase_ == 5;
+    }
+    /**
+     * <code>.OnNodeDown onNodeDown = 5;</code>
+     * @return The onNodeDown.
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.OnNodeDown getOnNodeDown() {
+      if (msgCase_ == 5) {
+         return (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_;
+      }
+      return edu.usfca.cs.chat.DfsMessages.OnNodeDown.getDefaultInstance();
+    }
+    /**
+     * <code>.OnNodeDown onNodeDown = 5;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder getOnNodeDownOrBuilder() {
+      if (msgCase_ == 5) {
+         return (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_;
+      }
+      return edu.usfca.cs.chat.DfsMessages.OnNodeDown.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -12965,6 +13603,9 @@ public final class DfsMessages {
       if (msgCase_ == 4) {
         output.writeMessage(4, (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
       }
+      if (msgCase_ == 5) {
+        output.writeMessage(5, (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -12989,6 +13630,10 @@ public final class DfsMessages {
       if (msgCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+      }
+      if (msgCase_ == 5) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -13023,6 +13668,10 @@ public final class DfsMessages {
           if (!getReplicationStatus()
               .equals(other.getReplicationStatus())) return false;
           break;
+        case 5:
+          if (!getOnNodeDown()
+              .equals(other.getOnNodeDown())) return false;
+          break;
         case 0:
         default:
       }
@@ -13053,6 +13702,10 @@ public final class DfsMessages {
         case 4:
           hash = (37 * hash) + REPLICATIONSTATUS_FIELD_NUMBER;
           hash = (53 * hash) + getReplicationStatus().hashCode();
+          break;
+        case 5:
+          hash = (37 * hash) + ONNODEDOWN_FIELD_NUMBER;
+          hash = (53 * hash) + getOnNodeDown().hashCode();
           break;
         case 0:
         default:
@@ -13250,6 +13903,13 @@ public final class DfsMessages {
             result.msg_ = replicationStatusBuilder_.build();
           }
         }
+        if (msgCase_ == 5) {
+          if (onNodeDownBuilder_ == null) {
+            result.msg_ = msg_;
+          } else {
+            result.msg_ = onNodeDownBuilder_.build();
+          }
+        }
         result.msgCase_ = msgCase_;
         onBuilt();
         return result;
@@ -13314,6 +13974,10 @@ public final class DfsMessages {
           }
           case REPLICATIONSTATUS: {
             mergeReplicationStatus(other.getReplicationStatus());
+            break;
+          }
+          case ONNODEDOWN: {
+            mergeOnNodeDown(other.getOnNodeDown());
             break;
           }
           case MSG_NOT_SET: {
@@ -13926,6 +14590,147 @@ public final class DfsMessages {
         msgCase_ = 4;
         onChanged();;
         return replicationStatusBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.OnNodeDown, edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder, edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder> onNodeDownBuilder_;
+      /**
+       * <code>.OnNodeDown onNodeDown = 5;</code>
+       * @return Whether the onNodeDown field is set.
+       */
+      @java.lang.Override
+      public boolean hasOnNodeDown() {
+        return msgCase_ == 5;
+      }
+      /**
+       * <code>.OnNodeDown onNodeDown = 5;</code>
+       * @return The onNodeDown.
+       */
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.OnNodeDown getOnNodeDown() {
+        if (onNodeDownBuilder_ == null) {
+          if (msgCase_ == 5) {
+            return (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_;
+          }
+          return edu.usfca.cs.chat.DfsMessages.OnNodeDown.getDefaultInstance();
+        } else {
+          if (msgCase_ == 5) {
+            return onNodeDownBuilder_.getMessage();
+          }
+          return edu.usfca.cs.chat.DfsMessages.OnNodeDown.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.OnNodeDown onNodeDown = 5;</code>
+       */
+      public Builder setOnNodeDown(edu.usfca.cs.chat.DfsMessages.OnNodeDown value) {
+        if (onNodeDownBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          msg_ = value;
+          onChanged();
+        } else {
+          onNodeDownBuilder_.setMessage(value);
+        }
+        msgCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.OnNodeDown onNodeDown = 5;</code>
+       */
+      public Builder setOnNodeDown(
+          edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder builderForValue) {
+        if (onNodeDownBuilder_ == null) {
+          msg_ = builderForValue.build();
+          onChanged();
+        } else {
+          onNodeDownBuilder_.setMessage(builderForValue.build());
+        }
+        msgCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.OnNodeDown onNodeDown = 5;</code>
+       */
+      public Builder mergeOnNodeDown(edu.usfca.cs.chat.DfsMessages.OnNodeDown value) {
+        if (onNodeDownBuilder_ == null) {
+          if (msgCase_ == 5 &&
+              msg_ != edu.usfca.cs.chat.DfsMessages.OnNodeDown.getDefaultInstance()) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.OnNodeDown.newBuilder((edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            msg_ = value;
+          }
+          onChanged();
+        } else {
+          if (msgCase_ == 5) {
+            onNodeDownBuilder_.mergeFrom(value);
+          }
+          onNodeDownBuilder_.setMessage(value);
+        }
+        msgCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.OnNodeDown onNodeDown = 5;</code>
+       */
+      public Builder clearOnNodeDown() {
+        if (onNodeDownBuilder_ == null) {
+          if (msgCase_ == 5) {
+            msgCase_ = 0;
+            msg_ = null;
+            onChanged();
+          }
+        } else {
+          if (msgCase_ == 5) {
+            msgCase_ = 0;
+            msg_ = null;
+          }
+          onNodeDownBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.OnNodeDown onNodeDown = 5;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder getOnNodeDownBuilder() {
+        return getOnNodeDownFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.OnNodeDown onNodeDown = 5;</code>
+       */
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder getOnNodeDownOrBuilder() {
+        if ((msgCase_ == 5) && (onNodeDownBuilder_ != null)) {
+          return onNodeDownBuilder_.getMessageOrBuilder();
+        } else {
+          if (msgCase_ == 5) {
+            return (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_;
+          }
+          return edu.usfca.cs.chat.DfsMessages.OnNodeDown.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.OnNodeDown onNodeDown = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.OnNodeDown, edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder, edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder> 
+          getOnNodeDownFieldBuilder() {
+        if (onNodeDownBuilder_ == null) {
+          if (!(msgCase_ == 5)) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.OnNodeDown.getDefaultInstance();
+          }
+          onNodeDownBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.OnNodeDown, edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder, edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder>(
+                  (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_,
+                  getParentForChildren(),
+                  isClean());
+          msg_ = null;
+        }
+        msgCase_ = 5;
+        onChanged();;
+        return onNodeDownBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -15884,6 +16689,11 @@ public final class DfsMessages {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ReplicationStatus_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_OnNodeDown_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_OnNodeDown_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_DfsMessagesWrapper_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -15939,36 +16749,37 @@ public final class DfsMessages {
       "\030\002 \001(\0132\021.DataNodeMetadata\022\023\n\013store_count" +
       "\030\003 \001(\005\022\026\n\016retrieve_count\030\004 \001(\005\"I\n\021Replic" +
       "ationStatus\022\020\n\010filepath\030\001 \001(\t\022\021\n\tchunk_n" +
-      "um\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"\244\002\n\022DfsMessage" +
-      "sWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileChunkH" +
-      "\000\022#\n\013fileRequest\030\002 \001(\0132\014.FileRequestH\000\022%" +
-      "\n\014fileResponse\030\003 \001(\0132\r.FileResponseH\000\022\037\n" +
-      "\theartBeat\030\004 \001(\0132\n.HeartBeatH\000\022/\n\021replic" +
-      "ationStatus\030\005 \001(\0132\022.ReplicationStatusH\000\022" +
-      "\033\n\007fileAck\030\006 \001(\0132\010.FileAckH\000\022+\n\017fileChun" +
-      "kHeader\030\007 \001(\0132\020.FileChunkHeaderH\000B\005\n\003msg" +
-      "\"\267\001\n\017MessagesWrapper\022/\n\rclientWrapper\030\001 " +
-      "\001(\0132\026.ClientMessagesWrapperH\000\0223\n\017dataNod" +
-      "eWrapper\030\002 \001(\0132\030.DataNodeMessagesWrapper" +
-      "H\000\0227\n\021controllerWrapper\030\003 \001(\0132\032.Controll" +
-      "erMessagesWrapperH\000B\005\n\003msg\"\260\001\n\025ClientMes" +
-      "sagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileCh" +
-      "unkH\000\022%\n\014fileResponse\030\002 \001(\0132\r.FileRespon" +
-      "seH\000\022\033\n\007fileAck\030\003 \001(\0132\010.FileAckH\000\022+\n\017fil" +
-      "eChunkHeader\030\004 \001(\0132\020.FileChunkHeaderH\000B\005" +
-      "\n\003msg\"\274\001\n\027DataNodeMessagesWrapper\022\037\n\tfil" +
-      "eChunk\030\001 \001(\0132\n.FileChunkH\000\022\033\n\007fileAck\030\002 " +
-      "\001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\003 \001(\013" +
-      "2\020.FileChunkHeaderH\000\022/\n\021replicationStatu" +
-      "s\030\004 \001(\0132\022.ReplicationStatusH\000B\005\n\003msg\"\216\002\n" +
-      "\031ControllerMessagesWrapper\022#\n\013fileReques" +
-      "t\030\001 \001(\0132\014.FileRequestH\000\022\033\n\007fileAck\030\002 \001(\013" +
-      "2\010.FileAckH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020." +
-      "FileChunkHeaderH\000\022/\n\021replicationStatus\030\004" +
-      " \001(\0132\022.ReplicationStatusH\000\022\037\n\theartBeat\030" +
-      "\005 \001(\0132\n.HeartBeatH\000\022)\n\014IntroMessage\030\006 \001(" +
-      "\0132\021.DataNodeMetadataH\000B\005\n\003msgB\023\n\021edu.usf" +
-      "ca.cs.chatb\006proto3"
+      "um\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"\030\n\nOnNodeDown\022" +
+      "\n\n\002ip\030\001 \001(\t\"\244\002\n\022DfsMessagesWrapper\022\037\n\tfi" +
+      "leChunk\030\001 \001(\0132\n.FileChunkH\000\022#\n\013fileReque" +
+      "st\030\002 \001(\0132\014.FileRequestH\000\022%\n\014fileResponse" +
+      "\030\003 \001(\0132\r.FileResponseH\000\022\037\n\theartBeat\030\004 \001" +
+      "(\0132\n.HeartBeatH\000\022/\n\021replicationStatus\030\005 " +
+      "\001(\0132\022.ReplicationStatusH\000\022\033\n\007fileAck\030\006 \001" +
+      "(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\007 \001(\0132" +
+      "\020.FileChunkHeaderH\000B\005\n\003msg\"\267\001\n\017MessagesW" +
+      "rapper\022/\n\rclientWrapper\030\001 \001(\0132\026.ClientMe" +
+      "ssagesWrapperH\000\0223\n\017dataNodeWrapper\030\002 \001(\013" +
+      "2\030.DataNodeMessagesWrapperH\000\0227\n\021controll" +
+      "erWrapper\030\003 \001(\0132\032.ControllerMessagesWrap" +
+      "perH\000B\005\n\003msg\"\260\001\n\025ClientMessagesWrapper\022\037" +
+      "\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022%\n\014fileR" +
+      "esponse\030\002 \001(\0132\r.FileResponseH\000\022\033\n\007fileAc" +
+      "k\030\003 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\004" +
+      " \001(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\337\001\n\027Data" +
+      "NodeMessagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n" +
+      ".FileChunkH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH" +
+      "\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.FileChunkHe" +
+      "aderH\000\022/\n\021replicationStatus\030\004 \001(\0132\022.Repl" +
+      "icationStatusH\000\022!\n\nonNodeDown\030\005 \001(\0132\013.On" +
+      "NodeDownH\000B\005\n\003msg\"\216\002\n\031ControllerMessages" +
+      "Wrapper\022#\n\013fileRequest\030\001 \001(\0132\014.FileReque" +
+      "stH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH\000\022+\n\017fil" +
+      "eChunkHeader\030\003 \001(\0132\020.FileChunkHeaderH\000\022/" +
+      "\n\021replicationStatus\030\004 \001(\0132\022.ReplicationS" +
+      "tatusH\000\022\037\n\theartBeat\030\005 \001(\0132\n.HeartBeatH\000" +
+      "\022)\n\014IntroMessage\030\006 \001(\0132\021.DataNodeMetadat" +
+      "aH\000B\005\n\003msgB\023\n\021edu.usfca.cs.chatb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -16022,32 +16833,38 @@ public final class DfsMessages {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ReplicationStatus_descriptor,
         new java.lang.String[] { "Filepath", "ChunkNum", "Success", });
-    internal_static_DfsMessagesWrapper_descriptor =
+    internal_static_OnNodeDown_descriptor =
       getDescriptor().getMessageTypes().get(8);
+    internal_static_OnNodeDown_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_OnNodeDown_descriptor,
+        new java.lang.String[] { "Ip", });
+    internal_static_DfsMessagesWrapper_descriptor =
+      getDescriptor().getMessageTypes().get(9);
     internal_static_DfsMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DfsMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileRequest", "FileResponse", "HeartBeat", "ReplicationStatus", "FileAck", "FileChunkHeader", "Msg", });
     internal_static_MessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_MessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MessagesWrapper_descriptor,
         new java.lang.String[] { "ClientWrapper", "DataNodeWrapper", "ControllerWrapper", "Msg", });
     internal_static_ClientMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_ClientMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ClientMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileResponse", "FileAck", "FileChunkHeader", "Msg", });
     internal_static_DataNodeMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_DataNodeMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DataNodeMessagesWrapper_descriptor,
-        new java.lang.String[] { "FileChunk", "FileAck", "FileChunkHeader", "ReplicationStatus", "Msg", });
+        new java.lang.String[] { "FileChunk", "FileAck", "FileChunkHeader", "ReplicationStatus", "OnNodeDown", "Msg", });
     internal_static_ControllerMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_ControllerMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ControllerMessagesWrapper_descriptor,

@@ -72,6 +72,11 @@ message ReplicationStatus{
     bool success = 3;
 }
 
+// for fault tolerance when controller lets a related node know which node is down
+message OnNodeDown {
+    string ip = 1;
+}
+
 message DfsMessagesWrapper {
     oneof msg {
         FileChunk fileChunk = 1;
@@ -110,6 +115,7 @@ message DataNodeMessagesWrapper{
         FileAck fileAck = 2;
         FileChunkHeader fileChunkHeader = 3;
         ReplicationStatus replicationStatus = 4;
+        OnNodeDown onNodeDown = 5;
     }
 }
 
