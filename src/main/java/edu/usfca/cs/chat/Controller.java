@@ -235,7 +235,7 @@ public class Controller
 
             availableNodes = getNodesToStoreFile(size, chunks);
             int numNodesAvailable = availableNodes.size();
-
+    
             if(numNodesAvailable == 0) {
                 // todo create and return a new error message to client if all storage nodes are full
             }

@@ -18,19 +18,21 @@ import java.util.zip.Checksum;
 
 public class FileUtils {
 
-    public static void writeToFile(DfsMessages.FileChunk fileChunk, String storagePath) throws Exception{
+    public static void writeToFile(DfsMessages.FileChunk fileChunk, String storagePath, String type) throws Exception{
         String fileName = fileChunk.getFilepath();
+
         String directoryName = fileName.split("-")[0];
+        String chunkNum = fileName.split("-")[1];
         System.out.println("directoryName = " + directoryName);
+        System.out.println(storagePath + type  + directoryName + "/chunk-" + chunkNum);
 
-
-        Path path = Paths.get(storagePath + "/original/" + directoryName);
+        Path path = Paths.get(storagePath + type + directoryName);
         Files.createDirectories(path);
 
-        path = Paths.get(storagePath + "/original/"  + directoryName + "/" + fileName);
+        path = Paths.get(storagePath + type  + directoryName + "/chunk-" + chunkNum);
         Files.write(path, fileChunk.getChunks().toByteArray());
 
-        path = Paths.get(storagePath + "/original/"  + directoryName + "/" + fileName + "_checksum");
+        path = Paths.get(storagePath + type  + directoryName + "/chunk-" + chunkNum+ "_checksum");
         Files.write(path, getCRC32Checksum(fileChunk.getChunks().toByteArray()));
     }
 
@@ -63,13 +65,13 @@ public class FileUtils {
         }
     }
 
-    public static DfsMessages.FileChunk getChunks(File filepath) throws IOException {
+    public static DfsMessages.FileChunk getChunks(File filepath, DfsMessages.FileChunkHeader fileChunkHeader) throws IOException {
 
         byte[] fileChunkString = Files.readAllBytes(Paths.get(filepath.getCanonicalPath()));
         byte[]  checkSum = Files.readAllBytes(Paths.get(filepath.getCanonicalPath() + "_checksum"));
         if(Arrays.equals(getCRC32Checksum(ByteString.copyFrom(fileChunkString).toByteArray()), checkSum)){
             System.out.println("issokay");
-            return DfsMessages.FileChunk.newBuilder().setFilepath(filepath.getName()).setChunks(ByteString.copyFrom(fileChunkString)).build();
+            return DfsMessages.FileChunk.newBuilder().setFilepath(filepath.getName()).setChunks(ByteString.copyFrom(fileChunkString)).setFilechunkHeader(fileChunkHeader).build();
         } else { //request replica
             System.out.println("Time to request replicas");
         }
@@ -86,33 +88,17 @@ public class FileUtils {
     }
     public static void main(String[] args) throws Exception{
 
-        String test = "This is just some random text to write";
-        DfsMessages.FileChunk fileChunkMessage = DfsMessages.FileChunk.newBuilder().setFilepath("nato_trial_file.txt-000").setChunks(ByteString.copyFrom(test.getBytes())).build();
-        DfsMessages.FileChunk fileChunkMessage2 = DfsMessages.FileChunk.newBuilder().setFilepath("nato_trial_file.txt-001").setChunks(ByteString.copyFrom(test.getBytes())).build();
-        DfsMessages.FileChunk fileChunkMessage3 = DfsMessages.FileChunk.newBuilder().setFilepath("nato_trial_file.txt-002").setChunks(ByteString.copyFrom(test.getBytes())).build();
-
-//        writeToFile(fileChunkMessage);
-//        writeToFile(fileChunkMessage2);
-//        writeToFile(fileChunkMessage3);
-//        Path path = Paths.get("_checksum");
-//        Files.write(path, getCRC32Checksum(test.getBytes()));
-//        System.out.println("getCRC32Checksum(test.getBytes()) = " + Arrays.toString(getCRC32Checksum(test.getBytes())));
-//
-//        path = Paths.get("_checksum");
-//        String read = Arrays.toString(Files.readAllBytes(path));
-//        System.out.println("read = " + read);
-//        System.out.println(getFileRequest("nato_trial_file.txt", "something/nato_file", 0.0));
-
-
         String storageDirectory = "storage1/original/";
         String file = "nato_trial_file.txt";
         File dir = new File(storageDirectory + file);
-        List<DfsMessages.FileChunk> chunks = new ArrayList<>();
-        for (File eachFile: dir.listFiles()) {
-            if (!eachFile.getName().contains("checksum") &&  !eachFile.getName().contains("metadata"))
-                chunks.add(getChunks(eachFile));
-        }
-        System.out.println(chunks);
+//        List<DfsMessages.FileChunk> chunks = new ArrayList<>();
+//        for (File eachFile: dir.listFiles()) {
+////            if (!eachFile.getName().contains("checksum") &&  !eachFile.getName().contains("metadata"))
+////                chunks.add(getChunks(eachFile, fileChunkMetadataMap.get(filepath)));
+//        }
+
+        System.out.println(getFileName("dfs/nato1"));
+//        System.out.println(chunks);
     }
 
     public static String getDirPath(String filepath) {
@@ -122,6 +108,12 @@ public class FileUtils {
 
         if(fileNameStart == -1) return "";
         return filepath.substring(0, fileNameStart);
+    }
+
+    public static String getFileName(String filepath) {
+        int fileNameEnd = filepath.lastIndexOf('/');
+        if(fileNameEnd == -1) return "";
+        return filepath.substring(fileNameEnd + 1);
     }
 
     public static boolean doesFileExist(String filepath) {

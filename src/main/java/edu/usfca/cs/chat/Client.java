@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import com.google.protobuf.ByteString;
 import edu.usfca.cs.chat.Utils.FileUtils;
@@ -15,8 +16,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 import static edu.usfca.cs.chat.DfsMessages.FileAck.Type.FILE_OVERWRITE;
 import static edu.usfca.cs.chat.Utils.FileChunker.mergeFiles;
-import static edu.usfca.cs.chat.Utils.FileUtils.getFileRequest;
-import static edu.usfca.cs.chat.Utils.FileUtils.storeFile;
+import static edu.usfca.cs.chat.Utils.FileUtils.*;
 
 @ChannelHandler.Sharable
 public class Client
@@ -32,7 +32,8 @@ public class Client
     private Integer CHUNK_SIZE;
 
     private static AtomicInteger chunksReceived;
-    private final Integer totalChunks = 15;
+    private static Map<String, Integer> totalChunks;
+    private static Map<String, Channel> channelMap;
 
     public Client(String controllerHostName, int controllerPort, String username, Integer chunkSize) {
         this.controllerHostName = controllerHostName;
@@ -40,6 +41,8 @@ public class Client
         this.username = username;
         this.CHUNK_SIZE = chunkSize * 1024;
         chunksReceived = new AtomicInteger(0);
+        channelMap = new HashMap<>();
+        totalChunks = new HashMap<>();
     }
 
 
@@ -81,11 +84,11 @@ public class Client
         serverChannel = cf.channel();
     }
 
-    private void chunkFileAndSendToNodes(DfsMessages.FileResponse fileResponse, Map<String, Channel> channelMap) throws IOException {
+    private void chunkFileAndSendToNodes(DfsMessages.FileResponse fileResponse) throws IOException {
         File f = new File(fileResponse.getSystemFilePath());
         LRUCache lruCache = new LRUCache(CHUNK_SIZE);
-
-//        Map<String, Channel> channelMap = createChannels(fileResponse.getDataNodesList());
+        Map<String, DfsMessages.DataNodeMetadata> metadataMap = fileResponse.getDataNodesList().stream().collect(Collectors.toMap(DfsMessages.DataNodeMetadata::getIp, node-> node));
+        createChannels(fileResponse.getDataNodesList());
         lruCache.addAll(fileResponse.getDataNodesList());
 
         int partCounter = 0;
@@ -93,6 +96,7 @@ public class Client
 
         System.out.println("lruCache = " + lruCache.nodeAge);
         String fileName = fileResponse.getDfsFilePath();
+        int numChunks = new Double(Math.ceil(f.length() / Double.valueOf(CHUNK_SIZE))).intValue();
         System.out.println("filename in chunkfile is: " + fileName);
 
         //try-with-resources to ensure closing stream
@@ -103,38 +107,30 @@ public class Client
             while ((bytesAmount = bis.read(buffer)) > 0) {
                 // write each chunk of data into separate file with different number in name
                 String filePartName = String.format("%s-%03d", fileName, partCounter++);
-                    sendChunks(filePartName, buffer, channelMap.get(lruCache.get()));
+                    List<DfsMessages.DataNodeMetadata> replicas = lruCache.getWithReplicas().stream().map(metadataMap::get).collect(Collectors.toList());
+                    System.out.println("replicas = " + replicas);
+                    sendChunks(filePartName, buffer, replicas, Integer.toString(numChunks));
                     System.out.println("Sent");
             }
         }
         catch(Error e) {
             System.out.println("Error while splitting file in chunkFile " + e);
         }
-        System.out.println("Total chunks: " + partCounter);
-        channelMap.values().forEach(ChannelOutboundInvoker::close);
-        channelMap.clear();
+        System.out.println("Total chunks created: " + partCounter);
+        System.out.println("Total chunks calculated: " + numChunks);
         System.out.println("lruCache remaining memory= " + lruCache.getRemainingMemory());
     }
 
-    private Map<String, Channel> createChannels(List<DfsMessages.DataNodeMetadata> dataNodesList) {
-        Map<String, Channel> channelMap = new HashMap<>();
+    private void createChannels(List<DfsMessages.DataNodeMetadata> dataNodesList) {
         dataNodesList.forEach(node->{
-                channelMap.put(node.getHostname(), connectToNode(node.getIp().split(":")[0], node.getPort()));
+                channelMap.putIfAbsent(node.getIp(), connectToNode(node.getIp().split(":")[0], node.getPort()));
         });
-        return channelMap;
+
     }
 
-    private void sendChunkHeaderToLeader(int numChunks, DfsMessages.FileResponse fileResponse) {
-        DfsMessages.DataNodeMessagesWrapper wrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder()
-                        .setFileChunkHeader(DfsMessages.FileChunkHeader.newBuilder()
-                        .setFilepath(fileResponse.getDfsFilePath()).setTotalChunks(numChunks)
-                        .addReplicas(0,fileResponse.getDataNodes(1))
-                        .addReplicas(1,fileResponse.getDataNodes(2))
-                                .build()).build();
-//        connectToLeaderNode(fileResponse.getDataNodes(0).getHostname() , Integer.parseInt(fileResponse.getDataNodes(0).getIp()));
-        ChannelFuture write = leaderChannel.writeAndFlush(wrapper);
-        System.out.println("Sent chunk header to leader");
-        write.syncUninterruptibly();
+    private DfsMessages.FileChunkHeader getChunkHeader(String numChunks, List<DfsMessages.DataNodeMetadata> replicas, String filePartName) {
+        return DfsMessages.FileChunkHeader.newBuilder().setFilepath(filePartName.split("-")[0])
+                        .setTotalChunks(Integer.parseInt(numChunks)).addAllReplicas(replicas).build();
     }
 
     public Channel connectToNode(String hostname, Integer port) {
@@ -151,6 +147,16 @@ public class Client
         ChannelFuture cf = bootstrap.connect(hostname, port);
         cf.syncUninterruptibly();
         return cf.channel();
+    }
+
+
+    private void sendChunks(String filePartName, byte[] buffer, List<DfsMessages.DataNodeMetadata> replicas, String numChunks) {
+
+        DfsMessages.FileChunk fileChunkMessage = DfsMessages.FileChunk.newBuilder().setFilepath(filePartName).setChunks(ByteString.copyFrom(buffer))
+                .setFilechunkHeader(getChunkHeader(numChunks, replicas, filePartName)).build();
+        DfsMessages.MessagesWrapper msgWrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileChunk(fileChunkMessage)).build();
+        ChannelFuture write = channelMap.get(replicas.get(0).getIp()).writeAndFlush(msgWrapper);
+        write.syncUninterruptibly();
     }
 
     private void sendChunks(String filePartName, byte[] buffer, Channel channel) {
@@ -176,8 +182,7 @@ public class Client
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         /* A channel has been disconnected */
-        InetSocketAddress addr
-            = (InetSocketAddress) ctx.channel().remoteAddress();
+        InetSocketAddress addr = (InetSocketAddress) ctx.channel().remoteAddress();
         System.out.println("Connection lost: " + addr);
     }
 
@@ -192,17 +197,22 @@ public class Client
             ChannelHandlerContext ctx, DfsMessages.MessagesWrapper msg) {
 
         DfsMessages.ClientMessagesWrapper message = msg.getClientWrapper();
-        System.out.println(message);
+//        System.out.println(message);
         int messageType = message.getMsgCase().getNumber();
         try{
             switch(messageType){
                 case 1: // FileChunk
+                    totalChunks.putIfAbsent(message.getFileChunk().getFilechunkHeader().getFilepath(), message.getFileChunk().getFilechunkHeader().getTotalChunks());
                     storeFile("cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
                     System.out.println("chunksReceived = " + chunksReceived);
-                    if(chunksReceived.incrementAndGet() == totalChunks)
-                        mergeFiles("cache", message.getFileChunk().getFilepath().split("-")[0]);
+                    if(chunksReceived.incrementAndGet() == totalChunks.get(message.getFileChunk().getFilechunkHeader().getFilepath())){
+                        mergeFiles("cache", getFileName(message.getFileChunk().getFilechunkHeader().getFilepath()));
+                        clearDirectoryContents("cache");
+                        chunksReceived = new AtomicInteger(0);
+                    }
                     break;
                 case 2: // FileResponse
+                            System.out.println(message);
                     System.out.println("Received a file response for " + message.getFileResponse().getSystemFilePath());
                     System.out.println("Request type is  " + message.getFileResponse().getType().name());
                     if(message.getFileResponse().getType().equals(DfsMessages.FileResponse.Type.RETRIEVE)){
@@ -235,8 +245,7 @@ public class Client
     }
 
     private void startFileStorage(DfsMessages.FileResponse message) {
-        List<DfsMessages.DataNodeMetadata> availableNodes = message.getDataNodesList();
-        Map<String, Channel> channelMap = createChannels(availableNodes);
+        createChannels(message.getDataNodesList());
 
         if(message.getShouldOverwrite()) {
             System.out.println("NEED TO SEND OVERWRITE ACK MSG: " + message.getDfsFilePath());
@@ -245,7 +254,7 @@ public class Client
             DfsMessages.MessagesWrapper msgWrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(wrapper).build();
 
             try {
-                channelMap.values().forEach(channel -> channel.writeAndFlush(msgWrapper));
+                message.getDataNodesList().forEach(nodeMetadata -> channelMap.get(nodeMetadata.getIp()).writeAndFlush(msgWrapper));
             }
             catch(Exception e) {
                 System.out.println("error sending overwrite ack to storage nodes: " + e);
@@ -254,7 +263,7 @@ public class Client
         }
 
         try {
-            chunkFileAndSendToNodes(message, channelMap);
+            chunkFileAndSendToNodes(message);
         }
         catch(Exception e) {
             System.out.println("error while starting file storage in client: " + e);
@@ -264,17 +273,15 @@ public class Client
     }
 
     private void getChunksFromDataNodes(DfsMessages.FileResponse fileResponse) {
-        Map<String, Channel> channelMap = createChannels(fileResponse.getDataNodesList());
-        channelMap.values().forEach(channel->{
+        createChannels(fileResponse.getDataNodesList());
+        fileResponse.getDataNodesList().forEach(nodeMetadata->{
             DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder()
                     .setFileAck(DfsMessages.FileAck.newBuilder()
                             .setFilepath(fileResponse.getDfsFilePath())
                             .setType(DfsMessages.FileAck.Type.FILE_RETRIEVAL))).build();
-            channel.writeAndFlush(wrapper);
-
+            channelMap.get(nodeMetadata.getIp()).writeAndFlush(wrapper);
             System.out.println("req");
         });
-
     }
 
     @Override
