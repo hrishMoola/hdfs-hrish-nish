@@ -2,6 +2,14 @@ package edu.usfca.cs.chat.Utils;
 
 import com.google.protobuf.ByteString;
 import edu.usfca.cs.chat.DfsMessages;
+import edu.usfca.cs.chat.net.MessagePipeline;
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,10 +62,26 @@ public class FileUtils {
         }
     }
 
+    public static File findDir(String name, File file) {
+        File[] list = file.listFiles();
+        if(list!=null)
+            for (File innerFile : list)
+            {
+                if (name.equals(innerFile.getName())) {
+                    return innerFile;
+                }
+                else if (innerFile.isDirectory())
+                {
+                    return findDir(name,innerFile);
+                }
+                else return null;
+            }
+        return null;
+    }
+
     public static void clearDirectoryContents(String storagePath) {
         try {
             File dir = new File(storagePath);
-            if(!dir.isDirectory()) throw new Error("Storage path given is not a directory");
             purgeDirectory(dir);
         }
         catch (Exception e) {
@@ -120,5 +144,4 @@ public class FileUtils {
         System.out.println(new File(filepath).isFile());
         return new File(filepath).isFile();
     }
-
 }
