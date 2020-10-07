@@ -6,6 +6,7 @@ message FileChunk{ //from client to primary datanode, and primary datanode to ot
     string filepath = 1;        //contains chunk serial number
     bytes chunks = 2;           // byte array of data
     string checksum = 3;        // checksum calc at client
+    FileChunkHeader filechunkHeader = 4;
 }
 
 message FileAck{

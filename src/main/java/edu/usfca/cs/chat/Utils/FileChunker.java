@@ -2,6 +2,7 @@ package edu.usfca.cs.chat.Utils;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -85,21 +86,21 @@ public class FileChunker {
         FileInputStream instream = null;
         FileOutputStream outstream = null;
 
-        List<String> files = Arrays.stream(Objects.requireNonNull(new File(inputFilePath).listFiles())).map(ele-> {
+        List<String> files = Arrays.stream(Objects.requireNonNull(new File(inputFilePath).listFiles())).map(ele -> {
             try {
                 return ele.getCanonicalPath();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
-        }).collect(Collectors.toList());
+        }).sorted(Comparator.naturalOrder()).collect(Collectors.toList());
 //        files = new String[]{"/Users/nishantmehta/Desktop/Videos/000-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/001-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/002-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/003-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/004-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/005-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/006-My Movie 2.mp4", "/Users/nishantmehta/Desktop/Videos/007-My Movie 2.mp4"};
 //        outputFilePath = "/Users/nishantmehta/Desktop/Videos/MyMovie2Merged.mov";
 
         try{
             int i;
             File inFile;
-            File outFile = new File(outputFilePath+"_new");
+            File outFile = new File(outputFilePath+"_retrieved");
             outstream = new FileOutputStream(outFile);
 
             for(i = 0; i < files.size(); i++) {
@@ -134,7 +135,7 @@ public class FileChunker {
 
         try {
             fileChunker.chunkFile("nato_trial_file.txt");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
