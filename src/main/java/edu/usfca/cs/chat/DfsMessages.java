@@ -7734,12 +7734,10 @@ public final class DfsMessages {
 
     /**
      * <code>string ip = 1;</code>
-     * @return The ip.
      */
     java.lang.String getIp();
     /**
      * <code>string ip = 1;</code>
-     * @return The bytes for ip.
      */
     com.google.protobuf.ByteString
         getIpBytes();
@@ -7751,7 +7749,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code OnNodeDown}
    */
-  public static final class OnNodeDown extends
+  public  static final class OnNodeDown extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:OnNodeDown)
       OnNodeDownOrBuilder {
@@ -7762,13 +7760,6 @@ public final class DfsMessages {
     }
     private OnNodeDown() {
       ip_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new OnNodeDown();
     }
 
     @java.lang.Override
@@ -7784,6 +7775,7 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -7801,7 +7793,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7836,9 +7828,7 @@ public final class DfsMessages {
     private volatile java.lang.Object ip_;
     /**
      * <code>string ip = 1;</code>
-     * @return The ip.
      */
-    @java.lang.Override
     public java.lang.String getIp() {
       java.lang.Object ref = ip_;
       if (ref instanceof java.lang.String) {
@@ -7853,9 +7843,7 @@ public final class DfsMessages {
     }
     /**
      * <code>string ip = 1;</code>
-     * @return The bytes for ip.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getIpBytes() {
       java.lang.Object ref = ip_;
@@ -7914,10 +7902,11 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.OnNodeDown other = (edu.usfca.cs.chat.DfsMessages.OnNodeDown) obj;
 
-      if (!getIp()
-          .equals(other.getIp())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      boolean result = true;
+      result = result && getIp()
+          .equals(other.getIp());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -8101,35 +8090,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -8179,7 +8168,6 @@ public final class DfsMessages {
       private java.lang.Object ip_ = "";
       /**
        * <code>string ip = 1;</code>
-       * @return The ip.
        */
       public java.lang.String getIp() {
         java.lang.Object ref = ip_;
@@ -8195,7 +8183,6 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 1;</code>
-       * @return The bytes for ip.
        */
       public com.google.protobuf.ByteString
           getIpBytes() {
@@ -8212,8 +8199,6 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 1;</code>
-       * @param value The ip to set.
-       * @return This builder for chaining.
        */
       public Builder setIp(
           java.lang.String value) {
@@ -8227,7 +8212,6 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearIp() {
         
@@ -8237,8 +8221,6 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 1;</code>
-       * @param value The bytes for ip to set.
-       * @return This builder for chaining.
        */
       public Builder setIpBytes(
           com.google.protobuf.ByteString value) {
@@ -8254,7 +8236,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -12857,12 +12839,10 @@ public final class DfsMessages {
 
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
-     * @return Whether the onNodeDown field is set.
      */
     boolean hasOnNodeDown();
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
-     * @return The onNodeDown.
      */
     edu.usfca.cs.chat.DfsMessages.OnNodeDown getOnNodeDown();
     /**
@@ -13168,17 +13148,13 @@ public final class DfsMessages {
     public static final int ONNODEDOWN_FIELD_NUMBER = 5;
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
-     * @return Whether the onNodeDown field is set.
      */
-    @java.lang.Override
     public boolean hasOnNodeDown() {
       return msgCase_ == 5;
     }
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
-     * @return The onNodeDown.
      */
-    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.OnNodeDown getOnNodeDown() {
       if (msgCase_ == 5) {
          return (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_;
@@ -13188,7 +13164,6 @@ public final class DfsMessages {
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
      */
-    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder getOnNodeDownOrBuilder() {
       if (msgCase_ == 5) {
          return (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_;
@@ -13291,8 +13266,8 @@ public final class DfsMessages {
               .equals(other.getReplicationStatus());
           break;
         case 5:
-          if (!getOnNodeDown()
-              .equals(other.getOnNodeDown())) return false;
+          result = result && getOnNodeDown()
+              .equals(other.getOnNodeDown());
           break;
         case 0:
         default:
@@ -14198,17 +14173,13 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.OnNodeDown, edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder, edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder> onNodeDownBuilder_;
       /**
        * <code>.OnNodeDown onNodeDown = 5;</code>
-       * @return Whether the onNodeDown field is set.
        */
-      @java.lang.Override
       public boolean hasOnNodeDown() {
         return msgCase_ == 5;
       }
       /**
        * <code>.OnNodeDown onNodeDown = 5;</code>
-       * @return The onNodeDown.
        */
-      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.OnNodeDown getOnNodeDown() {
         if (onNodeDownBuilder_ == null) {
           if (msgCase_ == 5) {
@@ -14302,7 +14273,6 @@ public final class DfsMessages {
       /**
        * <code>.OnNodeDown onNodeDown = 5;</code>
        */
-      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder getOnNodeDownOrBuilder() {
         if ((msgCase_ == 5) && (onNodeDownBuilder_ != null)) {
           return onNodeDownBuilder_.getMessageOrBuilder();
@@ -15162,13 +15132,7 @@ public final class DfsMessages {
           }
         }
         if (msgCase_ == 4) {
-          if (
-            
-            
-            
-            
-            
-            StatusBuilder_ == null) {
+          if (replicationStatusBuilder_ == null) {
             result.msg_ = msg_;
           } else {
             result.msg_ = replicationStatusBuilder_.build();
@@ -16280,87 +16244,38 @@ public final class DfsMessages {
       "ata\030\002 \001(\0132\021.DataNodeMetadata\022\023\n\013store_co" +
       "unt\030\003 \001(\005\022\026\n\016retrieve_count\030\004 \001(\005\"I\n\021Rep" +
       "licationStatus\022\020\n\010filepath\030\001 \001(\t\022\021\n\tchun" +
-      "k_num\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"\244\002\n\022DfsMess" +
-      "agesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileChu" +
-      "nkH\000\022#\n\013fileRequest\030\002 \001(\0132\014.FileRequestH" +
-      "\000\022%\n\014fileResponse\030\003 \001(\0132\r.FileResponseH\000" +
-      "\022\037\n\theartBeat\030\004 \001(\0132\n.HeartBeatH\000\022/\n\021rep" +
-      "licationStatus\030\005 \001(\0132\022.ReplicationStatus" +
-      "H\000\022\033\n\007fileAck\030\006 \001(\0132\010.FileAckH\000\022+\n\017fileC" +
-      "hunkHeader\030\007 \001(\0132\020.FileChunkHeaderH\000B\005\n\003" +
-      "msg\"\267\001\n\017MessagesWrapper\022/\n\rclientWrapper" +
-      "\030\001 \001(\0132\026.ClientMessagesWrapperH\000\0223\n\017data" +
-      "NodeWrapper\030\002 \001(\0132\030.DataNodeMessagesWrap" +
-      "perH\000\0227\n\021controllerWrapper\030\003 \001(\0132\032.Contr" +
-      "ollerMessagesWrapperH\000B\005\n\003msg\"\260\001\n\025Client" +
-      "MessagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.Fil" +
-      "eChunkH\000\022%\n\014fileResponse\030\002 \001(\0132\r.FileRes" +
-      "ponseH\000\022\033\n\007fileAck\030\003 \001(\0132\010.FileAckH\000\022+\n\017" +
-      "fileChunkHeader\030\004 \001(\0132\020.FileChunkHeaderH" +
-      "\000B\005\n\003msg\"\274\001\n\027DataNodeMessagesWrapper\022\037\n\t" +
-      "fileChunk\030\001 \001(\0132\n.FileChunkH\000\022\033\n\007fileAck" +
-      "\030\002 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\003 " +
-      "\001(\0132\020.FileChunkHeaderH\000\022/\n\021replicationSt" +
-      "atus\030\004 \001(\0132\022.ReplicationStatusH\000B\005\n\003msg\"" +
-      "\216\002\n\031ControllerMessagesWrapper\022#\n\013fileReq" +
-      "uest\030\001 \001(\0132\014.FileRequestH\000\022\033\n\007fileAck\030\002 " +
-      "\001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\003 \001(\013" +
-      "2\020.FileChunkHeaderH\000\022/\n\021replicationStatu" +
-      "s\030\004 \001(\0132\022.ReplicationStatusH\000\022\037\n\theartBe" +
-      "at\030\005 \001(\0132\n.HeartBeatH\000\022)\n\014IntroMessage\030\006" +
-      " \001(\0132\021.DataNodeMetadataH\000B\005\n\003msgB\023\n\021edu." +
-      "usfca.cs.chatb\006proto3"
-      "\003 \001(\t\"y\n\007FileAck\022\020\n\010filepath\030\001 \001(\t\022\017\n\007su" +
-      "ccess\030\002 \001(\010\022\033\n\004type\030\003 \001(\0162\r.FileAck.Type" +
-      "\".\n\004Type\022\022\n\016FILE_OVERWRITE\020\000\022\022\n\016FILE_RET" +
-      "RIEVAL\020\001\"^\n\017FileChunkHeader\022\024\n\014total_chu" +
-      "nks\030\001 \001(\005\022\020\n\010filepath\030\002 \001(\t\022#\n\010replicas\030" +
-      "\003 \003(\0132\021.DataNodeMetadata\"\226\001\n\013FileRequest" +
-      "\022\021\n\tdirectory\030\001 \001(\t\022\020\n\010filepath\030\002 \001(\t\022\022\n" +
-      "\nnum_chunks\030\003 \001(\005\022\014\n\004size\030\004 \001(\003\022\037\n\004type\030" +
-      "\005 \001(\0162\021.FileRequest.Type\"\037\n\004Type\022\t\n\005STOR" +
-      "E\020\000\022\014\n\010RETRIEVE\020\001\"\275\001\n\014FileResponse\022\026\n\016sy" +
-      "stemFilePath\030\001 \001(\t\022\023\n\013dfsFilePath\030\002 \001(\t\022" +
-      "$\n\tdataNodes\030\003 \003(\0132\021.DataNodeMetadata\022 \n" +
-      "\004type\030\004 \001(\0162\022.FileResponse.Type\022\027\n\017shoul" +
-      "dOverwrite\030\005 \001(\010\"\037\n\004Type\022\t\n\005STORE\020\000\022\014\n\010R" +
-      "ETRIEVE\020\001\"N\n\020DataNodeMetadata\022\020\n\010hostnam" +
-      "e\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\016\n\006memory\030\003 \001(\005\022\014\n\004p" +
-      "ort\030\004 \001(\005\"c\n\tHeartBeat\022)\n\016node_meta_data" +
-      "\030\002 \001(\0132\021.DataNodeMetadata\022\023\n\013store_count" +
-      "\030\003 \001(\005\022\026\n\016retrieve_count\030\004 \001(\005\"I\n\021Replic" +
-      "ationStatus\022\020\n\010filepath\030\001 \001(\t\022\021\n\tchunk_n" +
-      "um\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"\030\n\nOnNodeDown\022" +
-      "\n\n\002ip\030\001 \001(\t\"\244\002\n\022DfsMessagesWrapper\022\037\n\tfi" +
-      "leChunk\030\001 \001(\0132\n.FileChunkH\000\022#\n\013fileReque" +
-      "st\030\002 \001(\0132\014.FileRequestH\000\022%\n\014fileResponse" +
-      "\030\003 \001(\0132\r.FileResponseH\000\022\037\n\theartBeat\030\004 \001" +
-      "(\0132\n.HeartBeatH\000\022/\n\021replicationStatus\030\005 " +
-      "\001(\0132\022.ReplicationStatusH\000\022\033\n\007fileAck\030\006 \001" +
-      "(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\007 \001(\0132" +
-      "\020.FileChunkHeaderH\000B\005\n\003msg\"\267\001\n\017MessagesW" +
-      "rapper\022/\n\rclientWrapper\030\001 \001(\0132\026.ClientMe" +
-      "ssagesWrapperH\000\0223\n\017dataNodeWrapper\030\002 \001(\013" +
-      "2\030.DataNodeMessagesWrapperH\000\0227\n\021controll" +
-      "erWrapper\030\003 \001(\0132\032.ControllerMessagesWrap" +
-      "perH\000B\005\n\003msg\"\260\001\n\025ClientMessagesWrapper\022\037" +
-      "\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022%\n\014fileR" +
-      "esponse\030\002 \001(\0132\r.FileResponseH\000\022\033\n\007fileAc" +
-      "k\030\003 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\004" +
-      " \001(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\337\001\n\027Data" +
-      "NodeMessagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n" +
-      ".FileChunkH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH" +
-      "\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.FileChunkHe" +
-      "aderH\000\022/\n\021replicationStatus\030\004 \001(\0132\022.Repl" +
-      "icationStatusH\000\022!\n\nonNodeDown\030\005 \001(\0132\013.On" +
-      "NodeDownH\000B\005\n\003msg\"\216\002\n\031ControllerMessages" +
-      "Wrapper\022#\n\013fileRequest\030\001 \001(\0132\014.FileReque" +
-      "stH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH\000\022+\n\017fil" +
-      "eChunkHeader\030\003 \001(\0132\020.FileChunkHeaderH\000\022/" +
-      "\n\021replicationStatus\030\004 \001(\0132\022.ReplicationS" +
-      "tatusH\000\022\037\n\theartBeat\030\005 \001(\0132\n.HeartBeatH\000" +
-      "\022)\n\014IntroMessage\030\006 \001(\0132\021.DataNodeMetadat" +
-      "aH\000B\005\n\003msgB\023\n\021edu.usfca.cs.chatb\006proto3"
+      "k_num\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"\030\n\nOnNodeDo" +
+      "wn\022\n\n\002ip\030\001 \001(\t\"\244\002\n\022DfsMessagesWrapper\022\037\n" +
+      "\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022#\n\013fileRe" +
+      "quest\030\002 \001(\0132\014.FileRequestH\000\022%\n\014fileRespo" +
+      "nse\030\003 \001(\0132\r.FileResponseH\000\022\037\n\theartBeat\030" +
+      "\004 \001(\0132\n.HeartBeatH\000\022/\n\021replicationStatus" +
+      "\030\005 \001(\0132\022.ReplicationStatusH\000\022\033\n\007fileAck\030" +
+      "\006 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\007 \001" +
+      "(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\267\001\n\017Messag" +
+      "esWrapper\022/\n\rclientWrapper\030\001 \001(\0132\026.Clien" +
+      "tMessagesWrapperH\000\0223\n\017dataNodeWrapper\030\002 " +
+      "\001(\0132\030.DataNodeMessagesWrapperH\000\0227\n\021contr" +
+      "ollerWrapper\030\003 \001(\0132\032.ControllerMessagesW" +
+      "rapperH\000B\005\n\003msg\"\260\001\n\025ClientMessagesWrappe" +
+      "r\022\037\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022%\n\014fi" +
+      "leResponse\030\002 \001(\0132\r.FileResponseH\000\022\033\n\007fil" +
+      "eAck\030\003 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeade" +
+      "r\030\004 \001(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\337\001\n\027D" +
+      "ataNodeMessagesWrapper\022\037\n\tfileChunk\030\001 \001(" +
+      "\0132\n.FileChunkH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileA" +
+      "ckH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.FileChun" +
+      "kHeaderH\000\022/\n\021replicationStatus\030\004 \001(\0132\022.R" +
+      "eplicationStatusH\000\022!\n\nonNodeDown\030\005 \001(\0132\013" +
+      ".OnNodeDownH\000B\005\n\003msg\"\216\002\n\031ControllerMessa" +
+      "gesWrapper\022#\n\013fileRequest\030\001 \001(\0132\014.FileRe" +
+      "questH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH\000\022+\n\017" +
+      "fileChunkHeader\030\003 \001(\0132\020.FileChunkHeaderH" +
+      "\000\022/\n\021replicationStatus\030\004 \001(\0132\022.Replicati" +
+      "onStatusH\000\022\037\n\theartBeat\030\005 \001(\0132\n.HeartBea" +
+      "tH\000\022)\n\014IntroMessage\030\006 \001(\0132\021.DataNodeMeta" +
+      "dataH\000B\005\n\003msgB\023\n\021edu.usfca.cs.chatb\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
