@@ -60,19 +60,25 @@ public class Controller
     }
 
     public Channel connectToNode(String hostname, Integer port) {
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
-        MessagePipeline pipeline = new MessagePipeline(this);
+        try {
+            EventLoopGroup workerGroup = new NioEventLoopGroup();
+            MessagePipeline pipeline = new MessagePipeline(this);
 
-        Bootstrap bootstrap = new Bootstrap()
-                .group(workerGroup)
-                .channel(NioSocketChannel.class)
-                .option(ChannelOption.SO_KEEPALIVE, true)
-                .handler(pipeline);
+            Bootstrap bootstrap = new Bootstrap()
+                    .group(workerGroup)
+                    .channel(NioSocketChannel.class)
+                    .option(ChannelOption.SO_KEEPALIVE, true)
+                    .handler(pipeline);
 
-        System.out.println("Connecting to " + hostname + ":" + port);
-        ChannelFuture cf = bootstrap.connect(hostname, port);
-        cf.syncUninterruptibly();
-        return cf.channel();
+            System.out.println("Connecting to " + hostname + ":" + port);
+            ChannelFuture cf = bootstrap.connect(hostname, port);
+            cf.syncUninterruptibly();
+            return cf.channel();
+        }
+        catch (Exception e) {
+            System.out.println("Error connecting to node: " + hostname  + ":" + port);
+        }
+        return null;
     }
 
     //todo register an active datanode and client connection over here.
@@ -98,7 +104,7 @@ public class Controller
         // get all nodes with replicas
         List<DfsMessages.DataNodeMetadata> replicaNodes = getNodesWithReplicas(nodeAddr);
         // message all Nodes that nodeAddr is down
-        if(replicaNodes.size() != 0) startFaultTolerance(nodeAddr, replicaNodes);
+        if(replicaNodes.size() > 0) startFaultTolerance(nodeAddr, replicaNodes);
     }
 
     private void removeNodeFromActiveStorage(String nodeAddr) {
@@ -139,9 +145,14 @@ public class Controller
             int i;
             for(i = 0; i < replicaNodes.size(); i++) {
                 DfsMessages.DataNodeMetadata node = replicaNodes.get(i);
-                Channel ch = connectToNode(node.getHostname(), node.getPort());
+                String ip = node.getIp().split(":")[0];
 
-                DfsMessages.DataNodeMessagesWrapper wrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setOnNodeDown(createOnNodeDownMsg(nodeAddr)).build();
+                System.out.println("FT: sending replication msg to " + ip + ':' + node.getPort());
+                Channel ch = connectToNode(ip, node.getPort());
+                System.out.println("ch is: " + ch);
+                if(ch == null) continue;
+
+                DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setOnNodeDown(createOnNodeDownMsg(nodeAddr)).build()).build();
                 ch.writeAndFlush(wrapper);
                 ch.close();
             }
@@ -310,7 +321,7 @@ public class Controller
 
             availableNodes = getNodesToStoreFile(size, chunks);
             int numNodesAvailable = availableNodes.size();
-    
+
             if(numNodesAvailable == 0) {
                 // todo create and return a new error message to client if all storage nodes are full
             }
@@ -323,6 +334,7 @@ public class Controller
             masterBloomFilter.put(data);
 
             int i;
+            // TODO FIX CREATING NEW BLOOMFILTERS
             for(i = 0; i < numNodesAvailable; i++) {
                 map.put(new BloomFilter(m,k), availableNodes.get(i));
             }

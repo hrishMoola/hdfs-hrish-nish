@@ -8,8 +8,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
 
 import edu.usfca.cs.chat.Utils.FileUtils;
 import edu.usfca.cs.chat.net.MessagePipeline;
@@ -170,6 +168,7 @@ public class StorageNode
             ChannelHandlerContext ctx, DfsMessages.MessagesWrapper msg) {
         DfsMessages.DataNodeMessagesWrapper message = msg.getDataNodeWrapper();
         int messageType = message.getMsgCase().getNumber();
+        System.out.println("SN msgtype rcvd: " + messageType);
         switch(messageType){
             case 1: // File Chunk
                 //basically store the chunks being provided and send for replication to replicas
@@ -222,9 +221,16 @@ public class StorageNode
             case 3: // chunk header from client.
                 System.out.println("Received chunk header and replica information");
 //                prepareForStorage(message.getFileChunkHeader());
+                break;
             case 4: //replication status. not currently doing anything
                 System.out.println("Replication Status of " + ctx.channel().remoteAddress().toString());
                 System.out.println("Chunk num and success" + message.getReplicationStatus().getChunkNum() + " is " + message.getReplicationStatus().getSuccess());
+                break;
+            case 5: // ON NODE DOWN MSG
+                DfsMessages.OnNodeDown nodeDown = message.getOnNodeDown();
+                System.out.println("X X X X NODE DOWN DETECTED X X X X");
+                System.out.println(nodeDown.getIp());
+                System.out.println(" - - - - - - - - - - - - - - - - - ");
                 break;
             default:
                 System.out.println("whaaaa");
@@ -242,7 +248,11 @@ public class StorageNode
 
         File dir = new File(storageDirectory + filepath);
         List<DfsMessages.FileChunk> chunks = new ArrayList<>();
-        for (File eachFile: dir.listFiles()) {
+        File[] allFiles = dir.listFiles();
+
+        if(allFiles == null) return;
+
+        for (File eachFile: allFiles) {
             if (!eachFile.getName().contains("checksum") &&  !eachFile.getName().contains("metadata")){
                 System.out.println("eachFile = " + eachFile);
                 System.out.println(filepath + "-" +  eachFile.getName().split("-")[1]);
