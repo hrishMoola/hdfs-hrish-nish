@@ -18,12 +18,14 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import javax.xml.crypto.Data;
+
 @ChannelHandler.Sharable
 public class Controller
         extends SimpleChannelInboundHandler<DfsMessages.MessagesWrapper> {
 
 
-    // storage node map with key as hostname and DataNodeMetadata
+    // storage node map with key as IP and DataNodeMetadata
     //todo update this with every heartbeat
     private ConcurrentMap<String, DfsMessages.DataNodeMetadata> activeStorageNodes;
 
@@ -35,6 +37,9 @@ public class Controller
     BloomFilter masterBloomFilter;
     ServerMessageRouter messageRouter;
 
+    // map of node ips to their corresponding bloom filters
+    ConcurrentMap<String, BloomFilter> nodeToBF;
+
 //    public static int CHUNK_SIZE = 128; // MB
     public static int CHUNK_SIZE = 10 * 1024; // 10kb
 
@@ -45,6 +50,7 @@ public class Controller
         activeStorageNodes = new ConcurrentHashMap<>();
         routingTable = new ConcurrentHashMap<>();
         masterBloomFilter = new BloomFilter(m, k);
+        nodeToBF = new ConcurrentHashMap<>();
     }
 
     public void start(int port) throws IOException {
@@ -103,16 +109,18 @@ public class Controller
         removeNodeFromActiveStorage(nodeAddr);
         // get all nodes with replicas
         List<DfsMessages.DataNodeMetadata> replicaNodes = getNodesWithReplicas(nodeAddr);
+        // remove down node from routing table after replicas retrieved
+        removeNodeFromRoutingTable(nodeAddr);
         // message all Nodes that nodeAddr is down
         if(replicaNodes.size() > 0) startFaultTolerance(nodeAddr, replicaNodes);
     }
 
     private void removeNodeFromActiveStorage(String nodeAddr) {
-        activeStorageNodes.forEach((hostname, nodeMetadata) -> {
+        activeStorageNodes.forEach((ip, nodeMetadata) -> {
             String addr = nodeMetadata.getIp();
             if(addr.equals(nodeAddr)) {
                 // key to delete is hostname
-                activeStorageNodes.remove(nodeMetadata.getHostname());
+                activeStorageNodes.remove(addr);
             }
         });
     }
@@ -125,14 +133,42 @@ public class Controller
             String dirName = allKeys.get(j);
             ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> nodes = routingTable.get(dirName);
             List<DfsMessages.DataNodeMetadata> allNodes = new ArrayList<>(nodes.values());
-            boolean copy = false;
+            int idx = -1;
             for(int i = 0; i < allNodes.size(); i++) {
-                if(allNodes.get(i).getIp().equals(nodeAddr)) copy = true;
+                // if down node is part of the list, we copy all the nodes to list of nodes we want to notify
+                if(allNodes.get(i).getIp().equals(nodeAddr)) idx = i;
             }
-            if (copy) replicaNodeSet = new HashSet<>(allNodes);
+            if (idx != -1) {
+                // remove the node that went down from the list
+                allNodes.remove(idx);
+                replicaNodeSet = new HashSet<>(allNodes);
+            }
         }
 
         return new ArrayList<>(replicaNodeSet);
+    }
+
+    private void removeNodeFromRoutingTable(String nodeAddr) {
+        System.out.println("routing table before: " + routingTable);
+        for(String dir : routingTable.keySet()) {
+            BloomFilter bfToRemove = null;
+            ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> nodes = routingTable.get(dir);
+            for(BloomFilter bf : nodes.keySet()) {
+                DfsMessages.DataNodeMetadata node = nodes.get(bf);
+                System.out.println("node addr: " + nodeAddr);
+                System.out.println("node ip: " + node.getIp());
+                if(nodeAddr.equals(node.getIp())) {
+                    bfToRemove = bf;
+                }
+            }
+            if(bfToRemove != null) {
+                // remove  node  from map
+                nodes.remove(bfToRemove);
+                // update routing table
+                routingTable.put(dir, nodes);
+            }
+        }
+        System.out.println("routing table after " + routingTable);
     }
 
     private DfsMessages.OnNodeDown createOnNodeDownMsg(String ip) {
@@ -153,8 +189,9 @@ public class Controller
                 if(ch == null) continue;
 
                 DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setOnNodeDown(createOnNodeDownMsg(nodeAddr)).build()).build();
-                ch.writeAndFlush(wrapper);
-                ch.close();
+                ChannelFuture future = ch.writeAndFlush(wrapper);
+                future.awaitUninterruptibly();
+
             }
         }
         catch (Exception e) {
@@ -174,6 +211,8 @@ public class Controller
         DfsMessages.ControllerMessagesWrapper message = msg.getControllerWrapper();
 
         int messageType = message.getMsgCase().getNumber();
+
+        System.out.println("INSIDE Ch Read messageType: " + messageType);
 
         switch(messageType){
             case 1: // File Request - STORE/RETRIEVE
@@ -204,10 +243,30 @@ public class Controller
                     // print controller
                     printMsg(message);
                     // add to active storage nodes
-                    activeStorageNodes.put(IntroMsg.getHostname(), IntroMsg);
+                    System.out.println("IP TO STORE: " + IntroMsg.getIp());
+                    activeStorageNodes.put(IntroMsg.getIp(), IntroMsg);
+                    nodeToBF.put(IntroMsg.getIp(), new BloomFilter(m, k));
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading DataNodeMetaData");
                 }
+                break;
+            case 7: // incoming replica maintenence request from storage node directly
+                System.out.println("INSIDE GET FREE NODES CONTROLLER");
+                DfsMessages.GetFreeNodes getNodesMsg = message.getGetFreeNodes();
+                int totalChunks = getNodesMsg.getNumChunks();
+                System.out.println("Incoming Request to return nodes to store total chunks: " + totalChunks);
+                List<DfsMessages.DataNodeMetadata> availableNodes = getNodesToStoreFile(totalChunks);
+
+                DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(
+                        DfsMessages.DataNodeMessagesWrapper.newBuilder()
+                        .setFileChunkHeader(DfsMessages.FileChunkHeader.newBuilder()
+                        .setTotalChunks(0)
+                        .setFilepath("")
+                        .addAllReplicas(availableNodes))).build();
+
+                System.out.println("returning request");
+
+                ctx.channel().writeAndFlush(wrapper);
                 break;
             default:
                 System.out.println("whaaaa");
@@ -219,12 +278,13 @@ public class Controller
     private void printMsg(DfsMessages.ControllerMessagesWrapper message) {
         System.out.println("**** New Storage Node connected ****");
         System.out.println("Hostname: " + message.getIntroMessage().getHostname());
+        System.out.println("Port name: " + message.getIntroMessage().getPort());
         System.out.println("IP: " + message.getIntroMessage().getIp());
         System.out.println("Available Memory: " + message.getIntroMessage().getMemory());
         System.out.println("X - X - X - X - X - X - X - X - X - X");
     }
 
-    private List<DfsMessages.DataNodeMetadata> getNodesToStoreFile(long size, int chunks) {
+    private List<DfsMessages.DataNodeMetadata> getNodesToStoreFile(int chunks) {
         List<DfsMessages.DataNodeMetadata> nodes = new ArrayList<>();
 
         Set<String> keyset = activeStorageNodes.keySet();
@@ -319,7 +379,7 @@ public class Controller
             ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> map = new ConcurrentHashMap<>();
             // before adding to routing table, figure out active storage node associated with new file
 
-            availableNodes = getNodesToStoreFile(size, chunks);
+            availableNodes = getNodesToStoreFile(chunks);
             int numNodesAvailable = availableNodes.size();
 
             if(numNodesAvailable == 0) {
@@ -334,9 +394,10 @@ public class Controller
             masterBloomFilter.put(data);
 
             int i;
-            // TODO FIX CREATING NEW BLOOMFILTERS
+            BloomFilter bf;
             for(i = 0; i < numNodesAvailable; i++) {
-                map.put(new BloomFilter(m,k), availableNodes.get(i));
+                bf = nodeToBF.get(availableNodes.get(i).getIp());
+                map.put(bf, availableNodes.get(i));
             }
 
             // insert entry into routingTable
@@ -355,20 +416,6 @@ public class Controller
         DfsMessages.MessagesWrapper wrapper = createClientFileResponseMsg(systemFilePath, dfsFilePath, availableNodes, message.getType(), shouldOverwrite);
         ctx.channel().writeAndFlush(wrapper);
     }
-
-
-//    //just populating with three known nodes right now. ideally here the bloomfilter stuff should come into play to create the response
-//    private void replyWithNodeInfo(ChannelHandlerContext ctx, String filepath) {
-//        DfsMessages.FileResponse fileResponse = DfsMessages.FileResponse.newBuilder()
-//                .addDataNodes(0, DfsMessages.DataNodeMetadata.newBuilder().setHostname("alpha").setIp("8000").build())
-//                .addDataNodes(1, DfsMessages.DataNodeMetadata.newBuilder().setHostname("beta").setIp("8001").build())
-//                .addDataNodes(2, DfsMessages.DataNodeMetadata.newBuilder().setHostname("gamma").setIp("8002").build())
-//                .setFilepath(filepath)
-//                .build();
-//        DfsMessages.ClientMessagesWrapper wrapper = DfsMessages.ClientMessagesWrapper.newBuilder().setFileResponse(fileResponse).build();
-//        System.out.println("wrapper = " + wrapper);
-//        ctx.channel().writeAndFlush(wrapper);
-//    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

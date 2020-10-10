@@ -18,6 +18,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 
+import javax.xml.crypto.Data;
+
 import static edu.usfca.cs.chat.Utils.FileUtils.getChunks;
 import static edu.usfca.cs.chat.Utils.FileUtils.writeToFile;
 
@@ -137,6 +139,9 @@ public class StorageNode
         controllerChannel = cf.channel();
         // gets storage node's IP addr to send to controller and also removes the '/' prefix
         localAddr = this.controllerChannel.localAddress().toString().substring(1);
+        System.out.println("LOCAL ADDR IS: " + localAddr);
+        System.out.println(controllerChannel.remoteAddress().toString());
+        System.out.println(hostName + " " + hostPort);
     }
 
     @Override
@@ -220,7 +225,10 @@ public class StorageNode
                 break;
             case 3: // chunk header from client.
                 System.out.println("Received chunk header and replica information");
-//                prepareForStorage(message.getFileChunkHeader());
+                DfsMessages.FileChunkHeader header = message.getFileChunkHeader();
+                List<DfsMessages.DataNodeMetadata> nodes = header.getReplicasList();
+                System.out.println("Number of nodes available = " + nodes.size());
+//                prepareForStorage(message.getFileChunkHeader( ));
                 break;
             case 4: //replication status. not currently doing anything
                 System.out.println("Replication Status of " + ctx.channel().remoteAddress().toString());
@@ -231,6 +239,7 @@ public class StorageNode
                 System.out.println("X X X X NODE DOWN DETECTED X X X X");
                 System.out.println(nodeDown.getIp());
                 System.out.println(" - - - - - - - - - - - - - - - - - ");
+                initiateReplicationMaintenence(ctx, nodeDown.getIp());
                 break;
             default:
                 System.out.println("whaaaa");
@@ -242,6 +251,56 @@ public class StorageNode
 
     }
 
+    private DfsMessages.MessagesWrapper getControllerReqForStorage(int totalChunks) {
+        return DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(
+                DfsMessages.ControllerMessagesWrapper.newBuilder()
+                .setGetFreeNodes(
+                DfsMessages.GetFreeNodes.newBuilder()
+                .setNumChunks(totalChunks)))
+                .build();
+    }
+
+    private void initiateReplicationMaintenence(ChannelHandlerContext ctx, String nodeIp) {
+        System.out.println("inside initiate replica maintenence");
+
+        // map of all original and replica chunks that current node updates
+        Map<String, DfsMessages.DataNodeMetadata> replicasUpdated = new HashMap<>();
+        Map<String, DfsMessages.DataNodeMetadata> originalsUpdated = new HashMap<>();
+
+        List<String> replicasList = new ArrayList<>();
+        List<String> originalsList = new ArrayList<>();
+
+        // check if there are any replicas on down node
+        System.out.println(fileChunkMetadataMap);
+        int totalChunksSpace = 0;
+
+        // loop through  metadatamap and figure out total replicas and originals to replace
+        for(String key : fileChunkMetadataMap.keySet()) {
+            // key is filname-<chunk_number>
+            DfsMessages.FileChunkHeader header = fileChunkMetadataMap.get(key);
+            List<DfsMessages.DataNodeMetadata> metaDataList = header.getReplicasList();
+            if(metaDataList.size() == 1) replicasList.add(key);
+            else originalsList.add(key);
+            totalChunksSpace++;
+        }
+
+        // make storage request to controller
+        DfsMessages.MessagesWrapper wrapper = getControllerReqForStorage(totalChunksSpace);
+
+        System.out.println("Sending Request for nodes to start replication on: ");
+        System.out.println(wrapper);
+
+        ctx.channel().writeAndFlush(wrapper);
+        // if no
+
+        // if yes, create a replica on new node
+
+        // check if this node has replicas for any leaders that went down
+
+        // if yes, create leader on some other node
+
+
+    }
 
     private void getAndSendChunks(ChannelHandlerContext ctx, String filepath) throws IOException {
         String storageDirectory = this.storagePath + "/original/";

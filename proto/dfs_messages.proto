@@ -39,6 +39,11 @@ message FileRequest{
     }
 }
 
+// get nodes to save num_chunks number of chunks
+message GetFreeNodes{
+    int32 num_chunks = 1;
+}
+
 //sent from controller
 message FileResponse{
     string systemFilePath = 1; // file path in client system
@@ -128,5 +133,6 @@ message ControllerMessagesWrapper{
         ReplicationStatus replicationStatus = 4;
         HeartBeat heartBeat = 5;
         DataNodeMetadata IntroMessage = 6;
+        GetFreeNodes getFreeNodes = 7;
     }
 }
