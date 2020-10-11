@@ -26,6 +26,13 @@ import java.util.zip.Checksum;
 
 public class FileUtils {
 
+    public static DfsMessages.OnNodeDown createOnNodeDownMsg(String ip, List<DfsMessages.DataNodeMetadata> replicaNodes) {
+        return DfsMessages.OnNodeDown.newBuilder()
+                .setIp(ip)
+                .addAllAffectedNodes(replicaNodes)
+                .build();
+    }
+
     public static void writeToFile(DfsMessages.FileChunk fileChunk, String storagePath, String type) throws Exception{
         String fileName = fileChunk.getFilepath();
 
@@ -64,19 +71,20 @@ public class FileUtils {
 
     public static File findDir(String name, File file) {
         File[] list = file.listFiles();
+        File foundFile = null;
         if(list!=null)
             for (File innerFile : list)
             {
                 if (name.equals(innerFile.getName())) {
-                    return innerFile;
+                    foundFile = innerFile;
+                    break;
                 }
-                else if (innerFile.isDirectory())
+                if (innerFile.isDirectory())
                 {
                     return findDir(name,innerFile);
                 }
-                else return null;
             }
-        return null;
+        return foundFile;
     }
 
     public static void clearDirectoryContents(String storagePath) {

@@ -24,6 +24,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The filepath.
      */
     java.lang.String getFilepath();
     /**
@@ -32,6 +33,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The bytes for filepath.
      */
     com.google.protobuf.ByteString
         getFilepathBytes();
@@ -42,6 +44,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>bytes chunks = 2;</code>
+     * @return The chunks.
      */
     com.google.protobuf.ByteString getChunks();
 
@@ -51,6 +54,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string checksum = 3;</code>
+     * @return The checksum.
      */
     java.lang.String getChecksum();
     /**
@@ -59,22 +63,36 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string checksum = 3;</code>
+     * @return The bytes for checksum.
      */
     com.google.protobuf.ByteString
         getChecksumBytes();
 
     /**
      * <code>.FileChunkHeader filechunkHeader = 4;</code>
+     * @return Whether the filechunkHeader field is set.
      */
     boolean hasFilechunkHeader();
     /**
      * <code>.FileChunkHeader filechunkHeader = 4;</code>
+     * @return The filechunkHeader.
      */
     edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFilechunkHeader();
     /**
      * <code>.FileChunkHeader filechunkHeader = 4;</code>
      */
     edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFilechunkHeaderOrBuilder();
+
+    /**
+     * <code>.FileChunk.Type type = 5;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <code>.FileChunk.Type type = 5;</code>
+     * @return The type.
+     */
+    edu.usfca.cs.chat.DfsMessages.FileChunk.Type getType();
   }
   /**
    * <pre>
@@ -83,7 +101,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code FileChunk}
    */
-  public  static final class FileChunk extends
+  public static final class FileChunk extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FileChunk)
       FileChunkOrBuilder {
@@ -96,6 +114,14 @@ public final class DfsMessages {
       filepath_ = "";
       chunks_ = com.google.protobuf.ByteString.EMPTY;
       checksum_ = "";
+      type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FileChunk();
     }
 
     @java.lang.Override
@@ -111,7 +137,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -152,8 +177,14 @@ public final class DfsMessages {
 
               break;
             }
+            case 40: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -184,6 +215,131 @@ public final class DfsMessages {
               edu.usfca.cs.chat.DfsMessages.FileChunk.class, edu.usfca.cs.chat.DfsMessages.FileChunk.Builder.class);
     }
 
+    /**
+     * Protobuf enum {@code FileChunk.Type}
+     */
+    public enum Type
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>LEADER = 0;</code>
+       */
+      LEADER(0),
+      /**
+       * <code>REPLICA = 1;</code>
+       */
+      REPLICA(1),
+      /**
+       * <pre>
+       * separate one for leader node maintenance so that we don't replicate it
+       * </pre>
+       *
+       * <code>MAINTENANCE_LDR = 2;</code>
+       */
+      MAINTENANCE_LDR(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>LEADER = 0;</code>
+       */
+      public static final int LEADER_VALUE = 0;
+      /**
+       * <code>REPLICA = 1;</code>
+       */
+      public static final int REPLICA_VALUE = 1;
+      /**
+       * <pre>
+       * separate one for leader node maintenance so that we don't replicate it
+       * </pre>
+       *
+       * <code>MAINTENANCE_LDR = 2;</code>
+       */
+      public static final int MAINTENANCE_LDR_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Type valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Type forNumber(int value) {
+        switch (value) {
+          case 0: return LEADER;
+          case 1: return REPLICA;
+          case 2: return MAINTENANCE_LDR;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Type> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Type>() {
+              public Type findValueByNumber(int number) {
+                return Type.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return edu.usfca.cs.chat.DfsMessages.FileChunk.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Type[] VALUES = values();
+
+      public static Type valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Type(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:FileChunk.Type)
+    }
+
     public static final int FILEPATH_FIELD_NUMBER = 1;
     private volatile java.lang.Object filepath_;
     /**
@@ -192,7 +348,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The filepath.
      */
+    @java.lang.Override
     public java.lang.String getFilepath() {
       java.lang.Object ref = filepath_;
       if (ref instanceof java.lang.String) {
@@ -211,7 +369,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The bytes for filepath.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFilepathBytes() {
       java.lang.Object ref = filepath_;
@@ -234,7 +394,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>bytes chunks = 2;</code>
+     * @return The chunks.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getChunks() {
       return chunks_;
     }
@@ -247,7 +409,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string checksum = 3;</code>
+     * @return The checksum.
      */
+    @java.lang.Override
     public java.lang.String getChecksum() {
       java.lang.Object ref = checksum_;
       if (ref instanceof java.lang.String) {
@@ -266,7 +430,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string checksum = 3;</code>
+     * @return The bytes for checksum.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChecksumBytes() {
       java.lang.Object ref = checksum_;
@@ -285,21 +451,45 @@ public final class DfsMessages {
     private edu.usfca.cs.chat.DfsMessages.FileChunkHeader filechunkHeader_;
     /**
      * <code>.FileChunkHeader filechunkHeader = 4;</code>
+     * @return Whether the filechunkHeader field is set.
      */
+    @java.lang.Override
     public boolean hasFilechunkHeader() {
       return filechunkHeader_ != null;
     }
     /**
      * <code>.FileChunkHeader filechunkHeader = 4;</code>
+     * @return The filechunkHeader.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFilechunkHeader() {
       return filechunkHeader_ == null ? edu.usfca.cs.chat.DfsMessages.FileChunkHeader.getDefaultInstance() : filechunkHeader_;
     }
     /**
      * <code>.FileChunkHeader filechunkHeader = 4;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFilechunkHeaderOrBuilder() {
       return getFilechunkHeader();
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 5;
+    private int type_;
+    /**
+     * <code>.FileChunk.Type type = 5;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    @java.lang.Override public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.FileChunk.Type type = 5;</code>
+     * @return The type.
+     */
+    @java.lang.Override public edu.usfca.cs.chat.DfsMessages.FileChunk.Type getType() {
+      @SuppressWarnings("deprecation")
+      edu.usfca.cs.chat.DfsMessages.FileChunk.Type result = edu.usfca.cs.chat.DfsMessages.FileChunk.Type.valueOf(type_);
+      return result == null ? edu.usfca.cs.chat.DfsMessages.FileChunk.Type.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -328,6 +518,9 @@ public final class DfsMessages {
       if (filechunkHeader_ != null) {
         output.writeMessage(4, getFilechunkHeader());
       }
+      if (type_ != edu.usfca.cs.chat.DfsMessages.FileChunk.Type.LEADER.getNumber()) {
+        output.writeEnum(5, type_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -351,6 +544,10 @@ public final class DfsMessages {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getFilechunkHeader());
       }
+      if (type_ != edu.usfca.cs.chat.DfsMessages.FileChunk.Type.LEADER.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(5, type_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -366,20 +563,20 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.FileChunk other = (edu.usfca.cs.chat.DfsMessages.FileChunk) obj;
 
-      boolean result = true;
-      result = result && getFilepath()
-          .equals(other.getFilepath());
-      result = result && getChunks()
-          .equals(other.getChunks());
-      result = result && getChecksum()
-          .equals(other.getChecksum());
-      result = result && (hasFilechunkHeader() == other.hasFilechunkHeader());
+      if (!getFilepath()
+          .equals(other.getFilepath())) return false;
+      if (!getChunks()
+          .equals(other.getChunks())) return false;
+      if (!getChecksum()
+          .equals(other.getChecksum())) return false;
+      if (hasFilechunkHeader() != other.hasFilechunkHeader()) return false;
       if (hasFilechunkHeader()) {
-        result = result && getFilechunkHeader()
-            .equals(other.getFilechunkHeader());
+        if (!getFilechunkHeader()
+            .equals(other.getFilechunkHeader())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (type_ != other.type_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -399,6 +596,8 @@ public final class DfsMessages {
         hash = (37 * hash) + FILECHUNKHEADER_FIELD_NUMBER;
         hash = (53 * hash) + getFilechunkHeader().hashCode();
       }
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -548,6 +747,8 @@ public final class DfsMessages {
           filechunkHeader_ = null;
           filechunkHeaderBuilder_ = null;
         }
+        type_ = 0;
+
         return this;
       }
 
@@ -582,41 +783,42 @@ public final class DfsMessages {
         } else {
           result.filechunkHeader_ = filechunkHeaderBuilder_.build();
         }
+        result.type_ = type_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -643,6 +845,9 @@ public final class DfsMessages {
         }
         if (other.hasFilechunkHeader()) {
           mergeFilechunkHeader(other.getFilechunkHeader());
+        }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -680,6 +885,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @return The filepath.
        */
       public java.lang.String getFilepath() {
         java.lang.Object ref = filepath_;
@@ -699,6 +905,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @return The bytes for filepath.
        */
       public com.google.protobuf.ByteString
           getFilepathBytes() {
@@ -719,6 +926,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @param value The filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepath(
           java.lang.String value) {
@@ -736,6 +945,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFilepath() {
         
@@ -749,6 +959,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @param value The bytes for filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepathBytes(
           com.google.protobuf.ByteString value) {
@@ -769,7 +981,9 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>bytes chunks = 2;</code>
+       * @return The chunks.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getChunks() {
         return chunks_;
       }
@@ -779,6 +993,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>bytes chunks = 2;</code>
+       * @param value The chunks to set.
+       * @return This builder for chaining.
        */
       public Builder setChunks(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -795,6 +1011,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>bytes chunks = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearChunks() {
         
@@ -810,6 +1027,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string checksum = 3;</code>
+       * @return The checksum.
        */
       public java.lang.String getChecksum() {
         java.lang.Object ref = checksum_;
@@ -829,6 +1047,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string checksum = 3;</code>
+       * @return The bytes for checksum.
        */
       public com.google.protobuf.ByteString
           getChecksumBytes() {
@@ -849,6 +1068,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string checksum = 3;</code>
+       * @param value The checksum to set.
+       * @return This builder for chaining.
        */
       public Builder setChecksum(
           java.lang.String value) {
@@ -866,6 +1087,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string checksum = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearChecksum() {
         
@@ -879,6 +1101,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string checksum = 3;</code>
+       * @param value The bytes for checksum to set.
+       * @return This builder for chaining.
        */
       public Builder setChecksumBytes(
           com.google.protobuf.ByteString value) {
@@ -892,17 +1116,19 @@ public final class DfsMessages {
         return this;
       }
 
-      private edu.usfca.cs.chat.DfsMessages.FileChunkHeader filechunkHeader_ = null;
+      private edu.usfca.cs.chat.DfsMessages.FileChunkHeader filechunkHeader_;
       private com.google.protobuf.SingleFieldBuilderV3<
           edu.usfca.cs.chat.DfsMessages.FileChunkHeader, edu.usfca.cs.chat.DfsMessages.FileChunkHeader.Builder, edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder> filechunkHeaderBuilder_;
       /**
        * <code>.FileChunkHeader filechunkHeader = 4;</code>
+       * @return Whether the filechunkHeader field is set.
        */
       public boolean hasFilechunkHeader() {
         return filechunkHeaderBuilder_ != null || filechunkHeader_ != null;
       }
       /**
        * <code>.FileChunkHeader filechunkHeader = 4;</code>
+       * @return The filechunkHeader.
        */
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFilechunkHeader() {
         if (filechunkHeaderBuilder_ == null) {
@@ -1008,10 +1234,64 @@ public final class DfsMessages {
         }
         return filechunkHeaderBuilder_;
       }
+
+      private int type_ = 0;
+      /**
+       * <code>.FileChunk.Type type = 5;</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.FileChunk.Type type = 5;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.FileChunk.Type type = 5;</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.FileChunk.Type getType() {
+        @SuppressWarnings("deprecation")
+        edu.usfca.cs.chat.DfsMessages.FileChunk.Type result = edu.usfca.cs.chat.DfsMessages.FileChunk.Type.valueOf(type_);
+        return result == null ? edu.usfca.cs.chat.DfsMessages.FileChunk.Type.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.FileChunk.Type type = 5;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(edu.usfca.cs.chat.DfsMessages.FileChunk.Type value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.FileChunk.Type type = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1061,6 +1341,869 @@ public final class DfsMessages {
 
   }
 
+  public interface AlreadyMaintainedChunksOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:AlreadyMaintainedChunks)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @return A list containing the originalChunks.
+     */
+    java.util.List<java.lang.String>
+        getOriginalChunksList();
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @return The count of originalChunks.
+     */
+    int getOriginalChunksCount();
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @param index The index of the element to return.
+     * @return The originalChunks at the given index.
+     */
+    java.lang.String getOriginalChunks(int index);
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the originalChunks at the given index.
+     */
+    com.google.protobuf.ByteString
+        getOriginalChunksBytes(int index);
+
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @return A list containing the repeatedChunks.
+     */
+    java.util.List<java.lang.String>
+        getRepeatedChunksList();
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @return The count of repeatedChunks.
+     */
+    int getRepeatedChunksCount();
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @param index The index of the element to return.
+     * @return The repeatedChunks at the given index.
+     */
+    java.lang.String getRepeatedChunks(int index);
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the repeatedChunks at the given index.
+     */
+    com.google.protobuf.ByteString
+        getRepeatedChunksBytes(int index);
+  }
+  /**
+   * <pre>
+   * need to send this cascading-ly to nodes for fault tolerance maintenance
+   * </pre>
+   *
+   * Protobuf type {@code AlreadyMaintainedChunks}
+   */
+  public static final class AlreadyMaintainedChunks extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:AlreadyMaintainedChunks)
+      AlreadyMaintainedChunksOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AlreadyMaintainedChunks.newBuilder() to construct.
+    private AlreadyMaintainedChunks(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AlreadyMaintainedChunks() {
+      originalChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AlreadyMaintainedChunks();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private AlreadyMaintainedChunks(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                originalChunks_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              originalChunks_.add(s);
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                repeatedChunks_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              repeatedChunks_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          originalChunks_ = originalChunks_.getUnmodifiableView();
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          repeatedChunks_ = repeatedChunks_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.class, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder.class);
+    }
+
+    public static final int ORIGINALCHUNKS_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList originalChunks_;
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @return A list containing the originalChunks.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getOriginalChunksList() {
+      return originalChunks_;
+    }
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @return The count of originalChunks.
+     */
+    public int getOriginalChunksCount() {
+      return originalChunks_.size();
+    }
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @param index The index of the element to return.
+     * @return The originalChunks at the given index.
+     */
+    public java.lang.String getOriginalChunks(int index) {
+      return originalChunks_.get(index);
+    }
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the originalChunks at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getOriginalChunksBytes(int index) {
+      return originalChunks_.getByteString(index);
+    }
+
+    public static final int REPEATEDCHUNKS_FIELD_NUMBER = 2;
+    private com.google.protobuf.LazyStringList repeatedChunks_;
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @return A list containing the repeatedChunks.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getRepeatedChunksList() {
+      return repeatedChunks_;
+    }
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @return The count of repeatedChunks.
+     */
+    public int getRepeatedChunksCount() {
+      return repeatedChunks_.size();
+    }
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @param index The index of the element to return.
+     * @return The repeatedChunks at the given index.
+     */
+    public java.lang.String getRepeatedChunks(int index) {
+      return repeatedChunks_.get(index);
+    }
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the repeatedChunks at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getRepeatedChunksBytes(int index) {
+      return repeatedChunks_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < originalChunks_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, originalChunks_.getRaw(i));
+      }
+      for (int i = 0; i < repeatedChunks_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, repeatedChunks_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < originalChunks_.size(); i++) {
+          dataSize += computeStringSizeNoTag(originalChunks_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getOriginalChunksList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < repeatedChunks_.size(); i++) {
+          dataSize += computeStringSizeNoTag(repeatedChunks_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getRepeatedChunksList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks)) {
+        return super.equals(obj);
+      }
+      edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks other = (edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks) obj;
+
+      if (!getOriginalChunksList()
+          .equals(other.getOriginalChunksList())) return false;
+      if (!getRepeatedChunksList()
+          .equals(other.getRepeatedChunksList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getOriginalChunksCount() > 0) {
+        hash = (37 * hash) + ORIGINALCHUNKS_FIELD_NUMBER;
+        hash = (53 * hash) + getOriginalChunksList().hashCode();
+      }
+      if (getRepeatedChunksCount() > 0) {
+        hash = (37 * hash) + REPEATEDCHUNKS_FIELD_NUMBER;
+        hash = (53 * hash) + getRepeatedChunksList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * need to send this cascading-ly to nodes for fault tolerance maintenance
+     * </pre>
+     *
+     * Protobuf type {@code AlreadyMaintainedChunks}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:AlreadyMaintainedChunks)
+        edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.class, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder.class);
+      }
+
+      // Construct using edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        originalChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_descriptor;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getDefaultInstanceForType() {
+        return edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks build() {
+        edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks buildPartial() {
+        edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks result = new edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          originalChunks_ = originalChunks_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.originalChunks_ = originalChunks_;
+        if (((bitField0_ & 0x00000002) != 0)) {
+          repeatedChunks_ = repeatedChunks_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.repeatedChunks_ = repeatedChunks_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks) {
+          return mergeFrom((edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks other) {
+        if (other == edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance()) return this;
+        if (!other.originalChunks_.isEmpty()) {
+          if (originalChunks_.isEmpty()) {
+            originalChunks_ = other.originalChunks_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureOriginalChunksIsMutable();
+            originalChunks_.addAll(other.originalChunks_);
+          }
+          onChanged();
+        }
+        if (!other.repeatedChunks_.isEmpty()) {
+          if (repeatedChunks_.isEmpty()) {
+            repeatedChunks_ = other.repeatedChunks_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureRepeatedChunksIsMutable();
+            repeatedChunks_.addAll(other.repeatedChunks_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList originalChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureOriginalChunksIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          originalChunks_ = new com.google.protobuf.LazyStringArrayList(originalChunks_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @return A list containing the originalChunks.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getOriginalChunksList() {
+        return originalChunks_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @return The count of originalChunks.
+       */
+      public int getOriginalChunksCount() {
+        return originalChunks_.size();
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param index The index of the element to return.
+       * @return The originalChunks at the given index.
+       */
+      public java.lang.String getOriginalChunks(int index) {
+        return originalChunks_.get(index);
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the originalChunks at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getOriginalChunksBytes(int index) {
+        return originalChunks_.getByteString(index);
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The originalChunks to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalChunks(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureOriginalChunksIsMutable();
+        originalChunks_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param value The originalChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addOriginalChunks(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureOriginalChunksIsMutable();
+        originalChunks_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param values The originalChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllOriginalChunks(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureOriginalChunksIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, originalChunks_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOriginalChunks() {
+        originalChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param value The bytes of the originalChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addOriginalChunksBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureOriginalChunksIsMutable();
+        originalChunks_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureRepeatedChunksIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          repeatedChunks_ = new com.google.protobuf.LazyStringArrayList(repeatedChunks_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @return A list containing the repeatedChunks.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getRepeatedChunksList() {
+        return repeatedChunks_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @return The count of repeatedChunks.
+       */
+      public int getRepeatedChunksCount() {
+        return repeatedChunks_.size();
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param index The index of the element to return.
+       * @return The repeatedChunks at the given index.
+       */
+      public java.lang.String getRepeatedChunks(int index) {
+        return repeatedChunks_.get(index);
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the repeatedChunks at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getRepeatedChunksBytes(int index) {
+        return repeatedChunks_.getByteString(index);
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The repeatedChunks to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRepeatedChunks(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureRepeatedChunksIsMutable();
+        repeatedChunks_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param value The repeatedChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRepeatedChunks(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureRepeatedChunksIsMutable();
+        repeatedChunks_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param values The repeatedChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllRepeatedChunks(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureRepeatedChunksIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, repeatedChunks_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRepeatedChunks() {
+        repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param value The bytes of the repeatedChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRepeatedChunksBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureRepeatedChunksIsMutable();
+        repeatedChunks_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:AlreadyMaintainedChunks)
+    }
+
+    // @@protoc_insertion_point(class_scope:AlreadyMaintainedChunks)
+    private static final edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks();
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AlreadyMaintainedChunks>
+        PARSER = new com.google.protobuf.AbstractParser<AlreadyMaintainedChunks>() {
+      @java.lang.Override
+      public AlreadyMaintainedChunks parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AlreadyMaintainedChunks(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AlreadyMaintainedChunks> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AlreadyMaintainedChunks> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface FileAckOrBuilder extends
       // @@protoc_insertion_point(interface_extends:FileAck)
       com.google.protobuf.MessageOrBuilder {
@@ -1071,6 +2214,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The filepath.
      */
     java.lang.String getFilepath();
     /**
@@ -1079,28 +2223,32 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The bytes for filepath.
      */
     com.google.protobuf.ByteString
         getFilepathBytes();
 
     /**
      * <code>bool success = 2;</code>
+     * @return The success.
      */
     boolean getSuccess();
 
     /**
      * <code>.FileAck.Type type = 3;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.FileAck.Type type = 3;</code>
+     * @return The type.
      */
     edu.usfca.cs.chat.DfsMessages.FileAck.Type getType();
   }
   /**
    * Protobuf type {@code FileAck}
    */
-  public  static final class FileAck extends
+  public static final class FileAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FileAck)
       FileAckOrBuilder {
@@ -1111,8 +2259,14 @@ public final class DfsMessages {
     }
     private FileAck() {
       filepath_ = "";
-      success_ = false;
       type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FileAck();
     }
 
     @java.lang.Override
@@ -1128,7 +2282,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1157,7 +2310,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1239,6 +2392,8 @@ public final class DfsMessages {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -1246,6 +2401,10 @@ public final class DfsMessages {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return FILE_OVERWRITE;
@@ -1268,6 +2427,10 @@ public final class DfsMessages {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1310,7 +2473,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The filepath.
      */
+    @java.lang.Override
     public java.lang.String getFilepath() {
       java.lang.Object ref = filepath_;
       if (ref instanceof java.lang.String) {
@@ -1329,7 +2494,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The bytes for filepath.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFilepathBytes() {
       java.lang.Object ref = filepath_;
@@ -1348,7 +2515,9 @@ public final class DfsMessages {
     private boolean success_;
     /**
      * <code>bool success = 2;</code>
+     * @return The success.
      */
+    @java.lang.Override
     public boolean getSuccess() {
       return success_;
     }
@@ -1357,14 +2526,16 @@ public final class DfsMessages {
     private int type_;
     /**
      * <code>.FileAck.Type type = 3;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.FileAck.Type type = 3;</code>
+     * @return The type.
      */
-    public edu.usfca.cs.chat.DfsMessages.FileAck.Type getType() {
+    @java.lang.Override public edu.usfca.cs.chat.DfsMessages.FileAck.Type getType() {
       @SuppressWarnings("deprecation")
       edu.usfca.cs.chat.DfsMessages.FileAck.Type result = edu.usfca.cs.chat.DfsMessages.FileAck.Type.valueOf(type_);
       return result == null ? edu.usfca.cs.chat.DfsMessages.FileAck.Type.UNRECOGNIZED : result;
@@ -1428,14 +2599,13 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.FileAck other = (edu.usfca.cs.chat.DfsMessages.FileAck) obj;
 
-      boolean result = true;
-      result = result && getFilepath()
-          .equals(other.getFilepath());
-      result = result && (getSuccess()
-          == other.getSuccess());
-      result = result && type_ == other.type_;
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getFilepath()
+          .equals(other.getFilepath())) return false;
+      if (getSuccess()
+          != other.getSuccess()) return false;
+      if (type_ != other.type_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1626,35 +2796,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1714,6 +2884,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @return The filepath.
        */
       public java.lang.String getFilepath() {
         java.lang.Object ref = filepath_;
@@ -1733,6 +2904,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @return The bytes for filepath.
        */
       public com.google.protobuf.ByteString
           getFilepathBytes() {
@@ -1753,6 +2925,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @param value The filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepath(
           java.lang.String value) {
@@ -1770,6 +2944,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFilepath() {
         
@@ -1783,6 +2958,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @param value The bytes for filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepathBytes(
           com.google.protobuf.ByteString value) {
@@ -1799,12 +2976,16 @@ public final class DfsMessages {
       private boolean success_ ;
       /**
        * <code>bool success = 2;</code>
+       * @return The success.
        */
+      @java.lang.Override
       public boolean getSuccess() {
         return success_;
       }
       /**
        * <code>bool success = 2;</code>
+       * @param value The success to set.
+       * @return This builder for chaining.
        */
       public Builder setSuccess(boolean value) {
         
@@ -1814,6 +2995,7 @@ public final class DfsMessages {
       }
       /**
        * <code>bool success = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSuccess() {
         
@@ -1825,21 +3007,27 @@ public final class DfsMessages {
       private int type_ = 0;
       /**
        * <code>.FileAck.Type type = 3;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.FileAck.Type type = 3;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.FileAck.Type type = 3;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileAck.Type getType() {
         @SuppressWarnings("deprecation")
         edu.usfca.cs.chat.DfsMessages.FileAck.Type result = edu.usfca.cs.chat.DfsMessages.FileAck.Type.valueOf(type_);
@@ -1847,6 +3035,8 @@ public final class DfsMessages {
       }
       /**
        * <code>.FileAck.Type type = 3;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(edu.usfca.cs.chat.DfsMessages.FileAck.Type value) {
         if (value == null) {
@@ -1859,6 +3049,7 @@ public final class DfsMessages {
       }
       /**
        * <code>.FileAck.Type type = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -1869,7 +3060,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1925,6 +3116,7 @@ public final class DfsMessages {
 
     /**
      * <code>int32 total_chunks = 1;</code>
+     * @return The totalChunks.
      */
     int getTotalChunks();
 
@@ -1934,6 +3126,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 2;</code>
+     * @return The filepath.
      */
     java.lang.String getFilepath();
     /**
@@ -1942,6 +3135,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 2;</code>
+     * @return The bytes for filepath.
      */
     com.google.protobuf.ByteString
         getFilepathBytes();
@@ -1969,6 +3163,85 @@ public final class DfsMessages {
      */
     edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getReplicasOrBuilder(
         int index);
+
+    /**
+     * <pre>
+     * on node down send node ip to storage node to begin replica maintenance
+     * </pre>
+     *
+     * <code>string nodeIp = 4;</code>
+     * @return The nodeIp.
+     */
+    java.lang.String getNodeIp();
+    /**
+     * <pre>
+     * on node down send node ip to storage node to begin replica maintenance
+     * </pre>
+     *
+     * <code>string nodeIp = 4;</code>
+     * @return The bytes for nodeIp.
+     */
+    com.google.protobuf.ByteString
+        getNodeIpBytes();
+
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> 
+        getMaintenanceNodesList();
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getMaintenanceNodes(int index);
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    int getMaintenanceNodesCount();
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+        getMaintenanceNodesOrBuilderList();
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintenanceNodesOrBuilder(
+        int index);
+
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     * @return Whether the alreadyMaintainedChunks field is set.
+     */
+    boolean hasAlreadyMaintainedChunks();
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     * @return The alreadyMaintainedChunks.
+     */
+    edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getAlreadyMaintainedChunks();
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder getAlreadyMaintainedChunksOrBuilder();
   }
   /**
    * <pre>
@@ -1977,7 +3250,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code FileChunkHeader}
    */
-  public  static final class FileChunkHeader extends
+  public static final class FileChunkHeader extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FileChunkHeader)
       FileChunkHeaderOrBuilder {
@@ -1987,9 +3260,17 @@ public final class DfsMessages {
       super(builder);
     }
     private FileChunkHeader() {
-      totalChunks_ = 0;
       filepath_ = "";
       replicas_ = java.util.Collections.emptyList();
+      nodeIp_ = "";
+      maintenanceNodes_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FileChunkHeader();
     }
 
     @java.lang.Override
@@ -2028,16 +3309,44 @@ public final class DfsMessages {
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 replicas_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>();
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000001;
               }
               replicas_.add(
                   input.readMessage(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.parser(), extensionRegistry));
               break;
             }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              nodeIp_ = s;
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                maintenanceNodes_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              maintenanceNodes_.add(
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.parser(), extensionRegistry));
+              break;
+            }
+            case 50: {
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder subBuilder = null;
+              if (alreadyMaintainedChunks_ != null) {
+                subBuilder = alreadyMaintainedChunks_.toBuilder();
+              }
+              alreadyMaintainedChunks_ = input.readMessage(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(alreadyMaintainedChunks_);
+                alreadyMaintainedChunks_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2051,8 +3360,11 @@ public final class DfsMessages {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           replicas_ = java.util.Collections.unmodifiableList(replicas_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          maintenanceNodes_ = java.util.Collections.unmodifiableList(maintenanceNodes_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2071,12 +3383,13 @@ public final class DfsMessages {
               edu.usfca.cs.chat.DfsMessages.FileChunkHeader.class, edu.usfca.cs.chat.DfsMessages.FileChunkHeader.Builder.class);
     }
 
-    private int bitField0_;
     public static final int TOTAL_CHUNKS_FIELD_NUMBER = 1;
     private int totalChunks_;
     /**
      * <code>int32 total_chunks = 1;</code>
+     * @return The totalChunks.
      */
+    @java.lang.Override
     public int getTotalChunks() {
       return totalChunks_;
     }
@@ -2089,7 +3402,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 2;</code>
+     * @return The filepath.
      */
+    @java.lang.Override
     public java.lang.String getFilepath() {
       java.lang.Object ref = filepath_;
       if (ref instanceof java.lang.String) {
@@ -2108,7 +3423,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 2;</code>
+     * @return The bytes for filepath.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFilepathBytes() {
       java.lang.Object ref = filepath_;
@@ -2128,12 +3445,14 @@ public final class DfsMessages {
     /**
      * <code>repeated .DataNodeMetadata replicas = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getReplicasList() {
       return replicas_;
     }
     /**
      * <code>repeated .DataNodeMetadata replicas = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
         getReplicasOrBuilderList() {
       return replicas_;
@@ -2141,21 +3460,156 @@ public final class DfsMessages {
     /**
      * <code>repeated .DataNodeMetadata replicas = 3;</code>
      */
+    @java.lang.Override
     public int getReplicasCount() {
       return replicas_.size();
     }
     /**
      * <code>repeated .DataNodeMetadata replicas = 3;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getReplicas(int index) {
       return replicas_.get(index);
     }
     /**
      * <code>repeated .DataNodeMetadata replicas = 3;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getReplicasOrBuilder(
         int index) {
       return replicas_.get(index);
+    }
+
+    public static final int NODEIP_FIELD_NUMBER = 4;
+    private volatile java.lang.Object nodeIp_;
+    /**
+     * <pre>
+     * on node down send node ip to storage node to begin replica maintenance
+     * </pre>
+     *
+     * <code>string nodeIp = 4;</code>
+     * @return The nodeIp.
+     */
+    @java.lang.Override
+    public java.lang.String getNodeIp() {
+      java.lang.Object ref = nodeIp_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nodeIp_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * on node down send node ip to storage node to begin replica maintenance
+     * </pre>
+     *
+     * <code>string nodeIp = 4;</code>
+     * @return The bytes for nodeIp.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNodeIpBytes() {
+      java.lang.Object ref = nodeIp_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nodeIp_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MAINTENANCENODES_FIELD_NUMBER = 5;
+    private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> maintenanceNodes_;
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getMaintenanceNodesList() {
+      return maintenanceNodes_;
+    }
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+        getMaintenanceNodesOrBuilderList() {
+      return maintenanceNodes_;
+    }
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    @java.lang.Override
+    public int getMaintenanceNodesCount() {
+      return maintenanceNodes_.size();
+    }
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getMaintenanceNodes(int index) {
+      return maintenanceNodes_.get(index);
+    }
+    /**
+     * <pre>
+     * list of all nodes that need to have replication maintained on node down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintenanceNodesOrBuilder(
+        int index) {
+      return maintenanceNodes_.get(index);
+    }
+
+    public static final int ALREADYMAINTAINEDCHUNKS_FIELD_NUMBER = 6;
+    private edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks_;
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     * @return Whether the alreadyMaintainedChunks field is set.
+     */
+    @java.lang.Override
+    public boolean hasAlreadyMaintainedChunks() {
+      return alreadyMaintainedChunks_ != null;
+    }
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     * @return The alreadyMaintainedChunks.
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getAlreadyMaintainedChunks() {
+      return alreadyMaintainedChunks_ == null ? edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance() : alreadyMaintainedChunks_;
+    }
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder getAlreadyMaintainedChunksOrBuilder() {
+      return getAlreadyMaintainedChunks();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2181,6 +3635,15 @@ public final class DfsMessages {
       for (int i = 0; i < replicas_.size(); i++) {
         output.writeMessage(3, replicas_.get(i));
       }
+      if (!getNodeIpBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, nodeIp_);
+      }
+      for (int i = 0; i < maintenanceNodes_.size(); i++) {
+        output.writeMessage(5, maintenanceNodes_.get(i));
+      }
+      if (alreadyMaintainedChunks_ != null) {
+        output.writeMessage(6, getAlreadyMaintainedChunks());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2201,6 +3664,17 @@ public final class DfsMessages {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, replicas_.get(i));
       }
+      if (!getNodeIpBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, nodeIp_);
+      }
+      for (int i = 0; i < maintenanceNodes_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, maintenanceNodes_.get(i));
+      }
+      if (alreadyMaintainedChunks_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, getAlreadyMaintainedChunks());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -2216,15 +3690,23 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.FileChunkHeader other = (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) obj;
 
-      boolean result = true;
-      result = result && (getTotalChunks()
-          == other.getTotalChunks());
-      result = result && getFilepath()
-          .equals(other.getFilepath());
-      result = result && getReplicasList()
-          .equals(other.getReplicasList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getTotalChunks()
+          != other.getTotalChunks()) return false;
+      if (!getFilepath()
+          .equals(other.getFilepath())) return false;
+      if (!getReplicasList()
+          .equals(other.getReplicasList())) return false;
+      if (!getNodeIp()
+          .equals(other.getNodeIp())) return false;
+      if (!getMaintenanceNodesList()
+          .equals(other.getMaintenanceNodesList())) return false;
+      if (hasAlreadyMaintainedChunks() != other.hasAlreadyMaintainedChunks()) return false;
+      if (hasAlreadyMaintainedChunks()) {
+        if (!getAlreadyMaintainedChunks()
+            .equals(other.getAlreadyMaintainedChunks())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2241,6 +3723,16 @@ public final class DfsMessages {
       if (getReplicasCount() > 0) {
         hash = (37 * hash) + REPLICAS_FIELD_NUMBER;
         hash = (53 * hash) + getReplicasList().hashCode();
+      }
+      hash = (37 * hash) + NODEIP_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeIp().hashCode();
+      if (getMaintenanceNodesCount() > 0) {
+        hash = (37 * hash) + MAINTENANCENODES_FIELD_NUMBER;
+        hash = (53 * hash) + getMaintenanceNodesList().hashCode();
+      }
+      if (hasAlreadyMaintainedChunks()) {
+        hash = (37 * hash) + ALREADYMAINTAINEDCHUNKS_FIELD_NUMBER;
+        hash = (53 * hash) + getAlreadyMaintainedChunks().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -2375,6 +3867,7 @@ public final class DfsMessages {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getReplicasFieldBuilder();
+          getMaintenanceNodesFieldBuilder();
         }
       }
       @java.lang.Override
@@ -2386,9 +3879,23 @@ public final class DfsMessages {
 
         if (replicasBuilder_ == null) {
           replicas_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           replicasBuilder_.clear();
+        }
+        nodeIp_ = "";
+
+        if (maintenanceNodesBuilder_ == null) {
+          maintenanceNodes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          maintenanceNodesBuilder_.clear();
+        }
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          alreadyMaintainedChunks_ = null;
+        } else {
+          alreadyMaintainedChunks_ = null;
+          alreadyMaintainedChunksBuilder_ = null;
         }
         return this;
       }
@@ -2417,54 +3924,67 @@ public final class DfsMessages {
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeader buildPartial() {
         edu.usfca.cs.chat.DfsMessages.FileChunkHeader result = new edu.usfca.cs.chat.DfsMessages.FileChunkHeader(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.totalChunks_ = totalChunks_;
         result.filepath_ = filepath_;
         if (replicasBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             replicas_ = java.util.Collections.unmodifiableList(replicas_);
-            bitField0_ = (bitField0_ & ~0x00000004);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.replicas_ = replicas_;
         } else {
           result.replicas_ = replicasBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
+        result.nodeIp_ = nodeIp_;
+        if (maintenanceNodesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            maintenanceNodes_ = java.util.Collections.unmodifiableList(maintenanceNodes_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.maintenanceNodes_ = maintenanceNodes_;
+        } else {
+          result.maintenanceNodes_ = maintenanceNodesBuilder_.build();
+        }
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          result.alreadyMaintainedChunks_ = alreadyMaintainedChunks_;
+        } else {
+          result.alreadyMaintainedChunks_ = alreadyMaintainedChunksBuilder_.build();
+        }
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2489,7 +4009,7 @@ public final class DfsMessages {
           if (!other.replicas_.isEmpty()) {
             if (replicas_.isEmpty()) {
               replicas_ = other.replicas_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureReplicasIsMutable();
               replicas_.addAll(other.replicas_);
@@ -2502,7 +4022,7 @@ public final class DfsMessages {
               replicasBuilder_.dispose();
               replicasBuilder_ = null;
               replicas_ = other.replicas_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000001);
               replicasBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getReplicasFieldBuilder() : null;
@@ -2510,6 +4030,39 @@ public final class DfsMessages {
               replicasBuilder_.addAllMessages(other.replicas_);
             }
           }
+        }
+        if (!other.getNodeIp().isEmpty()) {
+          nodeIp_ = other.nodeIp_;
+          onChanged();
+        }
+        if (maintenanceNodesBuilder_ == null) {
+          if (!other.maintenanceNodes_.isEmpty()) {
+            if (maintenanceNodes_.isEmpty()) {
+              maintenanceNodes_ = other.maintenanceNodes_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureMaintenanceNodesIsMutable();
+              maintenanceNodes_.addAll(other.maintenanceNodes_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.maintenanceNodes_.isEmpty()) {
+            if (maintenanceNodesBuilder_.isEmpty()) {
+              maintenanceNodesBuilder_.dispose();
+              maintenanceNodesBuilder_ = null;
+              maintenanceNodes_ = other.maintenanceNodes_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              maintenanceNodesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMaintenanceNodesFieldBuilder() : null;
+            } else {
+              maintenanceNodesBuilder_.addAllMessages(other.maintenanceNodes_);
+            }
+          }
+        }
+        if (other.hasAlreadyMaintainedChunks()) {
+          mergeAlreadyMaintainedChunks(other.getAlreadyMaintainedChunks());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2544,12 +4097,16 @@ public final class DfsMessages {
       private int totalChunks_ ;
       /**
        * <code>int32 total_chunks = 1;</code>
+       * @return The totalChunks.
        */
+      @java.lang.Override
       public int getTotalChunks() {
         return totalChunks_;
       }
       /**
        * <code>int32 total_chunks = 1;</code>
+       * @param value The totalChunks to set.
+       * @return This builder for chaining.
        */
       public Builder setTotalChunks(int value) {
         
@@ -2559,6 +4116,7 @@ public final class DfsMessages {
       }
       /**
        * <code>int32 total_chunks = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTotalChunks() {
         
@@ -2574,6 +4132,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @return The filepath.
        */
       public java.lang.String getFilepath() {
         java.lang.Object ref = filepath_;
@@ -2593,6 +4152,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @return The bytes for filepath.
        */
       public com.google.protobuf.ByteString
           getFilepathBytes() {
@@ -2613,6 +4173,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @param value The filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepath(
           java.lang.String value) {
@@ -2630,6 +4192,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFilepath() {
         
@@ -2643,6 +4206,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @param value The bytes for filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepathBytes(
           com.google.protobuf.ByteString value) {
@@ -2659,9 +4224,9 @@ public final class DfsMessages {
       private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> replicas_ =
         java.util.Collections.emptyList();
       private void ensureReplicasIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           replicas_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>(replicas_);
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -2811,7 +4376,7 @@ public final class DfsMessages {
       public Builder clearReplicas() {
         if (replicasBuilder_ == null) {
           replicas_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           replicasBuilder_.clear();
@@ -2888,17 +4453,544 @@ public final class DfsMessages {
           replicasBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder>(
                   replicas_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           replicas_ = null;
         }
         return replicasBuilder_;
       }
+
+      private java.lang.Object nodeIp_ = "";
+      /**
+       * <pre>
+       * on node down send node ip to storage node to begin replica maintenance
+       * </pre>
+       *
+       * <code>string nodeIp = 4;</code>
+       * @return The nodeIp.
+       */
+      public java.lang.String getNodeIp() {
+        java.lang.Object ref = nodeIp_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nodeIp_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * on node down send node ip to storage node to begin replica maintenance
+       * </pre>
+       *
+       * <code>string nodeIp = 4;</code>
+       * @return The bytes for nodeIp.
+       */
+      public com.google.protobuf.ByteString
+          getNodeIpBytes() {
+        java.lang.Object ref = nodeIp_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nodeIp_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * on node down send node ip to storage node to begin replica maintenance
+       * </pre>
+       *
+       * <code>string nodeIp = 4;</code>
+       * @param value The nodeIp to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        nodeIp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * on node down send node ip to storage node to begin replica maintenance
+       * </pre>
+       *
+       * <code>string nodeIp = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNodeIp() {
+        
+        nodeIp_ = getDefaultInstance().getNodeIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * on node down send node ip to storage node to begin replica maintenance
+       * </pre>
+       *
+       * <code>string nodeIp = 4;</code>
+       * @param value The bytes for nodeIp to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        nodeIp_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> maintenanceNodes_ =
+        java.util.Collections.emptyList();
+      private void ensureMaintenanceNodesIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          maintenanceNodes_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>(maintenanceNodes_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> maintenanceNodesBuilder_;
+
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getMaintenanceNodesList() {
+        if (maintenanceNodesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(maintenanceNodes_);
+        } else {
+          return maintenanceNodesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public int getMaintenanceNodesCount() {
+        if (maintenanceNodesBuilder_ == null) {
+          return maintenanceNodes_.size();
+        } else {
+          return maintenanceNodesBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getMaintenanceNodes(int index) {
+        if (maintenanceNodesBuilder_ == null) {
+          return maintenanceNodes_.get(index);
+        } else {
+          return maintenanceNodesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public Builder setMaintenanceNodes(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (maintenanceNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMaintenanceNodesIsMutable();
+          maintenanceNodes_.set(index, value);
+          onChanged();
+        } else {
+          maintenanceNodesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public Builder setMaintenanceNodes(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (maintenanceNodesBuilder_ == null) {
+          ensureMaintenanceNodesIsMutable();
+          maintenanceNodes_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          maintenanceNodesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public Builder addMaintenanceNodes(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (maintenanceNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMaintenanceNodesIsMutable();
+          maintenanceNodes_.add(value);
+          onChanged();
+        } else {
+          maintenanceNodesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public Builder addMaintenanceNodes(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (maintenanceNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMaintenanceNodesIsMutable();
+          maintenanceNodes_.add(index, value);
+          onChanged();
+        } else {
+          maintenanceNodesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public Builder addMaintenanceNodes(
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (maintenanceNodesBuilder_ == null) {
+          ensureMaintenanceNodesIsMutable();
+          maintenanceNodes_.add(builderForValue.build());
+          onChanged();
+        } else {
+          maintenanceNodesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public Builder addMaintenanceNodes(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (maintenanceNodesBuilder_ == null) {
+          ensureMaintenanceNodesIsMutable();
+          maintenanceNodes_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          maintenanceNodesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public Builder addAllMaintenanceNodes(
+          java.lang.Iterable<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> values) {
+        if (maintenanceNodesBuilder_ == null) {
+          ensureMaintenanceNodesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, maintenanceNodes_);
+          onChanged();
+        } else {
+          maintenanceNodesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public Builder clearMaintenanceNodes() {
+        if (maintenanceNodesBuilder_ == null) {
+          maintenanceNodes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          maintenanceNodesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public Builder removeMaintenanceNodes(int index) {
+        if (maintenanceNodesBuilder_ == null) {
+          ensureMaintenanceNodesIsMutable();
+          maintenanceNodes_.remove(index);
+          onChanged();
+        } else {
+          maintenanceNodesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder getMaintenanceNodesBuilder(
+          int index) {
+        return getMaintenanceNodesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintenanceNodesOrBuilder(
+          int index) {
+        if (maintenanceNodesBuilder_ == null) {
+          return maintenanceNodes_.get(index);  } else {
+          return maintenanceNodesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+           getMaintenanceNodesOrBuilderList() {
+        if (maintenanceNodesBuilder_ != null) {
+          return maintenanceNodesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(maintenanceNodes_);
+        }
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder addMaintenanceNodesBuilder() {
+        return getMaintenanceNodesFieldBuilder().addBuilder(
+            edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder addMaintenanceNodesBuilder(
+          int index) {
+        return getMaintenanceNodesFieldBuilder().addBuilder(
+            index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * list of all nodes that need to have replication maintained on node down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata maintenanceNodes = 5;</code>
+       */
+      public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder> 
+           getMaintenanceNodesBuilderList() {
+        return getMaintenanceNodesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+          getMaintenanceNodesFieldBuilder() {
+        if (maintenanceNodesBuilder_ == null) {
+          maintenanceNodesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder>(
+                  maintenanceNodes_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          maintenanceNodes_ = null;
+        }
+        return maintenanceNodesBuilder_;
+      }
+
+      private edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder> alreadyMaintainedChunksBuilder_;
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       * @return Whether the alreadyMaintainedChunks field is set.
+       */
+      public boolean hasAlreadyMaintainedChunks() {
+        return alreadyMaintainedChunksBuilder_ != null || alreadyMaintainedChunks_ != null;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       * @return The alreadyMaintainedChunks.
+       */
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getAlreadyMaintainedChunks() {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          return alreadyMaintainedChunks_ == null ? edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance() : alreadyMaintainedChunks_;
+        } else {
+          return alreadyMaintainedChunksBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public Builder setAlreadyMaintainedChunks(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks value) {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          alreadyMaintainedChunks_ = value;
+          onChanged();
+        } else {
+          alreadyMaintainedChunksBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public Builder setAlreadyMaintainedChunks(
+          edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder builderForValue) {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          alreadyMaintainedChunks_ = builderForValue.build();
+          onChanged();
+        } else {
+          alreadyMaintainedChunksBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public Builder mergeAlreadyMaintainedChunks(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks value) {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          if (alreadyMaintainedChunks_ != null) {
+            alreadyMaintainedChunks_ =
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.newBuilder(alreadyMaintainedChunks_).mergeFrom(value).buildPartial();
+          } else {
+            alreadyMaintainedChunks_ = value;
+          }
+          onChanged();
+        } else {
+          alreadyMaintainedChunksBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public Builder clearAlreadyMaintainedChunks() {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          alreadyMaintainedChunks_ = null;
+          onChanged();
+        } else {
+          alreadyMaintainedChunks_ = null;
+          alreadyMaintainedChunksBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder getAlreadyMaintainedChunksBuilder() {
+        
+        onChanged();
+        return getAlreadyMaintainedChunksFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder getAlreadyMaintainedChunksOrBuilder() {
+        if (alreadyMaintainedChunksBuilder_ != null) {
+          return alreadyMaintainedChunksBuilder_.getMessageOrBuilder();
+        } else {
+          return alreadyMaintainedChunks_ == null ?
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance() : alreadyMaintainedChunks_;
+        }
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder> 
+          getAlreadyMaintainedChunksFieldBuilder() {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          alreadyMaintainedChunksBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder>(
+                  getAlreadyMaintainedChunks(),
+                  getParentForChildren(),
+                  isClean());
+          alreadyMaintainedChunks_ = null;
+        }
+        return alreadyMaintainedChunksBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2958,6 +5050,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string directory = 1;</code>
+     * @return The directory.
      */
     java.lang.String getDirectory();
     /**
@@ -2966,6 +5059,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string directory = 1;</code>
+     * @return The bytes for directory.
      */
     com.google.protobuf.ByteString
         getDirectoryBytes();
@@ -2976,6 +5070,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 2;</code>
+     * @return The filepath.
      */
     java.lang.String getFilepath();
     /**
@@ -2984,12 +5079,14 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 2;</code>
+     * @return The bytes for filepath.
      */
     com.google.protobuf.ByteString
         getFilepathBytes();
 
     /**
      * <code>int32 num_chunks = 3;</code>
+     * @return The numChunks.
      */
     int getNumChunks();
 
@@ -2999,15 +5096,18 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>int64 size = 4;</code>
+     * @return The size.
      */
     long getSize();
 
     /**
      * <code>.FileRequest.Type type = 5;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.FileRequest.Type type = 5;</code>
+     * @return The type.
      */
     edu.usfca.cs.chat.DfsMessages.FileRequest.Type getType();
   }
@@ -3018,7 +5118,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code FileRequest}
    */
-  public  static final class FileRequest extends
+  public static final class FileRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FileRequest)
       FileRequestOrBuilder {
@@ -3030,9 +5130,14 @@ public final class DfsMessages {
     private FileRequest() {
       directory_ = "";
       filepath_ = "";
-      numChunks_ = 0;
-      size_ = 0L;
       type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FileRequest();
     }
 
     @java.lang.Override
@@ -3048,7 +5153,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3088,7 +5192,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3154,6 +5258,8 @@ public final class DfsMessages {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -3161,6 +5267,10 @@ public final class DfsMessages {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return STORE;
@@ -3183,6 +5293,10 @@ public final class DfsMessages {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -3225,7 +5339,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string directory = 1;</code>
+     * @return The directory.
      */
+    @java.lang.Override
     public java.lang.String getDirectory() {
       java.lang.Object ref = directory_;
       if (ref instanceof java.lang.String) {
@@ -3244,7 +5360,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string directory = 1;</code>
+     * @return The bytes for directory.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDirectoryBytes() {
       java.lang.Object ref = directory_;
@@ -3267,7 +5385,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 2;</code>
+     * @return The filepath.
      */
+    @java.lang.Override
     public java.lang.String getFilepath() {
       java.lang.Object ref = filepath_;
       if (ref instanceof java.lang.String) {
@@ -3286,7 +5406,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 2;</code>
+     * @return The bytes for filepath.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFilepathBytes() {
       java.lang.Object ref = filepath_;
@@ -3305,7 +5427,9 @@ public final class DfsMessages {
     private int numChunks_;
     /**
      * <code>int32 num_chunks = 3;</code>
+     * @return The numChunks.
      */
+    @java.lang.Override
     public int getNumChunks() {
       return numChunks_;
     }
@@ -3318,7 +5442,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>int64 size = 4;</code>
+     * @return The size.
      */
+    @java.lang.Override
     public long getSize() {
       return size_;
     }
@@ -3327,14 +5453,16 @@ public final class DfsMessages {
     private int type_;
     /**
      * <code>.FileRequest.Type type = 5;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.FileRequest.Type type = 5;</code>
+     * @return The type.
      */
-    public edu.usfca.cs.chat.DfsMessages.FileRequest.Type getType() {
+    @java.lang.Override public edu.usfca.cs.chat.DfsMessages.FileRequest.Type getType() {
       @SuppressWarnings("deprecation")
       edu.usfca.cs.chat.DfsMessages.FileRequest.Type result = edu.usfca.cs.chat.DfsMessages.FileRequest.Type.valueOf(type_);
       return result == null ? edu.usfca.cs.chat.DfsMessages.FileRequest.Type.UNRECOGNIZED : result;
@@ -3411,18 +5539,17 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.FileRequest other = (edu.usfca.cs.chat.DfsMessages.FileRequest) obj;
 
-      boolean result = true;
-      result = result && getDirectory()
-          .equals(other.getDirectory());
-      result = result && getFilepath()
-          .equals(other.getFilepath());
-      result = result && (getNumChunks()
-          == other.getNumChunks());
-      result = result && (getSize()
-          == other.getSize());
-      result = result && type_ == other.type_;
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getDirectory()
+          .equals(other.getDirectory())) return false;
+      if (!getFilepath()
+          .equals(other.getFilepath())) return false;
+      if (getNumChunks()
+          != other.getNumChunks()) return false;
+      if (getSize()
+          != other.getSize()) return false;
+      if (type_ != other.type_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3627,35 +5754,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3722,6 +5849,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string directory = 1;</code>
+       * @return The directory.
        */
       public java.lang.String getDirectory() {
         java.lang.Object ref = directory_;
@@ -3741,6 +5869,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string directory = 1;</code>
+       * @return The bytes for directory.
        */
       public com.google.protobuf.ByteString
           getDirectoryBytes() {
@@ -3761,6 +5890,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string directory = 1;</code>
+       * @param value The directory to set.
+       * @return This builder for chaining.
        */
       public Builder setDirectory(
           java.lang.String value) {
@@ -3778,6 +5909,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string directory = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDirectory() {
         
@@ -3791,6 +5923,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string directory = 1;</code>
+       * @param value The bytes for directory to set.
+       * @return This builder for chaining.
        */
       public Builder setDirectoryBytes(
           com.google.protobuf.ByteString value) {
@@ -3811,6 +5945,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @return The filepath.
        */
       public java.lang.String getFilepath() {
         java.lang.Object ref = filepath_;
@@ -3830,6 +5965,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @return The bytes for filepath.
        */
       public com.google.protobuf.ByteString
           getFilepathBytes() {
@@ -3850,6 +5986,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @param value The filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepath(
           java.lang.String value) {
@@ -3867,6 +6005,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFilepath() {
         
@@ -3880,6 +6019,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 2;</code>
+       * @param value The bytes for filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepathBytes(
           com.google.protobuf.ByteString value) {
@@ -3896,12 +6037,16 @@ public final class DfsMessages {
       private int numChunks_ ;
       /**
        * <code>int32 num_chunks = 3;</code>
+       * @return The numChunks.
        */
+      @java.lang.Override
       public int getNumChunks() {
         return numChunks_;
       }
       /**
        * <code>int32 num_chunks = 3;</code>
+       * @param value The numChunks to set.
+       * @return This builder for chaining.
        */
       public Builder setNumChunks(int value) {
         
@@ -3911,6 +6056,7 @@ public final class DfsMessages {
       }
       /**
        * <code>int32 num_chunks = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNumChunks() {
         
@@ -3926,7 +6072,9 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>int64 size = 4;</code>
+       * @return The size.
        */
+      @java.lang.Override
       public long getSize() {
         return size_;
       }
@@ -3936,6 +6084,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>int64 size = 4;</code>
+       * @param value The size to set.
+       * @return This builder for chaining.
        */
       public Builder setSize(long value) {
         
@@ -3949,6 +6099,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>int64 size = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSize() {
         
@@ -3960,21 +6111,27 @@ public final class DfsMessages {
       private int type_ = 0;
       /**
        * <code>.FileRequest.Type type = 5;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.FileRequest.Type type = 5;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.FileRequest.Type type = 5;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileRequest.Type getType() {
         @SuppressWarnings("deprecation")
         edu.usfca.cs.chat.DfsMessages.FileRequest.Type result = edu.usfca.cs.chat.DfsMessages.FileRequest.Type.valueOf(type_);
@@ -3982,6 +6139,8 @@ public final class DfsMessages {
       }
       /**
        * <code>.FileRequest.Type type = 5;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(edu.usfca.cs.chat.DfsMessages.FileRequest.Type value) {
         if (value == null) {
@@ -3994,6 +6153,7 @@ public final class DfsMessages {
       }
       /**
        * <code>.FileRequest.Type type = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -4004,7 +6164,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -4054,6 +6214,688 @@ public final class DfsMessages {
 
   }
 
+  public interface GetFreeNodesOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:GetFreeNodes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 num_chunks = 1;</code>
+     * @return The numChunks.
+     */
+    int getNumChunks();
+
+    /**
+     * <pre>
+     * sent when storage needs to start replication on node down - this is the failed node's ip
+     * </pre>
+     *
+     * <code>string nodeIp = 2;</code>
+     * @return The nodeIp.
+     */
+    java.lang.String getNodeIp();
+    /**
+     * <pre>
+     * sent when storage needs to start replication on node down - this is the failed node's ip
+     * </pre>
+     *
+     * <code>string nodeIp = 2;</code>
+     * @return The bytes for nodeIp.
+     */
+    com.google.protobuf.ByteString
+        getNodeIpBytes();
+  }
+  /**
+   * <pre>
+   * get nodes to save num_chunks number of chunks
+   * </pre>
+   *
+   * Protobuf type {@code GetFreeNodes}
+   */
+  public static final class GetFreeNodes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:GetFreeNodes)
+      GetFreeNodesOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetFreeNodes.newBuilder() to construct.
+    private GetFreeNodes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetFreeNodes() {
+      nodeIp_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetFreeNodes();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetFreeNodes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              numChunks_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              nodeIp_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_GetFreeNodes_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_GetFreeNodes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              edu.usfca.cs.chat.DfsMessages.GetFreeNodes.class, edu.usfca.cs.chat.DfsMessages.GetFreeNodes.Builder.class);
+    }
+
+    public static final int NUM_CHUNKS_FIELD_NUMBER = 1;
+    private int numChunks_;
+    /**
+     * <code>int32 num_chunks = 1;</code>
+     * @return The numChunks.
+     */
+    @java.lang.Override
+    public int getNumChunks() {
+      return numChunks_;
+    }
+
+    public static final int NODEIP_FIELD_NUMBER = 2;
+    private volatile java.lang.Object nodeIp_;
+    /**
+     * <pre>
+     * sent when storage needs to start replication on node down - this is the failed node's ip
+     * </pre>
+     *
+     * <code>string nodeIp = 2;</code>
+     * @return The nodeIp.
+     */
+    @java.lang.Override
+    public java.lang.String getNodeIp() {
+      java.lang.Object ref = nodeIp_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nodeIp_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * sent when storage needs to start replication on node down - this is the failed node's ip
+     * </pre>
+     *
+     * <code>string nodeIp = 2;</code>
+     * @return The bytes for nodeIp.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNodeIpBytes() {
+      java.lang.Object ref = nodeIp_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nodeIp_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (numChunks_ != 0) {
+        output.writeInt32(1, numChunks_);
+      }
+      if (!getNodeIpBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, nodeIp_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (numChunks_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, numChunks_);
+      }
+      if (!getNodeIpBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, nodeIp_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof edu.usfca.cs.chat.DfsMessages.GetFreeNodes)) {
+        return super.equals(obj);
+      }
+      edu.usfca.cs.chat.DfsMessages.GetFreeNodes other = (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) obj;
+
+      if (getNumChunks()
+          != other.getNumChunks()) return false;
+      if (!getNodeIp()
+          .equals(other.getNodeIp())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NUM_CHUNKS_FIELD_NUMBER;
+      hash = (53 * hash) + getNumChunks();
+      hash = (37 * hash) + NODEIP_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeIp().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(edu.usfca.cs.chat.DfsMessages.GetFreeNodes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * get nodes to save num_chunks number of chunks
+     * </pre>
+     *
+     * Protobuf type {@code GetFreeNodes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:GetFreeNodes)
+        edu.usfca.cs.chat.DfsMessages.GetFreeNodesOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_GetFreeNodes_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_GetFreeNodes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                edu.usfca.cs.chat.DfsMessages.GetFreeNodes.class, edu.usfca.cs.chat.DfsMessages.GetFreeNodes.Builder.class);
+      }
+
+      // Construct using edu.usfca.cs.chat.DfsMessages.GetFreeNodes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        numChunks_ = 0;
+
+        nodeIp_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_GetFreeNodes_descriptor;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.GetFreeNodes getDefaultInstanceForType() {
+        return edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.GetFreeNodes build() {
+        edu.usfca.cs.chat.DfsMessages.GetFreeNodes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.GetFreeNodes buildPartial() {
+        edu.usfca.cs.chat.DfsMessages.GetFreeNodes result = new edu.usfca.cs.chat.DfsMessages.GetFreeNodes(this);
+        result.numChunks_ = numChunks_;
+        result.nodeIp_ = nodeIp_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof edu.usfca.cs.chat.DfsMessages.GetFreeNodes) {
+          return mergeFrom((edu.usfca.cs.chat.DfsMessages.GetFreeNodes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(edu.usfca.cs.chat.DfsMessages.GetFreeNodes other) {
+        if (other == edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance()) return this;
+        if (other.getNumChunks() != 0) {
+          setNumChunks(other.getNumChunks());
+        }
+        if (!other.getNodeIp().isEmpty()) {
+          nodeIp_ = other.nodeIp_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        edu.usfca.cs.chat.DfsMessages.GetFreeNodes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int numChunks_ ;
+      /**
+       * <code>int32 num_chunks = 1;</code>
+       * @return The numChunks.
+       */
+      @java.lang.Override
+      public int getNumChunks() {
+        return numChunks_;
+      }
+      /**
+       * <code>int32 num_chunks = 1;</code>
+       * @param value The numChunks to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNumChunks(int value) {
+        
+        numChunks_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 num_chunks = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNumChunks() {
+        
+        numChunks_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object nodeIp_ = "";
+      /**
+       * <pre>
+       * sent when storage needs to start replication on node down - this is the failed node's ip
+       * </pre>
+       *
+       * <code>string nodeIp = 2;</code>
+       * @return The nodeIp.
+       */
+      public java.lang.String getNodeIp() {
+        java.lang.Object ref = nodeIp_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nodeIp_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * sent when storage needs to start replication on node down - this is the failed node's ip
+       * </pre>
+       *
+       * <code>string nodeIp = 2;</code>
+       * @return The bytes for nodeIp.
+       */
+      public com.google.protobuf.ByteString
+          getNodeIpBytes() {
+        java.lang.Object ref = nodeIp_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nodeIp_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * sent when storage needs to start replication on node down - this is the failed node's ip
+       * </pre>
+       *
+       * <code>string nodeIp = 2;</code>
+       * @param value The nodeIp to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        nodeIp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * sent when storage needs to start replication on node down - this is the failed node's ip
+       * </pre>
+       *
+       * <code>string nodeIp = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNodeIp() {
+        
+        nodeIp_ = getDefaultInstance().getNodeIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * sent when storage needs to start replication on node down - this is the failed node's ip
+       * </pre>
+       *
+       * <code>string nodeIp = 2;</code>
+       * @param value The bytes for nodeIp to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        nodeIp_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:GetFreeNodes)
+    }
+
+    // @@protoc_insertion_point(class_scope:GetFreeNodes)
+    private static final edu.usfca.cs.chat.DfsMessages.GetFreeNodes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new edu.usfca.cs.chat.DfsMessages.GetFreeNodes();
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.GetFreeNodes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetFreeNodes>
+        PARSER = new com.google.protobuf.AbstractParser<GetFreeNodes>() {
+      @java.lang.Override
+      public GetFreeNodes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetFreeNodes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetFreeNodes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetFreeNodes> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.GetFreeNodes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface FileResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:FileResponse)
       com.google.protobuf.MessageOrBuilder {
@@ -4064,6 +6906,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string systemFilePath = 1;</code>
+     * @return The systemFilePath.
      */
     java.lang.String getSystemFilePath();
     /**
@@ -4072,16 +6915,19 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string systemFilePath = 1;</code>
+     * @return The bytes for systemFilePath.
      */
     com.google.protobuf.ByteString
         getSystemFilePathBytes();
 
     /**
      * <code>string dfsFilePath = 2;</code>
+     * @return The dfsFilePath.
      */
     java.lang.String getDfsFilePath();
     /**
      * <code>string dfsFilePath = 2;</code>
+     * @return The bytes for dfsFilePath.
      */
     com.google.protobuf.ByteString
         getDfsFilePathBytes();
@@ -4112,10 +6958,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileResponse.Type type = 4;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.FileResponse.Type type = 4;</code>
+     * @return The type.
      */
     edu.usfca.cs.chat.DfsMessages.FileResponse.Type getType();
 
@@ -4125,6 +6973,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>bool shouldOverwrite = 5;</code>
+     * @return The shouldOverwrite.
      */
     boolean getShouldOverwrite();
   }
@@ -4135,7 +6984,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code FileResponse}
    */
-  public  static final class FileResponse extends
+  public static final class FileResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FileResponse)
       FileResponseOrBuilder {
@@ -4149,7 +6998,13 @@ public final class DfsMessages {
       dfsFilePath_ = "";
       dataNodes_ = java.util.Collections.emptyList();
       type_ = 0;
-      shouldOverwrite_ = false;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FileResponse();
     }
 
     @java.lang.Override
@@ -4189,9 +7044,9 @@ public final class DfsMessages {
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 dataNodes_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>();
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000001;
               }
               dataNodes_.add(
                   input.readMessage(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.parser(), extensionRegistry));
@@ -4209,7 +7064,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4223,7 +7078,7 @@ public final class DfsMessages {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           dataNodes_ = java.util.Collections.unmodifiableList(dataNodes_);
         }
         this.unknownFields = unknownFields.build();
@@ -4278,6 +7133,8 @@ public final class DfsMessages {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -4285,6 +7142,10 @@ public final class DfsMessages {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return STORE;
@@ -4307,6 +7168,10 @@ public final class DfsMessages {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -4341,7 +7206,6 @@ public final class DfsMessages {
       // @@protoc_insertion_point(enum_scope:FileResponse.Type)
     }
 
-    private int bitField0_;
     public static final int SYSTEMFILEPATH_FIELD_NUMBER = 1;
     private volatile java.lang.Object systemFilePath_;
     /**
@@ -4350,7 +7214,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string systemFilePath = 1;</code>
+     * @return The systemFilePath.
      */
+    @java.lang.Override
     public java.lang.String getSystemFilePath() {
       java.lang.Object ref = systemFilePath_;
       if (ref instanceof java.lang.String) {
@@ -4369,7 +7235,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string systemFilePath = 1;</code>
+     * @return The bytes for systemFilePath.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSystemFilePathBytes() {
       java.lang.Object ref = systemFilePath_;
@@ -4388,7 +7256,9 @@ public final class DfsMessages {
     private volatile java.lang.Object dfsFilePath_;
     /**
      * <code>string dfsFilePath = 2;</code>
+     * @return The dfsFilePath.
      */
+    @java.lang.Override
     public java.lang.String getDfsFilePath() {
       java.lang.Object ref = dfsFilePath_;
       if (ref instanceof java.lang.String) {
@@ -4403,7 +7273,9 @@ public final class DfsMessages {
     }
     /**
      * <code>string dfsFilePath = 2;</code>
+     * @return The bytes for dfsFilePath.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDfsFilePathBytes() {
       java.lang.Object ref = dfsFilePath_;
@@ -4423,12 +7295,14 @@ public final class DfsMessages {
     /**
      * <code>repeated .DataNodeMetadata dataNodes = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getDataNodesList() {
       return dataNodes_;
     }
     /**
      * <code>repeated .DataNodeMetadata dataNodes = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
         getDataNodesOrBuilderList() {
       return dataNodes_;
@@ -4436,18 +7310,21 @@ public final class DfsMessages {
     /**
      * <code>repeated .DataNodeMetadata dataNodes = 3;</code>
      */
+    @java.lang.Override
     public int getDataNodesCount() {
       return dataNodes_.size();
     }
     /**
      * <code>repeated .DataNodeMetadata dataNodes = 3;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getDataNodes(int index) {
       return dataNodes_.get(index);
     }
     /**
      * <code>repeated .DataNodeMetadata dataNodes = 3;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getDataNodesOrBuilder(
         int index) {
       return dataNodes_.get(index);
@@ -4457,14 +7334,16 @@ public final class DfsMessages {
     private int type_;
     /**
      * <code>.FileResponse.Type type = 4;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.FileResponse.Type type = 4;</code>
+     * @return The type.
      */
-    public edu.usfca.cs.chat.DfsMessages.FileResponse.Type getType() {
+    @java.lang.Override public edu.usfca.cs.chat.DfsMessages.FileResponse.Type getType() {
       @SuppressWarnings("deprecation")
       edu.usfca.cs.chat.DfsMessages.FileResponse.Type result = edu.usfca.cs.chat.DfsMessages.FileResponse.Type.valueOf(type_);
       return result == null ? edu.usfca.cs.chat.DfsMessages.FileResponse.Type.UNRECOGNIZED : result;
@@ -4478,7 +7357,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>bool shouldOverwrite = 5;</code>
+     * @return The shouldOverwrite.
      */
+    @java.lang.Override
     public boolean getShouldOverwrite() {
       return shouldOverwrite_;
     }
@@ -4554,18 +7435,17 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.FileResponse other = (edu.usfca.cs.chat.DfsMessages.FileResponse) obj;
 
-      boolean result = true;
-      result = result && getSystemFilePath()
-          .equals(other.getSystemFilePath());
-      result = result && getDfsFilePath()
-          .equals(other.getDfsFilePath());
-      result = result && getDataNodesList()
-          .equals(other.getDataNodesList());
-      result = result && type_ == other.type_;
-      result = result && (getShouldOverwrite()
-          == other.getShouldOverwrite());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getSystemFilePath()
+          .equals(other.getSystemFilePath())) return false;
+      if (!getDfsFilePath()
+          .equals(other.getDfsFilePath())) return false;
+      if (!getDataNodesList()
+          .equals(other.getDataNodesList())) return false;
+      if (type_ != other.type_) return false;
+      if (getShouldOverwrite()
+          != other.getShouldOverwrite()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4732,7 +7612,7 @@ public final class DfsMessages {
 
         if (dataNodesBuilder_ == null) {
           dataNodes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           dataNodesBuilder_.clear();
         }
@@ -4767,13 +7647,12 @@ public final class DfsMessages {
       public edu.usfca.cs.chat.DfsMessages.FileResponse buildPartial() {
         edu.usfca.cs.chat.DfsMessages.FileResponse result = new edu.usfca.cs.chat.DfsMessages.FileResponse(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.systemFilePath_ = systemFilePath_;
         result.dfsFilePath_ = dfsFilePath_;
         if (dataNodesBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             dataNodes_ = java.util.Collections.unmodifiableList(dataNodes_);
-            bitField0_ = (bitField0_ & ~0x00000004);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.dataNodes_ = dataNodes_;
         } else {
@@ -4781,42 +7660,41 @@ public final class DfsMessages {
         }
         result.type_ = type_;
         result.shouldOverwrite_ = shouldOverwrite_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4842,7 +7720,7 @@ public final class DfsMessages {
           if (!other.dataNodes_.isEmpty()) {
             if (dataNodes_.isEmpty()) {
               dataNodes_ = other.dataNodes_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureDataNodesIsMutable();
               dataNodes_.addAll(other.dataNodes_);
@@ -4855,7 +7733,7 @@ public final class DfsMessages {
               dataNodesBuilder_.dispose();
               dataNodesBuilder_ = null;
               dataNodes_ = other.dataNodes_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000001);
               dataNodesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getDataNodesFieldBuilder() : null;
@@ -4907,6 +7785,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string systemFilePath = 1;</code>
+       * @return The systemFilePath.
        */
       public java.lang.String getSystemFilePath() {
         java.lang.Object ref = systemFilePath_;
@@ -4926,6 +7805,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string systemFilePath = 1;</code>
+       * @return The bytes for systemFilePath.
        */
       public com.google.protobuf.ByteString
           getSystemFilePathBytes() {
@@ -4946,6 +7826,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string systemFilePath = 1;</code>
+       * @param value The systemFilePath to set.
+       * @return This builder for chaining.
        */
       public Builder setSystemFilePath(
           java.lang.String value) {
@@ -4963,6 +7845,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string systemFilePath = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSystemFilePath() {
         
@@ -4976,6 +7859,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string systemFilePath = 1;</code>
+       * @param value The bytes for systemFilePath to set.
+       * @return This builder for chaining.
        */
       public Builder setSystemFilePathBytes(
           com.google.protobuf.ByteString value) {
@@ -4992,6 +7877,7 @@ public final class DfsMessages {
       private java.lang.Object dfsFilePath_ = "";
       /**
        * <code>string dfsFilePath = 2;</code>
+       * @return The dfsFilePath.
        */
       public java.lang.String getDfsFilePath() {
         java.lang.Object ref = dfsFilePath_;
@@ -5007,6 +7893,7 @@ public final class DfsMessages {
       }
       /**
        * <code>string dfsFilePath = 2;</code>
+       * @return The bytes for dfsFilePath.
        */
       public com.google.protobuf.ByteString
           getDfsFilePathBytes() {
@@ -5023,6 +7910,8 @@ public final class DfsMessages {
       }
       /**
        * <code>string dfsFilePath = 2;</code>
+       * @param value The dfsFilePath to set.
+       * @return This builder for chaining.
        */
       public Builder setDfsFilePath(
           java.lang.String value) {
@@ -5036,6 +7925,7 @@ public final class DfsMessages {
       }
       /**
        * <code>string dfsFilePath = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDfsFilePath() {
         
@@ -5045,6 +7935,8 @@ public final class DfsMessages {
       }
       /**
        * <code>string dfsFilePath = 2;</code>
+       * @param value The bytes for dfsFilePath to set.
+       * @return This builder for chaining.
        */
       public Builder setDfsFilePathBytes(
           com.google.protobuf.ByteString value) {
@@ -5061,9 +7953,9 @@ public final class DfsMessages {
       private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> dataNodes_ =
         java.util.Collections.emptyList();
       private void ensureDataNodesIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           dataNodes_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>(dataNodes_);
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -5213,7 +8105,7 @@ public final class DfsMessages {
       public Builder clearDataNodes() {
         if (dataNodesBuilder_ == null) {
           dataNodes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           dataNodesBuilder_.clear();
@@ -5290,7 +8182,7 @@ public final class DfsMessages {
           dataNodesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder>(
                   dataNodes_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           dataNodes_ = null;
@@ -5301,21 +8193,27 @@ public final class DfsMessages {
       private int type_ = 0;
       /**
        * <code>.FileResponse.Type type = 4;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.FileResponse.Type type = 4;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.FileResponse.Type type = 4;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileResponse.Type getType() {
         @SuppressWarnings("deprecation")
         edu.usfca.cs.chat.DfsMessages.FileResponse.Type result = edu.usfca.cs.chat.DfsMessages.FileResponse.Type.valueOf(type_);
@@ -5323,6 +8221,8 @@ public final class DfsMessages {
       }
       /**
        * <code>.FileResponse.Type type = 4;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(edu.usfca.cs.chat.DfsMessages.FileResponse.Type value) {
         if (value == null) {
@@ -5335,6 +8235,7 @@ public final class DfsMessages {
       }
       /**
        * <code>.FileResponse.Type type = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -5350,7 +8251,9 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>bool shouldOverwrite = 5;</code>
+       * @return The shouldOverwrite.
        */
+      @java.lang.Override
       public boolean getShouldOverwrite() {
         return shouldOverwrite_;
       }
@@ -5360,6 +8263,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>bool shouldOverwrite = 5;</code>
+       * @param value The shouldOverwrite to set.
+       * @return This builder for chaining.
        */
       public Builder setShouldOverwrite(boolean value) {
         
@@ -5373,6 +8278,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>bool shouldOverwrite = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearShouldOverwrite() {
         
@@ -5383,7 +8289,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5439,20 +8345,24 @@ public final class DfsMessages {
 
     /**
      * <code>string hostname = 1;</code>
+     * @return The hostname.
      */
     java.lang.String getHostname();
     /**
      * <code>string hostname = 1;</code>
+     * @return The bytes for hostname.
      */
     com.google.protobuf.ByteString
         getHostnameBytes();
 
     /**
      * <code>string ip = 2;</code>
+     * @return The ip.
      */
     java.lang.String getIp();
     /**
      * <code>string ip = 2;</code>
+     * @return The bytes for ip.
      */
     com.google.protobuf.ByteString
         getIpBytes();
@@ -5463,18 +8373,20 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>int32 memory = 3;</code>
+     * @return The memory.
      */
     int getMemory();
 
     /**
      * <code>int32 port = 4;</code>
+     * @return The port.
      */
     int getPort();
   }
   /**
    * Protobuf type {@code DataNodeMetadata}
    */
-  public  static final class DataNodeMetadata extends
+  public static final class DataNodeMetadata extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:DataNodeMetadata)
       DataNodeMetadataOrBuilder {
@@ -5486,8 +8398,13 @@ public final class DfsMessages {
     private DataNodeMetadata() {
       hostname_ = "";
       ip_ = "";
-      memory_ = 0;
-      port_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DataNodeMetadata();
     }
 
     @java.lang.Override
@@ -5503,7 +8420,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -5537,7 +8453,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -5572,7 +8488,9 @@ public final class DfsMessages {
     private volatile java.lang.Object hostname_;
     /**
      * <code>string hostname = 1;</code>
+     * @return The hostname.
      */
+    @java.lang.Override
     public java.lang.String getHostname() {
       java.lang.Object ref = hostname_;
       if (ref instanceof java.lang.String) {
@@ -5587,7 +8505,9 @@ public final class DfsMessages {
     }
     /**
      * <code>string hostname = 1;</code>
+     * @return The bytes for hostname.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHostnameBytes() {
       java.lang.Object ref = hostname_;
@@ -5606,7 +8526,9 @@ public final class DfsMessages {
     private volatile java.lang.Object ip_;
     /**
      * <code>string ip = 2;</code>
+     * @return The ip.
      */
+    @java.lang.Override
     public java.lang.String getIp() {
       java.lang.Object ref = ip_;
       if (ref instanceof java.lang.String) {
@@ -5621,7 +8543,9 @@ public final class DfsMessages {
     }
     /**
      * <code>string ip = 2;</code>
+     * @return The bytes for ip.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIpBytes() {
       java.lang.Object ref = ip_;
@@ -5644,7 +8568,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>int32 memory = 3;</code>
+     * @return The memory.
      */
+    @java.lang.Override
     public int getMemory() {
       return memory_;
     }
@@ -5653,7 +8579,9 @@ public final class DfsMessages {
     private int port_;
     /**
      * <code>int32 port = 4;</code>
+     * @return The port.
      */
+    @java.lang.Override
     public int getPort() {
       return port_;
     }
@@ -5722,17 +8650,16 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.DataNodeMetadata other = (edu.usfca.cs.chat.DfsMessages.DataNodeMetadata) obj;
 
-      boolean result = true;
-      result = result && getHostname()
-          .equals(other.getHostname());
-      result = result && getIp()
-          .equals(other.getIp());
-      result = result && (getMemory()
-          == other.getMemory());
-      result = result && (getPort()
-          == other.getPort());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getHostname()
+          .equals(other.getHostname())) return false;
+      if (!getIp()
+          .equals(other.getIp())) return false;
+      if (getMemory()
+          != other.getMemory()) return false;
+      if (getPort()
+          != other.getPort()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5927,35 +8854,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -6015,6 +8942,7 @@ public final class DfsMessages {
       private java.lang.Object hostname_ = "";
       /**
        * <code>string hostname = 1;</code>
+       * @return The hostname.
        */
       public java.lang.String getHostname() {
         java.lang.Object ref = hostname_;
@@ -6030,6 +8958,7 @@ public final class DfsMessages {
       }
       /**
        * <code>string hostname = 1;</code>
+       * @return The bytes for hostname.
        */
       public com.google.protobuf.ByteString
           getHostnameBytes() {
@@ -6046,6 +8975,8 @@ public final class DfsMessages {
       }
       /**
        * <code>string hostname = 1;</code>
+       * @param value The hostname to set.
+       * @return This builder for chaining.
        */
       public Builder setHostname(
           java.lang.String value) {
@@ -6059,6 +8990,7 @@ public final class DfsMessages {
       }
       /**
        * <code>string hostname = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHostname() {
         
@@ -6068,6 +9000,8 @@ public final class DfsMessages {
       }
       /**
        * <code>string hostname = 1;</code>
+       * @param value The bytes for hostname to set.
+       * @return This builder for chaining.
        */
       public Builder setHostnameBytes(
           com.google.protobuf.ByteString value) {
@@ -6084,6 +9018,7 @@ public final class DfsMessages {
       private java.lang.Object ip_ = "";
       /**
        * <code>string ip = 2;</code>
+       * @return The ip.
        */
       public java.lang.String getIp() {
         java.lang.Object ref = ip_;
@@ -6099,6 +9034,7 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 2;</code>
+       * @return The bytes for ip.
        */
       public com.google.protobuf.ByteString
           getIpBytes() {
@@ -6115,6 +9051,8 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 2;</code>
+       * @param value The ip to set.
+       * @return This builder for chaining.
        */
       public Builder setIp(
           java.lang.String value) {
@@ -6128,6 +9066,7 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIp() {
         
@@ -6137,6 +9076,8 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 2;</code>
+       * @param value The bytes for ip to set.
+       * @return This builder for chaining.
        */
       public Builder setIpBytes(
           com.google.protobuf.ByteString value) {
@@ -6157,7 +9098,9 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>int32 memory = 3;</code>
+       * @return The memory.
        */
+      @java.lang.Override
       public int getMemory() {
         return memory_;
       }
@@ -6167,6 +9110,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>int32 memory = 3;</code>
+       * @param value The memory to set.
+       * @return This builder for chaining.
        */
       public Builder setMemory(int value) {
         
@@ -6180,6 +9125,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>int32 memory = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMemory() {
         
@@ -6191,12 +9137,16 @@ public final class DfsMessages {
       private int port_ ;
       /**
        * <code>int32 port = 4;</code>
+       * @return The port.
        */
+      @java.lang.Override
       public int getPort() {
         return port_;
       }
       /**
        * <code>int32 port = 4;</code>
+       * @param value The port to set.
+       * @return This builder for chaining.
        */
       public Builder setPort(int value) {
         
@@ -6206,6 +9156,7 @@ public final class DfsMessages {
       }
       /**
        * <code>int32 port = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPort() {
         
@@ -6216,7 +9167,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -6272,10 +9223,12 @@ public final class DfsMessages {
 
     /**
      * <code>.DataNodeMetadata node_meta_data = 2;</code>
+     * @return Whether the nodeMetaData field is set.
      */
     boolean hasNodeMetaData();
     /**
      * <code>.DataNodeMetadata node_meta_data = 2;</code>
+     * @return The nodeMetaData.
      */
     edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getNodeMetaData();
     /**
@@ -6285,11 +9238,13 @@ public final class DfsMessages {
 
     /**
      * <code>int32 store_count = 3;</code>
+     * @return The storeCount.
      */
     int getStoreCount();
 
     /**
      * <code>int32 retrieve_count = 4;</code>
+     * @return The retrieveCount.
      */
     int getRetrieveCount();
   }
@@ -6300,7 +9255,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code HeartBeat}
    */
-  public  static final class HeartBeat extends
+  public static final class HeartBeat extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:HeartBeat)
       HeartBeatOrBuilder {
@@ -6310,8 +9265,13 @@ public final class DfsMessages {
       super(builder);
     }
     private HeartBeat() {
-      storeCount_ = 0;
-      retrieveCount_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new HeartBeat();
     }
 
     @java.lang.Override
@@ -6327,7 +9287,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6362,7 +9321,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -6397,19 +9356,24 @@ public final class DfsMessages {
     private edu.usfca.cs.chat.DfsMessages.DataNodeMetadata nodeMetaData_;
     /**
      * <code>.DataNodeMetadata node_meta_data = 2;</code>
+     * @return Whether the nodeMetaData field is set.
      */
+    @java.lang.Override
     public boolean hasNodeMetaData() {
       return nodeMetaData_ != null;
     }
     /**
      * <code>.DataNodeMetadata node_meta_data = 2;</code>
+     * @return The nodeMetaData.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getNodeMetaData() {
       return nodeMetaData_ == null ? edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance() : nodeMetaData_;
     }
     /**
      * <code>.DataNodeMetadata node_meta_data = 2;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getNodeMetaDataOrBuilder() {
       return getNodeMetaData();
     }
@@ -6418,7 +9382,9 @@ public final class DfsMessages {
     private int storeCount_;
     /**
      * <code>int32 store_count = 3;</code>
+     * @return The storeCount.
      */
+    @java.lang.Override
     public int getStoreCount() {
       return storeCount_;
     }
@@ -6427,7 +9393,9 @@ public final class DfsMessages {
     private int retrieveCount_;
     /**
      * <code>int32 retrieve_count = 4;</code>
+     * @return The retrieveCount.
      */
+    @java.lang.Override
     public int getRetrieveCount() {
       return retrieveCount_;
     }
@@ -6491,18 +9459,17 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.HeartBeat other = (edu.usfca.cs.chat.DfsMessages.HeartBeat) obj;
 
-      boolean result = true;
-      result = result && (hasNodeMetaData() == other.hasNodeMetaData());
+      if (hasNodeMetaData() != other.hasNodeMetaData()) return false;
       if (hasNodeMetaData()) {
-        result = result && getNodeMetaData()
-            .equals(other.getNodeMetaData());
+        if (!getNodeMetaData()
+            .equals(other.getNodeMetaData())) return false;
       }
-      result = result && (getStoreCount()
-          == other.getStoreCount());
-      result = result && (getRetrieveCount()
-          == other.getRetrieveCount());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getStoreCount()
+          != other.getStoreCount()) return false;
+      if (getRetrieveCount()
+          != other.getRetrieveCount()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -6706,35 +9673,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -6786,17 +9753,19 @@ public final class DfsMessages {
         return this;
       }
 
-      private edu.usfca.cs.chat.DfsMessages.DataNodeMetadata nodeMetaData_ = null;
+      private edu.usfca.cs.chat.DfsMessages.DataNodeMetadata nodeMetaData_;
       private com.google.protobuf.SingleFieldBuilderV3<
           edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> nodeMetaDataBuilder_;
       /**
        * <code>.DataNodeMetadata node_meta_data = 2;</code>
+       * @return Whether the nodeMetaData field is set.
        */
       public boolean hasNodeMetaData() {
         return nodeMetaDataBuilder_ != null || nodeMetaData_ != null;
       }
       /**
        * <code>.DataNodeMetadata node_meta_data = 2;</code>
+       * @return The nodeMetaData.
        */
       public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getNodeMetaData() {
         if (nodeMetaDataBuilder_ == null) {
@@ -6906,12 +9875,16 @@ public final class DfsMessages {
       private int storeCount_ ;
       /**
        * <code>int32 store_count = 3;</code>
+       * @return The storeCount.
        */
+      @java.lang.Override
       public int getStoreCount() {
         return storeCount_;
       }
       /**
        * <code>int32 store_count = 3;</code>
+       * @param value The storeCount to set.
+       * @return This builder for chaining.
        */
       public Builder setStoreCount(int value) {
         
@@ -6921,6 +9894,7 @@ public final class DfsMessages {
       }
       /**
        * <code>int32 store_count = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStoreCount() {
         
@@ -6932,12 +9906,16 @@ public final class DfsMessages {
       private int retrieveCount_ ;
       /**
        * <code>int32 retrieve_count = 4;</code>
+       * @return The retrieveCount.
        */
+      @java.lang.Override
       public int getRetrieveCount() {
         return retrieveCount_;
       }
       /**
        * <code>int32 retrieve_count = 4;</code>
+       * @param value The retrieveCount to set.
+       * @return This builder for chaining.
        */
       public Builder setRetrieveCount(int value) {
         
@@ -6947,6 +9925,7 @@ public final class DfsMessages {
       }
       /**
        * <code>int32 retrieve_count = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRetrieveCount() {
         
@@ -6957,7 +9936,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7017,6 +9996,7 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The filepath.
      */
     java.lang.String getFilepath();
     /**
@@ -7025,17 +10005,20 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The bytes for filepath.
      */
     com.google.protobuf.ByteString
         getFilepathBytes();
 
     /**
      * <code>int32 chunk_num = 2;</code>
+     * @return The chunkNum.
      */
     int getChunkNum();
 
     /**
      * <code>bool success = 3;</code>
+     * @return The success.
      */
     boolean getSuccess();
   }
@@ -7046,7 +10029,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code ReplicationStatus}
    */
-  public  static final class ReplicationStatus extends
+  public static final class ReplicationStatus extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ReplicationStatus)
       ReplicationStatusOrBuilder {
@@ -7057,8 +10040,13 @@ public final class DfsMessages {
     }
     private ReplicationStatus() {
       filepath_ = "";
-      chunkNum_ = 0;
-      success_ = false;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ReplicationStatus();
     }
 
     @java.lang.Override
@@ -7074,7 +10062,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -7102,7 +10089,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7141,7 +10128,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The filepath.
      */
+    @java.lang.Override
     public java.lang.String getFilepath() {
       java.lang.Object ref = filepath_;
       if (ref instanceof java.lang.String) {
@@ -7160,7 +10149,9 @@ public final class DfsMessages {
      * </pre>
      *
      * <code>string filepath = 1;</code>
+     * @return The bytes for filepath.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFilepathBytes() {
       java.lang.Object ref = filepath_;
@@ -7179,7 +10170,9 @@ public final class DfsMessages {
     private int chunkNum_;
     /**
      * <code>int32 chunk_num = 2;</code>
+     * @return The chunkNum.
      */
+    @java.lang.Override
     public int getChunkNum() {
       return chunkNum_;
     }
@@ -7188,7 +10181,9 @@ public final class DfsMessages {
     private boolean success_;
     /**
      * <code>bool success = 3;</code>
+     * @return The success.
      */
+    @java.lang.Override
     public boolean getSuccess() {
       return success_;
     }
@@ -7251,15 +10246,14 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.ReplicationStatus other = (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) obj;
 
-      boolean result = true;
-      result = result && getFilepath()
-          .equals(other.getFilepath());
-      result = result && (getChunkNum()
-          == other.getChunkNum());
-      result = result && (getSuccess()
-          == other.getSuccess());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getFilepath()
+          .equals(other.getFilepath())) return false;
+      if (getChunkNum()
+          != other.getChunkNum()) return false;
+      if (getSuccess()
+          != other.getSuccess()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -7454,35 +10448,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -7542,6 +10536,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @return The filepath.
        */
       public java.lang.String getFilepath() {
         java.lang.Object ref = filepath_;
@@ -7561,6 +10556,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @return The bytes for filepath.
        */
       public com.google.protobuf.ByteString
           getFilepathBytes() {
@@ -7581,6 +10577,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @param value The filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepath(
           java.lang.String value) {
@@ -7598,6 +10596,7 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFilepath() {
         
@@ -7611,6 +10610,8 @@ public final class DfsMessages {
        * </pre>
        *
        * <code>string filepath = 1;</code>
+       * @param value The bytes for filepath to set.
+       * @return This builder for chaining.
        */
       public Builder setFilepathBytes(
           com.google.protobuf.ByteString value) {
@@ -7627,12 +10628,16 @@ public final class DfsMessages {
       private int chunkNum_ ;
       /**
        * <code>int32 chunk_num = 2;</code>
+       * @return The chunkNum.
        */
+      @java.lang.Override
       public int getChunkNum() {
         return chunkNum_;
       }
       /**
        * <code>int32 chunk_num = 2;</code>
+       * @param value The chunkNum to set.
+       * @return This builder for chaining.
        */
       public Builder setChunkNum(int value) {
         
@@ -7642,6 +10647,7 @@ public final class DfsMessages {
       }
       /**
        * <code>int32 chunk_num = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearChunkNum() {
         
@@ -7653,12 +10659,16 @@ public final class DfsMessages {
       private boolean success_ ;
       /**
        * <code>bool success = 3;</code>
+       * @return The success.
        */
+      @java.lang.Override
       public boolean getSuccess() {
         return success_;
       }
       /**
        * <code>bool success = 3;</code>
+       * @param value The success to set.
+       * @return This builder for chaining.
        */
       public Builder setSuccess(boolean value) {
         
@@ -7668,6 +10678,7 @@ public final class DfsMessages {
       }
       /**
        * <code>bool success = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSuccess() {
         
@@ -7678,7 +10689,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7734,13 +10745,59 @@ public final class DfsMessages {
 
     /**
      * <code>string ip = 1;</code>
+     * @return The ip.
      */
     java.lang.String getIp();
     /**
      * <code>string ip = 1;</code>
+     * @return The bytes for ip.
      */
     com.google.protobuf.ByteString
         getIpBytes();
+
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> 
+        getAffectedNodesList();
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getAffectedNodes(int index);
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    int getAffectedNodesCount();
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+        getAffectedNodesOrBuilderList();
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getAffectedNodesOrBuilder(
+        int index);
   }
   /**
    * <pre>
@@ -7749,7 +10806,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code OnNodeDown}
    */
-  public  static final class OnNodeDown extends
+  public static final class OnNodeDown extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:OnNodeDown)
       OnNodeDownOrBuilder {
@@ -7760,6 +10817,14 @@ public final class DfsMessages {
     }
     private OnNodeDown() {
       ip_ = "";
+      affectedNodes_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new OnNodeDown();
     }
 
     @java.lang.Override
@@ -7792,8 +10857,17 @@ public final class DfsMessages {
               ip_ = s;
               break;
             }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                affectedNodes_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              affectedNodes_.add(
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.parser(), extensionRegistry));
+              break;
+            }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7807,6 +10881,9 @@ public final class DfsMessages {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          affectedNodes_ = java.util.Collections.unmodifiableList(affectedNodes_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -7828,7 +10905,9 @@ public final class DfsMessages {
     private volatile java.lang.Object ip_;
     /**
      * <code>string ip = 1;</code>
+     * @return The ip.
      */
+    @java.lang.Override
     public java.lang.String getIp() {
       java.lang.Object ref = ip_;
       if (ref instanceof java.lang.String) {
@@ -7843,7 +10922,9 @@ public final class DfsMessages {
     }
     /**
      * <code>string ip = 1;</code>
+     * @return The bytes for ip.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIpBytes() {
       java.lang.Object ref = ip_;
@@ -7856,6 +10937,66 @@ public final class DfsMessages {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int AFFECTEDNODES_FIELD_NUMBER = 2;
+    private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> affectedNodes_;
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getAffectedNodesList() {
+      return affectedNodes_;
+    }
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+        getAffectedNodesOrBuilderList() {
+      return affectedNodes_;
+    }
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    @java.lang.Override
+    public int getAffectedNodesCount() {
+      return affectedNodes_.size();
+    }
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getAffectedNodes(int index) {
+      return affectedNodes_.get(index);
+    }
+    /**
+     * <pre>
+     * list of all affected nodes when a node goes down
+     * </pre>
+     *
+     * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getAffectedNodesOrBuilder(
+        int index) {
+      return affectedNodes_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -7875,6 +11016,9 @@ public final class DfsMessages {
       if (!getIpBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ip_);
       }
+      for (int i = 0; i < affectedNodes_.size(); i++) {
+        output.writeMessage(2, affectedNodes_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -7886,6 +11030,10 @@ public final class DfsMessages {
       size = 0;
       if (!getIpBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ip_);
+      }
+      for (int i = 0; i < affectedNodes_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, affectedNodes_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -7902,11 +11050,12 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.OnNodeDown other = (edu.usfca.cs.chat.DfsMessages.OnNodeDown) obj;
 
-      boolean result = true;
-      result = result && getIp()
-          .equals(other.getIp());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getIp()
+          .equals(other.getIp())) return false;
+      if (!getAffectedNodesList()
+          .equals(other.getAffectedNodesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -7918,6 +11067,10 @@ public final class DfsMessages {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + IP_FIELD_NUMBER;
       hash = (53 * hash) + getIp().hashCode();
+      if (getAffectedNodesCount() > 0) {
+        hash = (37 * hash) + AFFECTEDNODES_FIELD_NUMBER;
+        hash = (53 * hash) + getAffectedNodesList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8050,6 +11203,7 @@ public final class DfsMessages {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getAffectedNodesFieldBuilder();
         }
       }
       @java.lang.Override
@@ -8057,6 +11211,12 @@ public final class DfsMessages {
         super.clear();
         ip_ = "";
 
+        if (affectedNodesBuilder_ == null) {
+          affectedNodes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          affectedNodesBuilder_.clear();
+        }
         return this;
       }
 
@@ -8083,42 +11243,52 @@ public final class DfsMessages {
       @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.OnNodeDown buildPartial() {
         edu.usfca.cs.chat.DfsMessages.OnNodeDown result = new edu.usfca.cs.chat.DfsMessages.OnNodeDown(this);
+        int from_bitField0_ = bitField0_;
         result.ip_ = ip_;
+        if (affectedNodesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            affectedNodes_ = java.util.Collections.unmodifiableList(affectedNodes_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.affectedNodes_ = affectedNodes_;
+        } else {
+          result.affectedNodes_ = affectedNodesBuilder_.build();
+        }
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -8135,6 +11305,32 @@ public final class DfsMessages {
         if (!other.getIp().isEmpty()) {
           ip_ = other.ip_;
           onChanged();
+        }
+        if (affectedNodesBuilder_ == null) {
+          if (!other.affectedNodes_.isEmpty()) {
+            if (affectedNodes_.isEmpty()) {
+              affectedNodes_ = other.affectedNodes_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureAffectedNodesIsMutable();
+              affectedNodes_.addAll(other.affectedNodes_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.affectedNodes_.isEmpty()) {
+            if (affectedNodesBuilder_.isEmpty()) {
+              affectedNodesBuilder_.dispose();
+              affectedNodesBuilder_ = null;
+              affectedNodes_ = other.affectedNodes_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              affectedNodesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getAffectedNodesFieldBuilder() : null;
+            } else {
+              affectedNodesBuilder_.addAllMessages(other.affectedNodes_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -8164,10 +11360,12 @@ public final class DfsMessages {
         }
         return this;
       }
+      private int bitField0_;
 
       private java.lang.Object ip_ = "";
       /**
        * <code>string ip = 1;</code>
+       * @return The ip.
        */
       public java.lang.String getIp() {
         java.lang.Object ref = ip_;
@@ -8183,6 +11381,7 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 1;</code>
+       * @return The bytes for ip.
        */
       public com.google.protobuf.ByteString
           getIpBytes() {
@@ -8199,6 +11398,8 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 1;</code>
+       * @param value The ip to set.
+       * @return This builder for chaining.
        */
       public Builder setIp(
           java.lang.String value) {
@@ -8212,6 +11413,7 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIp() {
         
@@ -8221,6 +11423,8 @@ public final class DfsMessages {
       }
       /**
        * <code>string ip = 1;</code>
+       * @param value The bytes for ip to set.
+       * @return This builder for chaining.
        */
       public Builder setIpBytes(
           com.google.protobuf.ByteString value) {
@@ -8233,10 +11437,322 @@ public final class DfsMessages {
         onChanged();
         return this;
       }
+
+      private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> affectedNodes_ =
+        java.util.Collections.emptyList();
+      private void ensureAffectedNodesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          affectedNodes_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>(affectedNodes_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> affectedNodesBuilder_;
+
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getAffectedNodesList() {
+        if (affectedNodesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(affectedNodes_);
+        } else {
+          return affectedNodesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public int getAffectedNodesCount() {
+        if (affectedNodesBuilder_ == null) {
+          return affectedNodes_.size();
+        } else {
+          return affectedNodesBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getAffectedNodes(int index) {
+        if (affectedNodesBuilder_ == null) {
+          return affectedNodes_.get(index);
+        } else {
+          return affectedNodesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public Builder setAffectedNodes(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (affectedNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAffectedNodesIsMutable();
+          affectedNodes_.set(index, value);
+          onChanged();
+        } else {
+          affectedNodesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public Builder setAffectedNodes(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (affectedNodesBuilder_ == null) {
+          ensureAffectedNodesIsMutable();
+          affectedNodes_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          affectedNodesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public Builder addAffectedNodes(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (affectedNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAffectedNodesIsMutable();
+          affectedNodes_.add(value);
+          onChanged();
+        } else {
+          affectedNodesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public Builder addAffectedNodes(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (affectedNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAffectedNodesIsMutable();
+          affectedNodes_.add(index, value);
+          onChanged();
+        } else {
+          affectedNodesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public Builder addAffectedNodes(
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (affectedNodesBuilder_ == null) {
+          ensureAffectedNodesIsMutable();
+          affectedNodes_.add(builderForValue.build());
+          onChanged();
+        } else {
+          affectedNodesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public Builder addAffectedNodes(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (affectedNodesBuilder_ == null) {
+          ensureAffectedNodesIsMutable();
+          affectedNodes_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          affectedNodesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public Builder addAllAffectedNodes(
+          java.lang.Iterable<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> values) {
+        if (affectedNodesBuilder_ == null) {
+          ensureAffectedNodesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, affectedNodes_);
+          onChanged();
+        } else {
+          affectedNodesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public Builder clearAffectedNodes() {
+        if (affectedNodesBuilder_ == null) {
+          affectedNodes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          affectedNodesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public Builder removeAffectedNodes(int index) {
+        if (affectedNodesBuilder_ == null) {
+          ensureAffectedNodesIsMutable();
+          affectedNodes_.remove(index);
+          onChanged();
+        } else {
+          affectedNodesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder getAffectedNodesBuilder(
+          int index) {
+        return getAffectedNodesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getAffectedNodesOrBuilder(
+          int index) {
+        if (affectedNodesBuilder_ == null) {
+          return affectedNodes_.get(index);  } else {
+          return affectedNodesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+           getAffectedNodesOrBuilderList() {
+        if (affectedNodesBuilder_ != null) {
+          return affectedNodesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(affectedNodes_);
+        }
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder addAffectedNodesBuilder() {
+        return getAffectedNodesFieldBuilder().addBuilder(
+            edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder addAffectedNodesBuilder(
+          int index) {
+        return getAffectedNodesFieldBuilder().addBuilder(
+            index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * list of all affected nodes when a node goes down
+       * </pre>
+       *
+       * <code>repeated .DataNodeMetadata affectedNodes = 2;</code>
+       */
+      public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder> 
+           getAffectedNodesBuilderList() {
+        return getAffectedNodesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+          getAffectedNodesFieldBuilder() {
+        if (affectedNodesBuilder_ == null) {
+          affectedNodesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder>(
+                  affectedNodes_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          affectedNodes_ = null;
+        }
+        return affectedNodesBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -8292,10 +11808,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return Whether the fileChunk field is set.
      */
     boolean hasFileChunk();
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return The fileChunk.
      */
     edu.usfca.cs.chat.DfsMessages.FileChunk getFileChunk();
     /**
@@ -8305,10 +11823,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileRequest fileRequest = 2;</code>
+     * @return Whether the fileRequest field is set.
      */
     boolean hasFileRequest();
     /**
      * <code>.FileRequest fileRequest = 2;</code>
+     * @return The fileRequest.
      */
     edu.usfca.cs.chat.DfsMessages.FileRequest getFileRequest();
     /**
@@ -8318,10 +11838,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileResponse fileResponse = 3;</code>
+     * @return Whether the fileResponse field is set.
      */
     boolean hasFileResponse();
     /**
      * <code>.FileResponse fileResponse = 3;</code>
+     * @return The fileResponse.
      */
     edu.usfca.cs.chat.DfsMessages.FileResponse getFileResponse();
     /**
@@ -8331,10 +11853,12 @@ public final class DfsMessages {
 
     /**
      * <code>.HeartBeat heartBeat = 4;</code>
+     * @return Whether the heartBeat field is set.
      */
     boolean hasHeartBeat();
     /**
      * <code>.HeartBeat heartBeat = 4;</code>
+     * @return The heartBeat.
      */
     edu.usfca.cs.chat.DfsMessages.HeartBeat getHeartBeat();
     /**
@@ -8344,10 +11868,12 @@ public final class DfsMessages {
 
     /**
      * <code>.ReplicationStatus replicationStatus = 5;</code>
+     * @return Whether the replicationStatus field is set.
      */
     boolean hasReplicationStatus();
     /**
      * <code>.ReplicationStatus replicationStatus = 5;</code>
+     * @return The replicationStatus.
      */
     edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus();
     /**
@@ -8357,10 +11883,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileAck fileAck = 6;</code>
+     * @return Whether the fileAck field is set.
      */
     boolean hasFileAck();
     /**
      * <code>.FileAck fileAck = 6;</code>
+     * @return The fileAck.
      */
     edu.usfca.cs.chat.DfsMessages.FileAck getFileAck();
     /**
@@ -8370,10 +11898,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileChunkHeader fileChunkHeader = 7;</code>
+     * @return Whether the fileChunkHeader field is set.
      */
     boolean hasFileChunkHeader();
     /**
      * <code>.FileChunkHeader fileChunkHeader = 7;</code>
+     * @return The fileChunkHeader.
      */
     edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader();
     /**
@@ -8386,7 +11916,7 @@ public final class DfsMessages {
   /**
    * Protobuf type {@code DfsMessagesWrapper}
    */
-  public  static final class DfsMessagesWrapper extends
+  public static final class DfsMessagesWrapper extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:DfsMessagesWrapper)
       DfsMessagesWrapperOrBuilder {
@@ -8396,6 +11926,13 @@ public final class DfsMessages {
       super(builder);
     }
     private DfsMessagesWrapper() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DfsMessagesWrapper();
     }
 
     @java.lang.Override
@@ -8411,7 +11948,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -8521,7 +12057,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -8555,7 +12091,8 @@ public final class DfsMessages {
     private int msgCase_ = 0;
     private java.lang.Object msg_;
     public enum MsgCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       FILECHUNK(1),
       FILEREQUEST(2),
       FILERESPONSE(3),
@@ -8569,6 +12106,8 @@ public final class DfsMessages {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -8603,13 +12142,17 @@ public final class DfsMessages {
     public static final int FILECHUNK_FIELD_NUMBER = 1;
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return Whether the fileChunk field is set.
      */
+    @java.lang.Override
     public boolean hasFileChunk() {
       return msgCase_ == 1;
     }
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return The fileChunk.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunk getFileChunk() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunk) msg_;
@@ -8619,6 +12162,7 @@ public final class DfsMessages {
     /**
      * <code>.FileChunk fileChunk = 1;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkOrBuilder getFileChunkOrBuilder() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunk) msg_;
@@ -8629,13 +12173,17 @@ public final class DfsMessages {
     public static final int FILEREQUEST_FIELD_NUMBER = 2;
     /**
      * <code>.FileRequest fileRequest = 2;</code>
+     * @return Whether the fileRequest field is set.
      */
+    @java.lang.Override
     public boolean hasFileRequest() {
       return msgCase_ == 2;
     }
     /**
      * <code>.FileRequest fileRequest = 2;</code>
+     * @return The fileRequest.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileRequest getFileRequest() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.FileRequest) msg_;
@@ -8645,6 +12193,7 @@ public final class DfsMessages {
     /**
      * <code>.FileRequest fileRequest = 2;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileRequestOrBuilder getFileRequestOrBuilder() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.FileRequest) msg_;
@@ -8655,13 +12204,17 @@ public final class DfsMessages {
     public static final int FILERESPONSE_FIELD_NUMBER = 3;
     /**
      * <code>.FileResponse fileResponse = 3;</code>
+     * @return Whether the fileResponse field is set.
      */
+    @java.lang.Override
     public boolean hasFileResponse() {
       return msgCase_ == 3;
     }
     /**
      * <code>.FileResponse fileResponse = 3;</code>
+     * @return The fileResponse.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileResponse getFileResponse() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.FileResponse) msg_;
@@ -8671,6 +12224,7 @@ public final class DfsMessages {
     /**
      * <code>.FileResponse fileResponse = 3;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileResponseOrBuilder getFileResponseOrBuilder() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.FileResponse) msg_;
@@ -8681,13 +12235,17 @@ public final class DfsMessages {
     public static final int HEARTBEAT_FIELD_NUMBER = 4;
     /**
      * <code>.HeartBeat heartBeat = 4;</code>
+     * @return Whether the heartBeat field is set.
      */
+    @java.lang.Override
     public boolean hasHeartBeat() {
       return msgCase_ == 4;
     }
     /**
      * <code>.HeartBeat heartBeat = 4;</code>
+     * @return The heartBeat.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.HeartBeat getHeartBeat() {
       if (msgCase_ == 4) {
          return (edu.usfca.cs.chat.DfsMessages.HeartBeat) msg_;
@@ -8697,6 +12255,7 @@ public final class DfsMessages {
     /**
      * <code>.HeartBeat heartBeat = 4;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.HeartBeatOrBuilder getHeartBeatOrBuilder() {
       if (msgCase_ == 4) {
          return (edu.usfca.cs.chat.DfsMessages.HeartBeat) msg_;
@@ -8707,13 +12266,17 @@ public final class DfsMessages {
     public static final int REPLICATIONSTATUS_FIELD_NUMBER = 5;
     /**
      * <code>.ReplicationStatus replicationStatus = 5;</code>
+     * @return Whether the replicationStatus field is set.
      */
+    @java.lang.Override
     public boolean hasReplicationStatus() {
       return msgCase_ == 5;
     }
     /**
      * <code>.ReplicationStatus replicationStatus = 5;</code>
+     * @return The replicationStatus.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
       if (msgCase_ == 5) {
          return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
@@ -8723,6 +12286,7 @@ public final class DfsMessages {
     /**
      * <code>.ReplicationStatus replicationStatus = 5;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
       if (msgCase_ == 5) {
          return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
@@ -8733,13 +12297,17 @@ public final class DfsMessages {
     public static final int FILEACK_FIELD_NUMBER = 6;
     /**
      * <code>.FileAck fileAck = 6;</code>
+     * @return Whether the fileAck field is set.
      */
+    @java.lang.Override
     public boolean hasFileAck() {
       return msgCase_ == 6;
     }
     /**
      * <code>.FileAck fileAck = 6;</code>
+     * @return The fileAck.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileAck getFileAck() {
       if (msgCase_ == 6) {
          return (edu.usfca.cs.chat.DfsMessages.FileAck) msg_;
@@ -8749,6 +12317,7 @@ public final class DfsMessages {
     /**
      * <code>.FileAck fileAck = 6;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder getFileAckOrBuilder() {
       if (msgCase_ == 6) {
          return (edu.usfca.cs.chat.DfsMessages.FileAck) msg_;
@@ -8759,13 +12328,17 @@ public final class DfsMessages {
     public static final int FILECHUNKHEADER_FIELD_NUMBER = 7;
     /**
      * <code>.FileChunkHeader fileChunkHeader = 7;</code>
+     * @return Whether the fileChunkHeader field is set.
      */
+    @java.lang.Override
     public boolean hasFileChunkHeader() {
       return msgCase_ == 7;
     }
     /**
      * <code>.FileChunkHeader fileChunkHeader = 7;</code>
+     * @return The fileChunkHeader.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader() {
       if (msgCase_ == 7) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_;
@@ -8775,6 +12348,7 @@ public final class DfsMessages {
     /**
      * <code>.FileChunkHeader fileChunkHeader = 7;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder() {
       if (msgCase_ == 7) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_;
@@ -8869,44 +12443,41 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.DfsMessagesWrapper other = (edu.usfca.cs.chat.DfsMessages.DfsMessagesWrapper) obj;
 
-      boolean result = true;
-      result = result && getMsgCase().equals(
-          other.getMsgCase());
-      if (!result) return false;
+      if (!getMsgCase().equals(other.getMsgCase())) return false;
       switch (msgCase_) {
         case 1:
-          result = result && getFileChunk()
-              .equals(other.getFileChunk());
+          if (!getFileChunk()
+              .equals(other.getFileChunk())) return false;
           break;
         case 2:
-          result = result && getFileRequest()
-              .equals(other.getFileRequest());
+          if (!getFileRequest()
+              .equals(other.getFileRequest())) return false;
           break;
         case 3:
-          result = result && getFileResponse()
-              .equals(other.getFileResponse());
+          if (!getFileResponse()
+              .equals(other.getFileResponse())) return false;
           break;
         case 4:
-          result = result && getHeartBeat()
-              .equals(other.getHeartBeat());
+          if (!getHeartBeat()
+              .equals(other.getHeartBeat())) return false;
           break;
         case 5:
-          result = result && getReplicationStatus()
-              .equals(other.getReplicationStatus());
+          if (!getReplicationStatus()
+              .equals(other.getReplicationStatus())) return false;
           break;
         case 6:
-          result = result && getFileAck()
-              .equals(other.getFileAck());
+          if (!getFileAck()
+              .equals(other.getFileAck())) return false;
           break;
         case 7:
-          result = result && getFileChunkHeader()
-              .equals(other.getFileChunkHeader());
+          if (!getFileChunkHeader()
+              .equals(other.getFileChunkHeader())) return false;
           break;
         case 0:
         default:
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -9165,35 +12736,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -9288,13 +12859,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileChunk, edu.usfca.cs.chat.DfsMessages.FileChunk.Builder, edu.usfca.cs.chat.DfsMessages.FileChunkOrBuilder> fileChunkBuilder_;
       /**
        * <code>.FileChunk fileChunk = 1;</code>
+       * @return Whether the fileChunk field is set.
        */
+      @java.lang.Override
       public boolean hasFileChunk() {
         return msgCase_ == 1;
       }
       /**
        * <code>.FileChunk fileChunk = 1;</code>
+       * @return The fileChunk.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunk getFileChunk() {
         if (fileChunkBuilder_ == null) {
           if (msgCase_ == 1) {
@@ -9388,6 +12963,7 @@ public final class DfsMessages {
       /**
        * <code>.FileChunk fileChunk = 1;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkOrBuilder getFileChunkOrBuilder() {
         if ((msgCase_ == 1) && (fileChunkBuilder_ != null)) {
           return fileChunkBuilder_.getMessageOrBuilder();
@@ -9424,13 +13000,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileRequest, edu.usfca.cs.chat.DfsMessages.FileRequest.Builder, edu.usfca.cs.chat.DfsMessages.FileRequestOrBuilder> fileRequestBuilder_;
       /**
        * <code>.FileRequest fileRequest = 2;</code>
+       * @return Whether the fileRequest field is set.
        */
+      @java.lang.Override
       public boolean hasFileRequest() {
         return msgCase_ == 2;
       }
       /**
        * <code>.FileRequest fileRequest = 2;</code>
+       * @return The fileRequest.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileRequest getFileRequest() {
         if (fileRequestBuilder_ == null) {
           if (msgCase_ == 2) {
@@ -9524,6 +13104,7 @@ public final class DfsMessages {
       /**
        * <code>.FileRequest fileRequest = 2;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileRequestOrBuilder getFileRequestOrBuilder() {
         if ((msgCase_ == 2) && (fileRequestBuilder_ != null)) {
           return fileRequestBuilder_.getMessageOrBuilder();
@@ -9560,13 +13141,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileResponse, edu.usfca.cs.chat.DfsMessages.FileResponse.Builder, edu.usfca.cs.chat.DfsMessages.FileResponseOrBuilder> fileResponseBuilder_;
       /**
        * <code>.FileResponse fileResponse = 3;</code>
+       * @return Whether the fileResponse field is set.
        */
+      @java.lang.Override
       public boolean hasFileResponse() {
         return msgCase_ == 3;
       }
       /**
        * <code>.FileResponse fileResponse = 3;</code>
+       * @return The fileResponse.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileResponse getFileResponse() {
         if (fileResponseBuilder_ == null) {
           if (msgCase_ == 3) {
@@ -9660,6 +13245,7 @@ public final class DfsMessages {
       /**
        * <code>.FileResponse fileResponse = 3;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileResponseOrBuilder getFileResponseOrBuilder() {
         if ((msgCase_ == 3) && (fileResponseBuilder_ != null)) {
           return fileResponseBuilder_.getMessageOrBuilder();
@@ -9696,13 +13282,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.HeartBeat, edu.usfca.cs.chat.DfsMessages.HeartBeat.Builder, edu.usfca.cs.chat.DfsMessages.HeartBeatOrBuilder> heartBeatBuilder_;
       /**
        * <code>.HeartBeat heartBeat = 4;</code>
+       * @return Whether the heartBeat field is set.
        */
+      @java.lang.Override
       public boolean hasHeartBeat() {
         return msgCase_ == 4;
       }
       /**
        * <code>.HeartBeat heartBeat = 4;</code>
+       * @return The heartBeat.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.HeartBeat getHeartBeat() {
         if (heartBeatBuilder_ == null) {
           if (msgCase_ == 4) {
@@ -9796,6 +13386,7 @@ public final class DfsMessages {
       /**
        * <code>.HeartBeat heartBeat = 4;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.HeartBeatOrBuilder getHeartBeatOrBuilder() {
         if ((msgCase_ == 4) && (heartBeatBuilder_ != null)) {
           return heartBeatBuilder_.getMessageOrBuilder();
@@ -9832,13 +13423,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder> replicationStatusBuilder_;
       /**
        * <code>.ReplicationStatus replicationStatus = 5;</code>
+       * @return Whether the replicationStatus field is set.
        */
+      @java.lang.Override
       public boolean hasReplicationStatus() {
         return msgCase_ == 5;
       }
       /**
        * <code>.ReplicationStatus replicationStatus = 5;</code>
+       * @return The replicationStatus.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
         if (replicationStatusBuilder_ == null) {
           if (msgCase_ == 5) {
@@ -9932,6 +13527,7 @@ public final class DfsMessages {
       /**
        * <code>.ReplicationStatus replicationStatus = 5;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
         if ((msgCase_ == 5) && (replicationStatusBuilder_ != null)) {
           return replicationStatusBuilder_.getMessageOrBuilder();
@@ -9968,13 +13564,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileAck, edu.usfca.cs.chat.DfsMessages.FileAck.Builder, edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder> fileAckBuilder_;
       /**
        * <code>.FileAck fileAck = 6;</code>
+       * @return Whether the fileAck field is set.
        */
+      @java.lang.Override
       public boolean hasFileAck() {
         return msgCase_ == 6;
       }
       /**
        * <code>.FileAck fileAck = 6;</code>
+       * @return The fileAck.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileAck getFileAck() {
         if (fileAckBuilder_ == null) {
           if (msgCase_ == 6) {
@@ -10068,6 +13668,7 @@ public final class DfsMessages {
       /**
        * <code>.FileAck fileAck = 6;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder getFileAckOrBuilder() {
         if ((msgCase_ == 6) && (fileAckBuilder_ != null)) {
           return fileAckBuilder_.getMessageOrBuilder();
@@ -10104,13 +13705,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileChunkHeader, edu.usfca.cs.chat.DfsMessages.FileChunkHeader.Builder, edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder> fileChunkHeaderBuilder_;
       /**
        * <code>.FileChunkHeader fileChunkHeader = 7;</code>
+       * @return Whether the fileChunkHeader field is set.
        */
+      @java.lang.Override
       public boolean hasFileChunkHeader() {
         return msgCase_ == 7;
       }
       /**
        * <code>.FileChunkHeader fileChunkHeader = 7;</code>
+       * @return The fileChunkHeader.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader() {
         if (fileChunkHeaderBuilder_ == null) {
           if (msgCase_ == 7) {
@@ -10204,6 +13809,7 @@ public final class DfsMessages {
       /**
        * <code>.FileChunkHeader fileChunkHeader = 7;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder() {
         if ((msgCase_ == 7) && (fileChunkHeaderBuilder_ != null)) {
           return fileChunkHeaderBuilder_.getMessageOrBuilder();
@@ -10238,7 +13844,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -10294,10 +13900,12 @@ public final class DfsMessages {
 
     /**
      * <code>.ClientMessagesWrapper clientWrapper = 1;</code>
+     * @return Whether the clientWrapper field is set.
      */
     boolean hasClientWrapper();
     /**
      * <code>.ClientMessagesWrapper clientWrapper = 1;</code>
+     * @return The clientWrapper.
      */
     edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper getClientWrapper();
     /**
@@ -10307,10 +13915,12 @@ public final class DfsMessages {
 
     /**
      * <code>.DataNodeMessagesWrapper dataNodeWrapper = 2;</code>
+     * @return Whether the dataNodeWrapper field is set.
      */
     boolean hasDataNodeWrapper();
     /**
      * <code>.DataNodeMessagesWrapper dataNodeWrapper = 2;</code>
+     * @return The dataNodeWrapper.
      */
     edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper getDataNodeWrapper();
     /**
@@ -10320,10 +13930,12 @@ public final class DfsMessages {
 
     /**
      * <code>.ControllerMessagesWrapper controllerWrapper = 3;</code>
+     * @return Whether the controllerWrapper field is set.
      */
     boolean hasControllerWrapper();
     /**
      * <code>.ControllerMessagesWrapper controllerWrapper = 3;</code>
+     * @return The controllerWrapper.
      */
     edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper getControllerWrapper();
     /**
@@ -10336,7 +13948,7 @@ public final class DfsMessages {
   /**
    * Protobuf type {@code MessagesWrapper}
    */
-  public  static final class MessagesWrapper extends
+  public static final class MessagesWrapper extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:MessagesWrapper)
       MessagesWrapperOrBuilder {
@@ -10346,6 +13958,13 @@ public final class DfsMessages {
       super(builder);
     }
     private MessagesWrapper() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MessagesWrapper();
     }
 
     @java.lang.Override
@@ -10361,7 +13980,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -10415,7 +14033,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -10449,7 +14067,8 @@ public final class DfsMessages {
     private int msgCase_ = 0;
     private java.lang.Object msg_;
     public enum MsgCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       CLIENTWRAPPER(1),
       DATANODEWRAPPER(2),
       CONTROLLERWRAPPER(3),
@@ -10459,6 +14078,8 @@ public final class DfsMessages {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -10489,13 +14110,17 @@ public final class DfsMessages {
     public static final int CLIENTWRAPPER_FIELD_NUMBER = 1;
     /**
      * <code>.ClientMessagesWrapper clientWrapper = 1;</code>
+     * @return Whether the clientWrapper field is set.
      */
+    @java.lang.Override
     public boolean hasClientWrapper() {
       return msgCase_ == 1;
     }
     /**
      * <code>.ClientMessagesWrapper clientWrapper = 1;</code>
+     * @return The clientWrapper.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper getClientWrapper() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper) msg_;
@@ -10505,6 +14130,7 @@ public final class DfsMessages {
     /**
      * <code>.ClientMessagesWrapper clientWrapper = 1;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapperOrBuilder getClientWrapperOrBuilder() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper) msg_;
@@ -10515,13 +14141,17 @@ public final class DfsMessages {
     public static final int DATANODEWRAPPER_FIELD_NUMBER = 2;
     /**
      * <code>.DataNodeMessagesWrapper dataNodeWrapper = 2;</code>
+     * @return Whether the dataNodeWrapper field is set.
      */
+    @java.lang.Override
     public boolean hasDataNodeWrapper() {
       return msgCase_ == 2;
     }
     /**
      * <code>.DataNodeMessagesWrapper dataNodeWrapper = 2;</code>
+     * @return The dataNodeWrapper.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper getDataNodeWrapper() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper) msg_;
@@ -10531,6 +14161,7 @@ public final class DfsMessages {
     /**
      * <code>.DataNodeMessagesWrapper dataNodeWrapper = 2;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapperOrBuilder getDataNodeWrapperOrBuilder() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper) msg_;
@@ -10541,13 +14172,17 @@ public final class DfsMessages {
     public static final int CONTROLLERWRAPPER_FIELD_NUMBER = 3;
     /**
      * <code>.ControllerMessagesWrapper controllerWrapper = 3;</code>
+     * @return Whether the controllerWrapper field is set.
      */
+    @java.lang.Override
     public boolean hasControllerWrapper() {
       return msgCase_ == 3;
     }
     /**
      * <code>.ControllerMessagesWrapper controllerWrapper = 3;</code>
+     * @return The controllerWrapper.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper getControllerWrapper() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper) msg_;
@@ -10557,6 +14192,7 @@ public final class DfsMessages {
     /**
      * <code>.ControllerMessagesWrapper controllerWrapper = 3;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapperOrBuilder getControllerWrapperOrBuilder() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper) msg_;
@@ -10623,28 +14259,25 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.MessagesWrapper other = (edu.usfca.cs.chat.DfsMessages.MessagesWrapper) obj;
 
-      boolean result = true;
-      result = result && getMsgCase().equals(
-          other.getMsgCase());
-      if (!result) return false;
+      if (!getMsgCase().equals(other.getMsgCase())) return false;
       switch (msgCase_) {
         case 1:
-          result = result && getClientWrapper()
-              .equals(other.getClientWrapper());
+          if (!getClientWrapper()
+              .equals(other.getClientWrapper())) return false;
           break;
         case 2:
-          result = result && getDataNodeWrapper()
-              .equals(other.getDataNodeWrapper());
+          if (!getDataNodeWrapper()
+              .equals(other.getDataNodeWrapper())) return false;
           break;
         case 3:
-          result = result && getControllerWrapper()
-              .equals(other.getControllerWrapper());
+          if (!getControllerWrapper()
+              .equals(other.getControllerWrapper())) return false;
           break;
         case 0:
         default:
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10859,35 +14492,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -10966,13 +14599,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper, edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper.Builder, edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapperOrBuilder> clientWrapperBuilder_;
       /**
        * <code>.ClientMessagesWrapper clientWrapper = 1;</code>
+       * @return Whether the clientWrapper field is set.
        */
+      @java.lang.Override
       public boolean hasClientWrapper() {
         return msgCase_ == 1;
       }
       /**
        * <code>.ClientMessagesWrapper clientWrapper = 1;</code>
+       * @return The clientWrapper.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper getClientWrapper() {
         if (clientWrapperBuilder_ == null) {
           if (msgCase_ == 1) {
@@ -11066,6 +14703,7 @@ public final class DfsMessages {
       /**
        * <code>.ClientMessagesWrapper clientWrapper = 1;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapperOrBuilder getClientWrapperOrBuilder() {
         if ((msgCase_ == 1) && (clientWrapperBuilder_ != null)) {
           return clientWrapperBuilder_.getMessageOrBuilder();
@@ -11102,13 +14740,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper, edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapperOrBuilder> dataNodeWrapperBuilder_;
       /**
        * <code>.DataNodeMessagesWrapper dataNodeWrapper = 2;</code>
+       * @return Whether the dataNodeWrapper field is set.
        */
+      @java.lang.Override
       public boolean hasDataNodeWrapper() {
         return msgCase_ == 2;
       }
       /**
        * <code>.DataNodeMessagesWrapper dataNodeWrapper = 2;</code>
+       * @return The dataNodeWrapper.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper getDataNodeWrapper() {
         if (dataNodeWrapperBuilder_ == null) {
           if (msgCase_ == 2) {
@@ -11202,6 +14844,7 @@ public final class DfsMessages {
       /**
        * <code>.DataNodeMessagesWrapper dataNodeWrapper = 2;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapperOrBuilder getDataNodeWrapperOrBuilder() {
         if ((msgCase_ == 2) && (dataNodeWrapperBuilder_ != null)) {
           return dataNodeWrapperBuilder_.getMessageOrBuilder();
@@ -11238,13 +14881,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper, edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper.Builder, edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapperOrBuilder> controllerWrapperBuilder_;
       /**
        * <code>.ControllerMessagesWrapper controllerWrapper = 3;</code>
+       * @return Whether the controllerWrapper field is set.
        */
+      @java.lang.Override
       public boolean hasControllerWrapper() {
         return msgCase_ == 3;
       }
       /**
        * <code>.ControllerMessagesWrapper controllerWrapper = 3;</code>
+       * @return The controllerWrapper.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper getControllerWrapper() {
         if (controllerWrapperBuilder_ == null) {
           if (msgCase_ == 3) {
@@ -11338,6 +14985,7 @@ public final class DfsMessages {
       /**
        * <code>.ControllerMessagesWrapper controllerWrapper = 3;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapperOrBuilder getControllerWrapperOrBuilder() {
         if ((msgCase_ == 3) && (controllerWrapperBuilder_ != null)) {
           return controllerWrapperBuilder_.getMessageOrBuilder();
@@ -11372,7 +15020,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -11428,10 +15076,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return Whether the fileChunk field is set.
      */
     boolean hasFileChunk();
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return The fileChunk.
      */
     edu.usfca.cs.chat.DfsMessages.FileChunk getFileChunk();
     /**
@@ -11441,10 +15091,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileResponse fileResponse = 2;</code>
+     * @return Whether the fileResponse field is set.
      */
     boolean hasFileResponse();
     /**
      * <code>.FileResponse fileResponse = 2;</code>
+     * @return The fileResponse.
      */
     edu.usfca.cs.chat.DfsMessages.FileResponse getFileResponse();
     /**
@@ -11454,10 +15106,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileAck fileAck = 3;</code>
+     * @return Whether the fileAck field is set.
      */
     boolean hasFileAck();
     /**
      * <code>.FileAck fileAck = 3;</code>
+     * @return The fileAck.
      */
     edu.usfca.cs.chat.DfsMessages.FileAck getFileAck();
     /**
@@ -11467,10 +15121,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileChunkHeader fileChunkHeader = 4;</code>
+     * @return Whether the fileChunkHeader field is set.
      */
     boolean hasFileChunkHeader();
     /**
      * <code>.FileChunkHeader fileChunkHeader = 4;</code>
+     * @return The fileChunkHeader.
      */
     edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader();
     /**
@@ -11487,7 +15143,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code ClientMessagesWrapper}
    */
-  public  static final class ClientMessagesWrapper extends
+  public static final class ClientMessagesWrapper extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ClientMessagesWrapper)
       ClientMessagesWrapperOrBuilder {
@@ -11497,6 +15153,13 @@ public final class DfsMessages {
       super(builder);
     }
     private ClientMessagesWrapper() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ClientMessagesWrapper();
     }
 
     @java.lang.Override
@@ -11512,7 +15175,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -11580,7 +15242,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -11614,7 +15276,8 @@ public final class DfsMessages {
     private int msgCase_ = 0;
     private java.lang.Object msg_;
     public enum MsgCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       FILECHUNK(1),
       FILERESPONSE(2),
       FILEACK(3),
@@ -11625,6 +15288,8 @@ public final class DfsMessages {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -11656,13 +15321,17 @@ public final class DfsMessages {
     public static final int FILECHUNK_FIELD_NUMBER = 1;
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return Whether the fileChunk field is set.
      */
+    @java.lang.Override
     public boolean hasFileChunk() {
       return msgCase_ == 1;
     }
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return The fileChunk.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunk getFileChunk() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunk) msg_;
@@ -11672,6 +15341,7 @@ public final class DfsMessages {
     /**
      * <code>.FileChunk fileChunk = 1;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkOrBuilder getFileChunkOrBuilder() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunk) msg_;
@@ -11682,13 +15352,17 @@ public final class DfsMessages {
     public static final int FILERESPONSE_FIELD_NUMBER = 2;
     /**
      * <code>.FileResponse fileResponse = 2;</code>
+     * @return Whether the fileResponse field is set.
      */
+    @java.lang.Override
     public boolean hasFileResponse() {
       return msgCase_ == 2;
     }
     /**
      * <code>.FileResponse fileResponse = 2;</code>
+     * @return The fileResponse.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileResponse getFileResponse() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.FileResponse) msg_;
@@ -11698,6 +15372,7 @@ public final class DfsMessages {
     /**
      * <code>.FileResponse fileResponse = 2;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileResponseOrBuilder getFileResponseOrBuilder() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.FileResponse) msg_;
@@ -11708,13 +15383,17 @@ public final class DfsMessages {
     public static final int FILEACK_FIELD_NUMBER = 3;
     /**
      * <code>.FileAck fileAck = 3;</code>
+     * @return Whether the fileAck field is set.
      */
+    @java.lang.Override
     public boolean hasFileAck() {
       return msgCase_ == 3;
     }
     /**
      * <code>.FileAck fileAck = 3;</code>
+     * @return The fileAck.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileAck getFileAck() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.FileAck) msg_;
@@ -11724,6 +15403,7 @@ public final class DfsMessages {
     /**
      * <code>.FileAck fileAck = 3;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder getFileAckOrBuilder() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.FileAck) msg_;
@@ -11734,13 +15414,17 @@ public final class DfsMessages {
     public static final int FILECHUNKHEADER_FIELD_NUMBER = 4;
     /**
      * <code>.FileChunkHeader fileChunkHeader = 4;</code>
+     * @return Whether the fileChunkHeader field is set.
      */
+    @java.lang.Override
     public boolean hasFileChunkHeader() {
       return msgCase_ == 4;
     }
     /**
      * <code>.FileChunkHeader fileChunkHeader = 4;</code>
+     * @return The fileChunkHeader.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader() {
       if (msgCase_ == 4) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_;
@@ -11750,6 +15434,7 @@ public final class DfsMessages {
     /**
      * <code>.FileChunkHeader fileChunkHeader = 4;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder() {
       if (msgCase_ == 4) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_;
@@ -11823,32 +15508,29 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper other = (edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper) obj;
 
-      boolean result = true;
-      result = result && getMsgCase().equals(
-          other.getMsgCase());
-      if (!result) return false;
+      if (!getMsgCase().equals(other.getMsgCase())) return false;
       switch (msgCase_) {
         case 1:
-          result = result && getFileChunk()
-              .equals(other.getFileChunk());
+          if (!getFileChunk()
+              .equals(other.getFileChunk())) return false;
           break;
         case 2:
-          result = result && getFileResponse()
-              .equals(other.getFileResponse());
+          if (!getFileResponse()
+              .equals(other.getFileResponse())) return false;
           break;
         case 3:
-          result = result && getFileAck()
-              .equals(other.getFileAck());
+          if (!getFileAck()
+              .equals(other.getFileAck())) return false;
           break;
         case 4:
-          result = result && getFileChunkHeader()
-              .equals(other.getFileChunkHeader());
+          if (!getFileChunkHeader()
+              .equals(other.getFileChunkHeader())) return false;
           break;
         case 0:
         default:
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -12078,35 +15760,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -12189,13 +15871,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileChunk, edu.usfca.cs.chat.DfsMessages.FileChunk.Builder, edu.usfca.cs.chat.DfsMessages.FileChunkOrBuilder> fileChunkBuilder_;
       /**
        * <code>.FileChunk fileChunk = 1;</code>
+       * @return Whether the fileChunk field is set.
        */
+      @java.lang.Override
       public boolean hasFileChunk() {
         return msgCase_ == 1;
       }
       /**
        * <code>.FileChunk fileChunk = 1;</code>
+       * @return The fileChunk.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunk getFileChunk() {
         if (fileChunkBuilder_ == null) {
           if (msgCase_ == 1) {
@@ -12289,6 +15975,7 @@ public final class DfsMessages {
       /**
        * <code>.FileChunk fileChunk = 1;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkOrBuilder getFileChunkOrBuilder() {
         if ((msgCase_ == 1) && (fileChunkBuilder_ != null)) {
           return fileChunkBuilder_.getMessageOrBuilder();
@@ -12325,13 +16012,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileResponse, edu.usfca.cs.chat.DfsMessages.FileResponse.Builder, edu.usfca.cs.chat.DfsMessages.FileResponseOrBuilder> fileResponseBuilder_;
       /**
        * <code>.FileResponse fileResponse = 2;</code>
+       * @return Whether the fileResponse field is set.
        */
+      @java.lang.Override
       public boolean hasFileResponse() {
         return msgCase_ == 2;
       }
       /**
        * <code>.FileResponse fileResponse = 2;</code>
+       * @return The fileResponse.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileResponse getFileResponse() {
         if (fileResponseBuilder_ == null) {
           if (msgCase_ == 2) {
@@ -12425,6 +16116,7 @@ public final class DfsMessages {
       /**
        * <code>.FileResponse fileResponse = 2;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileResponseOrBuilder getFileResponseOrBuilder() {
         if ((msgCase_ == 2) && (fileResponseBuilder_ != null)) {
           return fileResponseBuilder_.getMessageOrBuilder();
@@ -12461,13 +16153,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileAck, edu.usfca.cs.chat.DfsMessages.FileAck.Builder, edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder> fileAckBuilder_;
       /**
        * <code>.FileAck fileAck = 3;</code>
+       * @return Whether the fileAck field is set.
        */
+      @java.lang.Override
       public boolean hasFileAck() {
         return msgCase_ == 3;
       }
       /**
        * <code>.FileAck fileAck = 3;</code>
+       * @return The fileAck.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileAck getFileAck() {
         if (fileAckBuilder_ == null) {
           if (msgCase_ == 3) {
@@ -12561,6 +16257,7 @@ public final class DfsMessages {
       /**
        * <code>.FileAck fileAck = 3;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder getFileAckOrBuilder() {
         if ((msgCase_ == 3) && (fileAckBuilder_ != null)) {
           return fileAckBuilder_.getMessageOrBuilder();
@@ -12597,13 +16294,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileChunkHeader, edu.usfca.cs.chat.DfsMessages.FileChunkHeader.Builder, edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder> fileChunkHeaderBuilder_;
       /**
        * <code>.FileChunkHeader fileChunkHeader = 4;</code>
+       * @return Whether the fileChunkHeader field is set.
        */
+      @java.lang.Override
       public boolean hasFileChunkHeader() {
         return msgCase_ == 4;
       }
       /**
        * <code>.FileChunkHeader fileChunkHeader = 4;</code>
+       * @return The fileChunkHeader.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader() {
         if (fileChunkHeaderBuilder_ == null) {
           if (msgCase_ == 4) {
@@ -12697,6 +16398,7 @@ public final class DfsMessages {
       /**
        * <code>.FileChunkHeader fileChunkHeader = 4;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder() {
         if ((msgCase_ == 4) && (fileChunkHeaderBuilder_ != null)) {
           return fileChunkHeaderBuilder_.getMessageOrBuilder();
@@ -12731,7 +16433,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -12787,10 +16489,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return Whether the fileChunk field is set.
      */
     boolean hasFileChunk();
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return The fileChunk.
      */
     edu.usfca.cs.chat.DfsMessages.FileChunk getFileChunk();
     /**
@@ -12800,10 +16504,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileAck fileAck = 2;</code>
+     * @return Whether the fileAck field is set.
      */
     boolean hasFileAck();
     /**
      * <code>.FileAck fileAck = 2;</code>
+     * @return The fileAck.
      */
     edu.usfca.cs.chat.DfsMessages.FileAck getFileAck();
     /**
@@ -12813,10 +16519,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+     * @return Whether the fileChunkHeader field is set.
      */
     boolean hasFileChunkHeader();
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+     * @return The fileChunkHeader.
      */
     edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader();
     /**
@@ -12826,10 +16534,12 @@ public final class DfsMessages {
 
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * @return Whether the replicationStatus field is set.
      */
     boolean hasReplicationStatus();
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * @return The replicationStatus.
      */
     edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus();
     /**
@@ -12839,10 +16549,12 @@ public final class DfsMessages {
 
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
+     * @return Whether the onNodeDown field is set.
      */
     boolean hasOnNodeDown();
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
+     * @return The onNodeDown.
      */
     edu.usfca.cs.chat.DfsMessages.OnNodeDown getOnNodeDown();
     /**
@@ -12859,7 +16571,7 @@ public final class DfsMessages {
    *
    * Protobuf type {@code DataNodeMessagesWrapper}
    */
-  public  static final class DataNodeMessagesWrapper extends
+  public static final class DataNodeMessagesWrapper extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:DataNodeMessagesWrapper)
       DataNodeMessagesWrapperOrBuilder {
@@ -12869,6 +16581,13 @@ public final class DfsMessages {
       super(builder);
     }
     private DataNodeMessagesWrapper() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DataNodeMessagesWrapper();
     }
 
     @java.lang.Override
@@ -12884,7 +16603,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -12966,7 +16684,7 @@ public final class DfsMessages {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -13000,7 +16718,8 @@ public final class DfsMessages {
     private int msgCase_ = 0;
     private java.lang.Object msg_;
     public enum MsgCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       FILECHUNK(1),
       FILEACK(2),
       FILECHUNKHEADER(3),
@@ -13012,6 +16731,8 @@ public final class DfsMessages {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -13044,13 +16765,17 @@ public final class DfsMessages {
     public static final int FILECHUNK_FIELD_NUMBER = 1;
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return Whether the fileChunk field is set.
      */
+    @java.lang.Override
     public boolean hasFileChunk() {
       return msgCase_ == 1;
     }
     /**
      * <code>.FileChunk fileChunk = 1;</code>
+     * @return The fileChunk.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunk getFileChunk() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunk) msg_;
@@ -13060,6 +16785,7 @@ public final class DfsMessages {
     /**
      * <code>.FileChunk fileChunk = 1;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkOrBuilder getFileChunkOrBuilder() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunk) msg_;
@@ -13070,13 +16796,17 @@ public final class DfsMessages {
     public static final int FILEACK_FIELD_NUMBER = 2;
     /**
      * <code>.FileAck fileAck = 2;</code>
+     * @return Whether the fileAck field is set.
      */
+    @java.lang.Override
     public boolean hasFileAck() {
       return msgCase_ == 2;
     }
     /**
      * <code>.FileAck fileAck = 2;</code>
+     * @return The fileAck.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileAck getFileAck() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.FileAck) msg_;
@@ -13086,6 +16816,7 @@ public final class DfsMessages {
     /**
      * <code>.FileAck fileAck = 2;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder getFileAckOrBuilder() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.FileAck) msg_;
@@ -13096,13 +16827,17 @@ public final class DfsMessages {
     public static final int FILECHUNKHEADER_FIELD_NUMBER = 3;
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+     * @return Whether the fileChunkHeader field is set.
      */
+    @java.lang.Override
     public boolean hasFileChunkHeader() {
       return msgCase_ == 3;
     }
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+     * @return The fileChunkHeader.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_;
@@ -13112,6 +16847,7 @@ public final class DfsMessages {
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_;
@@ -13122,13 +16858,17 @@ public final class DfsMessages {
     public static final int REPLICATIONSTATUS_FIELD_NUMBER = 4;
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * @return Whether the replicationStatus field is set.
      */
+    @java.lang.Override
     public boolean hasReplicationStatus() {
       return msgCase_ == 4;
     }
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * @return The replicationStatus.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
       if (msgCase_ == 4) {
          return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
@@ -13138,6 +16878,7 @@ public final class DfsMessages {
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
       if (msgCase_ == 4) {
          return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
@@ -13148,13 +16889,17 @@ public final class DfsMessages {
     public static final int ONNODEDOWN_FIELD_NUMBER = 5;
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
+     * @return Whether the onNodeDown field is set.
      */
+    @java.lang.Override
     public boolean hasOnNodeDown() {
       return msgCase_ == 5;
     }
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
+     * @return The onNodeDown.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.OnNodeDown getOnNodeDown() {
       if (msgCase_ == 5) {
          return (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_;
@@ -13164,6 +16909,7 @@ public final class DfsMessages {
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder getOnNodeDownOrBuilder() {
       if (msgCase_ == 5) {
          return (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_;
@@ -13244,36 +16990,33 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper other = (edu.usfca.cs.chat.DfsMessages.DataNodeMessagesWrapper) obj;
 
-      boolean result = true;
-      result = result && getMsgCase().equals(
-          other.getMsgCase());
-      if (!result) return false;
+      if (!getMsgCase().equals(other.getMsgCase())) return false;
       switch (msgCase_) {
         case 1:
-          result = result && getFileChunk()
-              .equals(other.getFileChunk());
+          if (!getFileChunk()
+              .equals(other.getFileChunk())) return false;
           break;
         case 2:
-          result = result && getFileAck()
-              .equals(other.getFileAck());
+          if (!getFileAck()
+              .equals(other.getFileAck())) return false;
           break;
         case 3:
-          result = result && getFileChunkHeader()
-              .equals(other.getFileChunkHeader());
+          if (!getFileChunkHeader()
+              .equals(other.getFileChunkHeader())) return false;
           break;
         case 4:
-          result = result && getReplicationStatus()
-              .equals(other.getReplicationStatus());
+          if (!getReplicationStatus()
+              .equals(other.getReplicationStatus())) return false;
           break;
         case 5:
-          result = result && getOnNodeDown()
-              .equals(other.getOnNodeDown());
+          if (!getOnNodeDown()
+              .equals(other.getOnNodeDown())) return false;
           break;
         case 0:
         default:
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -13514,35 +17257,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -13629,13 +17372,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileChunk, edu.usfca.cs.chat.DfsMessages.FileChunk.Builder, edu.usfca.cs.chat.DfsMessages.FileChunkOrBuilder> fileChunkBuilder_;
       /**
        * <code>.FileChunk fileChunk = 1;</code>
+       * @return Whether the fileChunk field is set.
        */
+      @java.lang.Override
       public boolean hasFileChunk() {
         return msgCase_ == 1;
       }
       /**
        * <code>.FileChunk fileChunk = 1;</code>
+       * @return The fileChunk.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunk getFileChunk() {
         if (fileChunkBuilder_ == null) {
           if (msgCase_ == 1) {
@@ -13729,6 +17476,7 @@ public final class DfsMessages {
       /**
        * <code>.FileChunk fileChunk = 1;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkOrBuilder getFileChunkOrBuilder() {
         if ((msgCase_ == 1) && (fileChunkBuilder_ != null)) {
           return fileChunkBuilder_.getMessageOrBuilder();
@@ -13765,13 +17513,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileAck, edu.usfca.cs.chat.DfsMessages.FileAck.Builder, edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder> fileAckBuilder_;
       /**
        * <code>.FileAck fileAck = 2;</code>
+       * @return Whether the fileAck field is set.
        */
+      @java.lang.Override
       public boolean hasFileAck() {
         return msgCase_ == 2;
       }
       /**
        * <code>.FileAck fileAck = 2;</code>
+       * @return The fileAck.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileAck getFileAck() {
         if (fileAckBuilder_ == null) {
           if (msgCase_ == 2) {
@@ -13865,6 +17617,7 @@ public final class DfsMessages {
       /**
        * <code>.FileAck fileAck = 2;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder getFileAckOrBuilder() {
         if ((msgCase_ == 2) && (fileAckBuilder_ != null)) {
           return fileAckBuilder_.getMessageOrBuilder();
@@ -13901,13 +17654,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileChunkHeader, edu.usfca.cs.chat.DfsMessages.FileChunkHeader.Builder, edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder> fileChunkHeaderBuilder_;
       /**
        * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+       * @return Whether the fileChunkHeader field is set.
        */
+      @java.lang.Override
       public boolean hasFileChunkHeader() {
         return msgCase_ == 3;
       }
       /**
        * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+       * @return The fileChunkHeader.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader() {
         if (fileChunkHeaderBuilder_ == null) {
           if (msgCase_ == 3) {
@@ -14001,6 +17758,7 @@ public final class DfsMessages {
       /**
        * <code>.FileChunkHeader fileChunkHeader = 3;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder() {
         if ((msgCase_ == 3) && (fileChunkHeaderBuilder_ != null)) {
           return fileChunkHeaderBuilder_.getMessageOrBuilder();
@@ -14037,13 +17795,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder> replicationStatusBuilder_;
       /**
        * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * @return Whether the replicationStatus field is set.
        */
+      @java.lang.Override
       public boolean hasReplicationStatus() {
         return msgCase_ == 4;
       }
       /**
        * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * @return The replicationStatus.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
         if (replicationStatusBuilder_ == null) {
           if (msgCase_ == 4) {
@@ -14137,6 +17899,7 @@ public final class DfsMessages {
       /**
        * <code>.ReplicationStatus replicationStatus = 4;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
         if ((msgCase_ == 4) && (replicationStatusBuilder_ != null)) {
           return replicationStatusBuilder_.getMessageOrBuilder();
@@ -14173,13 +17936,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.OnNodeDown, edu.usfca.cs.chat.DfsMessages.OnNodeDown.Builder, edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder> onNodeDownBuilder_;
       /**
        * <code>.OnNodeDown onNodeDown = 5;</code>
+       * @return Whether the onNodeDown field is set.
        */
+      @java.lang.Override
       public boolean hasOnNodeDown() {
         return msgCase_ == 5;
       }
       /**
        * <code>.OnNodeDown onNodeDown = 5;</code>
+       * @return The onNodeDown.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.OnNodeDown getOnNodeDown() {
         if (onNodeDownBuilder_ == null) {
           if (msgCase_ == 5) {
@@ -14273,6 +18040,7 @@ public final class DfsMessages {
       /**
        * <code>.OnNodeDown onNodeDown = 5;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.OnNodeDownOrBuilder getOnNodeDownOrBuilder() {
         if ((msgCase_ == 5) && (onNodeDownBuilder_ != null)) {
           return onNodeDownBuilder_.getMessageOrBuilder();
@@ -14307,7 +18075,7 @@ public final class DfsMessages {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -14363,10 +18131,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileRequest fileRequest = 1;</code>
+     * @return Whether the fileRequest field is set.
      */
     boolean hasFileRequest();
     /**
      * <code>.FileRequest fileRequest = 1;</code>
+     * @return The fileRequest.
      */
     edu.usfca.cs.chat.DfsMessages.FileRequest getFileRequest();
     /**
@@ -14376,10 +18146,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileAck fileAck = 2;</code>
+     * @return Whether the fileAck field is set.
      */
     boolean hasFileAck();
     /**
      * <code>.FileAck fileAck = 2;</code>
+     * @return The fileAck.
      */
     edu.usfca.cs.chat.DfsMessages.FileAck getFileAck();
     /**
@@ -14389,10 +18161,12 @@ public final class DfsMessages {
 
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+     * @return Whether the fileChunkHeader field is set.
      */
     boolean hasFileChunkHeader();
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+     * @return The fileChunkHeader.
      */
     edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader();
     /**
@@ -14402,10 +18176,12 @@ public final class DfsMessages {
 
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * @return Whether the replicationStatus field is set.
      */
     boolean hasReplicationStatus();
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * @return The replicationStatus.
      */
     edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus();
     /**
@@ -14415,10 +18191,12 @@ public final class DfsMessages {
 
     /**
      * <code>.HeartBeat heartBeat = 5;</code>
+     * @return Whether the heartBeat field is set.
      */
     boolean hasHeartBeat();
     /**
      * <code>.HeartBeat heartBeat = 5;</code>
+     * @return The heartBeat.
      */
     edu.usfca.cs.chat.DfsMessages.HeartBeat getHeartBeat();
     /**
@@ -14428,10 +18206,12 @@ public final class DfsMessages {
 
     /**
      * <code>.DataNodeMetadata IntroMessage = 6;</code>
+     * @return Whether the introMessage field is set.
      */
     boolean hasIntroMessage();
     /**
      * <code>.DataNodeMetadata IntroMessage = 6;</code>
+     * @return The introMessage.
      */
     edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getIntroMessage();
     /**
@@ -14439,12 +18219,27 @@ public final class DfsMessages {
      */
     edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getIntroMessageOrBuilder();
 
+    /**
+     * <code>.GetFreeNodes getFreeNodes = 7;</code>
+     * @return Whether the getFreeNodes field is set.
+     */
+    boolean hasGetFreeNodes();
+    /**
+     * <code>.GetFreeNodes getFreeNodes = 7;</code>
+     * @return The getFreeNodes.
+     */
+    edu.usfca.cs.chat.DfsMessages.GetFreeNodes getGetFreeNodes();
+    /**
+     * <code>.GetFreeNodes getFreeNodes = 7;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.GetFreeNodesOrBuilder getGetFreeNodesOrBuilder();
+
     public edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper.MsgCase getMsgCase();
   }
   /**
    * Protobuf type {@code ControllerMessagesWrapper}
    */
-  public  static final class ControllerMessagesWrapper extends
+  public static final class ControllerMessagesWrapper extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ControllerMessagesWrapper)
       ControllerMessagesWrapperOrBuilder {
@@ -14454,6 +18249,13 @@ public final class DfsMessages {
       super(builder);
     }
     private ControllerMessagesWrapper() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ControllerMessagesWrapper();
     }
 
     @java.lang.Override
@@ -14469,7 +18271,6 @@ public final class DfsMessages {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -14564,8 +18365,22 @@ public final class DfsMessages {
               msgCase_ = 6;
               break;
             }
+            case 58: {
+              edu.usfca.cs.chat.DfsMessages.GetFreeNodes.Builder subBuilder = null;
+              if (msgCase_ == 7) {
+                subBuilder = ((edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_).toBuilder();
+              }
+              msg_ =
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.GetFreeNodes.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_);
+                msg_ = subBuilder.buildPartial();
+              }
+              msgCase_ = 7;
+              break;
+            }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -14599,19 +18414,23 @@ public final class DfsMessages {
     private int msgCase_ = 0;
     private java.lang.Object msg_;
     public enum MsgCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       FILEREQUEST(1),
       FILEACK(2),
       FILECHUNKHEADER(3),
       REPLICATIONSTATUS(4),
       HEARTBEAT(5),
       INTROMESSAGE(6),
+      GETFREENODES(7),
       MSG_NOT_SET(0);
       private final int value;
       private MsgCase(int value) {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -14627,6 +18446,7 @@ public final class DfsMessages {
           case 4: return REPLICATIONSTATUS;
           case 5: return HEARTBEAT;
           case 6: return INTROMESSAGE;
+          case 7: return GETFREENODES;
           case 0: return MSG_NOT_SET;
           default: return null;
         }
@@ -14645,13 +18465,17 @@ public final class DfsMessages {
     public static final int FILEREQUEST_FIELD_NUMBER = 1;
     /**
      * <code>.FileRequest fileRequest = 1;</code>
+     * @return Whether the fileRequest field is set.
      */
+    @java.lang.Override
     public boolean hasFileRequest() {
       return msgCase_ == 1;
     }
     /**
      * <code>.FileRequest fileRequest = 1;</code>
+     * @return The fileRequest.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileRequest getFileRequest() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.FileRequest) msg_;
@@ -14661,6 +18485,7 @@ public final class DfsMessages {
     /**
      * <code>.FileRequest fileRequest = 1;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileRequestOrBuilder getFileRequestOrBuilder() {
       if (msgCase_ == 1) {
          return (edu.usfca.cs.chat.DfsMessages.FileRequest) msg_;
@@ -14671,13 +18496,17 @@ public final class DfsMessages {
     public static final int FILEACK_FIELD_NUMBER = 2;
     /**
      * <code>.FileAck fileAck = 2;</code>
+     * @return Whether the fileAck field is set.
      */
+    @java.lang.Override
     public boolean hasFileAck() {
       return msgCase_ == 2;
     }
     /**
      * <code>.FileAck fileAck = 2;</code>
+     * @return The fileAck.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileAck getFileAck() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.FileAck) msg_;
@@ -14687,6 +18516,7 @@ public final class DfsMessages {
     /**
      * <code>.FileAck fileAck = 2;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder getFileAckOrBuilder() {
       if (msgCase_ == 2) {
          return (edu.usfca.cs.chat.DfsMessages.FileAck) msg_;
@@ -14697,13 +18527,17 @@ public final class DfsMessages {
     public static final int FILECHUNKHEADER_FIELD_NUMBER = 3;
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+     * @return Whether the fileChunkHeader field is set.
      */
+    @java.lang.Override
     public boolean hasFileChunkHeader() {
       return msgCase_ == 3;
     }
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+     * @return The fileChunkHeader.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_;
@@ -14713,6 +18547,7 @@ public final class DfsMessages {
     /**
      * <code>.FileChunkHeader fileChunkHeader = 3;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder() {
       if (msgCase_ == 3) {
          return (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_;
@@ -14723,13 +18558,17 @@ public final class DfsMessages {
     public static final int REPLICATIONSTATUS_FIELD_NUMBER = 4;
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * @return Whether the replicationStatus field is set.
      */
+    @java.lang.Override
     public boolean hasReplicationStatus() {
       return msgCase_ == 4;
     }
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * @return The replicationStatus.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
       if (msgCase_ == 4) {
          return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
@@ -14739,6 +18578,7 @@ public final class DfsMessages {
     /**
      * <code>.ReplicationStatus replicationStatus = 4;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
       if (msgCase_ == 4) {
          return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
@@ -14749,13 +18589,17 @@ public final class DfsMessages {
     public static final int HEARTBEAT_FIELD_NUMBER = 5;
     /**
      * <code>.HeartBeat heartBeat = 5;</code>
+     * @return Whether the heartBeat field is set.
      */
+    @java.lang.Override
     public boolean hasHeartBeat() {
       return msgCase_ == 5;
     }
     /**
      * <code>.HeartBeat heartBeat = 5;</code>
+     * @return The heartBeat.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.HeartBeat getHeartBeat() {
       if (msgCase_ == 5) {
          return (edu.usfca.cs.chat.DfsMessages.HeartBeat) msg_;
@@ -14765,6 +18609,7 @@ public final class DfsMessages {
     /**
      * <code>.HeartBeat heartBeat = 5;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.HeartBeatOrBuilder getHeartBeatOrBuilder() {
       if (msgCase_ == 5) {
          return (edu.usfca.cs.chat.DfsMessages.HeartBeat) msg_;
@@ -14775,13 +18620,17 @@ public final class DfsMessages {
     public static final int INTROMESSAGE_FIELD_NUMBER = 6;
     /**
      * <code>.DataNodeMetadata IntroMessage = 6;</code>
+     * @return Whether the introMessage field is set.
      */
+    @java.lang.Override
     public boolean hasIntroMessage() {
       return msgCase_ == 6;
     }
     /**
      * <code>.DataNodeMetadata IntroMessage = 6;</code>
+     * @return The introMessage.
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getIntroMessage() {
       if (msgCase_ == 6) {
          return (edu.usfca.cs.chat.DfsMessages.DataNodeMetadata) msg_;
@@ -14791,11 +18640,43 @@ public final class DfsMessages {
     /**
      * <code>.DataNodeMetadata IntroMessage = 6;</code>
      */
+    @java.lang.Override
     public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getIntroMessageOrBuilder() {
       if (msgCase_ == 6) {
          return (edu.usfca.cs.chat.DfsMessages.DataNodeMetadata) msg_;
       }
       return edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance();
+    }
+
+    public static final int GETFREENODES_FIELD_NUMBER = 7;
+    /**
+     * <code>.GetFreeNodes getFreeNodes = 7;</code>
+     * @return Whether the getFreeNodes field is set.
+     */
+    @java.lang.Override
+    public boolean hasGetFreeNodes() {
+      return msgCase_ == 7;
+    }
+    /**
+     * <code>.GetFreeNodes getFreeNodes = 7;</code>
+     * @return The getFreeNodes.
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.GetFreeNodes getGetFreeNodes() {
+      if (msgCase_ == 7) {
+         return (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_;
+      }
+      return edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance();
+    }
+    /**
+     * <code>.GetFreeNodes getFreeNodes = 7;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.GetFreeNodesOrBuilder getGetFreeNodesOrBuilder() {
+      if (msgCase_ == 7) {
+         return (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_;
+      }
+      return edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -14830,6 +18711,9 @@ public final class DfsMessages {
       if (msgCase_ == 6) {
         output.writeMessage(6, (edu.usfca.cs.chat.DfsMessages.DataNodeMetadata) msg_);
       }
+      if (msgCase_ == 7) {
+        output.writeMessage(7, (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -14863,6 +18747,10 @@ public final class DfsMessages {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, (edu.usfca.cs.chat.DfsMessages.DataNodeMetadata) msg_);
       }
+      if (msgCase_ == 7) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -14878,40 +18766,41 @@ public final class DfsMessages {
       }
       edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper other = (edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper) obj;
 
-      boolean result = true;
-      result = result && getMsgCase().equals(
-          other.getMsgCase());
-      if (!result) return false;
+      if (!getMsgCase().equals(other.getMsgCase())) return false;
       switch (msgCase_) {
         case 1:
-          result = result && getFileRequest()
-              .equals(other.getFileRequest());
+          if (!getFileRequest()
+              .equals(other.getFileRequest())) return false;
           break;
         case 2:
-          result = result && getFileAck()
-              .equals(other.getFileAck());
+          if (!getFileAck()
+              .equals(other.getFileAck())) return false;
           break;
         case 3:
-          result = result && getFileChunkHeader()
-              .equals(other.getFileChunkHeader());
+          if (!getFileChunkHeader()
+              .equals(other.getFileChunkHeader())) return false;
           break;
         case 4:
-          result = result && getReplicationStatus()
-              .equals(other.getReplicationStatus());
+          if (!getReplicationStatus()
+              .equals(other.getReplicationStatus())) return false;
           break;
         case 5:
-          result = result && getHeartBeat()
-              .equals(other.getHeartBeat());
+          if (!getHeartBeat()
+              .equals(other.getHeartBeat())) return false;
           break;
         case 6:
-          result = result && getIntroMessage()
-              .equals(other.getIntroMessage());
+          if (!getIntroMessage()
+              .equals(other.getIntroMessage())) return false;
+          break;
+        case 7:
+          if (!getGetFreeNodes()
+              .equals(other.getGetFreeNodes())) return false;
           break;
         case 0:
         default:
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -14945,6 +18834,10 @@ public final class DfsMessages {
         case 6:
           hash = (37 * hash) + INTROMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getIntroMessage().hashCode();
+          break;
+        case 7:
+          hash = (37 * hash) + GETFREENODES_FIELD_NUMBER;
+          hash = (53 * hash) + getGetFreeNodes().hashCode();
           break;
         case 0:
         default:
@@ -15152,6 +19045,13 @@ public final class DfsMessages {
             result.msg_ = introMessageBuilder_.build();
           }
         }
+        if (msgCase_ == 7) {
+          if (getFreeNodesBuilder_ == null) {
+            result.msg_ = msg_;
+          } else {
+            result.msg_ = getFreeNodesBuilder_.build();
+          }
+        }
         result.msgCase_ = msgCase_;
         onBuilt();
         return result;
@@ -15159,35 +19059,35 @@ public final class DfsMessages {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -15224,6 +19124,10 @@ public final class DfsMessages {
           }
           case INTROMESSAGE: {
             mergeIntroMessage(other.getIntroMessage());
+            break;
+          }
+          case GETFREENODES: {
+            mergeGetFreeNodes(other.getGetFreeNodes());
             break;
           }
           case MSG_NOT_SET: {
@@ -15278,13 +19182,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileRequest, edu.usfca.cs.chat.DfsMessages.FileRequest.Builder, edu.usfca.cs.chat.DfsMessages.FileRequestOrBuilder> fileRequestBuilder_;
       /**
        * <code>.FileRequest fileRequest = 1;</code>
+       * @return Whether the fileRequest field is set.
        */
+      @java.lang.Override
       public boolean hasFileRequest() {
         return msgCase_ == 1;
       }
       /**
        * <code>.FileRequest fileRequest = 1;</code>
+       * @return The fileRequest.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileRequest getFileRequest() {
         if (fileRequestBuilder_ == null) {
           if (msgCase_ == 1) {
@@ -15378,6 +19286,7 @@ public final class DfsMessages {
       /**
        * <code>.FileRequest fileRequest = 1;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileRequestOrBuilder getFileRequestOrBuilder() {
         if ((msgCase_ == 1) && (fileRequestBuilder_ != null)) {
           return fileRequestBuilder_.getMessageOrBuilder();
@@ -15414,13 +19323,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileAck, edu.usfca.cs.chat.DfsMessages.FileAck.Builder, edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder> fileAckBuilder_;
       /**
        * <code>.FileAck fileAck = 2;</code>
+       * @return Whether the fileAck field is set.
        */
+      @java.lang.Override
       public boolean hasFileAck() {
         return msgCase_ == 2;
       }
       /**
        * <code>.FileAck fileAck = 2;</code>
+       * @return The fileAck.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileAck getFileAck() {
         if (fileAckBuilder_ == null) {
           if (msgCase_ == 2) {
@@ -15514,6 +19427,7 @@ public final class DfsMessages {
       /**
        * <code>.FileAck fileAck = 2;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileAckOrBuilder getFileAckOrBuilder() {
         if ((msgCase_ == 2) && (fileAckBuilder_ != null)) {
           return fileAckBuilder_.getMessageOrBuilder();
@@ -15550,13 +19464,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.FileChunkHeader, edu.usfca.cs.chat.DfsMessages.FileChunkHeader.Builder, edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder> fileChunkHeaderBuilder_;
       /**
        * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+       * @return Whether the fileChunkHeader field is set.
        */
+      @java.lang.Override
       public boolean hasFileChunkHeader() {
         return msgCase_ == 3;
       }
       /**
        * <code>.FileChunkHeader fileChunkHeader = 3;</code>
+       * @return The fileChunkHeader.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeader getFileChunkHeader() {
         if (fileChunkHeaderBuilder_ == null) {
           if (msgCase_ == 3) {
@@ -15650,6 +19568,7 @@ public final class DfsMessages {
       /**
        * <code>.FileChunkHeader fileChunkHeader = 3;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder() {
         if ((msgCase_ == 3) && (fileChunkHeaderBuilder_ != null)) {
           return fileChunkHeaderBuilder_.getMessageOrBuilder();
@@ -15686,13 +19605,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder> replicationStatusBuilder_;
       /**
        * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * @return Whether the replicationStatus field is set.
        */
+      @java.lang.Override
       public boolean hasReplicationStatus() {
         return msgCase_ == 4;
       }
       /**
        * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * @return The replicationStatus.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
         if (replicationStatusBuilder_ == null) {
           if (msgCase_ == 4) {
@@ -15786,6 +19709,7 @@ public final class DfsMessages {
       /**
        * <code>.ReplicationStatus replicationStatus = 4;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
         if ((msgCase_ == 4) && (replicationStatusBuilder_ != null)) {
           return replicationStatusBuilder_.getMessageOrBuilder();
@@ -15822,13 +19746,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.HeartBeat, edu.usfca.cs.chat.DfsMessages.HeartBeat.Builder, edu.usfca.cs.chat.DfsMessages.HeartBeatOrBuilder> heartBeatBuilder_;
       /**
        * <code>.HeartBeat heartBeat = 5;</code>
+       * @return Whether the heartBeat field is set.
        */
+      @java.lang.Override
       public boolean hasHeartBeat() {
         return msgCase_ == 5;
       }
       /**
        * <code>.HeartBeat heartBeat = 5;</code>
+       * @return The heartBeat.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.HeartBeat getHeartBeat() {
         if (heartBeatBuilder_ == null) {
           if (msgCase_ == 5) {
@@ -15922,6 +19850,7 @@ public final class DfsMessages {
       /**
        * <code>.HeartBeat heartBeat = 5;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.HeartBeatOrBuilder getHeartBeatOrBuilder() {
         if ((msgCase_ == 5) && (heartBeatBuilder_ != null)) {
           return heartBeatBuilder_.getMessageOrBuilder();
@@ -15958,13 +19887,17 @@ public final class DfsMessages {
           edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> introMessageBuilder_;
       /**
        * <code>.DataNodeMetadata IntroMessage = 6;</code>
+       * @return Whether the introMessage field is set.
        */
+      @java.lang.Override
       public boolean hasIntroMessage() {
         return msgCase_ == 6;
       }
       /**
        * <code>.DataNodeMetadata IntroMessage = 6;</code>
+       * @return The introMessage.
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getIntroMessage() {
         if (introMessageBuilder_ == null) {
           if (msgCase_ == 6) {
@@ -16058,6 +19991,7 @@ public final class DfsMessages {
       /**
        * <code>.DataNodeMetadata IntroMessage = 6;</code>
        */
+      @java.lang.Override
       public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getIntroMessageOrBuilder() {
         if ((msgCase_ == 6) && (introMessageBuilder_ != null)) {
           return introMessageBuilder_.getMessageOrBuilder();
@@ -16089,10 +20023,151 @@ public final class DfsMessages {
         onChanged();;
         return introMessageBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.GetFreeNodes, edu.usfca.cs.chat.DfsMessages.GetFreeNodes.Builder, edu.usfca.cs.chat.DfsMessages.GetFreeNodesOrBuilder> getFreeNodesBuilder_;
+      /**
+       * <code>.GetFreeNodes getFreeNodes = 7;</code>
+       * @return Whether the getFreeNodes field is set.
+       */
+      @java.lang.Override
+      public boolean hasGetFreeNodes() {
+        return msgCase_ == 7;
+      }
+      /**
+       * <code>.GetFreeNodes getFreeNodes = 7;</code>
+       * @return The getFreeNodes.
+       */
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.GetFreeNodes getGetFreeNodes() {
+        if (getFreeNodesBuilder_ == null) {
+          if (msgCase_ == 7) {
+            return (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_;
+          }
+          return edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance();
+        } else {
+          if (msgCase_ == 7) {
+            return getFreeNodesBuilder_.getMessage();
+          }
+          return edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.GetFreeNodes getFreeNodes = 7;</code>
+       */
+      public Builder setGetFreeNodes(edu.usfca.cs.chat.DfsMessages.GetFreeNodes value) {
+        if (getFreeNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          msg_ = value;
+          onChanged();
+        } else {
+          getFreeNodesBuilder_.setMessage(value);
+        }
+        msgCase_ = 7;
+        return this;
+      }
+      /**
+       * <code>.GetFreeNodes getFreeNodes = 7;</code>
+       */
+      public Builder setGetFreeNodes(
+          edu.usfca.cs.chat.DfsMessages.GetFreeNodes.Builder builderForValue) {
+        if (getFreeNodesBuilder_ == null) {
+          msg_ = builderForValue.build();
+          onChanged();
+        } else {
+          getFreeNodesBuilder_.setMessage(builderForValue.build());
+        }
+        msgCase_ = 7;
+        return this;
+      }
+      /**
+       * <code>.GetFreeNodes getFreeNodes = 7;</code>
+       */
+      public Builder mergeGetFreeNodes(edu.usfca.cs.chat.DfsMessages.GetFreeNodes value) {
+        if (getFreeNodesBuilder_ == null) {
+          if (msgCase_ == 7 &&
+              msg_ != edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance()) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.GetFreeNodes.newBuilder((edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            msg_ = value;
+          }
+          onChanged();
+        } else {
+          if (msgCase_ == 7) {
+            getFreeNodesBuilder_.mergeFrom(value);
+          }
+          getFreeNodesBuilder_.setMessage(value);
+        }
+        msgCase_ = 7;
+        return this;
+      }
+      /**
+       * <code>.GetFreeNodes getFreeNodes = 7;</code>
+       */
+      public Builder clearGetFreeNodes() {
+        if (getFreeNodesBuilder_ == null) {
+          if (msgCase_ == 7) {
+            msgCase_ = 0;
+            msg_ = null;
+            onChanged();
+          }
+        } else {
+          if (msgCase_ == 7) {
+            msgCase_ = 0;
+            msg_ = null;
+          }
+          getFreeNodesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.GetFreeNodes getFreeNodes = 7;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.GetFreeNodes.Builder getGetFreeNodesBuilder() {
+        return getGetFreeNodesFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.GetFreeNodes getFreeNodes = 7;</code>
+       */
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.GetFreeNodesOrBuilder getGetFreeNodesOrBuilder() {
+        if ((msgCase_ == 7) && (getFreeNodesBuilder_ != null)) {
+          return getFreeNodesBuilder_.getMessageOrBuilder();
+        } else {
+          if (msgCase_ == 7) {
+            return (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_;
+          }
+          return edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.GetFreeNodes getFreeNodes = 7;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.GetFreeNodes, edu.usfca.cs.chat.DfsMessages.GetFreeNodes.Builder, edu.usfca.cs.chat.DfsMessages.GetFreeNodesOrBuilder> 
+          getGetFreeNodesFieldBuilder() {
+        if (getFreeNodesBuilder_ == null) {
+          if (!(msgCase_ == 7)) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance();
+          }
+          getFreeNodesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.GetFreeNodes, edu.usfca.cs.chat.DfsMessages.GetFreeNodes.Builder, edu.usfca.cs.chat.DfsMessages.GetFreeNodesOrBuilder>(
+                  (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_,
+                  getParentForChildren(),
+                  isClean());
+          msg_ = null;
+        }
+        msgCase_ = 7;
+        onChanged();;
+        return getFreeNodesBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -16148,6 +20223,11 @@ public final class DfsMessages {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_FileChunk_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_AlreadyMaintainedChunks_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_AlreadyMaintainedChunks_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_FileAck_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -16162,6 +20242,11 @@ public final class DfsMessages {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_FileRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GetFreeNodes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GetFreeNodes_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_FileResponse_descriptor;
   private static final 
@@ -16221,158 +20306,172 @@ public final class DfsMessages {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022dfs_messages.proto\"j\n\tFileChunk\022\020\n\010fil" +
-      "epath\030\001 \001(\t\022\016\n\006chunks\030\002 \001(\014\022\020\n\010checksum\030" +
-      "\003 \001(\t\022)\n\017filechunkHeader\030\004 \001(\0132\020.FileChu" +
-      "nkHeader\"y\n\007FileAck\022\020\n\010filepath\030\001 \001(\t\022\017\n" +
-      "\007success\030\002 \001(\010\022\033\n\004type\030\003 \001(\0162\r.FileAck.T" +
-      "ype\".\n\004Type\022\022\n\016FILE_OVERWRITE\020\000\022\022\n\016FILE_" +
-      "RETRIEVAL\020\001\"^\n\017FileChunkHeader\022\024\n\014total_" +
-      "chunks\030\001 \001(\005\022\020\n\010filepath\030\002 \001(\t\022#\n\010replic" +
-      "as\030\003 \003(\0132\021.DataNodeMetadata\"\226\001\n\013FileRequ" +
-      "est\022\021\n\tdirectory\030\001 \001(\t\022\020\n\010filepath\030\002 \001(\t" +
-      "\022\022\n\nnum_chunks\030\003 \001(\005\022\014\n\004size\030\004 \001(\003\022\037\n\004ty" +
-      "pe\030\005 \001(\0162\021.FileRequest.Type\"\037\n\004Type\022\t\n\005S" +
-      "TORE\020\000\022\014\n\010RETRIEVE\020\001\"\275\001\n\014FileResponse\022\026\n" +
-      "\016systemFilePath\030\001 \001(\t\022\023\n\013dfsFilePath\030\002 \001" +
-      "(\t\022$\n\tdataNodes\030\003 \003(\0132\021.DataNodeMetadata" +
-      "\022 \n\004type\030\004 \001(\0162\022.FileResponse.Type\022\027\n\017sh" +
-      "ouldOverwrite\030\005 \001(\010\"\037\n\004Type\022\t\n\005STORE\020\000\022\014" +
-      "\n\010RETRIEVE\020\001\"N\n\020DataNodeMetadata\022\020\n\010host" +
-      "name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\016\n\006memory\030\003 \001(\005\022\014" +
-      "\n\004port\030\004 \001(\005\"c\n\tHeartBeat\022)\n\016node_meta_d" +
-      "ata\030\002 \001(\0132\021.DataNodeMetadata\022\023\n\013store_co" +
-      "unt\030\003 \001(\005\022\026\n\016retrieve_count\030\004 \001(\005\"I\n\021Rep" +
-      "licationStatus\022\020\n\010filepath\030\001 \001(\t\022\021\n\tchun" +
-      "k_num\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"\030\n\nOnNodeDo" +
-      "wn\022\n\n\002ip\030\001 \001(\t\"\244\002\n\022DfsMessagesWrapper\022\037\n" +
-      "\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022#\n\013fileRe" +
-      "quest\030\002 \001(\0132\014.FileRequestH\000\022%\n\014fileRespo" +
-      "nse\030\003 \001(\0132\r.FileResponseH\000\022\037\n\theartBeat\030" +
-      "\004 \001(\0132\n.HeartBeatH\000\022/\n\021replicationStatus" +
-      "\030\005 \001(\0132\022.ReplicationStatusH\000\022\033\n\007fileAck\030" +
-      "\006 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\007 \001" +
-      "(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\267\001\n\017Messag" +
-      "esWrapper\022/\n\rclientWrapper\030\001 \001(\0132\026.Clien" +
-      "tMessagesWrapperH\000\0223\n\017dataNodeWrapper\030\002 " +
-      "\001(\0132\030.DataNodeMessagesWrapperH\000\0227\n\021contr" +
-      "ollerWrapper\030\003 \001(\0132\032.ControllerMessagesW" +
-      "rapperH\000B\005\n\003msg\"\260\001\n\025ClientMessagesWrappe" +
-      "r\022\037\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022%\n\014fi" +
-      "leResponse\030\002 \001(\0132\r.FileResponseH\000\022\033\n\007fil" +
-      "eAck\030\003 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeade" +
-      "r\030\004 \001(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\337\001\n\027D" +
-      "ataNodeMessagesWrapper\022\037\n\tfileChunk\030\001 \001(" +
-      "\0132\n.FileChunkH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileA" +
-      "ckH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.FileChun" +
-      "kHeaderH\000\022/\n\021replicationStatus\030\004 \001(\0132\022.R" +
-      "eplicationStatusH\000\022!\n\nonNodeDown\030\005 \001(\0132\013" +
-      ".OnNodeDownH\000B\005\n\003msg\"\216\002\n\031ControllerMessa" +
-      "gesWrapper\022#\n\013fileRequest\030\001 \001(\0132\014.FileRe" +
-      "questH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH\000\022+\n\017" +
-      "fileChunkHeader\030\003 \001(\0132\020.FileChunkHeaderH" +
-      "\000\022/\n\021replicationStatus\030\004 \001(\0132\022.Replicati" +
-      "onStatusH\000\022\037\n\theartBeat\030\005 \001(\0132\n.HeartBea" +
-      "tH\000\022)\n\014IntroMessage\030\006 \001(\0132\021.DataNodeMeta" +
-      "dataH\000B\005\n\003msgB\023\n\021edu.usfca.cs.chatb\006prot" +
-      "o3"
+      "\n\022dfs_messages.proto\"\277\001\n\tFileChunk\022\020\n\010fi" +
+      "lepath\030\001 \001(\t\022\016\n\006chunks\030\002 \001(\014\022\020\n\010checksum" +
+      "\030\003 \001(\t\022)\n\017filechunkHeader\030\004 \001(\0132\020.FileCh" +
+      "unkHeader\022\035\n\004type\030\005 \001(\0162\017.FileChunk.Type" +
+      "\"4\n\004Type\022\n\n\006LEADER\020\000\022\013\n\007REPLICA\020\001\022\023\n\017MAI" +
+      "NTENANCE_LDR\020\002\"I\n\027AlreadyMaintainedChunk" +
+      "s\022\026\n\016originalChunks\030\001 \003(\t\022\026\n\016repeatedChu" +
+      "nks\030\002 \003(\t\"y\n\007FileAck\022\020\n\010filepath\030\001 \001(\t\022\017" +
+      "\n\007success\030\002 \001(\010\022\033\n\004type\030\003 \001(\0162\r.FileAck." +
+      "Type\".\n\004Type\022\022\n\016FILE_OVERWRITE\020\000\022\022\n\016FILE" +
+      "_RETRIEVAL\020\001\"\326\001\n\017FileChunkHeader\022\024\n\014tota" +
+      "l_chunks\030\001 \001(\005\022\020\n\010filepath\030\002 \001(\t\022#\n\010repl" +
+      "icas\030\003 \003(\0132\021.DataNodeMetadata\022\016\n\006nodeIp\030" +
+      "\004 \001(\t\022+\n\020maintenanceNodes\030\005 \003(\0132\021.DataNo" +
+      "deMetadata\0229\n\027alreadyMaintainedChunks\030\006 " +
+      "\001(\0132\030.AlreadyMaintainedChunks\"\226\001\n\013FileRe" +
+      "quest\022\021\n\tdirectory\030\001 \001(\t\022\020\n\010filepath\030\002 \001" +
+      "(\t\022\022\n\nnum_chunks\030\003 \001(\005\022\014\n\004size\030\004 \001(\003\022\037\n\004" +
+      "type\030\005 \001(\0162\021.FileRequest.Type\"\037\n\004Type\022\t\n" +
+      "\005STORE\020\000\022\014\n\010RETRIEVE\020\001\"2\n\014GetFreeNodes\022\022" +
+      "\n\nnum_chunks\030\001 \001(\005\022\016\n\006nodeIp\030\002 \001(\t\"\275\001\n\014F" +
+      "ileResponse\022\026\n\016systemFilePath\030\001 \001(\t\022\023\n\013d" +
+      "fsFilePath\030\002 \001(\t\022$\n\tdataNodes\030\003 \003(\0132\021.Da" +
+      "taNodeMetadata\022 \n\004type\030\004 \001(\0162\022.FileRespo" +
+      "nse.Type\022\027\n\017shouldOverwrite\030\005 \001(\010\"\037\n\004Typ" +
+      "e\022\t\n\005STORE\020\000\022\014\n\010RETRIEVE\020\001\"N\n\020DataNodeMe" +
+      "tadata\022\020\n\010hostname\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\016\n\006" +
+      "memory\030\003 \001(\005\022\014\n\004port\030\004 \001(\005\"c\n\tHeartBeat\022" +
+      ")\n\016node_meta_data\030\002 \001(\0132\021.DataNodeMetada" +
+      "ta\022\023\n\013store_count\030\003 \001(\005\022\026\n\016retrieve_coun" +
+      "t\030\004 \001(\005\"I\n\021ReplicationStatus\022\020\n\010filepath" +
+      "\030\001 \001(\t\022\021\n\tchunk_num\030\002 \001(\005\022\017\n\007success\030\003 \001" +
+      "(\010\"B\n\nOnNodeDown\022\n\n\002ip\030\001 \001(\t\022(\n\raffected" +
+      "Nodes\030\002 \003(\0132\021.DataNodeMetadata\"\244\002\n\022DfsMe" +
+      "ssagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileC" +
+      "hunkH\000\022#\n\013fileRequest\030\002 \001(\0132\014.FileReques" +
+      "tH\000\022%\n\014fileResponse\030\003 \001(\0132\r.FileResponse" +
+      "H\000\022\037\n\theartBeat\030\004 \001(\0132\n.HeartBeatH\000\022/\n\021r" +
+      "eplicationStatus\030\005 \001(\0132\022.ReplicationStat" +
+      "usH\000\022\033\n\007fileAck\030\006 \001(\0132\010.FileAckH\000\022+\n\017fil" +
+      "eChunkHeader\030\007 \001(\0132\020.FileChunkHeaderH\000B\005" +
+      "\n\003msg\"\267\001\n\017MessagesWrapper\022/\n\rclientWrapp" +
+      "er\030\001 \001(\0132\026.ClientMessagesWrapperH\000\0223\n\017da" +
+      "taNodeWrapper\030\002 \001(\0132\030.DataNodeMessagesWr" +
+      "apperH\000\0227\n\021controllerWrapper\030\003 \001(\0132\032.Con" +
+      "trollerMessagesWrapperH\000B\005\n\003msg\"\260\001\n\025Clie" +
+      "ntMessagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.F" +
+      "ileChunkH\000\022%\n\014fileResponse\030\002 \001(\0132\r.FileR" +
+      "esponseH\000\022\033\n\007fileAck\030\003 \001(\0132\010.FileAckH\000\022+" +
+      "\n\017fileChunkHeader\030\004 \001(\0132\020.FileChunkHeade" +
+      "rH\000B\005\n\003msg\"\337\001\n\027DataNodeMessagesWrapper\022\037" +
+      "\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022\033\n\007fileA" +
+      "ck\030\002 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030" +
+      "\003 \001(\0132\020.FileChunkHeaderH\000\022/\n\021replication" +
+      "Status\030\004 \001(\0132\022.ReplicationStatusH\000\022!\n\non" +
+      "NodeDown\030\005 \001(\0132\013.OnNodeDownH\000B\005\n\003msg\"\265\002\n" +
+      "\031ControllerMessagesWrapper\022#\n\013fileReques" +
+      "t\030\001 \001(\0132\014.FileRequestH\000\022\033\n\007fileAck\030\002 \001(\013" +
+      "2\010.FileAckH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020." +
+      "FileChunkHeaderH\000\022/\n\021replicationStatus\030\004" +
+      " \001(\0132\022.ReplicationStatusH\000\022\037\n\theartBeat\030" +
+      "\005 \001(\0132\n.HeartBeatH\000\022)\n\014IntroMessage\030\006 \001(" +
+      "\0132\021.DataNodeMetadataH\000\022%\n\014getFreeNodes\030\007" +
+      " \001(\0132\r.GetFreeNodesH\000B\005\n\003msgB\023\n\021edu.usfc" +
+      "a.cs.chatb\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+        });
     internal_static_FileChunk_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_FileChunk_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileChunk_descriptor,
-        new java.lang.String[] { "Filepath", "Chunks", "Checksum", "FilechunkHeader", });
-    internal_static_FileAck_descriptor =
+        new java.lang.String[] { "Filepath", "Chunks", "Checksum", "FilechunkHeader", "Type", });
+    internal_static_AlreadyMaintainedChunks_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_AlreadyMaintainedChunks_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_AlreadyMaintainedChunks_descriptor,
+        new java.lang.String[] { "OriginalChunks", "RepeatedChunks", });
+    internal_static_FileAck_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_FileAck_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileAck_descriptor,
         new java.lang.String[] { "Filepath", "Success", "Type", });
     internal_static_FileChunkHeader_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_FileChunkHeader_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileChunkHeader_descriptor,
-        new java.lang.String[] { "TotalChunks", "Filepath", "Replicas", });
+        new java.lang.String[] { "TotalChunks", "Filepath", "Replicas", "NodeIp", "MaintenanceNodes", "AlreadyMaintainedChunks", });
     internal_static_FileRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_FileRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileRequest_descriptor,
         new java.lang.String[] { "Directory", "Filepath", "NumChunks", "Size", "Type", });
+    internal_static_GetFreeNodes_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_GetFreeNodes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GetFreeNodes_descriptor,
+        new java.lang.String[] { "NumChunks", "NodeIp", });
     internal_static_FileResponse_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_FileResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileResponse_descriptor,
         new java.lang.String[] { "SystemFilePath", "DfsFilePath", "DataNodes", "Type", "ShouldOverwrite", });
     internal_static_DataNodeMetadata_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_DataNodeMetadata_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DataNodeMetadata_descriptor,
         new java.lang.String[] { "Hostname", "Ip", "Memory", "Port", });
     internal_static_HeartBeat_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_HeartBeat_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_HeartBeat_descriptor,
         new java.lang.String[] { "NodeMetaData", "StoreCount", "RetrieveCount", });
     internal_static_ReplicationStatus_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_ReplicationStatus_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ReplicationStatus_descriptor,
         new java.lang.String[] { "Filepath", "ChunkNum", "Success", });
     internal_static_OnNodeDown_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_OnNodeDown_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_OnNodeDown_descriptor,
-        new java.lang.String[] { "Ip", });
+        new java.lang.String[] { "Ip", "AffectedNodes", });
     internal_static_DfsMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_DfsMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DfsMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileRequest", "FileResponse", "HeartBeat", "ReplicationStatus", "FileAck", "FileChunkHeader", "Msg", });
     internal_static_MessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_MessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MessagesWrapper_descriptor,
         new java.lang.String[] { "ClientWrapper", "DataNodeWrapper", "ControllerWrapper", "Msg", });
     internal_static_ClientMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_ClientMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ClientMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileResponse", "FileAck", "FileChunkHeader", "Msg", });
     internal_static_DataNodeMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_DataNodeMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DataNodeMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileAck", "FileChunkHeader", "ReplicationStatus", "OnNodeDown", "Msg", });
     internal_static_ControllerMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_ControllerMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ControllerMessagesWrapper_descriptor,
-        new java.lang.String[] { "FileRequest", "FileAck", "FileChunkHeader", "ReplicationStatus", "HeartBeat", "IntroMessage", "Msg", });
+        new java.lang.String[] { "FileRequest", "FileAck", "FileChunkHeader", "ReplicationStatus", "HeartBeat", "IntroMessage", "GetFreeNodes", "Msg", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
