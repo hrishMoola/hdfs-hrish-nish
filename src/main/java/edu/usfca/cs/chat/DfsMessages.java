@@ -1341,6 +1341,869 @@ public final class DfsMessages {
 
   }
 
+  public interface AlreadyMaintainedChunksOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:AlreadyMaintainedChunks)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @return A list containing the originalChunks.
+     */
+    java.util.List<java.lang.String>
+        getOriginalChunksList();
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @return The count of originalChunks.
+     */
+    int getOriginalChunksCount();
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @param index The index of the element to return.
+     * @return The originalChunks at the given index.
+     */
+    java.lang.String getOriginalChunks(int index);
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the originalChunks at the given index.
+     */
+    com.google.protobuf.ByteString
+        getOriginalChunksBytes(int index);
+
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @return A list containing the repeatedChunks.
+     */
+    java.util.List<java.lang.String>
+        getRepeatedChunksList();
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @return The count of repeatedChunks.
+     */
+    int getRepeatedChunksCount();
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @param index The index of the element to return.
+     * @return The repeatedChunks at the given index.
+     */
+    java.lang.String getRepeatedChunks(int index);
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the repeatedChunks at the given index.
+     */
+    com.google.protobuf.ByteString
+        getRepeatedChunksBytes(int index);
+  }
+  /**
+   * <pre>
+   * need to send this cascading-ly to nodes for fault tolerance maintenance
+   * </pre>
+   *
+   * Protobuf type {@code AlreadyMaintainedChunks}
+   */
+  public static final class AlreadyMaintainedChunks extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:AlreadyMaintainedChunks)
+      AlreadyMaintainedChunksOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AlreadyMaintainedChunks.newBuilder() to construct.
+    private AlreadyMaintainedChunks(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AlreadyMaintainedChunks() {
+      originalChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AlreadyMaintainedChunks();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private AlreadyMaintainedChunks(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                originalChunks_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              originalChunks_.add(s);
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                repeatedChunks_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              repeatedChunks_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          originalChunks_ = originalChunks_.getUnmodifiableView();
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          repeatedChunks_ = repeatedChunks_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.class, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder.class);
+    }
+
+    public static final int ORIGINALCHUNKS_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList originalChunks_;
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @return A list containing the originalChunks.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getOriginalChunksList() {
+      return originalChunks_;
+    }
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @return The count of originalChunks.
+     */
+    public int getOriginalChunksCount() {
+      return originalChunks_.size();
+    }
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @param index The index of the element to return.
+     * @return The originalChunks at the given index.
+     */
+    public java.lang.String getOriginalChunks(int index) {
+      return originalChunks_.get(index);
+    }
+    /**
+     * <code>repeated string originalChunks = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the originalChunks at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getOriginalChunksBytes(int index) {
+      return originalChunks_.getByteString(index);
+    }
+
+    public static final int REPEATEDCHUNKS_FIELD_NUMBER = 2;
+    private com.google.protobuf.LazyStringList repeatedChunks_;
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @return A list containing the repeatedChunks.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getRepeatedChunksList() {
+      return repeatedChunks_;
+    }
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @return The count of repeatedChunks.
+     */
+    public int getRepeatedChunksCount() {
+      return repeatedChunks_.size();
+    }
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @param index The index of the element to return.
+     * @return The repeatedChunks at the given index.
+     */
+    public java.lang.String getRepeatedChunks(int index) {
+      return repeatedChunks_.get(index);
+    }
+    /**
+     * <code>repeated string repeatedChunks = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the repeatedChunks at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getRepeatedChunksBytes(int index) {
+      return repeatedChunks_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < originalChunks_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, originalChunks_.getRaw(i));
+      }
+      for (int i = 0; i < repeatedChunks_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, repeatedChunks_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < originalChunks_.size(); i++) {
+          dataSize += computeStringSizeNoTag(originalChunks_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getOriginalChunksList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < repeatedChunks_.size(); i++) {
+          dataSize += computeStringSizeNoTag(repeatedChunks_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getRepeatedChunksList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks)) {
+        return super.equals(obj);
+      }
+      edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks other = (edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks) obj;
+
+      if (!getOriginalChunksList()
+          .equals(other.getOriginalChunksList())) return false;
+      if (!getRepeatedChunksList()
+          .equals(other.getRepeatedChunksList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getOriginalChunksCount() > 0) {
+        hash = (37 * hash) + ORIGINALCHUNKS_FIELD_NUMBER;
+        hash = (53 * hash) + getOriginalChunksList().hashCode();
+      }
+      if (getRepeatedChunksCount() > 0) {
+        hash = (37 * hash) + REPEATEDCHUNKS_FIELD_NUMBER;
+        hash = (53 * hash) + getRepeatedChunksList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * need to send this cascading-ly to nodes for fault tolerance maintenance
+     * </pre>
+     *
+     * Protobuf type {@code AlreadyMaintainedChunks}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:AlreadyMaintainedChunks)
+        edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.class, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder.class);
+      }
+
+      // Construct using edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        originalChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_AlreadyMaintainedChunks_descriptor;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getDefaultInstanceForType() {
+        return edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks build() {
+        edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks buildPartial() {
+        edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks result = new edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          originalChunks_ = originalChunks_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.originalChunks_ = originalChunks_;
+        if (((bitField0_ & 0x00000002) != 0)) {
+          repeatedChunks_ = repeatedChunks_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.repeatedChunks_ = repeatedChunks_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks) {
+          return mergeFrom((edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks other) {
+        if (other == edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance()) return this;
+        if (!other.originalChunks_.isEmpty()) {
+          if (originalChunks_.isEmpty()) {
+            originalChunks_ = other.originalChunks_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureOriginalChunksIsMutable();
+            originalChunks_.addAll(other.originalChunks_);
+          }
+          onChanged();
+        }
+        if (!other.repeatedChunks_.isEmpty()) {
+          if (repeatedChunks_.isEmpty()) {
+            repeatedChunks_ = other.repeatedChunks_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureRepeatedChunksIsMutable();
+            repeatedChunks_.addAll(other.repeatedChunks_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList originalChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureOriginalChunksIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          originalChunks_ = new com.google.protobuf.LazyStringArrayList(originalChunks_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @return A list containing the originalChunks.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getOriginalChunksList() {
+        return originalChunks_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @return The count of originalChunks.
+       */
+      public int getOriginalChunksCount() {
+        return originalChunks_.size();
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param index The index of the element to return.
+       * @return The originalChunks at the given index.
+       */
+      public java.lang.String getOriginalChunks(int index) {
+        return originalChunks_.get(index);
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the originalChunks at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getOriginalChunksBytes(int index) {
+        return originalChunks_.getByteString(index);
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The originalChunks to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalChunks(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureOriginalChunksIsMutable();
+        originalChunks_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param value The originalChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addOriginalChunks(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureOriginalChunksIsMutable();
+        originalChunks_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param values The originalChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllOriginalChunks(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureOriginalChunksIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, originalChunks_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOriginalChunks() {
+        originalChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string originalChunks = 1;</code>
+       * @param value The bytes of the originalChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addOriginalChunksBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureOriginalChunksIsMutable();
+        originalChunks_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureRepeatedChunksIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          repeatedChunks_ = new com.google.protobuf.LazyStringArrayList(repeatedChunks_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @return A list containing the repeatedChunks.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getRepeatedChunksList() {
+        return repeatedChunks_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @return The count of repeatedChunks.
+       */
+      public int getRepeatedChunksCount() {
+        return repeatedChunks_.size();
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param index The index of the element to return.
+       * @return The repeatedChunks at the given index.
+       */
+      public java.lang.String getRepeatedChunks(int index) {
+        return repeatedChunks_.get(index);
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the repeatedChunks at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getRepeatedChunksBytes(int index) {
+        return repeatedChunks_.getByteString(index);
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The repeatedChunks to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRepeatedChunks(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureRepeatedChunksIsMutable();
+        repeatedChunks_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param value The repeatedChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRepeatedChunks(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureRepeatedChunksIsMutable();
+        repeatedChunks_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param values The repeatedChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllRepeatedChunks(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureRepeatedChunksIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, repeatedChunks_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRepeatedChunks() {
+        repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string repeatedChunks = 2;</code>
+       * @param value The bytes of the repeatedChunks to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRepeatedChunksBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureRepeatedChunksIsMutable();
+        repeatedChunks_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:AlreadyMaintainedChunks)
+    }
+
+    // @@protoc_insertion_point(class_scope:AlreadyMaintainedChunks)
+    private static final edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks();
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AlreadyMaintainedChunks>
+        PARSER = new com.google.protobuf.AbstractParser<AlreadyMaintainedChunks>() {
+      @java.lang.Override
+      public AlreadyMaintainedChunks parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AlreadyMaintainedChunks(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AlreadyMaintainedChunks> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AlreadyMaintainedChunks> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface FileAckOrBuilder extends
       // @@protoc_insertion_point(interface_extends:FileAck)
       com.google.protobuf.MessageOrBuilder {
@@ -2364,6 +3227,21 @@ public final class DfsMessages {
      */
     edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintenanceNodesOrBuilder(
         int index);
+
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     * @return Whether the alreadyMaintainedChunks field is set.
+     */
+    boolean hasAlreadyMaintainedChunks();
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     * @return The alreadyMaintainedChunks.
+     */
+    edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getAlreadyMaintainedChunks();
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder getAlreadyMaintainedChunksOrBuilder();
   }
   /**
    * <pre>
@@ -2452,6 +3330,19 @@ public final class DfsMessages {
               }
               maintenanceNodes_.add(
                   input.readMessage(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.parser(), extensionRegistry));
+              break;
+            }
+            case 50: {
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder subBuilder = null;
+              if (alreadyMaintainedChunks_ != null) {
+                subBuilder = alreadyMaintainedChunks_.toBuilder();
+              }
+              alreadyMaintainedChunks_ = input.readMessage(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(alreadyMaintainedChunks_);
+                alreadyMaintainedChunks_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -2695,6 +3586,32 @@ public final class DfsMessages {
       return maintenanceNodes_.get(index);
     }
 
+    public static final int ALREADYMAINTAINEDCHUNKS_FIELD_NUMBER = 6;
+    private edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks_;
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     * @return Whether the alreadyMaintainedChunks field is set.
+     */
+    @java.lang.Override
+    public boolean hasAlreadyMaintainedChunks() {
+      return alreadyMaintainedChunks_ != null;
+    }
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     * @return The alreadyMaintainedChunks.
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getAlreadyMaintainedChunks() {
+      return alreadyMaintainedChunks_ == null ? edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance() : alreadyMaintainedChunks_;
+    }
+    /**
+     * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder getAlreadyMaintainedChunksOrBuilder() {
+      return getAlreadyMaintainedChunks();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2724,6 +3641,9 @@ public final class DfsMessages {
       for (int i = 0; i < maintenanceNodes_.size(); i++) {
         output.writeMessage(5, maintenanceNodes_.get(i));
       }
+      if (alreadyMaintainedChunks_ != null) {
+        output.writeMessage(6, getAlreadyMaintainedChunks());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2751,6 +3671,10 @@ public final class DfsMessages {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, maintenanceNodes_.get(i));
       }
+      if (alreadyMaintainedChunks_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, getAlreadyMaintainedChunks());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -2776,6 +3700,11 @@ public final class DfsMessages {
           .equals(other.getNodeIp())) return false;
       if (!getMaintenanceNodesList()
           .equals(other.getMaintenanceNodesList())) return false;
+      if (hasAlreadyMaintainedChunks() != other.hasAlreadyMaintainedChunks()) return false;
+      if (hasAlreadyMaintainedChunks()) {
+        if (!getAlreadyMaintainedChunks()
+            .equals(other.getAlreadyMaintainedChunks())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2800,6 +3729,10 @@ public final class DfsMessages {
       if (getMaintenanceNodesCount() > 0) {
         hash = (37 * hash) + MAINTENANCENODES_FIELD_NUMBER;
         hash = (53 * hash) + getMaintenanceNodesList().hashCode();
+      }
+      if (hasAlreadyMaintainedChunks()) {
+        hash = (37 * hash) + ALREADYMAINTAINEDCHUNKS_FIELD_NUMBER;
+        hash = (53 * hash) + getAlreadyMaintainedChunks().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -2958,6 +3891,12 @@ public final class DfsMessages {
         } else {
           maintenanceNodesBuilder_.clear();
         }
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          alreadyMaintainedChunks_ = null;
+        } else {
+          alreadyMaintainedChunks_ = null;
+          alreadyMaintainedChunksBuilder_ = null;
+        }
         return this;
       }
 
@@ -3005,6 +3944,11 @@ public final class DfsMessages {
           result.maintenanceNodes_ = maintenanceNodes_;
         } else {
           result.maintenanceNodes_ = maintenanceNodesBuilder_.build();
+        }
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          result.alreadyMaintainedChunks_ = alreadyMaintainedChunks_;
+        } else {
+          result.alreadyMaintainedChunks_ = alreadyMaintainedChunksBuilder_.build();
         }
         onBuilt();
         return result;
@@ -3116,6 +4060,9 @@ public final class DfsMessages {
               maintenanceNodesBuilder_.addAllMessages(other.maintenanceNodes_);
             }
           }
+        }
+        if (other.hasAlreadyMaintainedChunks()) {
+          mergeAlreadyMaintainedChunks(other.getAlreadyMaintainedChunks());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -3920,6 +4867,125 @@ public final class DfsMessages {
           maintenanceNodes_ = null;
         }
         return maintenanceNodesBuilder_;
+      }
+
+      private edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder> alreadyMaintainedChunksBuilder_;
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       * @return Whether the alreadyMaintainedChunks field is set.
+       */
+      public boolean hasAlreadyMaintainedChunks() {
+        return alreadyMaintainedChunksBuilder_ != null || alreadyMaintainedChunks_ != null;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       * @return The alreadyMaintainedChunks.
+       */
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks getAlreadyMaintainedChunks() {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          return alreadyMaintainedChunks_ == null ? edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance() : alreadyMaintainedChunks_;
+        } else {
+          return alreadyMaintainedChunksBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public Builder setAlreadyMaintainedChunks(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks value) {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          alreadyMaintainedChunks_ = value;
+          onChanged();
+        } else {
+          alreadyMaintainedChunksBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public Builder setAlreadyMaintainedChunks(
+          edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder builderForValue) {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          alreadyMaintainedChunks_ = builderForValue.build();
+          onChanged();
+        } else {
+          alreadyMaintainedChunksBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public Builder mergeAlreadyMaintainedChunks(edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks value) {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          if (alreadyMaintainedChunks_ != null) {
+            alreadyMaintainedChunks_ =
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.newBuilder(alreadyMaintainedChunks_).mergeFrom(value).buildPartial();
+          } else {
+            alreadyMaintainedChunks_ = value;
+          }
+          onChanged();
+        } else {
+          alreadyMaintainedChunksBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public Builder clearAlreadyMaintainedChunks() {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          alreadyMaintainedChunks_ = null;
+          onChanged();
+        } else {
+          alreadyMaintainedChunks_ = null;
+          alreadyMaintainedChunksBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder getAlreadyMaintainedChunksBuilder() {
+        
+        onChanged();
+        return getAlreadyMaintainedChunksFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder getAlreadyMaintainedChunksOrBuilder() {
+        if (alreadyMaintainedChunksBuilder_ != null) {
+          return alreadyMaintainedChunksBuilder_.getMessageOrBuilder();
+        } else {
+          return alreadyMaintainedChunks_ == null ?
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.getDefaultInstance() : alreadyMaintainedChunks_;
+        }
+      }
+      /**
+       * <code>.AlreadyMaintainedChunks alreadyMaintainedChunks = 6;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder> 
+          getAlreadyMaintainedChunksFieldBuilder() {
+        if (alreadyMaintainedChunksBuilder_ == null) {
+          alreadyMaintainedChunksBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunks.Builder, edu.usfca.cs.chat.DfsMessages.AlreadyMaintainedChunksOrBuilder>(
+                  getAlreadyMaintainedChunks(),
+                  getParentForChildren(),
+                  isClean());
+          alreadyMaintainedChunks_ = null;
+        }
+        return alreadyMaintainedChunksBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -19157,6 +20223,11 @@ public final class DfsMessages {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_FileChunk_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_AlreadyMaintainedChunks_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_AlreadyMaintainedChunks_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_FileAck_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -19240,63 +20311,66 @@ public final class DfsMessages {
       "\030\003 \001(\t\022)\n\017filechunkHeader\030\004 \001(\0132\020.FileCh" +
       "unkHeader\022\035\n\004type\030\005 \001(\0162\017.FileChunk.Type" +
       "\"4\n\004Type\022\n\n\006LEADER\020\000\022\013\n\007REPLICA\020\001\022\023\n\017MAI" +
-      "NTENANCE_LDR\020\002\"y\n\007FileAck\022\020\n\010filepath\030\001 " +
-      "\001(\t\022\017\n\007success\030\002 \001(\010\022\033\n\004type\030\003 \001(\0162\r.Fil" +
-      "eAck.Type\".\n\004Type\022\022\n\016FILE_OVERWRITE\020\000\022\022\n" +
-      "\016FILE_RETRIEVAL\020\001\"\233\001\n\017FileChunkHeader\022\024\n" +
-      "\014total_chunks\030\001 \001(\005\022\020\n\010filepath\030\002 \001(\t\022#\n" +
-      "\010replicas\030\003 \003(\0132\021.DataNodeMetadata\022\016\n\006no" +
-      "deIp\030\004 \001(\t\022+\n\020maintenanceNodes\030\005 \003(\0132\021.D" +
-      "ataNodeMetadata\"\226\001\n\013FileRequest\022\021\n\tdirec" +
-      "tory\030\001 \001(\t\022\020\n\010filepath\030\002 \001(\t\022\022\n\nnum_chun" +
-      "ks\030\003 \001(\005\022\014\n\004size\030\004 \001(\003\022\037\n\004type\030\005 \001(\0162\021.F" +
-      "ileRequest.Type\"\037\n\004Type\022\t\n\005STORE\020\000\022\014\n\010RE" +
-      "TRIEVE\020\001\"2\n\014GetFreeNodes\022\022\n\nnum_chunks\030\001" +
-      " \001(\005\022\016\n\006nodeIp\030\002 \001(\t\"\275\001\n\014FileResponse\022\026\n" +
-      "\016systemFilePath\030\001 \001(\t\022\023\n\013dfsFilePath\030\002 \001" +
-      "(\t\022$\n\tdataNodes\030\003 \003(\0132\021.DataNodeMetadata" +
-      "\022 \n\004type\030\004 \001(\0162\022.FileResponse.Type\022\027\n\017sh" +
-      "ouldOverwrite\030\005 \001(\010\"\037\n\004Type\022\t\n\005STORE\020\000\022\014" +
-      "\n\010RETRIEVE\020\001\"N\n\020DataNodeMetadata\022\020\n\010host" +
-      "name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\016\n\006memory\030\003 \001(\005\022\014" +
-      "\n\004port\030\004 \001(\005\"c\n\tHeartBeat\022)\n\016node_meta_d" +
-      "ata\030\002 \001(\0132\021.DataNodeMetadata\022\023\n\013store_co" +
-      "unt\030\003 \001(\005\022\026\n\016retrieve_count\030\004 \001(\005\"I\n\021Rep" +
-      "licationStatus\022\020\n\010filepath\030\001 \001(\t\022\021\n\tchun" +
-      "k_num\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"B\n\nOnNodeDo" +
-      "wn\022\n\n\002ip\030\001 \001(\t\022(\n\raffectedNodes\030\002 \003(\0132\021." +
-      "DataNodeMetadata\"\244\002\n\022DfsMessagesWrapper\022" +
-      "\037\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022#\n\013file" +
-      "Request\030\002 \001(\0132\014.FileRequestH\000\022%\n\014fileRes" +
-      "ponse\030\003 \001(\0132\r.FileResponseH\000\022\037\n\theartBea" +
-      "t\030\004 \001(\0132\n.HeartBeatH\000\022/\n\021replicationStat" +
-      "us\030\005 \001(\0132\022.ReplicationStatusH\000\022\033\n\007fileAc" +
-      "k\030\006 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\007" +
-      " \001(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\267\001\n\017Mess" +
-      "agesWrapper\022/\n\rclientWrapper\030\001 \001(\0132\026.Cli" +
-      "entMessagesWrapperH\000\0223\n\017dataNodeWrapper\030" +
-      "\002 \001(\0132\030.DataNodeMessagesWrapperH\000\0227\n\021con" +
-      "trollerWrapper\030\003 \001(\0132\032.ControllerMessage" +
-      "sWrapperH\000B\005\n\003msg\"\260\001\n\025ClientMessagesWrap" +
-      "per\022\037\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022%\n\014" +
-      "fileResponse\030\002 \001(\0132\r.FileResponseH\000\022\033\n\007f" +
-      "ileAck\030\003 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHea" +
-      "der\030\004 \001(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\337\001\n" +
-      "\027DataNodeMessagesWrapper\022\037\n\tfileChunk\030\001 " +
-      "\001(\0132\n.FileChunkH\000\022\033\n\007fileAck\030\002 \001(\0132\010.Fil" +
-      "eAckH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.FileCh" +
-      "unkHeaderH\000\022/\n\021replicationStatus\030\004 \001(\0132\022" +
-      ".ReplicationStatusH\000\022!\n\nonNodeDown\030\005 \001(\013" +
-      "2\013.OnNodeDownH\000B\005\n\003msg\"\265\002\n\031ControllerMes" +
-      "sagesWrapper\022#\n\013fileRequest\030\001 \001(\0132\014.File" +
-      "RequestH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH\000\022+" +
-      "\n\017fileChunkHeader\030\003 \001(\0132\020.FileChunkHeade" +
-      "rH\000\022/\n\021replicationStatus\030\004 \001(\0132\022.Replica" +
-      "tionStatusH\000\022\037\n\theartBeat\030\005 \001(\0132\n.HeartB" +
-      "eatH\000\022)\n\014IntroMessage\030\006 \001(\0132\021.DataNodeMe" +
-      "tadataH\000\022%\n\014getFreeNodes\030\007 \001(\0132\r.GetFree" +
-      "NodesH\000B\005\n\003msgB\023\n\021edu.usfca.cs.chatb\006pro" +
-      "to3"
+      "NTENANCE_LDR\020\002\"I\n\027AlreadyMaintainedChunk" +
+      "s\022\026\n\016originalChunks\030\001 \003(\t\022\026\n\016repeatedChu" +
+      "nks\030\002 \003(\t\"y\n\007FileAck\022\020\n\010filepath\030\001 \001(\t\022\017" +
+      "\n\007success\030\002 \001(\010\022\033\n\004type\030\003 \001(\0162\r.FileAck." +
+      "Type\".\n\004Type\022\022\n\016FILE_OVERWRITE\020\000\022\022\n\016FILE" +
+      "_RETRIEVAL\020\001\"\326\001\n\017FileChunkHeader\022\024\n\014tota" +
+      "l_chunks\030\001 \001(\005\022\020\n\010filepath\030\002 \001(\t\022#\n\010repl" +
+      "icas\030\003 \003(\0132\021.DataNodeMetadata\022\016\n\006nodeIp\030" +
+      "\004 \001(\t\022+\n\020maintenanceNodes\030\005 \003(\0132\021.DataNo" +
+      "deMetadata\0229\n\027alreadyMaintainedChunks\030\006 " +
+      "\001(\0132\030.AlreadyMaintainedChunks\"\226\001\n\013FileRe" +
+      "quest\022\021\n\tdirectory\030\001 \001(\t\022\020\n\010filepath\030\002 \001" +
+      "(\t\022\022\n\nnum_chunks\030\003 \001(\005\022\014\n\004size\030\004 \001(\003\022\037\n\004" +
+      "type\030\005 \001(\0162\021.FileRequest.Type\"\037\n\004Type\022\t\n" +
+      "\005STORE\020\000\022\014\n\010RETRIEVE\020\001\"2\n\014GetFreeNodes\022\022" +
+      "\n\nnum_chunks\030\001 \001(\005\022\016\n\006nodeIp\030\002 \001(\t\"\275\001\n\014F" +
+      "ileResponse\022\026\n\016systemFilePath\030\001 \001(\t\022\023\n\013d" +
+      "fsFilePath\030\002 \001(\t\022$\n\tdataNodes\030\003 \003(\0132\021.Da" +
+      "taNodeMetadata\022 \n\004type\030\004 \001(\0162\022.FileRespo" +
+      "nse.Type\022\027\n\017shouldOverwrite\030\005 \001(\010\"\037\n\004Typ" +
+      "e\022\t\n\005STORE\020\000\022\014\n\010RETRIEVE\020\001\"N\n\020DataNodeMe" +
+      "tadata\022\020\n\010hostname\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\016\n\006" +
+      "memory\030\003 \001(\005\022\014\n\004port\030\004 \001(\005\"c\n\tHeartBeat\022" +
+      ")\n\016node_meta_data\030\002 \001(\0132\021.DataNodeMetada" +
+      "ta\022\023\n\013store_count\030\003 \001(\005\022\026\n\016retrieve_coun" +
+      "t\030\004 \001(\005\"I\n\021ReplicationStatus\022\020\n\010filepath" +
+      "\030\001 \001(\t\022\021\n\tchunk_num\030\002 \001(\005\022\017\n\007success\030\003 \001" +
+      "(\010\"B\n\nOnNodeDown\022\n\n\002ip\030\001 \001(\t\022(\n\raffected" +
+      "Nodes\030\002 \003(\0132\021.DataNodeMetadata\"\244\002\n\022DfsMe" +
+      "ssagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileC" +
+      "hunkH\000\022#\n\013fileRequest\030\002 \001(\0132\014.FileReques" +
+      "tH\000\022%\n\014fileResponse\030\003 \001(\0132\r.FileResponse" +
+      "H\000\022\037\n\theartBeat\030\004 \001(\0132\n.HeartBeatH\000\022/\n\021r" +
+      "eplicationStatus\030\005 \001(\0132\022.ReplicationStat" +
+      "usH\000\022\033\n\007fileAck\030\006 \001(\0132\010.FileAckH\000\022+\n\017fil" +
+      "eChunkHeader\030\007 \001(\0132\020.FileChunkHeaderH\000B\005" +
+      "\n\003msg\"\267\001\n\017MessagesWrapper\022/\n\rclientWrapp" +
+      "er\030\001 \001(\0132\026.ClientMessagesWrapperH\000\0223\n\017da" +
+      "taNodeWrapper\030\002 \001(\0132\030.DataNodeMessagesWr" +
+      "apperH\000\0227\n\021controllerWrapper\030\003 \001(\0132\032.Con" +
+      "trollerMessagesWrapperH\000B\005\n\003msg\"\260\001\n\025Clie" +
+      "ntMessagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.F" +
+      "ileChunkH\000\022%\n\014fileResponse\030\002 \001(\0132\r.FileR" +
+      "esponseH\000\022\033\n\007fileAck\030\003 \001(\0132\010.FileAckH\000\022+" +
+      "\n\017fileChunkHeader\030\004 \001(\0132\020.FileChunkHeade" +
+      "rH\000B\005\n\003msg\"\337\001\n\027DataNodeMessagesWrapper\022\037" +
+      "\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022\033\n\007fileA" +
+      "ck\030\002 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030" +
+      "\003 \001(\0132\020.FileChunkHeaderH\000\022/\n\021replication" +
+      "Status\030\004 \001(\0132\022.ReplicationStatusH\000\022!\n\non" +
+      "NodeDown\030\005 \001(\0132\013.OnNodeDownH\000B\005\n\003msg\"\265\002\n" +
+      "\031ControllerMessagesWrapper\022#\n\013fileReques" +
+      "t\030\001 \001(\0132\014.FileRequestH\000\022\033\n\007fileAck\030\002 \001(\013" +
+      "2\010.FileAckH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020." +
+      "FileChunkHeaderH\000\022/\n\021replicationStatus\030\004" +
+      " \001(\0132\022.ReplicationStatusH\000\022\037\n\theartBeat\030" +
+      "\005 \001(\0132\n.HeartBeatH\000\022)\n\014IntroMessage\030\006 \001(" +
+      "\0132\021.DataNodeMetadataH\000\022%\n\014getFreeNodes\030\007" +
+      " \001(\0132\r.GetFreeNodesH\000B\005\n\003msgB\023\n\021edu.usfc" +
+      "a.cs.chatb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -19308,86 +20382,92 @@ public final class DfsMessages {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileChunk_descriptor,
         new java.lang.String[] { "Filepath", "Chunks", "Checksum", "FilechunkHeader", "Type", });
-    internal_static_FileAck_descriptor =
+    internal_static_AlreadyMaintainedChunks_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_AlreadyMaintainedChunks_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_AlreadyMaintainedChunks_descriptor,
+        new java.lang.String[] { "OriginalChunks", "RepeatedChunks", });
+    internal_static_FileAck_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_FileAck_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileAck_descriptor,
         new java.lang.String[] { "Filepath", "Success", "Type", });
     internal_static_FileChunkHeader_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_FileChunkHeader_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileChunkHeader_descriptor,
-        new java.lang.String[] { "TotalChunks", "Filepath", "Replicas", "NodeIp", "MaintenanceNodes", });
+        new java.lang.String[] { "TotalChunks", "Filepath", "Replicas", "NodeIp", "MaintenanceNodes", "AlreadyMaintainedChunks", });
     internal_static_FileRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_FileRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileRequest_descriptor,
         new java.lang.String[] { "Directory", "Filepath", "NumChunks", "Size", "Type", });
     internal_static_GetFreeNodes_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_GetFreeNodes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GetFreeNodes_descriptor,
         new java.lang.String[] { "NumChunks", "NodeIp", });
     internal_static_FileResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_FileResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileResponse_descriptor,
         new java.lang.String[] { "SystemFilePath", "DfsFilePath", "DataNodes", "Type", "ShouldOverwrite", });
     internal_static_DataNodeMetadata_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_DataNodeMetadata_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DataNodeMetadata_descriptor,
         new java.lang.String[] { "Hostname", "Ip", "Memory", "Port", });
     internal_static_HeartBeat_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_HeartBeat_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_HeartBeat_descriptor,
         new java.lang.String[] { "NodeMetaData", "StoreCount", "RetrieveCount", });
     internal_static_ReplicationStatus_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_ReplicationStatus_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ReplicationStatus_descriptor,
         new java.lang.String[] { "Filepath", "ChunkNum", "Success", });
     internal_static_OnNodeDown_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_OnNodeDown_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_OnNodeDown_descriptor,
         new java.lang.String[] { "Ip", "AffectedNodes", });
     internal_static_DfsMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_DfsMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DfsMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileRequest", "FileResponse", "HeartBeat", "ReplicationStatus", "FileAck", "FileChunkHeader", "Msg", });
     internal_static_MessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_MessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MessagesWrapper_descriptor,
         new java.lang.String[] { "ClientWrapper", "DataNodeWrapper", "ControllerWrapper", "Msg", });
     internal_static_ClientMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_ClientMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ClientMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileResponse", "FileAck", "FileChunkHeader", "Msg", });
     internal_static_DataNodeMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_DataNodeMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DataNodeMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileAck", "FileChunkHeader", "ReplicationStatus", "OnNodeDown", "Msg", });
     internal_static_ControllerMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_ControllerMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ControllerMessagesWrapper_descriptor,

@@ -15,6 +15,12 @@ message FileChunk{ //from client to primary datanode, and primary datanode to ot
     }
 }
 
+// need to send this cascading-ly to nodes for fault tolerance maintenance
+message AlreadyMaintainedChunks {
+    repeated string originalChunks = 1;
+    repeated string repeatedChunks = 2;
+}
+
 message FileAck{
     string filepath = 1; //does not contain the chunk serial number, just the filename
     bool success = 2;
@@ -32,6 +38,7 @@ message FileChunkHeader{
     repeated DataNodeMetadata replicas = 3;
     string nodeIp = 4; // on node down send node ip to storage node to begin replica maintenance
     repeated DataNodeMetadata maintenanceNodes = 5; // list of all nodes that need to have replication maintained on node down
+    AlreadyMaintainedChunks alreadyMaintainedChunks = 6;
 }
 
 //from client to controller

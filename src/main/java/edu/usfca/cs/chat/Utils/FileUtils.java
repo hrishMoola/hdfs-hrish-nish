@@ -26,6 +26,13 @@ import java.util.zip.Checksum;
 
 public class FileUtils {
 
+    public static DfsMessages.OnNodeDown createOnNodeDownMsg(String ip, List<DfsMessages.DataNodeMetadata> replicaNodes) {
+        return DfsMessages.OnNodeDown.newBuilder()
+                .setIp(ip)
+                .addAllAffectedNodes(replicaNodes)
+                .build();
+    }
+
     public static void writeToFile(DfsMessages.FileChunk fileChunk, String storagePath, String type) throws Exception{
         String fileName = fileChunk.getFilepath();
 
