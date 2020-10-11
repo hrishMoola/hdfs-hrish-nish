@@ -7,6 +7,12 @@ message FileChunk{ //from client to primary datanode, and primary datanode to ot
     bytes chunks = 2;           // byte array of data
     string checksum = 3;        // checksum calc at client
     FileChunkHeader filechunkHeader = 4;
+    Type type = 5;
+    enum Type {
+        LEADER = 0;
+        REPLICA = 1;
+        MAINTENANCE_LDR = 2; // separate one for leader node maintenance so that we don't replicate it
+    }
 }
 
 message FileAck{
@@ -24,6 +30,8 @@ message FileChunkHeader{
     int32 total_chunks = 1;
     string filepath = 2; //does not contain the chunk serial number, just the filename
     repeated DataNodeMetadata replicas = 3;
+    string nodeIp = 4; // on node down send node ip to storage node to begin replica maintenance
+    repeated DataNodeMetadata maintenanceNodes = 5; // list of all nodes that need to have replication maintained on node down
 }
 
 //from client to controller
@@ -42,6 +50,7 @@ message FileRequest{
 // get nodes to save num_chunks number of chunks
 message GetFreeNodes{
     int32 num_chunks = 1;
+    string nodeIp = 2; // sent when storage needs to start replication on node down - this is the failed node's ip
 }
 
 //sent from controller
@@ -81,6 +90,7 @@ message ReplicationStatus{
 // for fault tolerance when controller lets a related node know which node is down
 message OnNodeDown {
     string ip = 1;
+    repeated DataNodeMetadata affectedNodes = 2; // list of all affected nodes when a node goes down
 }
 
 message DfsMessagesWrapper {

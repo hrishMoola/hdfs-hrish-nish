@@ -100,7 +100,7 @@ public class FileChunker {
         try{
             int i;
             File inFile;
-            File outFile = new File(outputFilePath+"_retrieved");
+            File outFile = new File(outputFilePath+"wLoader.png");
             outstream = new FileOutputStream(outFile);
 
             for(i = 0; i < files.size(); i++) {

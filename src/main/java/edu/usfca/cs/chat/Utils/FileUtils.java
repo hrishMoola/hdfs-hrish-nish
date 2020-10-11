@@ -64,19 +64,20 @@ public class FileUtils {
 
     public static File findDir(String name, File file) {
         File[] list = file.listFiles();
+        File foundFile = null;
         if(list!=null)
             for (File innerFile : list)
             {
                 if (name.equals(innerFile.getName())) {
-                    return innerFile;
+                    foundFile = innerFile;
+                    break;
                 }
-                else if (innerFile.isDirectory())
+                if (innerFile.isDirectory())
                 {
                     return findDir(name,innerFile);
                 }
-                else return null;
             }
-        return null;
+        return foundFile;
     }
 
     public static void clearDirectoryContents(String storagePath) {

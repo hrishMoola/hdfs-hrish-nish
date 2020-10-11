@@ -171,28 +171,29 @@ public class Controller
         System.out.println("routing table after " + routingTable);
     }
 
-    private DfsMessages.OnNodeDown createOnNodeDownMsg(String ip) {
-        return DfsMessages.OnNodeDown.newBuilder().setIp(ip).build();
+    private DfsMessages.OnNodeDown createOnNodeDownMsg(String ip, List<DfsMessages.DataNodeMetadata> replicaNodes) {
+        return DfsMessages.OnNodeDown.newBuilder()
+                .setIp(ip)
+                .addAllAffectedNodes(replicaNodes)
+                .build();
     }
 
     private void startFaultTolerance(String nodeAddr, List<DfsMessages.DataNodeMetadata> replicaNodes) {
         System.out.println("X-X-X Initiating Fault Tolerance Sequence for Node: X-X-X" + nodeAddr);
         try {
-            int i;
-            for(i = 0; i < replicaNodes.size(); i++) {
-                DfsMessages.DataNodeMetadata node = replicaNodes.get(i);
-                String ip = node.getIp().split(":")[0];
+            DfsMessages.DataNodeMetadata node = replicaNodes.get(0);
+            String ip = node.getIp().split(":")[0];
 
-                System.out.println("FT: sending replication msg to " + ip + ':' + node.getPort());
-                Channel ch = connectToNode(ip, node.getPort());
-                System.out.println("ch is: " + ch);
-                if(ch == null) continue;
+            System.out.println("X-X FT: sending first replication msg to " + ip + ':' + node.getPort());
+            Channel ch = connectToNode(ip, node.getPort());
+            System.out.println("ch is: " + ch);
 
-                DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setOnNodeDown(createOnNodeDownMsg(nodeAddr)).build()).build();
-                ChannelFuture future = ch.writeAndFlush(wrapper);
-                future.awaitUninterruptibly();
+            DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder()
+                    .setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder()
+                    .setOnNodeDown(createOnNodeDownMsg(nodeAddr, replicaNodes)).build())
+                    .build();
 
-            }
+            ch.writeAndFlush(wrapper);
         }
         catch (Exception e) {
             System.out.println("error initiating fault tolerance for node: " + nodeAddr);
@@ -229,6 +230,27 @@ public class Controller
                     e.printStackTrace();
                 }
                 break;
+            case 3: // FileChunkHeader - incoming replica maintenence request from storage node directly
+                DfsMessages.FileChunkHeader headerMsg = message.getFileChunkHeader();
+                int totalChunks = headerMsg.getTotalChunks();
+                String nodeDownIp = headerMsg.getNodeIp();
+                List<DfsMessages.DataNodeMetadata> replicas = headerMsg.getReplicasList();
+
+                System.out.println("Incoming Request to return nodes to store total chunks: " + totalChunks);
+                List<DfsMessages.DataNodeMetadata> availableNodes = getNodesToStoreFile(totalChunks);
+
+                // create msg with all nodes replication can happen on
+                DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(
+                        DfsMessages.DataNodeMessagesWrapper.newBuilder()
+                                .setFileChunkHeader(DfsMessages.FileChunkHeader.newBuilder()
+                                        .setTotalChunks(0)
+                                        .setFilepath("")
+                                        .setNodeIp(nodeDownIp)
+                                        .addAllMaintenanceNodes(replicas) // these are list of cascading nodes that need to be maintained
+                                        .addAllReplicas(availableNodes))).build();
+
+                ctx.channel().writeAndFlush(wrapper);
+                break;
             case 5: // Heart Beat
                 try {
                     DfsMessages.DataNodeMetadata info = message.getHeartBeat().getNodeMetaData();
@@ -243,33 +265,14 @@ public class Controller
                     // print controller
                     printMsg(message);
                     // add to active storage nodes
-                    System.out.println("IP TO STORE: " + IntroMsg.getIp());
                     activeStorageNodes.put(IntroMsg.getIp(), IntroMsg);
                     nodeToBF.put(IntroMsg.getIp(), new BloomFilter(m, k));
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading DataNodeMetaData");
                 }
                 break;
-            case 7: // incoming replica maintenence request from storage node directly
-                System.out.println("INSIDE GET FREE NODES CONTROLLER");
-                DfsMessages.GetFreeNodes getNodesMsg = message.getGetFreeNodes();
-                int totalChunks = getNodesMsg.getNumChunks();
-                System.out.println("Incoming Request to return nodes to store total chunks: " + totalChunks);
-                List<DfsMessages.DataNodeMetadata> availableNodes = getNodesToStoreFile(totalChunks);
-
-                DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(
-                        DfsMessages.DataNodeMessagesWrapper.newBuilder()
-                        .setFileChunkHeader(DfsMessages.FileChunkHeader.newBuilder()
-                        .setTotalChunks(0)
-                        .setFilepath("")
-                        .addAllReplicas(availableNodes))).build();
-
-                System.out.println("returning request");
-
-                ctx.channel().writeAndFlush(wrapper);
-                break;
             default:
-                System.out.println("whaaaa");
+                System.out.println("Default switch case in channel read of controller");
                 break;
         }
 

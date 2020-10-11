@@ -109,7 +109,9 @@ public class Client
                 String filePartName = String.format("%s-%03d", fileName, partCounter++);
                     List<DfsMessages.DataNodeMetadata> replicas = lruCache.getWithReplicas().stream().map(metadataMap::get).collect(Collectors.toList());
                     System.out.println("replicas = " + replicas);
-                    sendChunks(filePartName, buffer, replicas, Integer.toString(numChunks));
+                    DfsMessages.FileChunk.Type type = DfsMessages.FileChunk.Type.LEADER;
+                    if(replicas.size() == 1) type = DfsMessages.FileChunk.Type.REPLICA;
+                    sendChunks(filePartName, buffer, replicas, Integer.toString(numChunks), type);
                     System.out.println("Sent");
             }
         }
@@ -150,10 +152,10 @@ public class Client
     }
 
 
-    private void sendChunks(String filePartName, byte[] buffer, List<DfsMessages.DataNodeMetadata> replicas, String numChunks) {
+    private void sendChunks(String filePartName, byte[] buffer, List<DfsMessages.DataNodeMetadata> replicas, String numChunks, DfsMessages.FileChunk.Type type) {
 
         DfsMessages.FileChunk fileChunkMessage = DfsMessages.FileChunk.newBuilder().setFilepath(filePartName).setChunks(ByteString.copyFrom(buffer))
-                .setFilechunkHeader(getChunkHeader(numChunks, replicas, filePartName)).build();
+                .setFilechunkHeader(getChunkHeader(numChunks, replicas, filePartName)).setType(type).build();
         DfsMessages.MessagesWrapper msgWrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileChunk(fileChunkMessage)).build();
         ChannelFuture write = channelMap.get(replicas.get(0).getIp()).writeAndFlush(msgWrapper);
         write.syncUninterruptibly();
