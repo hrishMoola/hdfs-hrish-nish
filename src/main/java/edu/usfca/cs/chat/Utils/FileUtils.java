@@ -105,6 +105,9 @@ public class FileUtils {
             System.out.println("issokay");
             return DfsMessages.FileChunk.newBuilder().setFilepath(filepath.getName()).setChunks(ByteString.copyFrom(fileChunkString)).setFilechunkHeader(fileChunkHeader).build();
         } else { //request replica
+            System.out.println("File is corrupted");
+            Files.delete(Paths.get(filepath.getCanonicalPath()));
+            Files.delete(Paths.get(filepath.getCanonicalPath() + "_checksum"));
             System.out.println("Time to request replicas");
         }
         return null;

@@ -87,11 +87,12 @@ message HeartBeat{
     int32 retrieve_count = 4;
 }
 
-//message during pipelining from replica to leader
-message ReplicationStatus{
+//used for sending a chunk as a patch when something is corrupted or file is missing.
+message ReplicaPatch{
     string filepath = 1;        //contains chunk serial number
-    int32 chunk_num = 2;
-    bool success = 3;
+    string chunk_num = 2;
+    DataNodeMetadata nodeMetadata = 3;
+
 }
 
 // for fault tolerance when controller lets a related node know which node is down
@@ -106,7 +107,7 @@ message DfsMessagesWrapper {
         FileRequest fileRequest = 2;
         FileResponse fileResponse = 3;
         HeartBeat heartBeat = 4;
-        ReplicationStatus replicationStatus = 5;
+        ReplicaPatch replicaPatch = 5;
         FileAck fileAck = 6;
         FileChunkHeader fileChunkHeader = 7;
     }
@@ -128,6 +129,7 @@ message ClientMessagesWrapper{
         FileResponse fileResponse = 2;
         FileAck fileAck = 3;
         FileChunkHeader fileChunkHeader = 4;
+        ReplicaPatch replicaPatch = 5;
     }
 }
 
@@ -137,7 +139,7 @@ message DataNodeMessagesWrapper{
         FileChunk fileChunk = 1;
         FileAck fileAck = 2;
         FileChunkHeader fileChunkHeader = 3;
-        ReplicationStatus replicationStatus = 4;
+        ReplicaPatch replicaPatch = 4;
         OnNodeDown onNodeDown = 5;
     }
 }
@@ -147,7 +149,7 @@ message ControllerMessagesWrapper{
         FileRequest fileRequest = 1 ;
         FileAck fileAck = 2;
         FileChunkHeader fileChunkHeader = 3;
-        ReplicationStatus replicationStatus = 4;
+        ReplicaPatch replicaPatch = 4;
         HeartBeat heartBeat = 5;
         DataNodeMetadata IntroMessage = 6;
         GetFreeNodes getFreeNodes = 7;
