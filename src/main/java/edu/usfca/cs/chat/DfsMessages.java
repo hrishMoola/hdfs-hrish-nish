@@ -1341,6 +1341,794 @@ public final class DfsMessages {
 
   }
 
+  public interface UpdateRoutingTableOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:UpdateRoutingTable)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string dirpath = 1;</code>
+     * @return A list containing the dirpath.
+     */
+    java.util.List<java.lang.String>
+        getDirpathList();
+    /**
+     * <code>repeated string dirpath = 1;</code>
+     * @return The count of dirpath.
+     */
+    int getDirpathCount();
+    /**
+     * <code>repeated string dirpath = 1;</code>
+     * @param index The index of the element to return.
+     * @return The dirpath at the given index.
+     */
+    java.lang.String getDirpath(int index);
+    /**
+     * <code>repeated string dirpath = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the dirpath at the given index.
+     */
+    com.google.protobuf.ByteString
+        getDirpathBytes(int index);
+
+    /**
+     * <code>string nodeIp = 2;</code>
+     * @return The nodeIp.
+     */
+    java.lang.String getNodeIp();
+    /**
+     * <code>string nodeIp = 2;</code>
+     * @return The bytes for nodeIp.
+     */
+    com.google.protobuf.ByteString
+        getNodeIpBytes();
+  }
+  /**
+   * Protobuf type {@code UpdateRoutingTable}
+   */
+  public static final class UpdateRoutingTable extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:UpdateRoutingTable)
+      UpdateRoutingTableOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UpdateRoutingTable.newBuilder() to construct.
+    private UpdateRoutingTable(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UpdateRoutingTable() {
+      dirpath_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      nodeIp_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new UpdateRoutingTable();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private UpdateRoutingTable(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                dirpath_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              dirpath_.add(s);
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              nodeIp_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          dirpath_ = dirpath_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_UpdateRoutingTable_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return edu.usfca.cs.chat.DfsMessages.internal_static_UpdateRoutingTable_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.class, edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.Builder.class);
+    }
+
+    public static final int DIRPATH_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList dirpath_;
+    /**
+     * <code>repeated string dirpath = 1;</code>
+     * @return A list containing the dirpath.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getDirpathList() {
+      return dirpath_;
+    }
+    /**
+     * <code>repeated string dirpath = 1;</code>
+     * @return The count of dirpath.
+     */
+    public int getDirpathCount() {
+      return dirpath_.size();
+    }
+    /**
+     * <code>repeated string dirpath = 1;</code>
+     * @param index The index of the element to return.
+     * @return The dirpath at the given index.
+     */
+    public java.lang.String getDirpath(int index) {
+      return dirpath_.get(index);
+    }
+    /**
+     * <code>repeated string dirpath = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the dirpath at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getDirpathBytes(int index) {
+      return dirpath_.getByteString(index);
+    }
+
+    public static final int NODEIP_FIELD_NUMBER = 2;
+    private volatile java.lang.Object nodeIp_;
+    /**
+     * <code>string nodeIp = 2;</code>
+     * @return The nodeIp.
+     */
+    @java.lang.Override
+    public java.lang.String getNodeIp() {
+      java.lang.Object ref = nodeIp_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nodeIp_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string nodeIp = 2;</code>
+     * @return The bytes for nodeIp.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNodeIpBytes() {
+      java.lang.Object ref = nodeIp_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nodeIp_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < dirpath_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, dirpath_.getRaw(i));
+      }
+      if (!getNodeIpBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, nodeIp_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < dirpath_.size(); i++) {
+          dataSize += computeStringSizeNoTag(dirpath_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getDirpathList().size();
+      }
+      if (!getNodeIpBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, nodeIp_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable)) {
+        return super.equals(obj);
+      }
+      edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable other = (edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) obj;
+
+      if (!getDirpathList()
+          .equals(other.getDirpathList())) return false;
+      if (!getNodeIp()
+          .equals(other.getNodeIp())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDirpathCount() > 0) {
+        hash = (37 * hash) + DIRPATH_FIELD_NUMBER;
+        hash = (53 * hash) + getDirpathList().hashCode();
+      }
+      hash = (37 * hash) + NODEIP_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeIp().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code UpdateRoutingTable}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:UpdateRoutingTable)
+        edu.usfca.cs.chat.DfsMessages.UpdateRoutingTableOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_UpdateRoutingTable_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_UpdateRoutingTable_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.class, edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.Builder.class);
+      }
+
+      // Construct using edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        dirpath_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        nodeIp_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return edu.usfca.cs.chat.DfsMessages.internal_static_UpdateRoutingTable_descriptor;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable getDefaultInstanceForType() {
+        return edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable build() {
+        edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable buildPartial() {
+        edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable result = new edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          dirpath_ = dirpath_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.dirpath_ = dirpath_;
+        result.nodeIp_ = nodeIp_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) {
+          return mergeFrom((edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable other) {
+        if (other == edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.getDefaultInstance()) return this;
+        if (!other.dirpath_.isEmpty()) {
+          if (dirpath_.isEmpty()) {
+            dirpath_ = other.dirpath_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureDirpathIsMutable();
+            dirpath_.addAll(other.dirpath_);
+          }
+          onChanged();
+        }
+        if (!other.getNodeIp().isEmpty()) {
+          nodeIp_ = other.nodeIp_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList dirpath_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureDirpathIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          dirpath_ = new com.google.protobuf.LazyStringArrayList(dirpath_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string dirpath = 1;</code>
+       * @return A list containing the dirpath.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getDirpathList() {
+        return dirpath_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string dirpath = 1;</code>
+       * @return The count of dirpath.
+       */
+      public int getDirpathCount() {
+        return dirpath_.size();
+      }
+      /**
+       * <code>repeated string dirpath = 1;</code>
+       * @param index The index of the element to return.
+       * @return The dirpath at the given index.
+       */
+      public java.lang.String getDirpath(int index) {
+        return dirpath_.get(index);
+      }
+      /**
+       * <code>repeated string dirpath = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the dirpath at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getDirpathBytes(int index) {
+        return dirpath_.getByteString(index);
+      }
+      /**
+       * <code>repeated string dirpath = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The dirpath to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDirpath(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureDirpathIsMutable();
+        dirpath_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string dirpath = 1;</code>
+       * @param value The dirpath to add.
+       * @return This builder for chaining.
+       */
+      public Builder addDirpath(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureDirpathIsMutable();
+        dirpath_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string dirpath = 1;</code>
+       * @param values The dirpath to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllDirpath(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureDirpathIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, dirpath_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string dirpath = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDirpath() {
+        dirpath_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string dirpath = 1;</code>
+       * @param value The bytes of the dirpath to add.
+       * @return This builder for chaining.
+       */
+      public Builder addDirpathBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureDirpathIsMutable();
+        dirpath_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object nodeIp_ = "";
+      /**
+       * <code>string nodeIp = 2;</code>
+       * @return The nodeIp.
+       */
+      public java.lang.String getNodeIp() {
+        java.lang.Object ref = nodeIp_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nodeIp_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string nodeIp = 2;</code>
+       * @return The bytes for nodeIp.
+       */
+      public com.google.protobuf.ByteString
+          getNodeIpBytes() {
+        java.lang.Object ref = nodeIp_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nodeIp_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string nodeIp = 2;</code>
+       * @param value The nodeIp to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        nodeIp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string nodeIp = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNodeIp() {
+        
+        nodeIp_ = getDefaultInstance().getNodeIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string nodeIp = 2;</code>
+       * @param value The bytes for nodeIp to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        nodeIp_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:UpdateRoutingTable)
+    }
+
+    // @@protoc_insertion_point(class_scope:UpdateRoutingTable)
+    private static final edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable();
+    }
+
+    public static edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UpdateRoutingTable>
+        PARSER = new com.google.protobuf.AbstractParser<UpdateRoutingTable>() {
+      @java.lang.Override
+      public UpdateRoutingTable parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new UpdateRoutingTable(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UpdateRoutingTable> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UpdateRoutingTable> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface AlreadyMaintainedChunksOrBuilder extends
       // @@protoc_insertion_point(interface_extends:AlreadyMaintainedChunks)
       com.google.protobuf.MessageOrBuilder {
@@ -18234,6 +19022,21 @@ public final class DfsMessages {
      */
     edu.usfca.cs.chat.DfsMessages.GetFreeNodesOrBuilder getGetFreeNodesOrBuilder();
 
+    /**
+     * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+     * @return Whether the updateRoutingTable field is set.
+     */
+    boolean hasUpdateRoutingTable();
+    /**
+     * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+     * @return The updateRoutingTable.
+     */
+    edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable getUpdateRoutingTable();
+    /**
+     * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.UpdateRoutingTableOrBuilder getUpdateRoutingTableOrBuilder();
+
     public edu.usfca.cs.chat.DfsMessages.ControllerMessagesWrapper.MsgCase getMsgCase();
   }
   /**
@@ -18379,6 +19182,20 @@ public final class DfsMessages {
               msgCase_ = 7;
               break;
             }
+            case 66: {
+              edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.Builder subBuilder = null;
+              if (msgCase_ == 8) {
+                subBuilder = ((edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_).toBuilder();
+              }
+              msg_ =
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_);
+                msg_ = subBuilder.buildPartial();
+              }
+              msgCase_ = 8;
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -18423,6 +19240,7 @@ public final class DfsMessages {
       HEARTBEAT(5),
       INTROMESSAGE(6),
       GETFREENODES(7),
+      UPDATEROUTINGTABLE(8),
       MSG_NOT_SET(0);
       private final int value;
       private MsgCase(int value) {
@@ -18447,6 +19265,7 @@ public final class DfsMessages {
           case 5: return HEARTBEAT;
           case 6: return INTROMESSAGE;
           case 7: return GETFREENODES;
+          case 8: return UPDATEROUTINGTABLE;
           case 0: return MSG_NOT_SET;
           default: return null;
         }
@@ -18679,6 +19498,37 @@ public final class DfsMessages {
       return edu.usfca.cs.chat.DfsMessages.GetFreeNodes.getDefaultInstance();
     }
 
+    public static final int UPDATEROUTINGTABLE_FIELD_NUMBER = 8;
+    /**
+     * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+     * @return Whether the updateRoutingTable field is set.
+     */
+    @java.lang.Override
+    public boolean hasUpdateRoutingTable() {
+      return msgCase_ == 8;
+    }
+    /**
+     * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+     * @return The updateRoutingTable.
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable getUpdateRoutingTable() {
+      if (msgCase_ == 8) {
+         return (edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_;
+      }
+      return edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.getDefaultInstance();
+    }
+    /**
+     * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.UpdateRoutingTableOrBuilder getUpdateRoutingTableOrBuilder() {
+      if (msgCase_ == 8) {
+         return (edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_;
+      }
+      return edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -18713,6 +19563,9 @@ public final class DfsMessages {
       }
       if (msgCase_ == 7) {
         output.writeMessage(7, (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_);
+      }
+      if (msgCase_ == 8) {
+        output.writeMessage(8, (edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_);
       }
       unknownFields.writeTo(output);
     }
@@ -18750,6 +19603,10 @@ public final class DfsMessages {
       if (msgCase_ == 7) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(7, (edu.usfca.cs.chat.DfsMessages.GetFreeNodes) msg_);
+      }
+      if (msgCase_ == 8) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, (edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -18796,6 +19653,10 @@ public final class DfsMessages {
           if (!getGetFreeNodes()
               .equals(other.getGetFreeNodes())) return false;
           break;
+        case 8:
+          if (!getUpdateRoutingTable()
+              .equals(other.getUpdateRoutingTable())) return false;
+          break;
         case 0:
         default:
       }
@@ -18838,6 +19699,10 @@ public final class DfsMessages {
         case 7:
           hash = (37 * hash) + GETFREENODES_FIELD_NUMBER;
           hash = (53 * hash) + getGetFreeNodes().hashCode();
+          break;
+        case 8:
+          hash = (37 * hash) + UPDATEROUTINGTABLE_FIELD_NUMBER;
+          hash = (53 * hash) + getUpdateRoutingTable().hashCode();
           break;
         case 0:
         default:
@@ -19052,6 +19917,13 @@ public final class DfsMessages {
             result.msg_ = getFreeNodesBuilder_.build();
           }
         }
+        if (msgCase_ == 8) {
+          if (updateRoutingTableBuilder_ == null) {
+            result.msg_ = msg_;
+          } else {
+            result.msg_ = updateRoutingTableBuilder_.build();
+          }
+        }
         result.msgCase_ = msgCase_;
         onBuilt();
         return result;
@@ -19128,6 +20000,10 @@ public final class DfsMessages {
           }
           case GETFREENODES: {
             mergeGetFreeNodes(other.getGetFreeNodes());
+            break;
+          }
+          case UPDATEROUTINGTABLE: {
+            mergeUpdateRoutingTable(other.getUpdateRoutingTable());
             break;
           }
           case MSG_NOT_SET: {
@@ -20164,6 +21040,147 @@ public final class DfsMessages {
         onChanged();;
         return getFreeNodesBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable, edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.Builder, edu.usfca.cs.chat.DfsMessages.UpdateRoutingTableOrBuilder> updateRoutingTableBuilder_;
+      /**
+       * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+       * @return Whether the updateRoutingTable field is set.
+       */
+      @java.lang.Override
+      public boolean hasUpdateRoutingTable() {
+        return msgCase_ == 8;
+      }
+      /**
+       * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+       * @return The updateRoutingTable.
+       */
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable getUpdateRoutingTable() {
+        if (updateRoutingTableBuilder_ == null) {
+          if (msgCase_ == 8) {
+            return (edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_;
+          }
+          return edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.getDefaultInstance();
+        } else {
+          if (msgCase_ == 8) {
+            return updateRoutingTableBuilder_.getMessage();
+          }
+          return edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+       */
+      public Builder setUpdateRoutingTable(edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable value) {
+        if (updateRoutingTableBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          msg_ = value;
+          onChanged();
+        } else {
+          updateRoutingTableBuilder_.setMessage(value);
+        }
+        msgCase_ = 8;
+        return this;
+      }
+      /**
+       * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+       */
+      public Builder setUpdateRoutingTable(
+          edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.Builder builderForValue) {
+        if (updateRoutingTableBuilder_ == null) {
+          msg_ = builderForValue.build();
+          onChanged();
+        } else {
+          updateRoutingTableBuilder_.setMessage(builderForValue.build());
+        }
+        msgCase_ = 8;
+        return this;
+      }
+      /**
+       * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+       */
+      public Builder mergeUpdateRoutingTable(edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable value) {
+        if (updateRoutingTableBuilder_ == null) {
+          if (msgCase_ == 8 &&
+              msg_ != edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.getDefaultInstance()) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.newBuilder((edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            msg_ = value;
+          }
+          onChanged();
+        } else {
+          if (msgCase_ == 8) {
+            updateRoutingTableBuilder_.mergeFrom(value);
+          }
+          updateRoutingTableBuilder_.setMessage(value);
+        }
+        msgCase_ = 8;
+        return this;
+      }
+      /**
+       * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+       */
+      public Builder clearUpdateRoutingTable() {
+        if (updateRoutingTableBuilder_ == null) {
+          if (msgCase_ == 8) {
+            msgCase_ = 0;
+            msg_ = null;
+            onChanged();
+          }
+        } else {
+          if (msgCase_ == 8) {
+            msgCase_ = 0;
+            msg_ = null;
+          }
+          updateRoutingTableBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.Builder getUpdateRoutingTableBuilder() {
+        return getUpdateRoutingTableFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+       */
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.UpdateRoutingTableOrBuilder getUpdateRoutingTableOrBuilder() {
+        if ((msgCase_ == 8) && (updateRoutingTableBuilder_ != null)) {
+          return updateRoutingTableBuilder_.getMessageOrBuilder();
+        } else {
+          if (msgCase_ == 8) {
+            return (edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_;
+          }
+          return edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.UpdateRoutingTable updateRoutingTable = 8;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable, edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.Builder, edu.usfca.cs.chat.DfsMessages.UpdateRoutingTableOrBuilder> 
+          getUpdateRoutingTableFieldBuilder() {
+        if (updateRoutingTableBuilder_ == null) {
+          if (!(msgCase_ == 8)) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.getDefaultInstance();
+          }
+          updateRoutingTableBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable, edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable.Builder, edu.usfca.cs.chat.DfsMessages.UpdateRoutingTableOrBuilder>(
+                  (edu.usfca.cs.chat.DfsMessages.UpdateRoutingTable) msg_,
+                  getParentForChildren(),
+                  isClean());
+          msg_ = null;
+        }
+        msgCase_ = 8;
+        onChanged();;
+        return updateRoutingTableBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -20222,6 +21239,11 @@ public final class DfsMessages {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_FileChunk_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_UpdateRoutingTable_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_UpdateRoutingTable_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AlreadyMaintainedChunks_descriptor;
   private static final 
@@ -20311,66 +21333,69 @@ public final class DfsMessages {
       "\030\003 \001(\t\022)\n\017filechunkHeader\030\004 \001(\0132\020.FileCh" +
       "unkHeader\022\035\n\004type\030\005 \001(\0162\017.FileChunk.Type" +
       "\"4\n\004Type\022\n\n\006LEADER\020\000\022\013\n\007REPLICA\020\001\022\023\n\017MAI" +
-      "NTENANCE_LDR\020\002\"I\n\027AlreadyMaintainedChunk" +
-      "s\022\026\n\016originalChunks\030\001 \003(\t\022\026\n\016repeatedChu" +
-      "nks\030\002 \003(\t\"y\n\007FileAck\022\020\n\010filepath\030\001 \001(\t\022\017" +
-      "\n\007success\030\002 \001(\010\022\033\n\004type\030\003 \001(\0162\r.FileAck." +
-      "Type\".\n\004Type\022\022\n\016FILE_OVERWRITE\020\000\022\022\n\016FILE" +
-      "_RETRIEVAL\020\001\"\326\001\n\017FileChunkHeader\022\024\n\014tota" +
-      "l_chunks\030\001 \001(\005\022\020\n\010filepath\030\002 \001(\t\022#\n\010repl" +
-      "icas\030\003 \003(\0132\021.DataNodeMetadata\022\016\n\006nodeIp\030" +
-      "\004 \001(\t\022+\n\020maintenanceNodes\030\005 \003(\0132\021.DataNo" +
-      "deMetadata\0229\n\027alreadyMaintainedChunks\030\006 " +
-      "\001(\0132\030.AlreadyMaintainedChunks\"\226\001\n\013FileRe" +
-      "quest\022\021\n\tdirectory\030\001 \001(\t\022\020\n\010filepath\030\002 \001" +
-      "(\t\022\022\n\nnum_chunks\030\003 \001(\005\022\014\n\004size\030\004 \001(\003\022\037\n\004" +
-      "type\030\005 \001(\0162\021.FileRequest.Type\"\037\n\004Type\022\t\n" +
-      "\005STORE\020\000\022\014\n\010RETRIEVE\020\001\"2\n\014GetFreeNodes\022\022" +
-      "\n\nnum_chunks\030\001 \001(\005\022\016\n\006nodeIp\030\002 \001(\t\"\275\001\n\014F" +
-      "ileResponse\022\026\n\016systemFilePath\030\001 \001(\t\022\023\n\013d" +
-      "fsFilePath\030\002 \001(\t\022$\n\tdataNodes\030\003 \003(\0132\021.Da" +
-      "taNodeMetadata\022 \n\004type\030\004 \001(\0162\022.FileRespo" +
-      "nse.Type\022\027\n\017shouldOverwrite\030\005 \001(\010\"\037\n\004Typ" +
-      "e\022\t\n\005STORE\020\000\022\014\n\010RETRIEVE\020\001\"N\n\020DataNodeMe" +
-      "tadata\022\020\n\010hostname\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\016\n\006" +
-      "memory\030\003 \001(\005\022\014\n\004port\030\004 \001(\005\"c\n\tHeartBeat\022" +
-      ")\n\016node_meta_data\030\002 \001(\0132\021.DataNodeMetada" +
-      "ta\022\023\n\013store_count\030\003 \001(\005\022\026\n\016retrieve_coun" +
-      "t\030\004 \001(\005\"I\n\021ReplicationStatus\022\020\n\010filepath" +
-      "\030\001 \001(\t\022\021\n\tchunk_num\030\002 \001(\005\022\017\n\007success\030\003 \001" +
-      "(\010\"B\n\nOnNodeDown\022\n\n\002ip\030\001 \001(\t\022(\n\raffected" +
-      "Nodes\030\002 \003(\0132\021.DataNodeMetadata\"\244\002\n\022DfsMe" +
+      "NTENANCE_LDR\020\002\"5\n\022UpdateRoutingTable\022\017\n\007" +
+      "dirpath\030\001 \003(\t\022\016\n\006nodeIp\030\002 \001(\t\"I\n\027Already" +
+      "MaintainedChunks\022\026\n\016originalChunks\030\001 \003(\t" +
+      "\022\026\n\016repeatedChunks\030\002 \003(\t\"y\n\007FileAck\022\020\n\010f" +
+      "ilepath\030\001 \001(\t\022\017\n\007success\030\002 \001(\010\022\033\n\004type\030\003" +
+      " \001(\0162\r.FileAck.Type\".\n\004Type\022\022\n\016FILE_OVER" +
+      "WRITE\020\000\022\022\n\016FILE_RETRIEVAL\020\001\"\326\001\n\017FileChun" +
+      "kHeader\022\024\n\014total_chunks\030\001 \001(\005\022\020\n\010filepat" +
+      "h\030\002 \001(\t\022#\n\010replicas\030\003 \003(\0132\021.DataNodeMeta" +
+      "data\022\016\n\006nodeIp\030\004 \001(\t\022+\n\020maintenanceNodes" +
+      "\030\005 \003(\0132\021.DataNodeMetadata\0229\n\027alreadyMain" +
+      "tainedChunks\030\006 \001(\0132\030.AlreadyMaintainedCh" +
+      "unks\"\226\001\n\013FileRequest\022\021\n\tdirectory\030\001 \001(\t\022" +
+      "\020\n\010filepath\030\002 \001(\t\022\022\n\nnum_chunks\030\003 \001(\005\022\014\n" +
+      "\004size\030\004 \001(\003\022\037\n\004type\030\005 \001(\0162\021.FileRequest." +
+      "Type\"\037\n\004Type\022\t\n\005STORE\020\000\022\014\n\010RETRIEVE\020\001\"2\n" +
+      "\014GetFreeNodes\022\022\n\nnum_chunks\030\001 \001(\005\022\016\n\006nod" +
+      "eIp\030\002 \001(\t\"\275\001\n\014FileResponse\022\026\n\016systemFile" +
+      "Path\030\001 \001(\t\022\023\n\013dfsFilePath\030\002 \001(\t\022$\n\tdataN" +
+      "odes\030\003 \003(\0132\021.DataNodeMetadata\022 \n\004type\030\004 " +
+      "\001(\0162\022.FileResponse.Type\022\027\n\017shouldOverwri" +
+      "te\030\005 \001(\010\"\037\n\004Type\022\t\n\005STORE\020\000\022\014\n\010RETRIEVE\020" +
+      "\001\"N\n\020DataNodeMetadata\022\020\n\010hostname\030\001 \001(\t\022" +
+      "\n\n\002ip\030\002 \001(\t\022\016\n\006memory\030\003 \001(\005\022\014\n\004port\030\004 \001(" +
+      "\005\"c\n\tHeartBeat\022)\n\016node_meta_data\030\002 \001(\0132\021" +
+      ".DataNodeMetadata\022\023\n\013store_count\030\003 \001(\005\022\026" +
+      "\n\016retrieve_count\030\004 \001(\005\"I\n\021ReplicationSta" +
+      "tus\022\020\n\010filepath\030\001 \001(\t\022\021\n\tchunk_num\030\002 \001(\005" +
+      "\022\017\n\007success\030\003 \001(\010\"B\n\nOnNodeDown\022\n\n\002ip\030\001 " +
+      "\001(\t\022(\n\raffectedNodes\030\002 \003(\0132\021.DataNodeMet" +
+      "adata\"\244\002\n\022DfsMessagesWrapper\022\037\n\tfileChun" +
+      "k\030\001 \001(\0132\n.FileChunkH\000\022#\n\013fileRequest\030\002 \001" +
+      "(\0132\014.FileRequestH\000\022%\n\014fileResponse\030\003 \001(\013" +
+      "2\r.FileResponseH\000\022\037\n\theartBeat\030\004 \001(\0132\n.H" +
+      "eartBeatH\000\022/\n\021replicationStatus\030\005 \001(\0132\022." +
+      "ReplicationStatusH\000\022\033\n\007fileAck\030\006 \001(\0132\010.F" +
+      "ileAckH\000\022+\n\017fileChunkHeader\030\007 \001(\0132\020.File" +
+      "ChunkHeaderH\000B\005\n\003msg\"\267\001\n\017MessagesWrapper" +
+      "\022/\n\rclientWrapper\030\001 \001(\0132\026.ClientMessages" +
+      "WrapperH\000\0223\n\017dataNodeWrapper\030\002 \001(\0132\030.Dat" +
+      "aNodeMessagesWrapperH\000\0227\n\021controllerWrap" +
+      "per\030\003 \001(\0132\032.ControllerMessagesWrapperH\000B" +
+      "\005\n\003msg\"\260\001\n\025ClientMessagesWrapper\022\037\n\tfile" +
+      "Chunk\030\001 \001(\0132\n.FileChunkH\000\022%\n\014fileRespons" +
+      "e\030\002 \001(\0132\r.FileResponseH\000\022\033\n\007fileAck\030\003 \001(" +
+      "\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\004 \001(\0132\020" +
+      ".FileChunkHeaderH\000B\005\n\003msg\"\337\001\n\027DataNodeMe" +
       "ssagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileC" +
-      "hunkH\000\022#\n\013fileRequest\030\002 \001(\0132\014.FileReques" +
-      "tH\000\022%\n\014fileResponse\030\003 \001(\0132\r.FileResponse" +
-      "H\000\022\037\n\theartBeat\030\004 \001(\0132\n.HeartBeatH\000\022/\n\021r" +
-      "eplicationStatus\030\005 \001(\0132\022.ReplicationStat" +
-      "usH\000\022\033\n\007fileAck\030\006 \001(\0132\010.FileAckH\000\022+\n\017fil" +
-      "eChunkHeader\030\007 \001(\0132\020.FileChunkHeaderH\000B\005" +
-      "\n\003msg\"\267\001\n\017MessagesWrapper\022/\n\rclientWrapp" +
-      "er\030\001 \001(\0132\026.ClientMessagesWrapperH\000\0223\n\017da" +
-      "taNodeWrapper\030\002 \001(\0132\030.DataNodeMessagesWr" +
-      "apperH\000\0227\n\021controllerWrapper\030\003 \001(\0132\032.Con" +
-      "trollerMessagesWrapperH\000B\005\n\003msg\"\260\001\n\025Clie" +
-      "ntMessagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.F" +
-      "ileChunkH\000\022%\n\014fileResponse\030\002 \001(\0132\r.FileR" +
-      "esponseH\000\022\033\n\007fileAck\030\003 \001(\0132\010.FileAckH\000\022+" +
-      "\n\017fileChunkHeader\030\004 \001(\0132\020.FileChunkHeade" +
-      "rH\000B\005\n\003msg\"\337\001\n\027DataNodeMessagesWrapper\022\037" +
-      "\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022\033\n\007fileA" +
-      "ck\030\002 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030" +
-      "\003 \001(\0132\020.FileChunkHeaderH\000\022/\n\021replication" +
-      "Status\030\004 \001(\0132\022.ReplicationStatusH\000\022!\n\non" +
-      "NodeDown\030\005 \001(\0132\013.OnNodeDownH\000B\005\n\003msg\"\265\002\n" +
-      "\031ControllerMessagesWrapper\022#\n\013fileReques" +
-      "t\030\001 \001(\0132\014.FileRequestH\000\022\033\n\007fileAck\030\002 \001(\013" +
-      "2\010.FileAckH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020." +
-      "FileChunkHeaderH\000\022/\n\021replicationStatus\030\004" +
-      " \001(\0132\022.ReplicationStatusH\000\022\037\n\theartBeat\030" +
-      "\005 \001(\0132\n.HeartBeatH\000\022)\n\014IntroMessage\030\006 \001(" +
-      "\0132\021.DataNodeMetadataH\000\022%\n\014getFreeNodes\030\007" +
-      " \001(\0132\r.GetFreeNodesH\000B\005\n\003msgB\023\n\021edu.usfc" +
-      "a.cs.chatb\006proto3"
+      "hunkH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH\000\022+\n\017f" +
+      "ileChunkHeader\030\003 \001(\0132\020.FileChunkHeaderH\000" +
+      "\022/\n\021replicationStatus\030\004 \001(\0132\022.Replicatio" +
+      "nStatusH\000\022!\n\nonNodeDown\030\005 \001(\0132\013.OnNodeDo" +
+      "wnH\000B\005\n\003msg\"\350\002\n\031ControllerMessagesWrappe" +
+      "r\022#\n\013fileRequest\030\001 \001(\0132\014.FileRequestH\000\022\033" +
+      "\n\007fileAck\030\002 \001(\0132\010.FileAckH\000\022+\n\017fileChunk" +
+      "Header\030\003 \001(\0132\020.FileChunkHeaderH\000\022/\n\021repl" +
+      "icationStatus\030\004 \001(\0132\022.ReplicationStatusH" +
+      "\000\022\037\n\theartBeat\030\005 \001(\0132\n.HeartBeatH\000\022)\n\014In" +
+      "troMessage\030\006 \001(\0132\021.DataNodeMetadataH\000\022%\n" +
+      "\014getFreeNodes\030\007 \001(\0132\r.GetFreeNodesH\000\0221\n\022" +
+      "updateRoutingTable\030\010 \001(\0132\023.UpdateRouting" +
+      "TableH\000B\005\n\003msgB\023\n\021edu.usfca.cs.chatb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -20382,96 +21407,102 @@ public final class DfsMessages {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileChunk_descriptor,
         new java.lang.String[] { "Filepath", "Chunks", "Checksum", "FilechunkHeader", "Type", });
-    internal_static_AlreadyMaintainedChunks_descriptor =
+    internal_static_UpdateRoutingTable_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_UpdateRoutingTable_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_UpdateRoutingTable_descriptor,
+        new java.lang.String[] { "Dirpath", "NodeIp", });
+    internal_static_AlreadyMaintainedChunks_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_AlreadyMaintainedChunks_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AlreadyMaintainedChunks_descriptor,
         new java.lang.String[] { "OriginalChunks", "RepeatedChunks", });
     internal_static_FileAck_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_FileAck_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileAck_descriptor,
         new java.lang.String[] { "Filepath", "Success", "Type", });
     internal_static_FileChunkHeader_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_FileChunkHeader_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileChunkHeader_descriptor,
         new java.lang.String[] { "TotalChunks", "Filepath", "Replicas", "NodeIp", "MaintenanceNodes", "AlreadyMaintainedChunks", });
     internal_static_FileRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_FileRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileRequest_descriptor,
         new java.lang.String[] { "Directory", "Filepath", "NumChunks", "Size", "Type", });
     internal_static_GetFreeNodes_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_GetFreeNodes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GetFreeNodes_descriptor,
         new java.lang.String[] { "NumChunks", "NodeIp", });
     internal_static_FileResponse_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_FileResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FileResponse_descriptor,
         new java.lang.String[] { "SystemFilePath", "DfsFilePath", "DataNodes", "Type", "ShouldOverwrite", });
     internal_static_DataNodeMetadata_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_DataNodeMetadata_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DataNodeMetadata_descriptor,
         new java.lang.String[] { "Hostname", "Ip", "Memory", "Port", });
     internal_static_HeartBeat_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_HeartBeat_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_HeartBeat_descriptor,
         new java.lang.String[] { "NodeMetaData", "StoreCount", "RetrieveCount", });
     internal_static_ReplicationStatus_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_ReplicationStatus_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ReplicationStatus_descriptor,
         new java.lang.String[] { "Filepath", "ChunkNum", "Success", });
     internal_static_OnNodeDown_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_OnNodeDown_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_OnNodeDown_descriptor,
         new java.lang.String[] { "Ip", "AffectedNodes", });
     internal_static_DfsMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_DfsMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DfsMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileRequest", "FileResponse", "HeartBeat", "ReplicationStatus", "FileAck", "FileChunkHeader", "Msg", });
     internal_static_MessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_MessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MessagesWrapper_descriptor,
         new java.lang.String[] { "ClientWrapper", "DataNodeWrapper", "ControllerWrapper", "Msg", });
     internal_static_ClientMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_ClientMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ClientMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileResponse", "FileAck", "FileChunkHeader", "Msg", });
     internal_static_DataNodeMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_DataNodeMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DataNodeMessagesWrapper_descriptor,
         new java.lang.String[] { "FileChunk", "FileAck", "FileChunkHeader", "ReplicationStatus", "OnNodeDown", "Msg", });
     internal_static_ControllerMessagesWrapper_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_ControllerMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ControllerMessagesWrapper_descriptor,
-        new java.lang.String[] { "FileRequest", "FileAck", "FileChunkHeader", "ReplicationStatus", "HeartBeat", "IntroMessage", "GetFreeNodes", "Msg", });
+        new java.lang.String[] { "FileRequest", "FileAck", "FileChunkHeader", "ReplicationStatus", "HeartBeat", "IntroMessage", "GetFreeNodes", "UpdateRoutingTable", "Msg", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

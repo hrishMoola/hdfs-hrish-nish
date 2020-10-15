@@ -41,7 +41,7 @@ public class Controller
     ConcurrentMap<String, BloomFilter> nodeToBF;
 
 //    public static int CHUNK_SIZE = 128; // MB
-    public static int CHUNK_SIZE = 10 * 1024; // 10kb
+    public static int CHUNK_SIZE = 128000 * 1024; // 10kb
 
     int m = 1000;
     int k = 20;
@@ -87,8 +87,6 @@ public class Controller
         return null;
     }
 
-    //todo register an active datanode and client connection over here.
-    //todo figure out how to distinguish between the two of them to store accordingly. Mostly probably name them correctly
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         /* A connection has been established */
@@ -97,7 +95,6 @@ public class Controller
         System.out.println("Connection established: " + addr);
     }
 
-    //todo remove reference to node upon disconnection
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         /* A channel has been disconnected */
@@ -168,6 +165,7 @@ public class Controller
                 routingTable.put(dir, nodes);
             }
         }
+        System.out.println("routing table after " + routingTable);
         System.out.println("routing table after " + routingTable);
     }
 
@@ -271,8 +269,27 @@ public class Controller
                     System.out.println("An error in Controller while reading DataNodeMetaData");
                 }
                 break;
+            case 8: // UpdateRoutingTable
+                System.out.println("T_T_T UPDATING ROUTING TABLE T_T_T");
+                try {
+                    DfsMessages.UpdateRoutingTable updateMsg = message.getUpdateRoutingTable();
+                    List<String> filesUpdated = updateMsg.getDirpathList();
+                    System.out.println("Files updated: " + filesUpdated);
+                    String nodeIp = updateMsg.getNodeIp();
+                    System.out.println("TO BLOOMFILTER for nodeIp: " + nodeIp);
+
+                    // get node bloomfilter
+                    BloomFilter bf = nodeToBF.get(nodeIp);
+                    for(String dir : filesUpdated) {
+                        System.out.println("ADDING dir to BF: " + dir);
+                        // update bloomfilter
+                        bf.put(dir.getBytes());
+                    }
+                } catch (Exception e) {
+                    System.out.println("An  error in Controller while reading UpdateRoutingTable");
+                }
             default:
-                System.out.println("Default switch case in channel read of controller");
+                System.out.println("Default switch case in channel read of controller, messageType: " + messageType);
                 break;
         }
 

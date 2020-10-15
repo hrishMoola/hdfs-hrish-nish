@@ -2,22 +2,12 @@ package edu.usfca.cs.chat.Utils;
 
 import com.google.protobuf.ByteString;
 import edu.usfca.cs.chat.DfsMessages;
-import edu.usfca.cs.chat.net.MessagePipeline;
-import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioSocketChannel;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.zip.CRC32;
@@ -55,6 +45,7 @@ public class FileUtils {
         Path path = Paths.get(fileName);
         Files.write(path, fileContents);
     }
+
     public static byte[] getCRC32Checksum(byte[] bytes) {
         Checksum crc32 = new CRC32();
         crc32.update(bytes, 0, bytes.length);
@@ -119,6 +110,15 @@ public class FileUtils {
                 .setNumChunks(new Double(Math.ceil(f.length() / chunkSize)).intValue()).setSize(f.length()).build();
     }
     public static void main(String[] args) throws Exception{
+
+//        File chunk1OrgFile = new File("/Users/nishantmehta/Desktop/Videos/tiktokVer.mov");
+//        File chunkFinal = new File("/Users/nishantmehta/Desktop/Videos/tiktokVer.mov");
+
+        byte[] chunk1Og = getCRC32Checksum(Files.readAllBytes(Paths.get("/Users/nishantmehta/Desktop/CS677/P1-hrishikesh/_retrieved")));
+        byte[] chunkFinal = getCRC32Checksum(Files.readAllBytes(Paths.get("/Users/nishantmehta/Desktop/CS677/P1-hrishikesh/_retrieved")));
+
+        System.out.println("CHECKSUM");
+        System.out.println(Arrays.equals(chunk1Og, chunkFinal));
 
         String storageDirectory = "storage1/original/";
         String file = "nato_trial_file.txt";
