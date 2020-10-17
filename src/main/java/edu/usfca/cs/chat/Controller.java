@@ -162,8 +162,6 @@ public class Controller
                 routingTable.put(dir, nodes);
             }
         }
-        System.out.println("routing table after " + routingTable);
-        System.out.println("routing table after " + routingTable);
     }
 
     private DfsMessages.OnNodeDown createOnNodeDownMsg(String ip, List<DfsMessages.DataNodeMetadata> replicaNodes) {
@@ -276,12 +274,10 @@ public class Controller
                     List<String> filesUpdated = updateMsg.getDirpathList();
                     System.out.println("Files updated: " + filesUpdated);
                     String nodeIp = updateMsg.getNodeIp();
-                    System.out.println("TO BLOOMFILTER for nodeIp: " + nodeIp);
 
                     // get node bloomfilter
                     BloomFilter bf = nodeToBF.get(nodeIp);
                     for(String dir : filesUpdated) {
-                        System.out.println("ADDING dir to BF: " + dir);
                         // update bloomfilter
                         bf.put(dir.getBytes());
                     }

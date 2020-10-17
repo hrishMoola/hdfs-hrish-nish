@@ -178,10 +178,7 @@ public class StorageNode
             case 1: // File Chunk
                 //basically store the chunks being provided and send for replication to replicas
                 try {
-                    System.out.println("ADDING TO FILECHUNKMETADATAMAP: " + message.getFileChunk().getFilepath());
-                    System.out.println("HEADER: " + message.getFileChunk().getFilechunkHeader());
                     fileChunkMetadataMap.put(message.getFileChunk().getFilepath(), message.getFileChunk().getFilechunkHeader());
-                    System.out.println("fileChunkMetadataMap = " + fileChunkMetadataMap.keySet());
                     System.out.println(tempMemory.addAndGet(-this.chunkSize));
                     totalStorageReqs.incrementAndGet();
 
@@ -191,9 +188,7 @@ public class StorageNode
                     if(message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.REPLICA)){ //replica
                         //  remove word replica from filepath
                         String filePath = message.getFileChunk().getFilepath();
-                        System.out.println("REPLICATING FILEPATH: " + filePath);
                         String newFilePath = filePath.contains(".replica") ? filePath.substring(0, filePath.lastIndexOf('.')) : filePath;
-                        System.out.println("NEW FILE PATH: " + newFilePath);
                         DfsMessages.FileChunk newFC = DfsMessages.FileChunk.newBuilder(message.getFileChunk()).setFilepath(newFilePath).build();
                         writeToFile(newFC,storagePath,"/" + REPLICA_DIR + "/");
                     } else {//leader
@@ -340,9 +335,7 @@ public class StorageNode
             int i;
             for(i = 0; i < replicatedNodes.size(); i++) {
                 DfsMessages.DataNodeMetadata node = replicatedNodes.get(i);
-                System.out.println("DIR NAME: " + dir);
                 String orgFileName = dir.contains(".replica") ? dir.substring(0, dir.lastIndexOf('.')) : dir;
-                System.out.println("ORG FILENAME: " + orgFileName);
 
                 if(nodeDownIp.equals(node.getIp())) {
                     if(i == 0) {
@@ -430,13 +423,10 @@ public class StorageNode
                 // the node the request is being sent to is going to be the new original of this file
                 // update idx 0
                 // update the replicas list with new node if currently present on this node
-                System.out.println("REPLICATE IS: " + replicateTo);
-                System.out.println("THIS NODE HOSTNAME AND PORT: " + hostName + ":" + hostPort);
                 replicas.set(0, replicateTo);
             }
             else {
                 boolean replicate = false;
-                System.out.println("NODE DOWN IP: " + nodeDownIp);
                 int k;
                 for(k = 1; k < replicas.size(); k++) {
                     DfsMessages.DataNodeMetadata node = replicas.get(k);
@@ -471,7 +461,6 @@ public class StorageNode
 
             System.out.println("FOR FILE: " + chunkName);
             System.out.println("NEW HEADER REPLICAS ARE: " + newHeader);
-
 
 
             // create filechunk msg
@@ -516,8 +505,6 @@ public class StorageNode
             if(filechunk.contains(".replica")) filechunk = filechunk.substring(0, filechunk.lastIndexOf('.'));
             String filepath = FileUtils.getDirPath(filechunk);
             allFilePaths.add(filepath);
-            System.out.println("FILECHUNK: " + filechunk);
-            System.out.println("FILEPATH: " + filepath);
         }
 
         System.out.println("UNIQUE FILEPATHS UPDATED: " + allFilePaths);
@@ -534,31 +521,6 @@ public class StorageNode
                 .build())
                 .build())
                 .build();
-    }
-
-    private void updateSingleFileChunkMetaData(String chunkName, String nodeDownIp, DfsMessages.FileChunkHeader header, DfsMessages.DataNodeMetadata newNode) {
-        // find nodeDownIp node, remove it and replace it with the new node that now holds the maintained replica
-        List<DfsMessages.DataNodeMetadata> replicas = new ArrayList<>(header.getReplicasList());
-        boolean isPresent = false;
-        int i;
-        for(i = 0; i < replicas.size(); i++) {
-            DfsMessages.DataNodeMetadata node = replicas.get(i);
-            if(node.getIp().equals(nodeDownIp)) {
-                System.out.println("NODE GETTING REPLACED: " + node);
-                isPresent = true;
-                break;
-            }
-        }
-        // replace node
-        if(isPresent) {
-            System.out.println("NODE BEING REPLACED WITH: " + newNode);
-            System.out.println("ALL REPLICAS: " + replicas);
-            System.out.println("idx being replaced: " + i);
-            replicas.set(i, newNode);
-            System.out.println("AFTE NODES REPLACED: " + replicas);
-            DfsMessages.FileChunkHeader newHeader = DfsMessages.FileChunkHeader.newBuilder(header).addAllReplicas(replicas).build();
-            fileChunkMetadataMap.put(chunkName, newHeader);
-        }
     }
 
     private void updateFileChunkMetaDataFromMaintainedNodes(String nodeDownIp, DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks) {
@@ -580,19 +542,11 @@ public class StorageNode
             System.out.println("CHUNK NAME: " + chunkName);
 
             DfsMessages.FileChunkHeader header = fileChunkMetadataMap.getOrDefault(chunkName, null);
-//
-//            if(header != null) updateSingleFileChunkMetaData(chunkName, nodeDownIp, header, allMaintainedNodes.get(j));
-//            else {
-//                //
-//            }
 
 
             if(header == null) {
-                System.out.println("HEADER IS NULL FOR CHUNK NAME: " + chunkName);
-                System.out.println("FILE META DATA: " + fileChunkMetadataMap);
                 // check to see if we have the replica file or original if current is replica
                 String tempFileName = chunkName.contains(".replica") ? chunkName.substring(0, chunkName.lastIndexOf('.')) : chunkName + ".replica";
-                System.out.println("temp file name: " + tempFileName);
                 header = fileChunkMetadataMap.getOrDefault(tempFileName, null);
             };
             if(header == null) continue;
@@ -631,9 +585,7 @@ public class StorageNode
         List<DfsMessages.DataNodeMetadata> nodesToReplicateOn = header.getReplicasList();
 
         // update filechunkmetadata map with the already maintained nodes
-        System.out.println("BEFORE UPDATING FILE CHUNK META DATA MAP");
         updateFileChunkMetaDataFromMaintainedNodes(nodeIp, alreadyMaintainedChunks);
-        System.out.println("AFTER UPDATING FILE CHUNK META DATA MAP");
 
         // go through filechunkmetadatamap and find all files that need to be replicated
         Map<String, List<String>> map = getFilesToBeReplicated(nodeIp, alreadyMaintainedChunks);
@@ -708,7 +660,6 @@ public class StorageNode
         System.out.println("update routing table msg: " + message);
 
         Channel ctrlCh = channelMap.getOrDefault(controllerHostname,  connectToNode(controllerHostname, controllerPort));
-        System.out.println("controller channel: " + ctrlCh);
         ctrlCh.writeAndFlush(message);
     }
 
