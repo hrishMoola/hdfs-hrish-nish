@@ -11518,8 +11518,8 @@ public final class DfsMessages {
 
   }
 
-  public interface ReplicationStatusOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ReplicationStatus)
+  public interface ReplicaPatchOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ReplicaPatch)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -11543,42 +11543,58 @@ public final class DfsMessages {
         getFilepathBytes();
 
     /**
-     * <code>int32 chunk_num = 2;</code>
+     * <code>string chunk_num = 2;</code>
      * @return The chunkNum.
      */
-    int getChunkNum();
+    java.lang.String getChunkNum();
+    /**
+     * <code>string chunk_num = 2;</code>
+     * @return The bytes for chunkNum.
+     */
+    com.google.protobuf.ByteString
+        getChunkNumBytes();
 
     /**
-     * <code>bool success = 3;</code>
-     * @return The success.
+     * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+     * @return Whether the nodeMetadata field is set.
      */
-    boolean getSuccess();
+    boolean hasNodeMetadata();
+    /**
+     * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+     * @return The nodeMetadata.
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getNodeMetadata();
+    /**
+     * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getNodeMetadataOrBuilder();
   }
   /**
    * <pre>
-   *message during pipelining from replica to leader
+   *used for sending a chunk as a patch when something is corrupted or file is missing.
    * </pre>
    *
-   * Protobuf type {@code ReplicationStatus}
+   * Protobuf type {@code ReplicaPatch}
    */
-  public static final class ReplicationStatus extends
+  public static final class ReplicaPatch extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ReplicationStatus)
-      ReplicationStatusOrBuilder {
+      // @@protoc_insertion_point(message_implements:ReplicaPatch)
+      ReplicaPatchOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use ReplicationStatus.newBuilder() to construct.
-    private ReplicationStatus(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use ReplicaPatch.newBuilder() to construct.
+    private ReplicaPatch(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ReplicationStatus() {
+    private ReplicaPatch() {
       filepath_ = "";
+      chunkNum_ = "";
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new ReplicationStatus();
+      return new ReplicaPatch();
     }
 
     @java.lang.Override
@@ -11586,7 +11602,7 @@ public final class DfsMessages {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private ReplicationStatus(
+    private ReplicaPatch(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -11610,14 +11626,23 @@ public final class DfsMessages {
               filepath_ = s;
               break;
             }
-            case 16: {
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              chunkNum_ = input.readInt32();
+              chunkNum_ = s;
               break;
             }
-            case 24: {
+            case 26: {
+              edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder subBuilder = null;
+              if (nodeMetadata_ != null) {
+                subBuilder = nodeMetadata_.toBuilder();
+              }
+              nodeMetadata_ = input.readMessage(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(nodeMetadata_);
+                nodeMetadata_ = subBuilder.buildPartial();
+              }
 
-              success_ = input.readBool();
               break;
             }
             default: {
@@ -11641,15 +11666,15 @@ public final class DfsMessages {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicationStatus_descriptor;
+      return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicaPatch_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicationStatus_fieldAccessorTable
+      return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicaPatch_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              edu.usfca.cs.chat.DfsMessages.ReplicationStatus.class, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder.class);
+              edu.usfca.cs.chat.DfsMessages.ReplicaPatch.class, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder.class);
     }
 
     public static final int FILEPATH_FIELD_NUMBER = 1;
@@ -11699,25 +11724,67 @@ public final class DfsMessages {
     }
 
     public static final int CHUNK_NUM_FIELD_NUMBER = 2;
-    private int chunkNum_;
+    private volatile java.lang.Object chunkNum_;
     /**
-     * <code>int32 chunk_num = 2;</code>
+     * <code>string chunk_num = 2;</code>
      * @return The chunkNum.
      */
     @java.lang.Override
-    public int getChunkNum() {
-      return chunkNum_;
+    public java.lang.String getChunkNum() {
+      java.lang.Object ref = chunkNum_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        chunkNum_ = s;
+        return s;
+      }
     }
-
-    public static final int SUCCESS_FIELD_NUMBER = 3;
-    private boolean success_;
     /**
-     * <code>bool success = 3;</code>
-     * @return The success.
+     * <code>string chunk_num = 2;</code>
+     * @return The bytes for chunkNum.
      */
     @java.lang.Override
-    public boolean getSuccess() {
-      return success_;
+    public com.google.protobuf.ByteString
+        getChunkNumBytes() {
+      java.lang.Object ref = chunkNum_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        chunkNum_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NODEMETADATA_FIELD_NUMBER = 3;
+    private edu.usfca.cs.chat.DfsMessages.DataNodeMetadata nodeMetadata_;
+    /**
+     * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+     * @return Whether the nodeMetadata field is set.
+     */
+    @java.lang.Override
+    public boolean hasNodeMetadata() {
+      return nodeMetadata_ != null;
+    }
+    /**
+     * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+     * @return The nodeMetadata.
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getNodeMetadata() {
+      return nodeMetadata_ == null ? edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance() : nodeMetadata_;
+    }
+    /**
+     * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getNodeMetadataOrBuilder() {
+      return getNodeMetadata();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -11737,11 +11804,11 @@ public final class DfsMessages {
       if (!getFilepathBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, filepath_);
       }
-      if (chunkNum_ != 0) {
-        output.writeInt32(2, chunkNum_);
+      if (!getChunkNumBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, chunkNum_);
       }
-      if (success_ != false) {
-        output.writeBool(3, success_);
+      if (nodeMetadata_ != null) {
+        output.writeMessage(3, getNodeMetadata());
       }
       unknownFields.writeTo(output);
     }
@@ -11755,13 +11822,12 @@ public final class DfsMessages {
       if (!getFilepathBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, filepath_);
       }
-      if (chunkNum_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, chunkNum_);
+      if (!getChunkNumBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, chunkNum_);
       }
-      if (success_ != false) {
+      if (nodeMetadata_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, success_);
+          .computeMessageSize(3, getNodeMetadata());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -11773,17 +11839,20 @@ public final class DfsMessages {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof edu.usfca.cs.chat.DfsMessages.ReplicationStatus)) {
+      if (!(obj instanceof edu.usfca.cs.chat.DfsMessages.ReplicaPatch)) {
         return super.equals(obj);
       }
-      edu.usfca.cs.chat.DfsMessages.ReplicationStatus other = (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) obj;
+      edu.usfca.cs.chat.DfsMessages.ReplicaPatch other = (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) obj;
 
       if (!getFilepath()
           .equals(other.getFilepath())) return false;
-      if (getChunkNum()
-          != other.getChunkNum()) return false;
-      if (getSuccess()
-          != other.getSuccess()) return false;
+      if (!getChunkNum()
+          .equals(other.getChunkNum())) return false;
+      if (hasNodeMetadata() != other.hasNodeMetadata()) return false;
+      if (hasNodeMetadata()) {
+        if (!getNodeMetadata()
+            .equals(other.getNodeMetadata())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -11798,78 +11867,79 @@ public final class DfsMessages {
       hash = (37 * hash) + FILEPATH_FIELD_NUMBER;
       hash = (53 * hash) + getFilepath().hashCode();
       hash = (37 * hash) + CHUNK_NUM_FIELD_NUMBER;
-      hash = (53 * hash) + getChunkNum();
-      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getSuccess());
+      hash = (53 * hash) + getChunkNum().hashCode();
+      if (hasNodeMetadata()) {
+        hash = (37 * hash) + NODEMETADATA_FIELD_NUMBER;
+        hash = (53 * hash) + getNodeMetadata().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(byte[] data)
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(java.io.InputStream input)
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseDelimitedFrom(java.io.InputStream input)
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseDelimitedFrom(
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus parseFrom(
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -11882,7 +11952,7 @@ public final class DfsMessages {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(edu.usfca.cs.chat.DfsMessages.ReplicationStatus prototype) {
+    public static Builder newBuilder(edu.usfca.cs.chat.DfsMessages.ReplicaPatch prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -11899,29 +11969,29 @@ public final class DfsMessages {
     }
     /**
      * <pre>
-     *message during pipelining from replica to leader
+     *used for sending a chunk as a patch when something is corrupted or file is missing.
      * </pre>
      *
-     * Protobuf type {@code ReplicationStatus}
+     * Protobuf type {@code ReplicaPatch}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ReplicationStatus)
-        edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder {
+        // @@protoc_insertion_point(builder_implements:ReplicaPatch)
+        edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicationStatus_descriptor;
+        return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicaPatch_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicationStatus_fieldAccessorTable
+        return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicaPatch_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                edu.usfca.cs.chat.DfsMessages.ReplicationStatus.class, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder.class);
+                edu.usfca.cs.chat.DfsMessages.ReplicaPatch.class, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder.class);
       }
 
-      // Construct using edu.usfca.cs.chat.DfsMessages.ReplicationStatus.newBuilder()
+      // Construct using edu.usfca.cs.chat.DfsMessages.ReplicaPatch.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -11941,27 +12011,31 @@ public final class DfsMessages {
         super.clear();
         filepath_ = "";
 
-        chunkNum_ = 0;
+        chunkNum_ = "";
 
-        success_ = false;
-
+        if (nodeMetadataBuilder_ == null) {
+          nodeMetadata_ = null;
+        } else {
+          nodeMetadata_ = null;
+          nodeMetadataBuilder_ = null;
+        }
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicationStatus_descriptor;
+        return edu.usfca.cs.chat.DfsMessages.internal_static_ReplicaPatch_descriptor;
       }
 
       @java.lang.Override
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getDefaultInstanceForType() {
-        return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getDefaultInstanceForType() {
+        return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
       }
 
       @java.lang.Override
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatus build() {
-        edu.usfca.cs.chat.DfsMessages.ReplicationStatus result = buildPartial();
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch build() {
+        edu.usfca.cs.chat.DfsMessages.ReplicaPatch result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -11969,11 +12043,15 @@ public final class DfsMessages {
       }
 
       @java.lang.Override
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatus buildPartial() {
-        edu.usfca.cs.chat.DfsMessages.ReplicationStatus result = new edu.usfca.cs.chat.DfsMessages.ReplicationStatus(this);
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch buildPartial() {
+        edu.usfca.cs.chat.DfsMessages.ReplicaPatch result = new edu.usfca.cs.chat.DfsMessages.ReplicaPatch(this);
         result.filepath_ = filepath_;
         result.chunkNum_ = chunkNum_;
-        result.success_ = success_;
+        if (nodeMetadataBuilder_ == null) {
+          result.nodeMetadata_ = nodeMetadata_;
+        } else {
+          result.nodeMetadata_ = nodeMetadataBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -12012,25 +12090,26 @@ public final class DfsMessages {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof edu.usfca.cs.chat.DfsMessages.ReplicationStatus) {
-          return mergeFrom((edu.usfca.cs.chat.DfsMessages.ReplicationStatus)other);
+        if (other instanceof edu.usfca.cs.chat.DfsMessages.ReplicaPatch) {
+          return mergeFrom((edu.usfca.cs.chat.DfsMessages.ReplicaPatch)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(edu.usfca.cs.chat.DfsMessages.ReplicationStatus other) {
-        if (other == edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance()) return this;
+      public Builder mergeFrom(edu.usfca.cs.chat.DfsMessages.ReplicaPatch other) {
+        if (other == edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance()) return this;
         if (!other.getFilepath().isEmpty()) {
           filepath_ = other.filepath_;
           onChanged();
         }
-        if (other.getChunkNum() != 0) {
-          setChunkNum(other.getChunkNum());
+        if (!other.getChunkNum().isEmpty()) {
+          chunkNum_ = other.chunkNum_;
+          onChanged();
         }
-        if (other.getSuccess() != false) {
-          setSuccess(other.getSuccess());
+        if (other.hasNodeMetadata()) {
+          mergeNodeMetadata(other.getNodeMetadata());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -12047,11 +12126,11 @@ public final class DfsMessages {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        edu.usfca.cs.chat.DfsMessages.ReplicationStatus parsedMessage = null;
+        edu.usfca.cs.chat.DfsMessages.ReplicaPatch parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) e.getUnfinishedMessage();
+          parsedMessage = (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -12157,66 +12236,199 @@ public final class DfsMessages {
         return this;
       }
 
-      private int chunkNum_ ;
+      private java.lang.Object chunkNum_ = "";
       /**
-       * <code>int32 chunk_num = 2;</code>
+       * <code>string chunk_num = 2;</code>
        * @return The chunkNum.
        */
-      @java.lang.Override
-      public int getChunkNum() {
-        return chunkNum_;
+      public java.lang.String getChunkNum() {
+        java.lang.Object ref = chunkNum_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          chunkNum_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>int32 chunk_num = 2;</code>
+       * <code>string chunk_num = 2;</code>
+       * @return The bytes for chunkNum.
+       */
+      public com.google.protobuf.ByteString
+          getChunkNumBytes() {
+        java.lang.Object ref = chunkNum_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          chunkNum_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string chunk_num = 2;</code>
        * @param value The chunkNum to set.
        * @return This builder for chaining.
        */
-      public Builder setChunkNum(int value) {
-        
+      public Builder setChunkNum(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         chunkNum_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 chunk_num = 2;</code>
+       * <code>string chunk_num = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearChunkNum() {
         
-        chunkNum_ = 0;
+        chunkNum_ = getDefaultInstance().getChunkNum();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string chunk_num = 2;</code>
+       * @param value The bytes for chunkNum to set.
+       * @return This builder for chaining.
+       */
+      public Builder setChunkNumBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        chunkNum_ = value;
         onChanged();
         return this;
       }
 
-      private boolean success_ ;
+      private edu.usfca.cs.chat.DfsMessages.DataNodeMetadata nodeMetadata_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> nodeMetadataBuilder_;
       /**
-       * <code>bool success = 3;</code>
-       * @return The success.
+       * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+       * @return Whether the nodeMetadata field is set.
        */
-      @java.lang.Override
-      public boolean getSuccess() {
-        return success_;
+      public boolean hasNodeMetadata() {
+        return nodeMetadataBuilder_ != null || nodeMetadata_ != null;
       }
       /**
-       * <code>bool success = 3;</code>
-       * @param value The success to set.
-       * @return This builder for chaining.
+       * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+       * @return The nodeMetadata.
        */
-      public Builder setSuccess(boolean value) {
-        
-        success_ = value;
-        onChanged();
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getNodeMetadata() {
+        if (nodeMetadataBuilder_ == null) {
+          return nodeMetadata_ == null ? edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance() : nodeMetadata_;
+        } else {
+          return nodeMetadataBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+       */
+      public Builder setNodeMetadata(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (nodeMetadataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          nodeMetadata_ = value;
+          onChanged();
+        } else {
+          nodeMetadataBuilder_.setMessage(value);
+        }
+
         return this;
       }
       /**
-       * <code>bool success = 3;</code>
-       * @return This builder for chaining.
+       * <code>.DataNodeMetadata nodeMetadata = 3;</code>
        */
-      public Builder clearSuccess() {
-        
-        success_ = false;
-        onChanged();
+      public Builder setNodeMetadata(
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (nodeMetadataBuilder_ == null) {
+          nodeMetadata_ = builderForValue.build();
+          onChanged();
+        } else {
+          nodeMetadataBuilder_.setMessage(builderForValue.build());
+        }
+
         return this;
+      }
+      /**
+       * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+       */
+      public Builder mergeNodeMetadata(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (nodeMetadataBuilder_ == null) {
+          if (nodeMetadata_ != null) {
+            nodeMetadata_ =
+              edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.newBuilder(nodeMetadata_).mergeFrom(value).buildPartial();
+          } else {
+            nodeMetadata_ = value;
+          }
+          onChanged();
+        } else {
+          nodeMetadataBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+       */
+      public Builder clearNodeMetadata() {
+        if (nodeMetadataBuilder_ == null) {
+          nodeMetadata_ = null;
+          onChanged();
+        } else {
+          nodeMetadata_ = null;
+          nodeMetadataBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder getNodeMetadataBuilder() {
+        
+        onChanged();
+        return getNodeMetadataFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getNodeMetadataOrBuilder() {
+        if (nodeMetadataBuilder_ != null) {
+          return nodeMetadataBuilder_.getMessageOrBuilder();
+        } else {
+          return nodeMetadata_ == null ?
+              edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance() : nodeMetadata_;
+        }
+      }
+      /**
+       * <code>.DataNodeMetadata nodeMetadata = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+          getNodeMetadataFieldBuilder() {
+        if (nodeMetadataBuilder_ == null) {
+          nodeMetadataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder>(
+                  getNodeMetadata(),
+                  getParentForChildren(),
+                  isClean());
+          nodeMetadata_ = null;
+        }
+        return nodeMetadataBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -12231,41 +12443,41 @@ public final class DfsMessages {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:ReplicationStatus)
+      // @@protoc_insertion_point(builder_scope:ReplicaPatch)
     }
 
-    // @@protoc_insertion_point(class_scope:ReplicationStatus)
-    private static final edu.usfca.cs.chat.DfsMessages.ReplicationStatus DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:ReplicaPatch)
+    private static final edu.usfca.cs.chat.DfsMessages.ReplicaPatch DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new edu.usfca.cs.chat.DfsMessages.ReplicationStatus();
+      DEFAULT_INSTANCE = new edu.usfca.cs.chat.DfsMessages.ReplicaPatch();
     }
 
-    public static edu.usfca.cs.chat.DfsMessages.ReplicationStatus getDefaultInstance() {
+    public static edu.usfca.cs.chat.DfsMessages.ReplicaPatch getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<ReplicationStatus>
-        PARSER = new com.google.protobuf.AbstractParser<ReplicationStatus>() {
+    private static final com.google.protobuf.Parser<ReplicaPatch>
+        PARSER = new com.google.protobuf.AbstractParser<ReplicaPatch>() {
       @java.lang.Override
-      public ReplicationStatus parsePartialFrom(
+      public ReplicaPatch parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ReplicationStatus(input, extensionRegistry);
+        return new ReplicaPatch(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<ReplicationStatus> parser() {
+    public static com.google.protobuf.Parser<ReplicaPatch> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ReplicationStatus> getParserForType() {
+    public com.google.protobuf.Parser<ReplicaPatch> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getDefaultInstanceForType() {
+    public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -13399,19 +13611,19 @@ public final class DfsMessages {
     edu.usfca.cs.chat.DfsMessages.HeartBeatOrBuilder getHeartBeatOrBuilder();
 
     /**
-     * <code>.ReplicationStatus replicationStatus = 5;</code>
-     * @return Whether the replicationStatus field is set.
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     * @return Whether the replicaPatch field is set.
      */
-    boolean hasReplicationStatus();
+    boolean hasReplicaPatch();
     /**
-     * <code>.ReplicationStatus replicationStatus = 5;</code>
-     * @return The replicationStatus.
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     * @return The replicaPatch.
      */
-    edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus();
+    edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch();
     /**
-     * <code>.ReplicationStatus replicationStatus = 5;</code>
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
      */
-    edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder();
+    edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder();
 
     /**
      * <code>.FileAck fileAck = 6;</code>
@@ -13547,14 +13759,14 @@ public final class DfsMessages {
               break;
             }
             case 42: {
-              edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder subBuilder = null;
+              edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder subBuilder = null;
               if (msgCase_ == 5) {
-                subBuilder = ((edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_).toBuilder();
+                subBuilder = ((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_).toBuilder();
               }
               msg_ =
-                  input.readMessage(edu.usfca.cs.chat.DfsMessages.ReplicationStatus.parser(), extensionRegistry);
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.ReplicaPatch.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
                 msg_ = subBuilder.buildPartial();
               }
               msgCase_ = 5;
@@ -13629,7 +13841,7 @@ public final class DfsMessages {
       FILEREQUEST(2),
       FILERESPONSE(3),
       HEARTBEAT(4),
-      REPLICATIONSTATUS(5),
+      REPLICAPATCH(5),
       FILEACK(6),
       FILECHUNKHEADER(7),
       MSG_NOT_SET(0);
@@ -13653,7 +13865,7 @@ public final class DfsMessages {
           case 2: return FILEREQUEST;
           case 3: return FILERESPONSE;
           case 4: return HEARTBEAT;
-          case 5: return REPLICATIONSTATUS;
+          case 5: return REPLICAPATCH;
           case 6: return FILEACK;
           case 7: return FILECHUNKHEADER;
           case 0: return MSG_NOT_SET;
@@ -13795,35 +14007,35 @@ public final class DfsMessages {
       return edu.usfca.cs.chat.DfsMessages.HeartBeat.getDefaultInstance();
     }
 
-    public static final int REPLICATIONSTATUS_FIELD_NUMBER = 5;
+    public static final int REPLICAPATCH_FIELD_NUMBER = 5;
     /**
-     * <code>.ReplicationStatus replicationStatus = 5;</code>
-     * @return Whether the replicationStatus field is set.
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     * @return Whether the replicaPatch field is set.
      */
     @java.lang.Override
-    public boolean hasReplicationStatus() {
+    public boolean hasReplicaPatch() {
       return msgCase_ == 5;
     }
     /**
-     * <code>.ReplicationStatus replicationStatus = 5;</code>
-     * @return The replicationStatus.
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     * @return The replicaPatch.
      */
     @java.lang.Override
-    public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
+    public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch() {
       if (msgCase_ == 5) {
-         return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+         return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
       }
-      return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+      return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
     }
     /**
-     * <code>.ReplicationStatus replicationStatus = 5;</code>
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
      */
     @java.lang.Override
-    public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
+    public edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder() {
       if (msgCase_ == 5) {
-         return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+         return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
       }
-      return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+      return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
     }
 
     public static final int FILEACK_FIELD_NUMBER = 6;
@@ -13915,7 +14127,7 @@ public final class DfsMessages {
         output.writeMessage(4, (edu.usfca.cs.chat.DfsMessages.HeartBeat) msg_);
       }
       if (msgCase_ == 5) {
-        output.writeMessage(5, (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+        output.writeMessage(5, (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
       }
       if (msgCase_ == 6) {
         output.writeMessage(6, (edu.usfca.cs.chat.DfsMessages.FileAck) msg_);
@@ -13950,7 +14162,7 @@ public final class DfsMessages {
       }
       if (msgCase_ == 5) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+          .computeMessageSize(5, (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
       }
       if (msgCase_ == 6) {
         size += com.google.protobuf.CodedOutputStream
@@ -13994,8 +14206,8 @@ public final class DfsMessages {
               .equals(other.getHeartBeat())) return false;
           break;
         case 5:
-          if (!getReplicationStatus()
-              .equals(other.getReplicationStatus())) return false;
+          if (!getReplicaPatch()
+              .equals(other.getReplicaPatch())) return false;
           break;
         case 6:
           if (!getFileAck()
@@ -14037,8 +14249,8 @@ public final class DfsMessages {
           hash = (53 * hash) + getHeartBeat().hashCode();
           break;
         case 5:
-          hash = (37 * hash) + REPLICATIONSTATUS_FIELD_NUMBER;
-          hash = (53 * hash) + getReplicationStatus().hashCode();
+          hash = (37 * hash) + REPLICAPATCH_FIELD_NUMBER;
+          hash = (53 * hash) + getReplicaPatch().hashCode();
           break;
         case 6:
           hash = (37 * hash) + FILEACK_FIELD_NUMBER;
@@ -14241,10 +14453,10 @@ public final class DfsMessages {
           }
         }
         if (msgCase_ == 5) {
-          if (replicationStatusBuilder_ == null) {
+          if (replicaPatchBuilder_ == null) {
             result.msg_ = msg_;
           } else {
-            result.msg_ = replicationStatusBuilder_.build();
+            result.msg_ = replicaPatchBuilder_.build();
           }
         }
         if (msgCase_ == 6) {
@@ -14327,8 +14539,8 @@ public final class DfsMessages {
             mergeHeartBeat(other.getHeartBeat());
             break;
           }
-          case REPLICATIONSTATUS: {
-            mergeReplicationStatus(other.getReplicationStatus());
+          case REPLICAPATCH: {
+            mergeReplicaPatch(other.getReplicaPatch());
             break;
           }
           case FILEACK: {
@@ -14952,71 +15164,71 @@ public final class DfsMessages {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder> replicationStatusBuilder_;
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder> replicaPatchBuilder_;
       /**
-       * <code>.ReplicationStatus replicationStatus = 5;</code>
-       * @return Whether the replicationStatus field is set.
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       * @return Whether the replicaPatch field is set.
        */
       @java.lang.Override
-      public boolean hasReplicationStatus() {
+      public boolean hasReplicaPatch() {
         return msgCase_ == 5;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 5;</code>
-       * @return The replicationStatus.
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       * @return The replicaPatch.
        */
       @java.lang.Override
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
-        if (replicationStatusBuilder_ == null) {
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch() {
+        if (replicaPatchBuilder_ == null) {
           if (msgCase_ == 5) {
-            return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+            return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
           }
-          return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
         } else {
           if (msgCase_ == 5) {
-            return replicationStatusBuilder_.getMessage();
+            return replicaPatchBuilder_.getMessage();
           }
-          return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
         }
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 5;</code>
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
        */
-      public Builder setReplicationStatus(edu.usfca.cs.chat.DfsMessages.ReplicationStatus value) {
-        if (replicationStatusBuilder_ == null) {
+      public Builder setReplicaPatch(edu.usfca.cs.chat.DfsMessages.ReplicaPatch value) {
+        if (replicaPatchBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           msg_ = value;
           onChanged();
         } else {
-          replicationStatusBuilder_.setMessage(value);
+          replicaPatchBuilder_.setMessage(value);
         }
         msgCase_ = 5;
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 5;</code>
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
        */
-      public Builder setReplicationStatus(
-          edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder builderForValue) {
-        if (replicationStatusBuilder_ == null) {
+      public Builder setReplicaPatch(
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder builderForValue) {
+        if (replicaPatchBuilder_ == null) {
           msg_ = builderForValue.build();
           onChanged();
         } else {
-          replicationStatusBuilder_.setMessage(builderForValue.build());
+          replicaPatchBuilder_.setMessage(builderForValue.build());
         }
         msgCase_ = 5;
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 5;</code>
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
        */
-      public Builder mergeReplicationStatus(edu.usfca.cs.chat.DfsMessages.ReplicationStatus value) {
-        if (replicationStatusBuilder_ == null) {
+      public Builder mergeReplicaPatch(edu.usfca.cs.chat.DfsMessages.ReplicaPatch value) {
+        if (replicaPatchBuilder_ == null) {
           if (msgCase_ == 5 &&
-              msg_ != edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance()) {
-            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicationStatus.newBuilder((edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_)
+              msg_ != edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance()) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicaPatch.newBuilder((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_)
                 .mergeFrom(value).buildPartial();
           } else {
             msg_ = value;
@@ -15024,18 +15236,18 @@ public final class DfsMessages {
           onChanged();
         } else {
           if (msgCase_ == 5) {
-            replicationStatusBuilder_.mergeFrom(value);
+            replicaPatchBuilder_.mergeFrom(value);
           }
-          replicationStatusBuilder_.setMessage(value);
+          replicaPatchBuilder_.setMessage(value);
         }
         msgCase_ = 5;
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 5;</code>
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
        */
-      public Builder clearReplicationStatus() {
-        if (replicationStatusBuilder_ == null) {
+      public Builder clearReplicaPatch() {
+        if (replicaPatchBuilder_ == null) {
           if (msgCase_ == 5) {
             msgCase_ = 0;
             msg_ = null;
@@ -15046,50 +15258,50 @@ public final class DfsMessages {
             msgCase_ = 0;
             msg_ = null;
           }
-          replicationStatusBuilder_.clear();
+          replicaPatchBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 5;</code>
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
        */
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder getReplicationStatusBuilder() {
-        return getReplicationStatusFieldBuilder().getBuilder();
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder getReplicaPatchBuilder() {
+        return getReplicaPatchFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 5;</code>
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
        */
       @java.lang.Override
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
-        if ((msgCase_ == 5) && (replicationStatusBuilder_ != null)) {
-          return replicationStatusBuilder_.getMessageOrBuilder();
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder() {
+        if ((msgCase_ == 5) && (replicaPatchBuilder_ != null)) {
+          return replicaPatchBuilder_.getMessageOrBuilder();
         } else {
           if (msgCase_ == 5) {
-            return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+            return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
           }
-          return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
         }
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 5;</code>
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder> 
-          getReplicationStatusFieldBuilder() {
-        if (replicationStatusBuilder_ == null) {
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder> 
+          getReplicaPatchFieldBuilder() {
+        if (replicaPatchBuilder_ == null) {
           if (!(msgCase_ == 5)) {
-            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
           }
-          replicationStatusBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder>(
-                  (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_,
+          replicaPatchBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder>(
+                  (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_,
                   getParentForChildren(),
                   isClean());
           msg_ = null;
         }
         msgCase_ = 5;
         onChanged();;
-        return replicationStatusBuilder_;
+        return replicaPatchBuilder_;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -16666,6 +16878,21 @@ public final class DfsMessages {
      */
     edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder();
 
+    /**
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     * @return Whether the replicaPatch field is set.
+     */
+    boolean hasReplicaPatch();
+    /**
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     * @return The replicaPatch.
+     */
+    edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch();
+    /**
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder();
+
     public edu.usfca.cs.chat.DfsMessages.ClientMessagesWrapper.MsgCase getMsgCase();
   }
   /**
@@ -16773,6 +17000,20 @@ public final class DfsMessages {
               msgCase_ = 4;
               break;
             }
+            case 42: {
+              edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder subBuilder = null;
+              if (msgCase_ == 5) {
+                subBuilder = ((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_).toBuilder();
+              }
+              msg_ =
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.ReplicaPatch.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
+                msg_ = subBuilder.buildPartial();
+              }
+              msgCase_ = 5;
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -16814,6 +17055,7 @@ public final class DfsMessages {
       FILERESPONSE(2),
       FILEACK(3),
       FILECHUNKHEADER(4),
+      REPLICAPATCH(5),
       MSG_NOT_SET(0);
       private final int value;
       private MsgCase(int value) {
@@ -16835,6 +17077,7 @@ public final class DfsMessages {
           case 2: return FILERESPONSE;
           case 3: return FILEACK;
           case 4: return FILECHUNKHEADER;
+          case 5: return REPLICAPATCH;
           case 0: return MSG_NOT_SET;
           default: return null;
         }
@@ -16974,6 +17217,37 @@ public final class DfsMessages {
       return edu.usfca.cs.chat.DfsMessages.FileChunkHeader.getDefaultInstance();
     }
 
+    public static final int REPLICAPATCH_FIELD_NUMBER = 5;
+    /**
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     * @return Whether the replicaPatch field is set.
+     */
+    @java.lang.Override
+    public boolean hasReplicaPatch() {
+      return msgCase_ == 5;
+    }
+    /**
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     * @return The replicaPatch.
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch() {
+      if (msgCase_ == 5) {
+         return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
+      }
+      return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
+    }
+    /**
+     * <code>.ReplicaPatch replicaPatch = 5;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder() {
+      if (msgCase_ == 5) {
+         return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
+      }
+      return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -17000,6 +17274,9 @@ public final class DfsMessages {
       if (msgCase_ == 4) {
         output.writeMessage(4, (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_);
       }
+      if (msgCase_ == 5) {
+        output.writeMessage(5, (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -17024,6 +17301,10 @@ public final class DfsMessages {
       if (msgCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_);
+      }
+      if (msgCase_ == 5) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -17058,6 +17339,10 @@ public final class DfsMessages {
           if (!getFileChunkHeader()
               .equals(other.getFileChunkHeader())) return false;
           break;
+        case 5:
+          if (!getReplicaPatch()
+              .equals(other.getReplicaPatch())) return false;
+          break;
         case 0:
         default:
       }
@@ -17088,6 +17373,10 @@ public final class DfsMessages {
         case 4:
           hash = (37 * hash) + FILECHUNKHEADER_FIELD_NUMBER;
           hash = (53 * hash) + getFileChunkHeader().hashCode();
+          break;
+        case 5:
+          hash = (37 * hash) + REPLICAPATCH_FIELD_NUMBER;
+          hash = (53 * hash) + getReplicaPatch().hashCode();
           break;
         case 0:
         default:
@@ -17285,6 +17574,13 @@ public final class DfsMessages {
             result.msg_ = fileChunkHeaderBuilder_.build();
           }
         }
+        if (msgCase_ == 5) {
+          if (replicaPatchBuilder_ == null) {
+            result.msg_ = msg_;
+          } else {
+            result.msg_ = replicaPatchBuilder_.build();
+          }
+        }
         result.msgCase_ = msgCase_;
         onBuilt();
         return result;
@@ -17349,6 +17645,10 @@ public final class DfsMessages {
           }
           case FILECHUNKHEADER: {
             mergeFileChunkHeader(other.getFileChunkHeader());
+            break;
+          }
+          case REPLICAPATCH: {
+            mergeReplicaPatch(other.getReplicaPatch());
             break;
           }
           case MSG_NOT_SET: {
@@ -17962,6 +18262,147 @@ public final class DfsMessages {
         onChanged();;
         return fileChunkHeaderBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder> replicaPatchBuilder_;
+      /**
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       * @return Whether the replicaPatch field is set.
+       */
+      @java.lang.Override
+      public boolean hasReplicaPatch() {
+        return msgCase_ == 5;
+      }
+      /**
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       * @return The replicaPatch.
+       */
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch() {
+        if (replicaPatchBuilder_ == null) {
+          if (msgCase_ == 5) {
+            return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
+          }
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
+        } else {
+          if (msgCase_ == 5) {
+            return replicaPatchBuilder_.getMessage();
+          }
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       */
+      public Builder setReplicaPatch(edu.usfca.cs.chat.DfsMessages.ReplicaPatch value) {
+        if (replicaPatchBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          msg_ = value;
+          onChanged();
+        } else {
+          replicaPatchBuilder_.setMessage(value);
+        }
+        msgCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       */
+      public Builder setReplicaPatch(
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder builderForValue) {
+        if (replicaPatchBuilder_ == null) {
+          msg_ = builderForValue.build();
+          onChanged();
+        } else {
+          replicaPatchBuilder_.setMessage(builderForValue.build());
+        }
+        msgCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       */
+      public Builder mergeReplicaPatch(edu.usfca.cs.chat.DfsMessages.ReplicaPatch value) {
+        if (replicaPatchBuilder_ == null) {
+          if (msgCase_ == 5 &&
+              msg_ != edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance()) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicaPatch.newBuilder((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            msg_ = value;
+          }
+          onChanged();
+        } else {
+          if (msgCase_ == 5) {
+            replicaPatchBuilder_.mergeFrom(value);
+          }
+          replicaPatchBuilder_.setMessage(value);
+        }
+        msgCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       */
+      public Builder clearReplicaPatch() {
+        if (replicaPatchBuilder_ == null) {
+          if (msgCase_ == 5) {
+            msgCase_ = 0;
+            msg_ = null;
+            onChanged();
+          }
+        } else {
+          if (msgCase_ == 5) {
+            msgCase_ = 0;
+            msg_ = null;
+          }
+          replicaPatchBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder getReplicaPatchBuilder() {
+        return getReplicaPatchFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       */
+      @java.lang.Override
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder() {
+        if ((msgCase_ == 5) && (replicaPatchBuilder_ != null)) {
+          return replicaPatchBuilder_.getMessageOrBuilder();
+        } else {
+          if (msgCase_ == 5) {
+            return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
+          }
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.ReplicaPatch replicaPatch = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder> 
+          getReplicaPatchFieldBuilder() {
+        if (replicaPatchBuilder_ == null) {
+          if (!(msgCase_ == 5)) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
+          }
+          replicaPatchBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder>(
+                  (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_,
+                  getParentForChildren(),
+                  isClean());
+          msg_ = null;
+        }
+        msgCase_ = 5;
+        onChanged();;
+        return replicaPatchBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -18065,19 +18506,19 @@ public final class DfsMessages {
     edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder();
 
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
-     * @return Whether the replicationStatus field is set.
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
+     * @return Whether the replicaPatch field is set.
      */
-    boolean hasReplicationStatus();
+    boolean hasReplicaPatch();
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
-     * @return The replicationStatus.
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
+     * @return The replicaPatch.
      */
-    edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus();
+    edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch();
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
      */
-    edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder();
+    edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder();
 
     /**
      * <code>.OnNodeDown onNodeDown = 5;</code>
@@ -18188,14 +18629,14 @@ public final class DfsMessages {
               break;
             }
             case 34: {
-              edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder subBuilder = null;
+              edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder subBuilder = null;
               if (msgCase_ == 4) {
-                subBuilder = ((edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_).toBuilder();
+                subBuilder = ((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_).toBuilder();
               }
               msg_ =
-                  input.readMessage(edu.usfca.cs.chat.DfsMessages.ReplicationStatus.parser(), extensionRegistry);
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.ReplicaPatch.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
                 msg_ = subBuilder.buildPartial();
               }
               msgCase_ = 4;
@@ -18255,7 +18696,7 @@ public final class DfsMessages {
       FILECHUNK(1),
       FILEACK(2),
       FILECHUNKHEADER(3),
-      REPLICATIONSTATUS(4),
+      REPLICAPATCH(4),
       ONNODEDOWN(5),
       MSG_NOT_SET(0);
       private final int value;
@@ -18277,7 +18718,7 @@ public final class DfsMessages {
           case 1: return FILECHUNK;
           case 2: return FILEACK;
           case 3: return FILECHUNKHEADER;
-          case 4: return REPLICATIONSTATUS;
+          case 4: return REPLICAPATCH;
           case 5: return ONNODEDOWN;
           case 0: return MSG_NOT_SET;
           default: return null;
@@ -18387,35 +18828,35 @@ public final class DfsMessages {
       return edu.usfca.cs.chat.DfsMessages.FileChunkHeader.getDefaultInstance();
     }
 
-    public static final int REPLICATIONSTATUS_FIELD_NUMBER = 4;
+    public static final int REPLICAPATCH_FIELD_NUMBER = 4;
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
-     * @return Whether the replicationStatus field is set.
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
+     * @return Whether the replicaPatch field is set.
      */
     @java.lang.Override
-    public boolean hasReplicationStatus() {
+    public boolean hasReplicaPatch() {
       return msgCase_ == 4;
     }
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
-     * @return The replicationStatus.
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
+     * @return The replicaPatch.
      */
     @java.lang.Override
-    public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
+    public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch() {
       if (msgCase_ == 4) {
-         return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+         return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
       }
-      return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+      return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
     }
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
      */
     @java.lang.Override
-    public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
+    public edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder() {
       if (msgCase_ == 4) {
-         return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+         return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
       }
-      return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+      return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
     }
 
     public static final int ONNODEDOWN_FIELD_NUMBER = 5;
@@ -18473,7 +18914,7 @@ public final class DfsMessages {
         output.writeMessage(3, (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_);
       }
       if (msgCase_ == 4) {
-        output.writeMessage(4, (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+        output.writeMessage(4, (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
       }
       if (msgCase_ == 5) {
         output.writeMessage(5, (edu.usfca.cs.chat.DfsMessages.OnNodeDown) msg_);
@@ -18501,7 +18942,7 @@ public final class DfsMessages {
       }
       if (msgCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+          .computeMessageSize(4, (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
       }
       if (msgCase_ == 5) {
         size += com.google.protobuf.CodedOutputStream
@@ -18537,8 +18978,8 @@ public final class DfsMessages {
               .equals(other.getFileChunkHeader())) return false;
           break;
         case 4:
-          if (!getReplicationStatus()
-              .equals(other.getReplicationStatus())) return false;
+          if (!getReplicaPatch()
+              .equals(other.getReplicaPatch())) return false;
           break;
         case 5:
           if (!getOnNodeDown()
@@ -18572,8 +19013,8 @@ public final class DfsMessages {
           hash = (53 * hash) + getFileChunkHeader().hashCode();
           break;
         case 4:
-          hash = (37 * hash) + REPLICATIONSTATUS_FIELD_NUMBER;
-          hash = (53 * hash) + getReplicationStatus().hashCode();
+          hash = (37 * hash) + REPLICAPATCH_FIELD_NUMBER;
+          hash = (53 * hash) + getReplicaPatch().hashCode();
           break;
         case 5:
           hash = (37 * hash) + ONNODEDOWN_FIELD_NUMBER;
@@ -18769,10 +19210,10 @@ public final class DfsMessages {
           }
         }
         if (msgCase_ == 4) {
-          if (replicationStatusBuilder_ == null) {
+          if (replicaPatchBuilder_ == null) {
             result.msg_ = msg_;
           } else {
-            result.msg_ = replicationStatusBuilder_.build();
+            result.msg_ = replicaPatchBuilder_.build();
           }
         }
         if (msgCase_ == 5) {
@@ -18844,8 +19285,8 @@ public final class DfsMessages {
             mergeFileChunkHeader(other.getFileChunkHeader());
             break;
           }
-          case REPLICATIONSTATUS: {
-            mergeReplicationStatus(other.getReplicationStatus());
+          case REPLICAPATCH: {
+            mergeReplicaPatch(other.getReplicaPatch());
             break;
           }
           case ONNODEDOWN: {
@@ -19324,71 +19765,71 @@ public final class DfsMessages {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder> replicationStatusBuilder_;
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder> replicaPatchBuilder_;
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
-       * @return Whether the replicationStatus field is set.
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
+       * @return Whether the replicaPatch field is set.
        */
       @java.lang.Override
-      public boolean hasReplicationStatus() {
+      public boolean hasReplicaPatch() {
         return msgCase_ == 4;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
-       * @return The replicationStatus.
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
+       * @return The replicaPatch.
        */
       @java.lang.Override
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
-        if (replicationStatusBuilder_ == null) {
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch() {
+        if (replicaPatchBuilder_ == null) {
           if (msgCase_ == 4) {
-            return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+            return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
           }
-          return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
         } else {
           if (msgCase_ == 4) {
-            return replicationStatusBuilder_.getMessage();
+            return replicaPatchBuilder_.getMessage();
           }
-          return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
         }
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public Builder setReplicationStatus(edu.usfca.cs.chat.DfsMessages.ReplicationStatus value) {
-        if (replicationStatusBuilder_ == null) {
+      public Builder setReplicaPatch(edu.usfca.cs.chat.DfsMessages.ReplicaPatch value) {
+        if (replicaPatchBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           msg_ = value;
           onChanged();
         } else {
-          replicationStatusBuilder_.setMessage(value);
+          replicaPatchBuilder_.setMessage(value);
         }
         msgCase_ = 4;
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public Builder setReplicationStatus(
-          edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder builderForValue) {
-        if (replicationStatusBuilder_ == null) {
+      public Builder setReplicaPatch(
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder builderForValue) {
+        if (replicaPatchBuilder_ == null) {
           msg_ = builderForValue.build();
           onChanged();
         } else {
-          replicationStatusBuilder_.setMessage(builderForValue.build());
+          replicaPatchBuilder_.setMessage(builderForValue.build());
         }
         msgCase_ = 4;
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public Builder mergeReplicationStatus(edu.usfca.cs.chat.DfsMessages.ReplicationStatus value) {
-        if (replicationStatusBuilder_ == null) {
+      public Builder mergeReplicaPatch(edu.usfca.cs.chat.DfsMessages.ReplicaPatch value) {
+        if (replicaPatchBuilder_ == null) {
           if (msgCase_ == 4 &&
-              msg_ != edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance()) {
-            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicationStatus.newBuilder((edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_)
+              msg_ != edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance()) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicaPatch.newBuilder((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_)
                 .mergeFrom(value).buildPartial();
           } else {
             msg_ = value;
@@ -19396,18 +19837,18 @@ public final class DfsMessages {
           onChanged();
         } else {
           if (msgCase_ == 4) {
-            replicationStatusBuilder_.mergeFrom(value);
+            replicaPatchBuilder_.mergeFrom(value);
           }
-          replicationStatusBuilder_.setMessage(value);
+          replicaPatchBuilder_.setMessage(value);
         }
         msgCase_ = 4;
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public Builder clearReplicationStatus() {
-        if (replicationStatusBuilder_ == null) {
+      public Builder clearReplicaPatch() {
+        if (replicaPatchBuilder_ == null) {
           if (msgCase_ == 4) {
             msgCase_ = 0;
             msg_ = null;
@@ -19418,50 +19859,50 @@ public final class DfsMessages {
             msgCase_ = 0;
             msg_ = null;
           }
-          replicationStatusBuilder_.clear();
+          replicaPatchBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder getReplicationStatusBuilder() {
-        return getReplicationStatusFieldBuilder().getBuilder();
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder getReplicaPatchBuilder() {
+        return getReplicaPatchFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
       @java.lang.Override
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
-        if ((msgCase_ == 4) && (replicationStatusBuilder_ != null)) {
-          return replicationStatusBuilder_.getMessageOrBuilder();
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder() {
+        if ((msgCase_ == 4) && (replicaPatchBuilder_ != null)) {
+          return replicaPatchBuilder_.getMessageOrBuilder();
         } else {
           if (msgCase_ == 4) {
-            return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+            return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
           }
-          return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
         }
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder> 
-          getReplicationStatusFieldBuilder() {
-        if (replicationStatusBuilder_ == null) {
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder> 
+          getReplicaPatchFieldBuilder() {
+        if (replicaPatchBuilder_ == null) {
           if (!(msgCase_ == 4)) {
-            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
           }
-          replicationStatusBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder>(
-                  (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_,
+          replicaPatchBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder>(
+                  (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_,
                   getParentForChildren(),
                   isClean());
           msg_ = null;
         }
         msgCase_ = 4;
         onChanged();;
-        return replicationStatusBuilder_;
+        return replicaPatchBuilder_;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -19707,19 +20148,19 @@ public final class DfsMessages {
     edu.usfca.cs.chat.DfsMessages.FileChunkHeaderOrBuilder getFileChunkHeaderOrBuilder();
 
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
-     * @return Whether the replicationStatus field is set.
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
+     * @return Whether the replicaPatch field is set.
      */
-    boolean hasReplicationStatus();
+    boolean hasReplicaPatch();
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
-     * @return The replicationStatus.
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
+     * @return The replicaPatch.
      */
-    edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus();
+    edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch();
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
      */
-    edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder();
+    edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder();
 
     /**
      * <code>.HeartBeat heartBeat = 5;</code>
@@ -19871,14 +20312,14 @@ public final class DfsMessages {
               break;
             }
             case 34: {
-              edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder subBuilder = null;
+              edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder subBuilder = null;
               if (msgCase_ == 4) {
-                subBuilder = ((edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_).toBuilder();
+                subBuilder = ((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_).toBuilder();
               }
               msg_ =
-                  input.readMessage(edu.usfca.cs.chat.DfsMessages.ReplicationStatus.parser(), extensionRegistry);
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.ReplicaPatch.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+                subBuilder.mergeFrom((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
                 msg_ = subBuilder.buildPartial();
               }
               msgCase_ = 4;
@@ -19980,7 +20421,7 @@ public final class DfsMessages {
       FILEREQUEST(1),
       FILEACK(2),
       FILECHUNKHEADER(3),
-      REPLICATIONSTATUS(4),
+      REPLICAPATCH(4),
       HEARTBEAT(5),
       INTROMESSAGE(6),
       GETFREENODES(7),
@@ -20005,7 +20446,7 @@ public final class DfsMessages {
           case 1: return FILEREQUEST;
           case 2: return FILEACK;
           case 3: return FILECHUNKHEADER;
-          case 4: return REPLICATIONSTATUS;
+          case 4: return REPLICAPATCH;
           case 5: return HEARTBEAT;
           case 6: return INTROMESSAGE;
           case 7: return GETFREENODES;
@@ -20118,35 +20559,35 @@ public final class DfsMessages {
       return edu.usfca.cs.chat.DfsMessages.FileChunkHeader.getDefaultInstance();
     }
 
-    public static final int REPLICATIONSTATUS_FIELD_NUMBER = 4;
+    public static final int REPLICAPATCH_FIELD_NUMBER = 4;
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
-     * @return Whether the replicationStatus field is set.
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
+     * @return Whether the replicaPatch field is set.
      */
     @java.lang.Override
-    public boolean hasReplicationStatus() {
+    public boolean hasReplicaPatch() {
       return msgCase_ == 4;
     }
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
-     * @return The replicationStatus.
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
+     * @return The replicaPatch.
      */
     @java.lang.Override
-    public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
+    public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch() {
       if (msgCase_ == 4) {
-         return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+         return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
       }
-      return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+      return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
     }
     /**
-     * <code>.ReplicationStatus replicationStatus = 4;</code>
+     * <code>.ReplicaPatch replicaPatch = 4;</code>
      */
     @java.lang.Override
-    public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
+    public edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder() {
       if (msgCase_ == 4) {
-         return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+         return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
       }
-      return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+      return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
     }
 
     public static final int HEARTBEAT_FIELD_NUMBER = 5;
@@ -20297,7 +20738,7 @@ public final class DfsMessages {
         output.writeMessage(3, (edu.usfca.cs.chat.DfsMessages.FileChunkHeader) msg_);
       }
       if (msgCase_ == 4) {
-        output.writeMessage(4, (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+        output.writeMessage(4, (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
       }
       if (msgCase_ == 5) {
         output.writeMessage(5, (edu.usfca.cs.chat.DfsMessages.HeartBeat) msg_);
@@ -20334,7 +20775,7 @@ public final class DfsMessages {
       }
       if (msgCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_);
+          .computeMessageSize(4, (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_);
       }
       if (msgCase_ == 5) {
         size += com.google.protobuf.CodedOutputStream
@@ -20382,8 +20823,8 @@ public final class DfsMessages {
               .equals(other.getFileChunkHeader())) return false;
           break;
         case 4:
-          if (!getReplicationStatus()
-              .equals(other.getReplicationStatus())) return false;
+          if (!getReplicaPatch()
+              .equals(other.getReplicaPatch())) return false;
           break;
         case 5:
           if (!getHeartBeat()
@@ -20429,8 +20870,8 @@ public final class DfsMessages {
           hash = (53 * hash) + getFileChunkHeader().hashCode();
           break;
         case 4:
-          hash = (37 * hash) + REPLICATIONSTATUS_FIELD_NUMBER;
-          hash = (53 * hash) + getReplicationStatus().hashCode();
+          hash = (37 * hash) + REPLICAPATCH_FIELD_NUMBER;
+          hash = (53 * hash) + getReplicaPatch().hashCode();
           break;
         case 5:
           hash = (37 * hash) + HEARTBEAT_FIELD_NUMBER;
@@ -20634,10 +21075,10 @@ public final class DfsMessages {
           }
         }
         if (msgCase_ == 4) {
-          if (replicationStatusBuilder_ == null) {
+          if (replicaPatchBuilder_ == null) {
             result.msg_ = msg_;
           } else {
-            result.msg_ = replicationStatusBuilder_.build();
+            result.msg_ = replicaPatchBuilder_.build();
           }
         }
         if (msgCase_ == 5) {
@@ -20730,8 +21171,8 @@ public final class DfsMessages {
             mergeFileChunkHeader(other.getFileChunkHeader());
             break;
           }
-          case REPLICATIONSTATUS: {
-            mergeReplicationStatus(other.getReplicationStatus());
+          case REPLICAPATCH: {
+            mergeReplicaPatch(other.getReplicaPatch());
             break;
           }
           case HEARTBEAT: {
@@ -21222,71 +21663,71 @@ public final class DfsMessages {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder> replicationStatusBuilder_;
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder> replicaPatchBuilder_;
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
-       * @return Whether the replicationStatus field is set.
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
+       * @return Whether the replicaPatch field is set.
        */
       @java.lang.Override
-      public boolean hasReplicationStatus() {
+      public boolean hasReplicaPatch() {
         return msgCase_ == 4;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
-       * @return The replicationStatus.
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
+       * @return The replicaPatch.
        */
       @java.lang.Override
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatus getReplicationStatus() {
-        if (replicationStatusBuilder_ == null) {
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch getReplicaPatch() {
+        if (replicaPatchBuilder_ == null) {
           if (msgCase_ == 4) {
-            return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+            return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
           }
-          return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
         } else {
           if (msgCase_ == 4) {
-            return replicationStatusBuilder_.getMessage();
+            return replicaPatchBuilder_.getMessage();
           }
-          return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
         }
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public Builder setReplicationStatus(edu.usfca.cs.chat.DfsMessages.ReplicationStatus value) {
-        if (replicationStatusBuilder_ == null) {
+      public Builder setReplicaPatch(edu.usfca.cs.chat.DfsMessages.ReplicaPatch value) {
+        if (replicaPatchBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           msg_ = value;
           onChanged();
         } else {
-          replicationStatusBuilder_.setMessage(value);
+          replicaPatchBuilder_.setMessage(value);
         }
         msgCase_ = 4;
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public Builder setReplicationStatus(
-          edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder builderForValue) {
-        if (replicationStatusBuilder_ == null) {
+      public Builder setReplicaPatch(
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder builderForValue) {
+        if (replicaPatchBuilder_ == null) {
           msg_ = builderForValue.build();
           onChanged();
         } else {
-          replicationStatusBuilder_.setMessage(builderForValue.build());
+          replicaPatchBuilder_.setMessage(builderForValue.build());
         }
         msgCase_ = 4;
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public Builder mergeReplicationStatus(edu.usfca.cs.chat.DfsMessages.ReplicationStatus value) {
-        if (replicationStatusBuilder_ == null) {
+      public Builder mergeReplicaPatch(edu.usfca.cs.chat.DfsMessages.ReplicaPatch value) {
+        if (replicaPatchBuilder_ == null) {
           if (msgCase_ == 4 &&
-              msg_ != edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance()) {
-            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicationStatus.newBuilder((edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_)
+              msg_ != edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance()) {
+            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicaPatch.newBuilder((edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_)
                 .mergeFrom(value).buildPartial();
           } else {
             msg_ = value;
@@ -21294,18 +21735,18 @@ public final class DfsMessages {
           onChanged();
         } else {
           if (msgCase_ == 4) {
-            replicationStatusBuilder_.mergeFrom(value);
+            replicaPatchBuilder_.mergeFrom(value);
           }
-          replicationStatusBuilder_.setMessage(value);
+          replicaPatchBuilder_.setMessage(value);
         }
         msgCase_ = 4;
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public Builder clearReplicationStatus() {
-        if (replicationStatusBuilder_ == null) {
+      public Builder clearReplicaPatch() {
+        if (replicaPatchBuilder_ == null) {
           if (msgCase_ == 4) {
             msgCase_ = 0;
             msg_ = null;
@@ -21316,50 +21757,50 @@ public final class DfsMessages {
             msgCase_ = 0;
             msg_ = null;
           }
-          replicationStatusBuilder_.clear();
+          replicaPatchBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder getReplicationStatusBuilder() {
-        return getReplicationStatusFieldBuilder().getBuilder();
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder getReplicaPatchBuilder() {
+        return getReplicaPatchFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
       @java.lang.Override
-      public edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder getReplicationStatusOrBuilder() {
-        if ((msgCase_ == 4) && (replicationStatusBuilder_ != null)) {
-          return replicationStatusBuilder_.getMessageOrBuilder();
+      public edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder getReplicaPatchOrBuilder() {
+        if ((msgCase_ == 4) && (replicaPatchBuilder_ != null)) {
+          return replicaPatchBuilder_.getMessageOrBuilder();
         } else {
           if (msgCase_ == 4) {
-            return (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_;
+            return (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_;
           }
-          return edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+          return edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
         }
       }
       /**
-       * <code>.ReplicationStatus replicationStatus = 4;</code>
+       * <code>.ReplicaPatch replicaPatch = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder> 
-          getReplicationStatusFieldBuilder() {
-        if (replicationStatusBuilder_ == null) {
+          edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder> 
+          getReplicaPatchFieldBuilder() {
+        if (replicaPatchBuilder_ == null) {
           if (!(msgCase_ == 4)) {
-            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicationStatus.getDefaultInstance();
+            msg_ = edu.usfca.cs.chat.DfsMessages.ReplicaPatch.getDefaultInstance();
           }
-          replicationStatusBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              edu.usfca.cs.chat.DfsMessages.ReplicationStatus, edu.usfca.cs.chat.DfsMessages.ReplicationStatus.Builder, edu.usfca.cs.chat.DfsMessages.ReplicationStatusOrBuilder>(
-                  (edu.usfca.cs.chat.DfsMessages.ReplicationStatus) msg_,
+          replicaPatchBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.ReplicaPatch, edu.usfca.cs.chat.DfsMessages.ReplicaPatch.Builder, edu.usfca.cs.chat.DfsMessages.ReplicaPatchOrBuilder>(
+                  (edu.usfca.cs.chat.DfsMessages.ReplicaPatch) msg_,
                   getParentForChildren(),
                   isClean());
           msg_ = null;
         }
         msgCase_ = 4;
         onChanged();;
-        return replicationStatusBuilder_;
+        return replicaPatchBuilder_;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -22029,10 +22470,10 @@ public final class DfsMessages {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_HeartBeat_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ReplicationStatus_descriptor;
+    internal_static_ReplicaPatch_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ReplicationStatus_fieldAccessorTable;
+      internal_static_ReplicaPatch_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_OnNodeDown_descriptor;
   private static final 
@@ -22105,43 +22546,44 @@ public final class DfsMessages {
       "\010hostname\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\016\n\006memory\030\003 " +
       "\001(\005\022\014\n\004port\030\004 \001(\005\"c\n\tHeartBeat\022)\n\016node_m" +
       "eta_data\030\002 \001(\0132\021.DataNodeMetadata\022\023\n\013sto" +
-      "re_count\030\003 \001(\005\022\026\n\016retrieve_count\030\004 \001(\005\"I" +
-      "\n\021ReplicationStatus\022\020\n\010filepath\030\001 \001(\t\022\021\n" +
-      "\tchunk_num\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"B\n\nOnN" +
-      "odeDown\022\n\n\002ip\030\001 \001(\t\022(\n\raffectedNodes\030\002 \003" +
-      "(\0132\021.DataNodeMetadata\"\244\002\n\022DfsMessagesWra" +
-      "pper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022#\n" +
-      "\013fileRequest\030\002 \001(\0132\014.FileRequestH\000\022%\n\014fi" +
-      "leResponse\030\003 \001(\0132\r.FileResponseH\000\022\037\n\thea" +
-      "rtBeat\030\004 \001(\0132\n.HeartBeatH\000\022/\n\021replicatio" +
-      "nStatus\030\005 \001(\0132\022.ReplicationStatusH\000\022\033\n\007f" +
-      "ileAck\030\006 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHea" +
-      "der\030\007 \001(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\267\001\n" +
-      "\017MessagesWrapper\022/\n\rclientWrapper\030\001 \001(\0132" +
-      "\026.ClientMessagesWrapperH\000\0223\n\017dataNodeWra" +
-      "pper\030\002 \001(\0132\030.DataNodeMessagesWrapperH\000\0227" +
-      "\n\021controllerWrapper\030\003 \001(\0132\032.ControllerMe" +
-      "ssagesWrapperH\000B\005\n\003msg\"\260\001\n\025ClientMessage" +
-      "sWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileChunkH" +
-      "\000\022%\n\014fileResponse\030\002 \001(\0132\r.FileResponseH\000" +
-      "\022\033\n\007fileAck\030\003 \001(\0132\010.FileAckH\000\022+\n\017fileChu" +
-      "nkHeader\030\004 \001(\0132\020.FileChunkHeaderH\000B\005\n\003ms" +
-      "g\"\337\001\n\027DataNodeMessagesWrapper\022\037\n\tfileChu" +
-      "nk\030\001 \001(\0132\n.FileChunkH\000\022\033\n\007fileAck\030\002 \001(\0132" +
-      "\010.FileAckH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.F" +
-      "ileChunkHeaderH\000\022/\n\021replicationStatus\030\004 " +
-      "\001(\0132\022.ReplicationStatusH\000\022!\n\nonNodeDown\030" +
-      "\005 \001(\0132\013.OnNodeDownH\000B\005\n\003msg\"\350\002\n\031Controll" +
-      "erMessagesWrapper\022#\n\013fileRequest\030\001 \001(\0132\014" +
-      ".FileRequestH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAc" +
-      "kH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.FileChunk" +
-      "HeaderH\000\022/\n\021replicationStatus\030\004 \001(\0132\022.Re" +
-      "plicationStatusH\000\022\037\n\theartBeat\030\005 \001(\0132\n.H" +
-      "eartBeatH\000\022)\n\014IntroMessage\030\006 \001(\0132\021.DataN" +
-      "odeMetadataH\000\022%\n\014getFreeNodes\030\007 \001(\0132\r.Ge" +
-      "tFreeNodesH\000\0221\n\022updateRoutingTable\030\010 \001(\013" +
-      "2\023.UpdateRoutingTableH\000B\005\n\003msgB\023\n\021edu.us" +
-      "fca.cs.chatb\006proto3"
+      "re_count\030\003 \001(\005\022\026\n\016retrieve_count\030\004 \001(\005\"\\" +
+      "\n\014ReplicaPatch\022\020\n\010filepath\030\001 \001(\t\022\021\n\tchun" +
+      "k_num\030\002 \001(\t\022\'\n\014nodeMetadata\030\003 \001(\0132\021.Data" +
+      "NodeMetadata\"B\n\nOnNodeDown\022\n\n\002ip\030\001 \001(\t\022(" +
+      "\n\raffectedNodes\030\002 \003(\0132\021.DataNodeMetadata" +
+      "\"\232\002\n\022DfsMessagesWrapper\022\037\n\tfileChunk\030\001 \001" +
+      "(\0132\n.FileChunkH\000\022#\n\013fileRequest\030\002 \001(\0132\014." +
+      "FileRequestH\000\022%\n\014fileResponse\030\003 \001(\0132\r.Fi" +
+      "leResponseH\000\022\037\n\theartBeat\030\004 \001(\0132\n.HeartB" +
+      "eatH\000\022%\n\014replicaPatch\030\005 \001(\0132\r.ReplicaPat" +
+      "chH\000\022\033\n\007fileAck\030\006 \001(\0132\010.FileAckH\000\022+\n\017fil" +
+      "eChunkHeader\030\007 \001(\0132\020.FileChunkHeaderH\000B\005" +
+      "\n\003msg\"\267\001\n\017MessagesWrapper\022/\n\rclientWrapp" +
+      "er\030\001 \001(\0132\026.ClientMessagesWrapperH\000\0223\n\017da" +
+      "taNodeWrapper\030\002 \001(\0132\030.DataNodeMessagesWr" +
+      "apperH\000\0227\n\021controllerWrapper\030\003 \001(\0132\032.Con" +
+      "trollerMessagesWrapperH\000B\005\n\003msg\"\327\001\n\025Clie" +
+      "ntMessagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.F" +
+      "ileChunkH\000\022%\n\014fileResponse\030\002 \001(\0132\r.FileR" +
+      "esponseH\000\022\033\n\007fileAck\030\003 \001(\0132\010.FileAckH\000\022+" +
+      "\n\017fileChunkHeader\030\004 \001(\0132\020.FileChunkHeade" +
+      "rH\000\022%\n\014replicaPatch\030\005 \001(\0132\r.ReplicaPatch" +
+      "H\000B\005\n\003msg\"\325\001\n\027DataNodeMessagesWrapper\022\037\n" +
+      "\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022\033\n\007fileAc" +
+      "k\030\002 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\003" +
+      " \001(\0132\020.FileChunkHeaderH\000\022%\n\014replicaPatch" +
+      "\030\004 \001(\0132\r.ReplicaPatchH\000\022!\n\nonNodeDown\030\005 " +
+      "\001(\0132\013.OnNodeDownH\000B\005\n\003msg\"\336\002\n\031Controller" +
+      "MessagesWrapper\022#\n\013fileRequest\030\001 \001(\0132\014.F" +
+      "ileRequestH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH" +
+      "\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.FileChunkHe" +
+      "aderH\000\022%\n\014replicaPatch\030\004 \001(\0132\r.ReplicaPa" +
+      "tchH\000\022\037\n\theartBeat\030\005 \001(\0132\n.HeartBeatH\000\022)" +
+      "\n\014IntroMessage\030\006 \001(\0132\021.DataNodeMetadataH" +
+      "\000\022%\n\014getFreeNodes\030\007 \001(\0132\r.GetFreeNodesH\000" +
+      "\0221\n\022updateRoutingTable\030\010 \001(\0132\023.UpdateRou" +
+      "tingTableH\000B\005\n\003msgB\023\n\021edu.usfca.cs.chatb" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -22207,12 +22649,12 @@ public final class DfsMessages {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_HeartBeat_descriptor,
         new java.lang.String[] { "NodeMetaData", "StoreCount", "RetrieveCount", });
-    internal_static_ReplicationStatus_descriptor =
+    internal_static_ReplicaPatch_descriptor =
       getDescriptor().getMessageTypes().get(10);
-    internal_static_ReplicationStatus_fieldAccessorTable = new
+    internal_static_ReplicaPatch_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ReplicationStatus_descriptor,
-        new java.lang.String[] { "Filepath", "ChunkNum", "Success", });
+        internal_static_ReplicaPatch_descriptor,
+        new java.lang.String[] { "Filepath", "ChunkNum", "NodeMetadata", });
     internal_static_OnNodeDown_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_OnNodeDown_fieldAccessorTable = new
@@ -22224,7 +22666,7 @@ public final class DfsMessages {
     internal_static_DfsMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DfsMessagesWrapper_descriptor,
-        new java.lang.String[] { "FileChunk", "FileRequest", "FileResponse", "HeartBeat", "ReplicationStatus", "FileAck", "FileChunkHeader", "Msg", });
+        new java.lang.String[] { "FileChunk", "FileRequest", "FileResponse", "HeartBeat", "ReplicaPatch", "FileAck", "FileChunkHeader", "Msg", });
     internal_static_MessagesWrapper_descriptor =
       getDescriptor().getMessageTypes().get(13);
     internal_static_MessagesWrapper_fieldAccessorTable = new
@@ -22236,19 +22678,19 @@ public final class DfsMessages {
     internal_static_ClientMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ClientMessagesWrapper_descriptor,
-        new java.lang.String[] { "FileChunk", "FileResponse", "FileAck", "FileChunkHeader", "Msg", });
+        new java.lang.String[] { "FileChunk", "FileResponse", "FileAck", "FileChunkHeader", "ReplicaPatch", "Msg", });
     internal_static_DataNodeMessagesWrapper_descriptor =
       getDescriptor().getMessageTypes().get(15);
     internal_static_DataNodeMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DataNodeMessagesWrapper_descriptor,
-        new java.lang.String[] { "FileChunk", "FileAck", "FileChunkHeader", "ReplicationStatus", "OnNodeDown", "Msg", });
+        new java.lang.String[] { "FileChunk", "FileAck", "FileChunkHeader", "ReplicaPatch", "OnNodeDown", "Msg", });
     internal_static_ControllerMessagesWrapper_descriptor =
       getDescriptor().getMessageTypes().get(16);
     internal_static_ControllerMessagesWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ControllerMessagesWrapper_descriptor,
-        new java.lang.String[] { "FileRequest", "FileAck", "FileChunkHeader", "ReplicationStatus", "HeartBeat", "IntroMessage", "GetFreeNodes", "UpdateRoutingTable", "Msg", });
+        new java.lang.String[] { "FileRequest", "FileAck", "FileChunkHeader", "ReplicaPatch", "HeartBeat", "IntroMessage", "GetFreeNodes", "UpdateRoutingTable", "Msg", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

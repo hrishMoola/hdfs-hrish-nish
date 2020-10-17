@@ -3,6 +3,9 @@ package edu.usfca.cs.chat;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -32,8 +35,10 @@ public class Client
     private Integer CHUNK_SIZE;
 
     private static AtomicInteger chunksReceived;
-    private static Map<String, Integer> totalChunks;
-    private static Map<String, Channel> channelMap;
+    private static ConcurrentHashMap<String, Integer> totalChunks;
+    private static ConcurrentHashMap<String, Channel> channelMap;
+    private static ExecutorService executor ;
+
 
     public Client(String controllerHostName, int controllerPort, String username, Integer chunkSize) {
         this.controllerHostName = controllerHostName;
@@ -41,8 +46,9 @@ public class Client
         this.username = username;
         this.CHUNK_SIZE = chunkSize * 1024;
         chunksReceived = new AtomicInteger(0);
-        channelMap = new HashMap<>();
-        totalChunks = new HashMap<>();
+        channelMap = new ConcurrentHashMap<>();
+        totalChunks = new ConcurrentHashMap<>();
+        executor = Executors.newFixedThreadPool(8);
     }
 
 
@@ -199,35 +205,46 @@ public class Client
             ChannelHandlerContext ctx, DfsMessages.MessagesWrapper msg) {
 
         DfsMessages.ClientMessagesWrapper message = msg.getClientWrapper();
-//        System.out.println(message);
         int messageType = message.getMsgCase().getNumber();
         try{
             switch(messageType){
                 case 1: // FileChunk
                     totalChunks.putIfAbsent(message.getFileChunk().getFilechunkHeader().getFilepath(), message.getFileChunk().getFilechunkHeader().getTotalChunks());
-                    storeFile("cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
-                    System.out.println("chunksReceived = " + chunksReceived);
-                    if(chunksReceived.incrementAndGet() == totalChunks.get(message.getFileChunk().getFilechunkHeader().getFilepath())){
-                        mergeFiles("cache", getFileName(message.getFileChunk().getFilechunkHeader().getFilepath()));
-                        clearDirectoryContents("cache");
-                        chunksReceived = new AtomicInteger(0);
-                    }
+                    executor.submit(()->{
+                        try {
+                            storeFile("cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
+                            System.out.println("chunksReceived = " + chunksReceived);
+                            if(chunksReceived.incrementAndGet() == totalChunks.get(message.getFileChunk().getFilechunkHeader().getFilepath())){
+                                mergeFiles("cache", getFileName(message.getFileChunk().getFilechunkHeader().getFilepath()));
+                                clearDirectoryContents("cache");
+                                chunksReceived = new AtomicInteger(0);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                     break;
                 case 2: // FileResponse
                             System.out.println(message);
                     System.out.println("Received a file response for " + message.getFileResponse().getSystemFilePath());
                     System.out.println("Request type is  " + message.getFileResponse().getType().name());
-                    if(message.getFileResponse().getType().equals(DfsMessages.FileResponse.Type.RETRIEVE)){
-                        getChunksFromDataNodes(message.getFileResponse());
-                    }
-                    else{
-                        startFileStorage(message.getFileResponse());
-                    }
+                    executor.submit(()->{
+                        if(message.getFileResponse().getType().equals(DfsMessages.FileResponse.Type.RETRIEVE)){
+                            getChunksFromDataNodes(message.getFileResponse());
+                        }
+                        else{
+                            startFileStorage(message.getFileResponse());
+                        }
+                    });
                     break;
-                case 6:
+                case 5:
+                    System.out.println("Received replica patch");
+                    System.out.println("message.getReplicaPatch() = " + message.getReplicaPatch());
+                    DfsMessages.DataNodeMetadata nodeMetadata = message.getReplicaPatch().getNodeMetadata();
                     try {
-                        System.out.println("received file ack");
-
+                        Channel channel = channelMap.getOrDefault(nodeMetadata.getIp(), connectToNode(nodeMetadata.getIp().split(":")[0], nodeMetadata.getPort()));
+                        channelMap.putIfAbsent(nodeMetadata.getIp(), channel);
+                        channel.writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setReplicaPatch(message.getReplicaPatch()).build()).build());
                     } catch (Exception e) {
                         System.out.println("An error occurred.");
                         e.printStackTrace();
