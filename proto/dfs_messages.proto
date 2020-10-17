@@ -24,6 +24,8 @@ message UpdateRoutingTable {
 message AlreadyMaintainedChunks {
     repeated string originalChunks = 1;
     repeated string repeatedChunks = 2;
+    repeated DataNodeMetadata maintainedOriginals = 3;
+    repeated DataNodeMetadata maintainedReplicas = 4;
 }
 
 message FileAck{

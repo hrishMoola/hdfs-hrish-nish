@@ -2182,6 +2182,54 @@ public final class DfsMessages {
      */
     com.google.protobuf.ByteString
         getRepeatedChunksBytes(int index);
+
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> 
+        getMaintainedOriginalsList();
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getMaintainedOriginals(int index);
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    int getMaintainedOriginalsCount();
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+        getMaintainedOriginalsOrBuilderList();
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintainedOriginalsOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> 
+        getMaintainedReplicasList();
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getMaintainedReplicas(int index);
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    int getMaintainedReplicasCount();
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+        getMaintainedReplicasOrBuilderList();
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintainedReplicasOrBuilder(
+        int index);
   }
   /**
    * <pre>
@@ -2202,6 +2250,8 @@ public final class DfsMessages {
     private AlreadyMaintainedChunks() {
       originalChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      maintainedOriginals_ = java.util.Collections.emptyList();
+      maintainedReplicas_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -2253,6 +2303,24 @@ public final class DfsMessages {
               repeatedChunks_.add(s);
               break;
             }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                maintainedOriginals_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              maintainedOriginals_.add(
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.parser(), extensionRegistry));
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                maintainedReplicas_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              maintainedReplicas_.add(
+                  input.readMessage(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -2273,6 +2341,12 @@ public final class DfsMessages {
         }
         if (((mutable_bitField0_ & 0x00000002) != 0)) {
           repeatedChunks_ = repeatedChunks_.getUnmodifiableView();
+        }
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
+          maintainedOriginals_ = java.util.Collections.unmodifiableList(maintainedOriginals_);
+        }
+        if (((mutable_bitField0_ & 0x00000008) != 0)) {
+          maintainedReplicas_ = java.util.Collections.unmodifiableList(maintainedReplicas_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2361,6 +2435,86 @@ public final class DfsMessages {
       return repeatedChunks_.getByteString(index);
     }
 
+    public static final int MAINTAINEDORIGINALS_FIELD_NUMBER = 3;
+    private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> maintainedOriginals_;
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getMaintainedOriginalsList() {
+      return maintainedOriginals_;
+    }
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+        getMaintainedOriginalsOrBuilderList() {
+      return maintainedOriginals_;
+    }
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    @java.lang.Override
+    public int getMaintainedOriginalsCount() {
+      return maintainedOriginals_.size();
+    }
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getMaintainedOriginals(int index) {
+      return maintainedOriginals_.get(index);
+    }
+    /**
+     * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintainedOriginalsOrBuilder(
+        int index) {
+      return maintainedOriginals_.get(index);
+    }
+
+    public static final int MAINTAINEDREPLICAS_FIELD_NUMBER = 4;
+    private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> maintainedReplicas_;
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getMaintainedReplicasList() {
+      return maintainedReplicas_;
+    }
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+        getMaintainedReplicasOrBuilderList() {
+      return maintainedReplicas_;
+    }
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    @java.lang.Override
+    public int getMaintainedReplicasCount() {
+      return maintainedReplicas_.size();
+    }
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getMaintainedReplicas(int index) {
+      return maintainedReplicas_.get(index);
+    }
+    /**
+     * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+     */
+    @java.lang.Override
+    public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintainedReplicasOrBuilder(
+        int index) {
+      return maintainedReplicas_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2380,6 +2534,12 @@ public final class DfsMessages {
       }
       for (int i = 0; i < repeatedChunks_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, repeatedChunks_.getRaw(i));
+      }
+      for (int i = 0; i < maintainedOriginals_.size(); i++) {
+        output.writeMessage(3, maintainedOriginals_.get(i));
+      }
+      for (int i = 0; i < maintainedReplicas_.size(); i++) {
+        output.writeMessage(4, maintainedReplicas_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -2406,6 +2566,14 @@ public final class DfsMessages {
         size += dataSize;
         size += 1 * getRepeatedChunksList().size();
       }
+      for (int i = 0; i < maintainedOriginals_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, maintainedOriginals_.get(i));
+      }
+      for (int i = 0; i < maintainedReplicas_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, maintainedReplicas_.get(i));
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -2425,6 +2593,10 @@ public final class DfsMessages {
           .equals(other.getOriginalChunksList())) return false;
       if (!getRepeatedChunksList()
           .equals(other.getRepeatedChunksList())) return false;
+      if (!getMaintainedOriginalsList()
+          .equals(other.getMaintainedOriginalsList())) return false;
+      if (!getMaintainedReplicasList()
+          .equals(other.getMaintainedReplicasList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2443,6 +2615,14 @@ public final class DfsMessages {
       if (getRepeatedChunksCount() > 0) {
         hash = (37 * hash) + REPEATEDCHUNKS_FIELD_NUMBER;
         hash = (53 * hash) + getRepeatedChunksList().hashCode();
+      }
+      if (getMaintainedOriginalsCount() > 0) {
+        hash = (37 * hash) + MAINTAINEDORIGINALS_FIELD_NUMBER;
+        hash = (53 * hash) + getMaintainedOriginalsList().hashCode();
+      }
+      if (getMaintainedReplicasCount() > 0) {
+        hash = (37 * hash) + MAINTAINEDREPLICAS_FIELD_NUMBER;
+        hash = (53 * hash) + getMaintainedReplicasList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -2576,6 +2756,8 @@ public final class DfsMessages {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getMaintainedOriginalsFieldBuilder();
+          getMaintainedReplicasFieldBuilder();
         }
       }
       @java.lang.Override
@@ -2585,6 +2767,18 @@ public final class DfsMessages {
         bitField0_ = (bitField0_ & ~0x00000001);
         repeatedChunks_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000002);
+        if (maintainedOriginalsBuilder_ == null) {
+          maintainedOriginals_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          maintainedOriginalsBuilder_.clear();
+        }
+        if (maintainedReplicasBuilder_ == null) {
+          maintainedReplicas_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          maintainedReplicasBuilder_.clear();
+        }
         return this;
       }
 
@@ -2622,6 +2816,24 @@ public final class DfsMessages {
           bitField0_ = (bitField0_ & ~0x00000002);
         }
         result.repeatedChunks_ = repeatedChunks_;
+        if (maintainedOriginalsBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0)) {
+            maintainedOriginals_ = java.util.Collections.unmodifiableList(maintainedOriginals_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.maintainedOriginals_ = maintainedOriginals_;
+        } else {
+          result.maintainedOriginals_ = maintainedOriginalsBuilder_.build();
+        }
+        if (maintainedReplicasBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0)) {
+            maintainedReplicas_ = java.util.Collections.unmodifiableList(maintainedReplicas_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.maintainedReplicas_ = maintainedReplicas_;
+        } else {
+          result.maintainedReplicas_ = maintainedReplicasBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -2689,6 +2901,58 @@ public final class DfsMessages {
             repeatedChunks_.addAll(other.repeatedChunks_);
           }
           onChanged();
+        }
+        if (maintainedOriginalsBuilder_ == null) {
+          if (!other.maintainedOriginals_.isEmpty()) {
+            if (maintainedOriginals_.isEmpty()) {
+              maintainedOriginals_ = other.maintainedOriginals_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureMaintainedOriginalsIsMutable();
+              maintainedOriginals_.addAll(other.maintainedOriginals_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.maintainedOriginals_.isEmpty()) {
+            if (maintainedOriginalsBuilder_.isEmpty()) {
+              maintainedOriginalsBuilder_.dispose();
+              maintainedOriginalsBuilder_ = null;
+              maintainedOriginals_ = other.maintainedOriginals_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              maintainedOriginalsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMaintainedOriginalsFieldBuilder() : null;
+            } else {
+              maintainedOriginalsBuilder_.addAllMessages(other.maintainedOriginals_);
+            }
+          }
+        }
+        if (maintainedReplicasBuilder_ == null) {
+          if (!other.maintainedReplicas_.isEmpty()) {
+            if (maintainedReplicas_.isEmpty()) {
+              maintainedReplicas_ = other.maintainedReplicas_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureMaintainedReplicasIsMutable();
+              maintainedReplicas_.addAll(other.maintainedReplicas_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.maintainedReplicas_.isEmpty()) {
+            if (maintainedReplicasBuilder_.isEmpty()) {
+              maintainedReplicasBuilder_.dispose();
+              maintainedReplicasBuilder_ = null;
+              maintainedReplicas_ = other.maintainedReplicas_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              maintainedReplicasBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMaintainedReplicasFieldBuilder() : null;
+            } else {
+              maintainedReplicasBuilder_.addAllMessages(other.maintainedReplicas_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2938,6 +3202,486 @@ public final class DfsMessages {
         repeatedChunks_.add(value);
         onChanged();
         return this;
+      }
+
+      private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> maintainedOriginals_ =
+        java.util.Collections.emptyList();
+      private void ensureMaintainedOriginalsIsMutable() {
+        if (!((bitField0_ & 0x00000004) != 0)) {
+          maintainedOriginals_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>(maintainedOriginals_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> maintainedOriginalsBuilder_;
+
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getMaintainedOriginalsList() {
+        if (maintainedOriginalsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(maintainedOriginals_);
+        } else {
+          return maintainedOriginalsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public int getMaintainedOriginalsCount() {
+        if (maintainedOriginalsBuilder_ == null) {
+          return maintainedOriginals_.size();
+        } else {
+          return maintainedOriginalsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getMaintainedOriginals(int index) {
+        if (maintainedOriginalsBuilder_ == null) {
+          return maintainedOriginals_.get(index);
+        } else {
+          return maintainedOriginalsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public Builder setMaintainedOriginals(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (maintainedOriginalsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMaintainedOriginalsIsMutable();
+          maintainedOriginals_.set(index, value);
+          onChanged();
+        } else {
+          maintainedOriginalsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public Builder setMaintainedOriginals(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (maintainedOriginalsBuilder_ == null) {
+          ensureMaintainedOriginalsIsMutable();
+          maintainedOriginals_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          maintainedOriginalsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public Builder addMaintainedOriginals(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (maintainedOriginalsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMaintainedOriginalsIsMutable();
+          maintainedOriginals_.add(value);
+          onChanged();
+        } else {
+          maintainedOriginalsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public Builder addMaintainedOriginals(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (maintainedOriginalsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMaintainedOriginalsIsMutable();
+          maintainedOriginals_.add(index, value);
+          onChanged();
+        } else {
+          maintainedOriginalsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public Builder addMaintainedOriginals(
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (maintainedOriginalsBuilder_ == null) {
+          ensureMaintainedOriginalsIsMutable();
+          maintainedOriginals_.add(builderForValue.build());
+          onChanged();
+        } else {
+          maintainedOriginalsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public Builder addMaintainedOriginals(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (maintainedOriginalsBuilder_ == null) {
+          ensureMaintainedOriginalsIsMutable();
+          maintainedOriginals_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          maintainedOriginalsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public Builder addAllMaintainedOriginals(
+          java.lang.Iterable<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> values) {
+        if (maintainedOriginalsBuilder_ == null) {
+          ensureMaintainedOriginalsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, maintainedOriginals_);
+          onChanged();
+        } else {
+          maintainedOriginalsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public Builder clearMaintainedOriginals() {
+        if (maintainedOriginalsBuilder_ == null) {
+          maintainedOriginals_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          maintainedOriginalsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public Builder removeMaintainedOriginals(int index) {
+        if (maintainedOriginalsBuilder_ == null) {
+          ensureMaintainedOriginalsIsMutable();
+          maintainedOriginals_.remove(index);
+          onChanged();
+        } else {
+          maintainedOriginalsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder getMaintainedOriginalsBuilder(
+          int index) {
+        return getMaintainedOriginalsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintainedOriginalsOrBuilder(
+          int index) {
+        if (maintainedOriginalsBuilder_ == null) {
+          return maintainedOriginals_.get(index);  } else {
+          return maintainedOriginalsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+           getMaintainedOriginalsOrBuilderList() {
+        if (maintainedOriginalsBuilder_ != null) {
+          return maintainedOriginalsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(maintainedOriginals_);
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder addMaintainedOriginalsBuilder() {
+        return getMaintainedOriginalsFieldBuilder().addBuilder(
+            edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder addMaintainedOriginalsBuilder(
+          int index) {
+        return getMaintainedOriginalsFieldBuilder().addBuilder(
+            index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedOriginals = 3;</code>
+       */
+      public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder> 
+           getMaintainedOriginalsBuilderList() {
+        return getMaintainedOriginalsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+          getMaintainedOriginalsFieldBuilder() {
+        if (maintainedOriginalsBuilder_ == null) {
+          maintainedOriginalsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder>(
+                  maintainedOriginals_,
+                  ((bitField0_ & 0x00000004) != 0),
+                  getParentForChildren(),
+                  isClean());
+          maintainedOriginals_ = null;
+        }
+        return maintainedOriginalsBuilder_;
+      }
+
+      private java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> maintainedReplicas_ =
+        java.util.Collections.emptyList();
+      private void ensureMaintainedReplicasIsMutable() {
+        if (!((bitField0_ & 0x00000008) != 0)) {
+          maintainedReplicas_ = new java.util.ArrayList<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata>(maintainedReplicas_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> maintainedReplicasBuilder_;
+
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> getMaintainedReplicasList() {
+        if (maintainedReplicasBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(maintainedReplicas_);
+        } else {
+          return maintainedReplicasBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public int getMaintainedReplicasCount() {
+        if (maintainedReplicasBuilder_ == null) {
+          return maintainedReplicas_.size();
+        } else {
+          return maintainedReplicasBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata getMaintainedReplicas(int index) {
+        if (maintainedReplicasBuilder_ == null) {
+          return maintainedReplicas_.get(index);
+        } else {
+          return maintainedReplicasBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public Builder setMaintainedReplicas(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (maintainedReplicasBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMaintainedReplicasIsMutable();
+          maintainedReplicas_.set(index, value);
+          onChanged();
+        } else {
+          maintainedReplicasBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public Builder setMaintainedReplicas(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (maintainedReplicasBuilder_ == null) {
+          ensureMaintainedReplicasIsMutable();
+          maintainedReplicas_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          maintainedReplicasBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public Builder addMaintainedReplicas(edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (maintainedReplicasBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMaintainedReplicasIsMutable();
+          maintainedReplicas_.add(value);
+          onChanged();
+        } else {
+          maintainedReplicasBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public Builder addMaintainedReplicas(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata value) {
+        if (maintainedReplicasBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMaintainedReplicasIsMutable();
+          maintainedReplicas_.add(index, value);
+          onChanged();
+        } else {
+          maintainedReplicasBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public Builder addMaintainedReplicas(
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (maintainedReplicasBuilder_ == null) {
+          ensureMaintainedReplicasIsMutable();
+          maintainedReplicas_.add(builderForValue.build());
+          onChanged();
+        } else {
+          maintainedReplicasBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public Builder addMaintainedReplicas(
+          int index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder builderForValue) {
+        if (maintainedReplicasBuilder_ == null) {
+          ensureMaintainedReplicasIsMutable();
+          maintainedReplicas_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          maintainedReplicasBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public Builder addAllMaintainedReplicas(
+          java.lang.Iterable<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadata> values) {
+        if (maintainedReplicasBuilder_ == null) {
+          ensureMaintainedReplicasIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, maintainedReplicas_);
+          onChanged();
+        } else {
+          maintainedReplicasBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public Builder clearMaintainedReplicas() {
+        if (maintainedReplicasBuilder_ == null) {
+          maintainedReplicas_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          maintainedReplicasBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public Builder removeMaintainedReplicas(int index) {
+        if (maintainedReplicasBuilder_ == null) {
+          ensureMaintainedReplicasIsMutable();
+          maintainedReplicas_.remove(index);
+          onChanged();
+        } else {
+          maintainedReplicasBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder getMaintainedReplicasBuilder(
+          int index) {
+        return getMaintainedReplicasFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder getMaintainedReplicasOrBuilder(
+          int index) {
+        if (maintainedReplicasBuilder_ == null) {
+          return maintainedReplicas_.get(index);  } else {
+          return maintainedReplicasBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public java.util.List<? extends edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+           getMaintainedReplicasOrBuilderList() {
+        if (maintainedReplicasBuilder_ != null) {
+          return maintainedReplicasBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(maintainedReplicas_);
+        }
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder addMaintainedReplicasBuilder() {
+        return getMaintainedReplicasFieldBuilder().addBuilder(
+            edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder addMaintainedReplicasBuilder(
+          int index) {
+        return getMaintainedReplicasFieldBuilder().addBuilder(
+            index, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .DataNodeMetadata maintainedReplicas = 4;</code>
+       */
+      public java.util.List<edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder> 
+           getMaintainedReplicasBuilderList() {
+        return getMaintainedReplicasFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder> 
+          getMaintainedReplicasFieldBuilder() {
+        if (maintainedReplicasBuilder_ == null) {
+          maintainedReplicasBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              edu.usfca.cs.chat.DfsMessages.DataNodeMetadata, edu.usfca.cs.chat.DfsMessages.DataNodeMetadata.Builder, edu.usfca.cs.chat.DfsMessages.DataNodeMetadataOrBuilder>(
+                  maintainedReplicas_,
+                  ((bitField0_ & 0x00000008) != 0),
+                  getParentForChildren(),
+                  isClean());
+          maintainedReplicas_ = null;
+        }
+        return maintainedReplicasBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -21334,68 +22078,70 @@ public final class DfsMessages {
       "unkHeader\022\035\n\004type\030\005 \001(\0162\017.FileChunk.Type" +
       "\"4\n\004Type\022\n\n\006LEADER\020\000\022\013\n\007REPLICA\020\001\022\023\n\017MAI" +
       "NTENANCE_LDR\020\002\"5\n\022UpdateRoutingTable\022\017\n\007" +
-      "dirpath\030\001 \003(\t\022\016\n\006nodeIp\030\002 \001(\t\"I\n\027Already" +
-      "MaintainedChunks\022\026\n\016originalChunks\030\001 \003(\t" +
-      "\022\026\n\016repeatedChunks\030\002 \003(\t\"y\n\007FileAck\022\020\n\010f" +
-      "ilepath\030\001 \001(\t\022\017\n\007success\030\002 \001(\010\022\033\n\004type\030\003" +
-      " \001(\0162\r.FileAck.Type\".\n\004Type\022\022\n\016FILE_OVER" +
-      "WRITE\020\000\022\022\n\016FILE_RETRIEVAL\020\001\"\326\001\n\017FileChun" +
-      "kHeader\022\024\n\014total_chunks\030\001 \001(\005\022\020\n\010filepat" +
-      "h\030\002 \001(\t\022#\n\010replicas\030\003 \003(\0132\021.DataNodeMeta" +
-      "data\022\016\n\006nodeIp\030\004 \001(\t\022+\n\020maintenanceNodes" +
-      "\030\005 \003(\0132\021.DataNodeMetadata\0229\n\027alreadyMain" +
-      "tainedChunks\030\006 \001(\0132\030.AlreadyMaintainedCh" +
-      "unks\"\226\001\n\013FileRequest\022\021\n\tdirectory\030\001 \001(\t\022" +
-      "\020\n\010filepath\030\002 \001(\t\022\022\n\nnum_chunks\030\003 \001(\005\022\014\n" +
-      "\004size\030\004 \001(\003\022\037\n\004type\030\005 \001(\0162\021.FileRequest." +
-      "Type\"\037\n\004Type\022\t\n\005STORE\020\000\022\014\n\010RETRIEVE\020\001\"2\n" +
-      "\014GetFreeNodes\022\022\n\nnum_chunks\030\001 \001(\005\022\016\n\006nod" +
-      "eIp\030\002 \001(\t\"\275\001\n\014FileResponse\022\026\n\016systemFile" +
-      "Path\030\001 \001(\t\022\023\n\013dfsFilePath\030\002 \001(\t\022$\n\tdataN" +
-      "odes\030\003 \003(\0132\021.DataNodeMetadata\022 \n\004type\030\004 " +
-      "\001(\0162\022.FileResponse.Type\022\027\n\017shouldOverwri" +
-      "te\030\005 \001(\010\"\037\n\004Type\022\t\n\005STORE\020\000\022\014\n\010RETRIEVE\020" +
-      "\001\"N\n\020DataNodeMetadata\022\020\n\010hostname\030\001 \001(\t\022" +
-      "\n\n\002ip\030\002 \001(\t\022\016\n\006memory\030\003 \001(\005\022\014\n\004port\030\004 \001(" +
-      "\005\"c\n\tHeartBeat\022)\n\016node_meta_data\030\002 \001(\0132\021" +
-      ".DataNodeMetadata\022\023\n\013store_count\030\003 \001(\005\022\026" +
-      "\n\016retrieve_count\030\004 \001(\005\"I\n\021ReplicationSta" +
-      "tus\022\020\n\010filepath\030\001 \001(\t\022\021\n\tchunk_num\030\002 \001(\005" +
-      "\022\017\n\007success\030\003 \001(\010\"B\n\nOnNodeDown\022\n\n\002ip\030\001 " +
-      "\001(\t\022(\n\raffectedNodes\030\002 \003(\0132\021.DataNodeMet" +
-      "adata\"\244\002\n\022DfsMessagesWrapper\022\037\n\tfileChun" +
-      "k\030\001 \001(\0132\n.FileChunkH\000\022#\n\013fileRequest\030\002 \001" +
-      "(\0132\014.FileRequestH\000\022%\n\014fileResponse\030\003 \001(\013" +
-      "2\r.FileResponseH\000\022\037\n\theartBeat\030\004 \001(\0132\n.H" +
-      "eartBeatH\000\022/\n\021replicationStatus\030\005 \001(\0132\022." +
-      "ReplicationStatusH\000\022\033\n\007fileAck\030\006 \001(\0132\010.F" +
-      "ileAckH\000\022+\n\017fileChunkHeader\030\007 \001(\0132\020.File" +
-      "ChunkHeaderH\000B\005\n\003msg\"\267\001\n\017MessagesWrapper" +
-      "\022/\n\rclientWrapper\030\001 \001(\0132\026.ClientMessages" +
-      "WrapperH\000\0223\n\017dataNodeWrapper\030\002 \001(\0132\030.Dat" +
-      "aNodeMessagesWrapperH\000\0227\n\021controllerWrap" +
-      "per\030\003 \001(\0132\032.ControllerMessagesWrapperH\000B" +
-      "\005\n\003msg\"\260\001\n\025ClientMessagesWrapper\022\037\n\tfile" +
-      "Chunk\030\001 \001(\0132\n.FileChunkH\000\022%\n\014fileRespons" +
-      "e\030\002 \001(\0132\r.FileResponseH\000\022\033\n\007fileAck\030\003 \001(" +
-      "\0132\010.FileAckH\000\022+\n\017fileChunkHeader\030\004 \001(\0132\020" +
-      ".FileChunkHeaderH\000B\005\n\003msg\"\337\001\n\027DataNodeMe" +
-      "ssagesWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileC" +
-      "hunkH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAckH\000\022+\n\017f" +
-      "ileChunkHeader\030\003 \001(\0132\020.FileChunkHeaderH\000" +
-      "\022/\n\021replicationStatus\030\004 \001(\0132\022.Replicatio" +
-      "nStatusH\000\022!\n\nonNodeDown\030\005 \001(\0132\013.OnNodeDo" +
-      "wnH\000B\005\n\003msg\"\350\002\n\031ControllerMessagesWrappe" +
-      "r\022#\n\013fileRequest\030\001 \001(\0132\014.FileRequestH\000\022\033" +
-      "\n\007fileAck\030\002 \001(\0132\010.FileAckH\000\022+\n\017fileChunk" +
-      "Header\030\003 \001(\0132\020.FileChunkHeaderH\000\022/\n\021repl" +
-      "icationStatus\030\004 \001(\0132\022.ReplicationStatusH" +
-      "\000\022\037\n\theartBeat\030\005 \001(\0132\n.HeartBeatH\000\022)\n\014In" +
-      "troMessage\030\006 \001(\0132\021.DataNodeMetadataH\000\022%\n" +
-      "\014getFreeNodes\030\007 \001(\0132\r.GetFreeNodesH\000\0221\n\022" +
-      "updateRoutingTable\030\010 \001(\0132\023.UpdateRouting" +
-      "TableH\000B\005\n\003msgB\023\n\021edu.usfca.cs.chatb\006pro" +
-      "to3"
+      "dirpath\030\001 \003(\t\022\016\n\006nodeIp\030\002 \001(\t\"\250\001\n\027Alread" +
+      "yMaintainedChunks\022\026\n\016originalChunks\030\001 \003(" +
+      "\t\022\026\n\016repeatedChunks\030\002 \003(\t\022.\n\023maintainedO" +
+      "riginals\030\003 \003(\0132\021.DataNodeMetadata\022-\n\022mai" +
+      "ntainedReplicas\030\004 \003(\0132\021.DataNodeMetadata" +
+      "\"y\n\007FileAck\022\020\n\010filepath\030\001 \001(\t\022\017\n\007success" +
+      "\030\002 \001(\010\022\033\n\004type\030\003 \001(\0162\r.FileAck.Type\".\n\004T" +
+      "ype\022\022\n\016FILE_OVERWRITE\020\000\022\022\n\016FILE_RETRIEVA" +
+      "L\020\001\"\326\001\n\017FileChunkHeader\022\024\n\014total_chunks\030" +
+      "\001 \001(\005\022\020\n\010filepath\030\002 \001(\t\022#\n\010replicas\030\003 \003(" +
+      "\0132\021.DataNodeMetadata\022\016\n\006nodeIp\030\004 \001(\t\022+\n\020" +
+      "maintenanceNodes\030\005 \003(\0132\021.DataNodeMetadat" +
+      "a\0229\n\027alreadyMaintainedChunks\030\006 \001(\0132\030.Alr" +
+      "eadyMaintainedChunks\"\226\001\n\013FileRequest\022\021\n\t" +
+      "directory\030\001 \001(\t\022\020\n\010filepath\030\002 \001(\t\022\022\n\nnum" +
+      "_chunks\030\003 \001(\005\022\014\n\004size\030\004 \001(\003\022\037\n\004type\030\005 \001(" +
+      "\0162\021.FileRequest.Type\"\037\n\004Type\022\t\n\005STORE\020\000\022" +
+      "\014\n\010RETRIEVE\020\001\"2\n\014GetFreeNodes\022\022\n\nnum_chu" +
+      "nks\030\001 \001(\005\022\016\n\006nodeIp\030\002 \001(\t\"\275\001\n\014FileRespon" +
+      "se\022\026\n\016systemFilePath\030\001 \001(\t\022\023\n\013dfsFilePat" +
+      "h\030\002 \001(\t\022$\n\tdataNodes\030\003 \003(\0132\021.DataNodeMet" +
+      "adata\022 \n\004type\030\004 \001(\0162\022.FileResponse.Type\022" +
+      "\027\n\017shouldOverwrite\030\005 \001(\010\"\037\n\004Type\022\t\n\005STOR" +
+      "E\020\000\022\014\n\010RETRIEVE\020\001\"N\n\020DataNodeMetadata\022\020\n" +
+      "\010hostname\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\016\n\006memory\030\003 " +
+      "\001(\005\022\014\n\004port\030\004 \001(\005\"c\n\tHeartBeat\022)\n\016node_m" +
+      "eta_data\030\002 \001(\0132\021.DataNodeMetadata\022\023\n\013sto" +
+      "re_count\030\003 \001(\005\022\026\n\016retrieve_count\030\004 \001(\005\"I" +
+      "\n\021ReplicationStatus\022\020\n\010filepath\030\001 \001(\t\022\021\n" +
+      "\tchunk_num\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"B\n\nOnN" +
+      "odeDown\022\n\n\002ip\030\001 \001(\t\022(\n\raffectedNodes\030\002 \003" +
+      "(\0132\021.DataNodeMetadata\"\244\002\n\022DfsMessagesWra" +
+      "pper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileChunkH\000\022#\n" +
+      "\013fileRequest\030\002 \001(\0132\014.FileRequestH\000\022%\n\014fi" +
+      "leResponse\030\003 \001(\0132\r.FileResponseH\000\022\037\n\thea" +
+      "rtBeat\030\004 \001(\0132\n.HeartBeatH\000\022/\n\021replicatio" +
+      "nStatus\030\005 \001(\0132\022.ReplicationStatusH\000\022\033\n\007f" +
+      "ileAck\030\006 \001(\0132\010.FileAckH\000\022+\n\017fileChunkHea" +
+      "der\030\007 \001(\0132\020.FileChunkHeaderH\000B\005\n\003msg\"\267\001\n" +
+      "\017MessagesWrapper\022/\n\rclientWrapper\030\001 \001(\0132" +
+      "\026.ClientMessagesWrapperH\000\0223\n\017dataNodeWra" +
+      "pper\030\002 \001(\0132\030.DataNodeMessagesWrapperH\000\0227" +
+      "\n\021controllerWrapper\030\003 \001(\0132\032.ControllerMe" +
+      "ssagesWrapperH\000B\005\n\003msg\"\260\001\n\025ClientMessage" +
+      "sWrapper\022\037\n\tfileChunk\030\001 \001(\0132\n.FileChunkH" +
+      "\000\022%\n\014fileResponse\030\002 \001(\0132\r.FileResponseH\000" +
+      "\022\033\n\007fileAck\030\003 \001(\0132\010.FileAckH\000\022+\n\017fileChu" +
+      "nkHeader\030\004 \001(\0132\020.FileChunkHeaderH\000B\005\n\003ms" +
+      "g\"\337\001\n\027DataNodeMessagesWrapper\022\037\n\tfileChu" +
+      "nk\030\001 \001(\0132\n.FileChunkH\000\022\033\n\007fileAck\030\002 \001(\0132" +
+      "\010.FileAckH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.F" +
+      "ileChunkHeaderH\000\022/\n\021replicationStatus\030\004 " +
+      "\001(\0132\022.ReplicationStatusH\000\022!\n\nonNodeDown\030" +
+      "\005 \001(\0132\013.OnNodeDownH\000B\005\n\003msg\"\350\002\n\031Controll" +
+      "erMessagesWrapper\022#\n\013fileRequest\030\001 \001(\0132\014" +
+      ".FileRequestH\000\022\033\n\007fileAck\030\002 \001(\0132\010.FileAc" +
+      "kH\000\022+\n\017fileChunkHeader\030\003 \001(\0132\020.FileChunk" +
+      "HeaderH\000\022/\n\021replicationStatus\030\004 \001(\0132\022.Re" +
+      "plicationStatusH\000\022\037\n\theartBeat\030\005 \001(\0132\n.H" +
+      "eartBeatH\000\022)\n\014IntroMessage\030\006 \001(\0132\021.DataN" +
+      "odeMetadataH\000\022%\n\014getFreeNodes\030\007 \001(\0132\r.Ge" +
+      "tFreeNodesH\000\0221\n\022updateRoutingTable\030\010 \001(\013" +
+      "2\023.UpdateRoutingTableH\000B\005\n\003msgB\023\n\021edu.us" +
+      "fca.cs.chatb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -21418,7 +22164,7 @@ public final class DfsMessages {
     internal_static_AlreadyMaintainedChunks_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AlreadyMaintainedChunks_descriptor,
-        new java.lang.String[] { "OriginalChunks", "RepeatedChunks", });
+        new java.lang.String[] { "OriginalChunks", "RepeatedChunks", "MaintainedOriginals", "MaintainedReplicas", });
     internal_static_FileAck_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_FileAck_fieldAccessorTable = new

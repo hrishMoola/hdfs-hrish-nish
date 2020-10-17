@@ -18,15 +18,12 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-import javax.xml.crypto.Data;
-
 @ChannelHandler.Sharable
 public class Controller
         extends SimpleChannelInboundHandler<DfsMessages.MessagesWrapper> {
 
 
     // storage node map with key as IP and DataNodeMetadata
-    //todo update this with every heartbeat
     private ConcurrentMap<String, DfsMessages.DataNodeMetadata> activeStorageNodes;
 
     // routing table key is dir name
@@ -41,9 +38,9 @@ public class Controller
     ConcurrentMap<String, BloomFilter> nodeToBF;
 
 //    public static int CHUNK_SIZE = 128; // MB
-    public static int CHUNK_SIZE = 128000 * 1024; // 10kb
+    public static int CHUNK_SIZE = 10 * 1024; // 10kb
 
-    int m = 1000;
+    int m = 1000000;
     int k = 20;
 
     public Controller() {
@@ -108,7 +105,7 @@ public class Controller
         List<DfsMessages.DataNodeMetadata> replicaNodes = getNodesWithReplicas(nodeAddr);
         // remove down node from routing table after replicas retrieved
         removeNodeFromRoutingTable(nodeAddr);
-        // message all Nodes that nodeAddr is down
+        // message first that nodeAddr is down for cascading msging
         if(replicaNodes.size() > 0) startFaultTolerance(nodeAddr, replicaNodes);
     }
 
@@ -252,6 +249,9 @@ public class Controller
             case 5: // Heart Beat
                 try {
                     DfsMessages.DataNodeMetadata info = message.getHeartBeat().getNodeMetaData();
+                    // update activeStorageNode for info
+                    String nodeIp = info.getIp();
+                    activeStorageNodes.put(nodeIp, info);
                     System.out.println("Node: " + info.getHostname() + " alive at port: " + info.getPort() + " with memory: " + info.getMemory());
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading HeartBeat from node: " + e);

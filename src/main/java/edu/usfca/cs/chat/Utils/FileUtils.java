@@ -25,6 +25,7 @@ public class FileUtils {
 
     public static void writeToFile(DfsMessages.FileChunk fileChunk, String storagePath, String type) throws Exception{
         String fileName = fileChunk.getFilepath();
+        System.out.println("file name in writetoFile: " + fileName);
 
         String directoryName = fileName.split("-")[0];
         String chunkNum = fileName.split("-")[1];
