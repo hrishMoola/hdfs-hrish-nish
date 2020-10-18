@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,9 +16,6 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
-
-import javax.xml.crypto.Data;
 
 import static edu.usfca.cs.chat.Utils.FileUtils.getChunks;
 import static edu.usfca.cs.chat.Utils.FileUtils.writeToFile;
@@ -187,19 +181,40 @@ public class StorageNode
             case 1: // File Chunk
                 //basically store the chunks being provided and send for replication to replicas
                 executor.submit(()-> {
-                    try {
+                try {
+                    String chunkName = message.getFileChunk().getFilepath();
+                    DfsMessages.FileChunkHeader header = message.getFileChunk().getFilechunkHeader();
+                    fileChunkMetadataMap.put(chunkName, header);
+
+                    // IF SAME CHUNK REPLICA OR ORIGINAL exists here update it's value as well
+                    String tempFileName = chunkName.contains(".replica") ? chunkName.substring(0, chunkName.lastIndexOf('.')) : chunkName + ".replica";
+                    System.out.println("TEMP FILE NAME: " + tempFileName);
+                    if(fileChunkMetadataMap.keySet().contains(tempFileName)) {
+                        System.out.println("NODE ALSO CONTAINS TEMPFILENAME");
+                        fileChunkMetadataMap.put(tempFileName, header);
+                    }
+
+                    System.out.println(tempMemory.addAndGet(-this.chunkSize));
+                    totalStorageReqs.incrementAndGet();
+
+                    System.out.println("FILE PATH TO WRITE: " + message.getFileChunk().getFilepath());
+                    System.out.println("TYPE: " + message.getFileChunk().getType());
+
                     if(message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.REPLICA)){ //replica
-                        writeToFile(message.getFileChunk(),storagePath,"/" + REPLICA_DIR + "/");
+                        System.out.println("inside replica");
+                        //  remove word replica from filepath
+                        String filePath = message.getFileChunk().getFilepath();
+                        String newFilePath = filePath.contains(".replica") ? filePath.substring(0, filePath.lastIndexOf('.')) : filePath;
+                        DfsMessages.FileChunk newFC = DfsMessages.FileChunk.newBuilder(message.getFileChunk()).setFilepath(newFilePath).build();
+                        writeToFile(newFC,storagePath,"/" + REPLICA_DIR + "/");
                     } else {//leader
+                        System.out.println("WRITING TO FILE: ");
                         writeToFile(message.getFileChunk(),storagePath,"/" + ORIGINAL_DIR + "/");
-                        System.out.println("fileChunkMetadataMap = " + fileChunkMetadataMap.keySet());
                     }
                     if(message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.LEADER)) {
                         // replicas only for leader not for maintenance leader which is when a node with original file is down and is replicated
                         sendFileToReplicas(message.getFileChunk());
                     }
-                    if(!message.getFileChunk().getFilechunkHeader().equals(DfsMessages.FileChunkHeader.getDefaultInstance()))
-                        fileChunkMetadataMap.put(message.getFileChunk().getFilepath(), message.getFileChunk().getFilechunkHeader());
                     System.out.println(tempMemory.addAndGet(-this.chunkSize));
                     totalStorageReqs.incrementAndGet();
                     System.out.println("Successfully wrote to the file.");
@@ -242,16 +257,21 @@ public class StorageNode
         break;
             case 3: // chunk header from client.
                 executor.submit(()-> {
-                    System.out.println("Received chunk header and replica information");
-                    DfsMessages.FileChunkHeader header = message.getFileChunkHeader();
-                    // these are the nodes that replication needs to happen on
-                    List<DfsMessages.DataNodeMetadata> nodesToReplicateOn = header.getReplicasList();
-                    // this is the list of nodes whose replication status needs to be maintained sequentially
-                    List<DfsMessages.DataNodeMetadata> nodesToMaintain = header.getMaintenanceNodesList();
+                System.out.println("Received chunk header and replica information");
+                DfsMessages.FileChunkHeader header = message.getFileChunkHeader();
+                // these are the nodes that replication needs to happen on
+                List<DfsMessages.DataNodeMetadata> nodesToReplicateOn = header.getReplicasList();
+                // this is the list of nodes whose replication status needs to be maintained sequentially
+                List<DfsMessages.DataNodeMetadata> nodesToMaintain = header.getMaintenanceNodesList();
 
-                    DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks = header.getAlreadyMaintainedChunks();
+                DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks = header.getAlreadyMaintainedChunks();
 
-                    initiateReplicationMaintenence(ctx, header, alreadyMaintainedChunks);
+                System.out.println("O_O_O STARTING FILE MAINTENANCE ON NODE: O_O_O" + hostName + ":" + hostPort);
+                System.out.println("ALREADY MAINTAINED CHUNKS ARE: " + alreadyMaintainedChunks);
+                System.out.println("NODES TO REPLICATE ON: " + nodesToReplicateOn);
+                System.out.println("NODES TO MAINTAIN: " + nodesToMaintain);
+
+                initiateReplicationMaintenence(ctx, header, alreadyMaintainedChunks);
                 });
                 break;
             case 4: //replication Patch.
@@ -338,8 +358,8 @@ public class StorageNode
     }
 
     private Map<String, List<String>> getFilesToBeReplicated(String nodeDownIp, DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks) {
-        List<String> originals = new ArrayList<>();
-        List<String> replicas = new ArrayList<>();
+        Set<String> originals = new HashSet<>();
+        Set<String> replicas = new HashSet<>();
 
         List<String> completedOrg = new ArrayList<>();
         List<String> completedRep = new ArrayList<>();
@@ -349,27 +369,40 @@ public class StorageNode
             completedRep = alreadyMaintainedChunks.getRepeatedChunksList();
         }
 
+        System.out.println("completedOrg: " + completedOrg);
+        System.out.println("completedRep: " + completedRep);
+
         for(String dir : fileChunkMetadataMap.keySet()) {
             DfsMessages.FileChunkHeader valueHeader = fileChunkMetadataMap.get(dir);
             List<DfsMessages.DataNodeMetadata> replicatedNodes = valueHeader.getReplicasList();
 
-            for(DfsMessages.DataNodeMetadata node : replicatedNodes) {
+            int i;
+            for(i = 0; i < replicatedNodes.size(); i++) {
+                DfsMessages.DataNodeMetadata node = replicatedNodes.get(i);
+                String orgFileName = dir.contains(".replica") ? dir.substring(0, dir.lastIndexOf('.')) : dir;
+
                 if(nodeDownIp.equals(node.getIp())) {
-                    if(replicatedNodes.size() == 1) {
+                    if(i == 0) {
+                        // node that went down was the original since it's in the first position
+                        // make an original
                         // check to make sure that the original's replication has not already been done
-                        if(!completedOrg.contains(dir)) originals.add(dir);
+                        if(!completedOrg.contains(orgFileName)) originals.add(orgFileName);
                     }
                     else {
                         // check to make sure that the replica's replication has not already been done
-                        if(!completedRep.contains(dir)) replicas.add(dir);
+                        if(!completedRep.contains(orgFileName)) replicas.add(orgFileName);
                     }
                 }
             }
         }
 
         Map<String, List<String>> map = new HashMap<>();
-        map.put(ORIGINAL_DIR, originals);
-        map.put(REPLICA_DIR, replicas);
+        map.put(ORIGINAL_DIR, new ArrayList<>(originals));
+        map.put(REPLICA_DIR, new ArrayList<>(replicas));
+
+        System.out.println("FILES THAT ARE ALREADY MAINTAINED FROM PREVIOUS NODES: " + alreadyMaintainedChunks);
+        System.out.println("FILES TO BE REPLICATED ON NODE: " + hostName + ":" + hostPort);
+        System.out.println(map);
 
         return map;
     }
@@ -382,31 +415,48 @@ public class StorageNode
         return storagePath + "/" + filePresentInDir + "/" + fileName + chunk;
     }
 
-    private void replicateChunks(List<String> chunkList, List<DfsMessages.DataNodeMetadata> nodesToReplicateOn, DfsMessages.FileChunk.Type type) {
+    private List<DfsMessages.DataNodeMetadata> replicateChunks(String nodeDownIp, List<String> chunkList, List<DfsMessages.DataNodeMetadata> nodesToReplicateOn, DfsMessages.FileChunk.Type type) {
         int i = 0;
-        int orgIdx = 0;
+        int chunkIdx = 0;
 
-        while(orgIdx < chunkList.size()) {
-            System.out.println("Replicating original file: " + chunkList.get(orgIdx));
-            String chunkName = chunkList.get(orgIdx++);
-            System.out.println("chunk name: " + chunkName);
+        List<DfsMessages.DataNodeMetadata> alreadyMaintainedNodes = new ArrayList<>();
 
-            // find file which islocated in replica and create it's original on a new node
-            String absFilePath = createPathFromChunkName(chunkName, REPLICA_DIR);
-            String checksumPath = createPathFromChunkName(chunkName+"_checksum", REPLICA_DIR);
+        while(chunkIdx < chunkList.size()) {
+            String chunkName = chunkList.get(chunkIdx++);
+            System.out.println("Replicating chunk name: " + chunkName);
+            System.out.println("TYPE: " +  type);
 
-            System.out.println("checksum file path: " + checksumPath);
-            System.out.println("abs path: " + absFilePath);
+            // find file which is located in replica and create it's original on a new node
+            String dirToFindFileIn = type.equals(DfsMessages.FileChunk.Type.MAINTENANCE_LDR) ? REPLICA_DIR : ORIGINAL_DIR;
+            String oppDir = dirToFindFileIn.equalsIgnoreCase(REPLICA_DIR) ? ORIGINAL_DIR : REPLICA_DIR;
+
+            String absFilePath = createPathFromChunkName(chunkName, dirToFindFileIn);
+            String oppPath = createPathFromChunkName(chunkName, oppDir);
+
             File fileChunk = new File(absFilePath);
 
-            System.out.println("File chunk is: " + fileChunk);
+            if(!fileChunk.isFile()) {
+                fileChunk = new File(oppPath);
+            }
 
             if (i == nodesToReplicateOn.size()) i = 0;
             DfsMessages.DataNodeMetadata replicateTo = nodesToReplicateOn.get(i++);
+
             System.out.println("connecting to: " + replicateTo.getIp().split(":")[0] + ":" + replicateTo.getPort());
             Channel ch = connectToNode(replicateTo.getIp().split(":")[0], replicateTo.getPort());
+            alreadyMaintainedNodes.add(replicateTo);
 
-            // todo edge case if chunk already exists here, don't replicate
+            // if current node already has a replica don't create it here
+            if(type.equals(DfsMessages.FileChunk.Type.REPLICA)) {
+                String chunkIdentifier = chunkName + ".replica";
+                if(fileChunkMetadataMap.keySet().contains(chunkIdentifier)) {
+                    if(replicateTo.getHostname().equals(hostName) && replicateTo.getPort() == hostPort) {
+                        // node to replicate on already contains the file
+                        if (i == nodesToReplicateOn.size()) i = 0;
+                        replicateTo = nodesToReplicateOn.get(i++);
+                    }
+                }
+            }
 
             byte[] bytes = new byte[(int) fileChunk.length()];
             // funny, if can use Java 7, please uses Files.readAllBytes(path)
@@ -414,23 +464,85 @@ public class StorageNode
                 fis.read(bytes);
             }
             catch(Exception e) {
-                System.out.println("error converting file chunk to byte array");
+                System.out.println("error converting file chunk to byte array: ");
+                e.printStackTrace();
             }
 
+            // before replicating update the filechunkmetadatamap with the new node
+            DfsMessages.FileChunkHeader header = fileChunkMetadataMap.getOrDefault(chunkName, null);
+            if(header == null) header = fileChunkMetadataMap.get(chunkName + ".replica");
+            List<DfsMessages.DataNodeMetadata> replicas = new ArrayList<>(header.getReplicasList());
+
+
+            System.out.println("UPDATING REPLICA LIST");
+            if(type.equals(DfsMessages.FileChunk.Type.MAINTENANCE_LDR)) {
+                // the node the request is being sent to is going to be the new original of this file
+                // update idx 0
+                // update the replicas list with new node if currently present on this node
+                replicas.set(0, replicateTo);
+                // ALSO UPDATE IT FOR THE REPLICA'S METADATA if same chunk replica exists on current node
+            }
+            else {
+                boolean replicate = false;
+                int k;
+                for(k = 1; k < replicas.size(); k++) {
+                    DfsMessages.DataNodeMetadata node = replicas.get(k);
+                    System.out.println("REPLICA SET NODE IP: " + node.getIp());
+                    if(node.getIp().equals(nodeDownIp)) {
+                        replicate = true;
+                        break;
+                    }
+                }
+                if(replicate) {
+                    System.out.println("FOUND REPLICA!!!");
+                    replicas.set(k, replicateTo);
+                }
+            }
+
+            DfsMessages.FileChunkHeader newHeader = DfsMessages.FileChunkHeader.newBuilder()
+            .addAllReplicas(replicas)
+            .build();
+
+            //  get replicas for creating filechunkheader
+            System.out.println("FIND CHUNK NAME: " + chunkName);
+            System.out.println(fileChunkMetadataMap.keySet());
+
+            if(type.equals(DfsMessages.FileChunk.Type.REPLICA)) {
+                chunkName = chunkName + ".replica";
+            }
+
+            // also update current nodes filechunkmetadata map right?
+            System.out.println("UPDATING CURRENT NODE FILECHUNKMETADATA");
+            fileChunkMetadataMap.put(chunkName, newHeader);
+
+            // ALSO update filechunkmetadata of the replica chunk is it exists here or the original if replica exists here
+            String tempFileName = chunkName.contains(".replica") ? chunkName.substring(0, chunkName.lastIndexOf('.')) : chunkName + ".replica";
+            System.out.println("TEMP FILE NAME: " + tempFileName);
+            if(fileChunkMetadataMap.keySet().contains(tempFileName)) {
+                System.out.println("NODE ALSO CONTAINS TEMPFILENAME");
+                fileChunkMetadataMap.put(tempFileName, newHeader);
+            }
+
+
+            System.out.println("FOR FILE: " + chunkName);
+            System.out.println("NEW HEADER REPLICAS ARE: " + newHeader);
+
+
             // create filechunk msg
-            // todo add sending file checksum
             DfsMessages.MessagesWrapper message = DfsMessages.MessagesWrapper.newBuilder()
                     .setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder()
-                            .setFileChunk(DfsMessages.FileChunk.newBuilder()
-                            .setChunks(ByteString.copyFrom(bytes))
-                            .setFilepath(chunkName)
-                            .setType(type))
-                            .build())
+                    .setFileChunk(DfsMessages.FileChunk.newBuilder()
+                    .setFilechunkHeader(DfsMessages.FileChunkHeader.newBuilder(newHeader).build())
+                    .setChunks(ByteString.copyFrom(bytes))
+                    .setFilepath(chunkName)
+                    .setType(type))
+                    .build())
                     .build();
 
             ch.writeAndFlush(message);
 
         }
+        return alreadyMaintainedNodes;
     }
 
     private DfsMessages.DataNodeMetadata getNextNode(List<DfsMessages.DataNodeMetadata> nodesToMaintain) {
@@ -445,9 +557,100 @@ public class StorageNode
         return null;
     }
 
+    private List<String> createListOfFilepathsReplicated(Map<String, List<String>> map) {
+        List<String> originalChunks = map.get(ORIGINAL_DIR);
+        List<String> replicaChunks  = map.get(REPLICA_DIR);
+
+        Set<String> allFilePaths = new HashSet<>();
+
+        originalChunks.addAll(replicaChunks);
+
+        for(String filechunk : originalChunks) {
+            // return the parent dir path since we're sending this to controller to update routing table
+            if(filechunk.contains(".replica")) filechunk = filechunk.substring(0, filechunk.lastIndexOf('.'));
+            String filepath = FileUtils.getDirPath(filechunk);
+            allFilePaths.add(filepath);
+        }
+
+        System.out.println("UNIQUE FILEPATHS UPDATED: " + allFilePaths);
+        System.out.println("set length: " + allFilePaths.size());
+        return new ArrayList<>(allFilePaths);
+    }
+
+    private DfsMessages.MessagesWrapper createUpdateRoutingTableMsg(List<String> updatedDirPaths, String nodeIp) {
+        return DfsMessages.MessagesWrapper.newBuilder()
+                .setControllerWrapper(DfsMessages.ControllerMessagesWrapper.newBuilder()
+                .setUpdateRoutingTable(DfsMessages.UpdateRoutingTable.newBuilder()
+                .setNodeIp(nodeIp)
+                .addAllDirpath(updatedDirPaths)
+                .build())
+                .build())
+                .build();
+    }
+
+    private void updateFileChunkMetaDataFromMaintainedNodes(String nodeDownIp, DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks) {
+
+        List<String> maintainedRepChunks = new ArrayList<>(alreadyMaintainedChunks.getRepeatedChunksList());
+
+        List<DfsMessages.DataNodeMetadata> allMaintainedNodes = new ArrayList<>(alreadyMaintainedChunks.getMaintainedOriginalsList());
+        allMaintainedNodes.addAll(alreadyMaintainedChunks.getMaintainedReplicasList());
+
+        List<String> allMaintainedChunks = new ArrayList<>(alreadyMaintainedChunks.getOriginalChunksList());
+        maintainedRepChunks.forEach(chunk -> allMaintainedChunks.add(chunk + ".replica"));
+
+        System.out.println("ALL MAINTAINED CHUNKS: " + allMaintainedChunks);
+        System.out.println("ALL MAINTAINED NODES: " + allMaintainedNodes);
+
+        int j;
+        for(j = 0; j < allMaintainedChunks.size(); j++) {
+            String chunkName = allMaintainedChunks.get(j);
+            System.out.println("CHUNK NAME: " + chunkName);
+
+            DfsMessages.FileChunkHeader header = fileChunkMetadataMap.getOrDefault(chunkName, null);
+
+
+            if(header == null) {
+                // check to see if we have the replica file or original if current is replica
+                String tempFileName = chunkName.contains(".replica") ? chunkName.substring(0, chunkName.lastIndexOf('.')) : chunkName + ".replica";
+                header = fileChunkMetadataMap.getOrDefault(tempFileName, null);
+            };
+            if(header == null) continue;
+
+            // find nodeDownIp node, remove it and replace it with the new node that now holds the maintained replica
+            List<DfsMessages.DataNodeMetadata> replicas = new ArrayList<>(header.getReplicasList());
+            boolean isPresent = false;
+            int i;
+            for(i = 0; i < replicas.size(); i++) {
+                DfsMessages.DataNodeMetadata node = replicas.get(i);
+                if(node.getIp().equals(nodeDownIp)) {
+                    System.out.println("NODE GETTING REPLACED: " + node);
+                    isPresent = true;
+                    break;
+                }
+            }
+            // replace node
+            if(isPresent) {
+                System.out.println("NODE BEING REPLACED WITH: " + allMaintainedNodes.get(j));
+                System.out.println("ALL REPLICAS: " + replicas);
+                System.out.println("idx being replaced: " + i);
+                replicas.set(i, allMaintainedNodes.get(j));
+                System.out.println("AFTE NODES REPLACED: " + replicas);
+                DfsMessages.FileChunkHeader newHeader = DfsMessages.FileChunkHeader.newBuilder(header).clearReplicas().addAllReplicas(replicas).build();
+                fileChunkMetadataMap.put(chunkName, newHeader);
+            }
+
+
+
+        }
+
+    }
+
     private void initiateReplicationMaintenence(ChannelHandlerContext ctx, DfsMessages.FileChunkHeader header, DfsMessages.AlreadyMaintainedChunks alreadyMaintainedChunks) {
         String nodeIp = header.getNodeIp();
         List<DfsMessages.DataNodeMetadata> nodesToReplicateOn = header.getReplicasList();
+
+        // update filechunkmetadata map with the already maintained nodes
+        updateFileChunkMetaDataFromMaintainedNodes(nodeIp, alreadyMaintainedChunks);
 
         // go through filechunkmetadatamap and find all files that need to be replicated
         Map<String, List<String>> map = getFilesToBeReplicated(nodeIp, alreadyMaintainedChunks);
@@ -459,55 +662,70 @@ public class StorageNode
         System.out.println("storagepath: " + storagePath);
         String originalDir = storagePath + "/" + ORIGINAL_DIR + "/";
         System.out.println("original dir: " + originalDir);
+
         // start replicating originals
-        replicateChunks(originalChunks, nodesToReplicateOn, DfsMessages.FileChunk.Type.MAINTENANCE_LDR);
+        List<DfsMessages.DataNodeMetadata> maintainedOrgNodes = replicateChunks(nodeIp, originalChunks, nodesToReplicateOn, DfsMessages.FileChunk.Type.MAINTENANCE_LDR);
 
         // start replicating replicas
-        replicateChunks(replicaChunks, nodesToReplicateOn, DfsMessages.FileChunk.Type.REPLICA);
+        List<DfsMessages.DataNodeMetadata> maintainedRepNodes = replicateChunks(nodeIp, replicaChunks, nodesToReplicateOn, DfsMessages.FileChunk.Type.REPLICA);
 
         // create a map of file chunks and whether an original or replica was created for them
-
         List<DfsMessages.DataNodeMetadata> nodesToMaintain = header.getMaintenanceNodesList();
 
         // send this map to the next storage node on the list
         DfsMessages.DataNodeMetadata node = getNextNode(nodesToMaintain);
 
-        if(node == null) return; // this is the last node to replicate on
+        // if next node is not null keep cascading
+        if(node != null) {
+            if(alreadyMaintainedChunks != null) {
+                //  grow the list with existing replications done by previous nodes
+                originalChunks.addAll(alreadyMaintainedChunks.getOriginalChunksList());
+                replicaChunks.addAll(alreadyMaintainedChunks.getRepeatedChunksList());
+                // add the datanodemetadata as well in the right order as the chunks
+                maintainedOrgNodes.addAll(alreadyMaintainedChunks.getMaintainedOriginalsList());
+                maintainedRepNodes.addAll(alreadyMaintainedChunks.getMaintainedReplicasList());
+            }
 
-        if(alreadyMaintainedChunks != null) {
-            //  grow the list with existing replications done by previous nodes
-            originalChunks.addAll(alreadyMaintainedChunks.getOriginalChunksList());
-            replicaChunks.addAll(alreadyMaintainedChunks.getRepeatedChunksList());
+            // Send next node a FileChunkHeader msg with all info for cascading maintenance
+            DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder()
+            .setDataNodeWrapper(
+            DfsMessages.DataNodeMessagesWrapper.newBuilder()
+            .setFileChunkHeader(
+            DfsMessages.FileChunkHeader.newBuilder()
+            .addAllReplicas(nodesToReplicateOn)
+            .addAllMaintenanceNodes(nodesToMaintain)
+            .setNodeIp(nodeIp)
+            .setAlreadyMaintainedChunks(
+            DfsMessages.AlreadyMaintainedChunks.newBuilder()
+            .addAllRepeatedChunks(replicaChunks)
+            .addAllOriginalChunks(originalChunks)
+            .addAllMaintainedOriginals(maintainedOrgNodes)
+            .addAllMaintainedReplicas(maintainedRepNodes)
+            .build())
+            .build())
+            .build())
+            .build();
+
+            System.out.println(wrapper);
+
+            String ip = node.getIp().split(":")[0];
+            int port = node.getPort();
+            System.out.println("NEXT NODE TO REPLICATE ON: " + ip + ":" + port);
+            Channel ch = connectToNode(ip, port);
+
+            ch.writeAndFlush(wrapper);
         }
 
-        // Send next node a FileChunkHeader msg with all info for cascading maintenance
-        DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder()
-                .setDataNodeWrapper(
-                DfsMessages.DataNodeMessagesWrapper.newBuilder()
-                .setFileChunkHeader(
-                DfsMessages.FileChunkHeader.newBuilder()
-                .addAllReplicas(nodesToReplicateOn)
-                .addAllMaintenanceNodes(nodesToMaintain)
-                .setNodeIp(nodeIp)
-                .setAlreadyMaintainedChunks(
-                DfsMessages.AlreadyMaintainedChunks.newBuilder()
-                .addAllRepeatedChunks(replicaChunks)
-                .addAllOriginalChunks(originalChunks)
-                .build())
-                .build())
-                .build())
-                .build();
 
-        System.out.println(wrapper);
+        // send msg to controller to update routing table with files replicated on this node
+        System.out.println("SEND MSG TO CONTROLLER WITH UPDATED NODES");
+        List<String> filesUpdatedDirPath = createListOfFilepathsReplicated(map);
 
-        String ip = node.getIp().split(":")[0];
-        int port = node.getPort();
-        System.out.println("NEXT NODE TO REPLICATE ON: " + ip + ":" + port);
-        Channel ch = connectToNode(ip, port);
+        DfsMessages.MessagesWrapper message = createUpdateRoutingTableMsg(filesUpdatedDirPath, nodeIp);
+        System.out.println("update routing table msg: " + message);
 
-        ch.writeAndFlush(wrapper);
-
-        // todo add checking the same map at the beginning of this function to make sure no duplicate replication occurs
+        Channel ctrlCh = channelMap.getOrDefault(controllerHostname,  connectToNode(controllerHostname, controllerPort));
+        ctrlCh.writeAndFlush(message);
     }
 
     private void getAndSendChunks(ChannelHandlerContext ctx, String filepath) throws IOException {
@@ -543,12 +761,6 @@ public class StorageNode
         }
     }
 
-    private void createChannels(List<DfsMessages.DataNodeMetadata> dataNodesList) {
-        dataNodesList.forEach(node->{
-            channelMap.put(node.getHostname(), connectToNode(node.getIp().split(":")[0], node.getPort()));
-        });
-    }
-
     public Channel connectToNode(String hostname, Integer port) {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         MessagePipeline pipeline = new MessagePipeline(this);
@@ -567,12 +779,12 @@ public class StorageNode
 
 
     private void sendFileToReplicas(DfsMessages.FileChunk fileChunk) {
-        String filePath = fileChunk.getFilepath().split("-")[0];
+        String filePath = fileChunk.getFilepath() + ".replica";
         System.out.println("filePath = " + filePath);
         //0-leader, 1,2- replicas
 
-        DfsMessages.FileChunkHeader currHeader = DfsMessages.FileChunkHeader.newBuilder(fileChunk.getFilechunkHeader()).removeReplicas(2).removeReplicas(1).build();
-        DfsMessages.FileChunk currFileChunk = DfsMessages.FileChunk.newBuilder(fileChunk).setType(DfsMessages.FileChunk.Type.REPLICA).setFilechunkHeader(currHeader).build();
+        DfsMessages.FileChunkHeader currHeader = DfsMessages.FileChunkHeader.newBuilder(fileChunk.getFilechunkHeader()).build();
+        DfsMessages.FileChunk currFileChunk = DfsMessages.FileChunk.newBuilder(fileChunk).setFilepath(filePath).setType(DfsMessages.FileChunk.Type.REPLICA).setFilechunkHeader(currHeader).setType(DfsMessages.FileChunk.Type.REPLICA).build();
         DfsMessages.MessagesWrapper message = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileChunk(currFileChunk).build()).build();
 //        System.out.println("message to replicas = " + message);
         fileChunk.getFilechunkHeader().getReplicasList().subList(1,3).forEach((nodeMetadata)->{

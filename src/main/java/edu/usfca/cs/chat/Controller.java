@@ -18,15 +18,12 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-import javax.xml.crypto.Data;
-
 @ChannelHandler.Sharable
 public class Controller
         extends SimpleChannelInboundHandler<DfsMessages.MessagesWrapper> {
 
 
     // storage node map with key as IP and DataNodeMetadata
-    //todo update this with every heartbeat
     private ConcurrentMap<String, DfsMessages.DataNodeMetadata> activeStorageNodes;
 
     // routing table key is dir name
@@ -43,7 +40,7 @@ public class Controller
 //    public static int CHUNK_SIZE = 128; // MB
     public static int CHUNK_SIZE = 10 * 1024; // 10kb
 
-    int m = 1000;
+    int m = 1000000;
     int k = 20;
 
     public Controller() {
@@ -87,8 +84,6 @@ public class Controller
         return null;
     }
 
-    //todo register an active datanode and client connection over here.
-    //todo figure out how to distinguish between the two of them to store accordingly. Mostly probably name them correctly
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         /* A connection has been established */
@@ -97,7 +92,6 @@ public class Controller
         System.out.println("Connection established: " + addr);
     }
 
-    //todo remove reference to node upon disconnection
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         /* A channel has been disconnected */
@@ -111,7 +105,7 @@ public class Controller
         List<DfsMessages.DataNodeMetadata> replicaNodes = getNodesWithReplicas(nodeAddr);
         // remove down node from routing table after replicas retrieved
         removeNodeFromRoutingTable(nodeAddr);
-        // message all Nodes that nodeAddr is down
+        // message first that nodeAddr is down for cascading msging
         if(replicaNodes.size() > 0) startFaultTolerance(nodeAddr, replicaNodes);
     }
 
@@ -168,7 +162,6 @@ public class Controller
                 routingTable.put(dir, nodes);
             }
         }
-        System.out.println("routing table after " + routingTable);
     }
 
     private DfsMessages.OnNodeDown createOnNodeDownMsg(String ip, List<DfsMessages.DataNodeMetadata> replicaNodes) {
@@ -254,6 +247,9 @@ public class Controller
             case 5: // Heart Beat
                 try {
                     DfsMessages.DataNodeMetadata info = message.getHeartBeat().getNodeMetaData();
+                    // update activeStorageNode for info
+                    String nodeIp = info.getIp();
+                    activeStorageNodes.put(nodeIp, info);
                     System.out.println("Node: " + info.getHostname() + " alive at port: " + info.getPort() + " with memory: " + info.getMemory());
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading HeartBeat from node: " + e);
@@ -271,8 +267,25 @@ public class Controller
                     System.out.println("An error in Controller while reading DataNodeMetaData");
                 }
                 break;
+            case 8: // UpdateRoutingTable
+                System.out.println("T_T_T UPDATING ROUTING TABLE T_T_T");
+                try {
+                    DfsMessages.UpdateRoutingTable updateMsg = message.getUpdateRoutingTable();
+                    List<String> filesUpdated = updateMsg.getDirpathList();
+                    System.out.println("Files updated: " + filesUpdated);
+                    String nodeIp = updateMsg.getNodeIp();
+
+                    // get node bloomfilter
+                    BloomFilter bf = nodeToBF.get(nodeIp);
+                    for(String dir : filesUpdated) {
+                        // update bloomfilter
+                        bf.put(dir.getBytes());
+                    }
+                } catch (Exception e) {
+                    System.out.println("An  error in Controller while reading UpdateRoutingTable");
+                }
             default:
-                System.out.println("Default switch case in channel read of controller");
+                System.out.println("Default switch case in channel read of controller, messageType: " + messageType);
                 break;
         }
 

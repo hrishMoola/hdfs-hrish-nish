@@ -15,10 +15,17 @@ message FileChunk{ //from client to primary datanode, and primary datanode to ot
     }
 }
 
+message UpdateRoutingTable {
+    repeated string dirpath = 1;
+    string nodeIp = 2;
+}
+
 // need to send this cascading-ly to nodes for fault tolerance maintenance
 message AlreadyMaintainedChunks {
     repeated string originalChunks = 1;
     repeated string repeatedChunks = 2;
+    repeated DataNodeMetadata maintainedOriginals = 3;
+    repeated DataNodeMetadata maintainedReplicas = 4;
 }
 
 message FileAck{
@@ -153,5 +160,6 @@ message ControllerMessagesWrapper{
         HeartBeat heartBeat = 5;
         DataNodeMetadata IntroMessage = 6;
         GetFreeNodes getFreeNodes = 7;
+        UpdateRoutingTable updateRoutingTable = 8;
     }
 }
