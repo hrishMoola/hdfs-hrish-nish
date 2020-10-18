@@ -21,6 +21,7 @@ message AlreadyMaintainedChunks {
     repeated string repeatedChunks = 2;
 }
 
+
 message FileAck{
     string filepath = 1; //does not contain the chunk serial number, just the filename
     bool success = 2;
@@ -29,6 +30,18 @@ message FileAck{
         FILE_OVERWRITE = 0; //blindly send to all and ask them to delete during store
         FILE_RETRIEVAL = 1; // send to all nodes, they can check themselves and return with whoever is ready with this message
     }
+}
+
+message FileSystemRequest{
+    string filepath = 1;
+    Operation op = 2;
+    enum Operation {
+        ls = 0;
+    }
+}
+
+message FileSystemResponse{
+    repeated string filepaths = 1;
 }
 
 //send only to leader before sending first chunk for store.
@@ -130,6 +143,7 @@ message ClientMessagesWrapper{
         FileAck fileAck = 3;
         FileChunkHeader fileChunkHeader = 4;
         ReplicaPatch replicaPatch = 5;
+        FileSystemResponse fileSystemResponse = 6;
     }
 }
 
@@ -141,6 +155,7 @@ message DataNodeMessagesWrapper{
         FileChunkHeader fileChunkHeader = 3;
         ReplicaPatch replicaPatch = 4;
         OnNodeDown onNodeDown = 5;
+        FileSystemRequest fileSystemRequest = 6;
     }
 }
 
@@ -153,5 +168,7 @@ message ControllerMessagesWrapper{
         HeartBeat heartBeat = 5;
         DataNodeMetadata IntroMessage = 6;
         GetFreeNodes getFreeNodes = 7;
+        FileSystemRequest fileSystemRequest = 8;
+        FileSystemResponse fileSystemResponse = 9;
     }
 }

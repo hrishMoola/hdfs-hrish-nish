@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
+import edu.usfca.cs.chat.Utils.FileSystem;
 import edu.usfca.cs.chat.Utils.FileUtils;
 import edu.usfca.cs.chat.net.MessagePipeline;
 import edu.usfca.cs.chat.net.ServerMessageRouter;
@@ -27,15 +30,19 @@ public class Controller
 
     // storage node map with key as IP and DataNodeMetadata
     //todo update this with every heartbeat
-    private ConcurrentMap<String, DfsMessages.DataNodeMetadata> activeStorageNodes;
+    private static ConcurrentMap<String, DfsMessages.DataNodeMetadata> activeStorageNodes;
 
     // routing table key is dir name
     // routing table value is map of Bloom Filter and associated DataNodeMetaData
-    private ConcurrentMap<String, ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata>> routingTable;
+    private static ConcurrentMap<String, ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata>> routingTable;
 
     // todo decide the m and k for master bloom filter
     BloomFilter masterBloomFilter;
     ServerMessageRouter messageRouter;
+
+    private static ConcurrentHashMap<String, Channel> channelMap;
+    private static AtomicInteger fsResponse;
+    FileSystem fileSystem;
 
     // map of node ips to their corresponding bloom filters
     ConcurrentMap<String, BloomFilter> nodeToBF;
@@ -51,6 +58,9 @@ public class Controller
         routingTable = new ConcurrentHashMap<>();
         masterBloomFilter = new BloomFilter(m, k);
         nodeToBF = new ConcurrentHashMap<>();
+        channelMap = new ConcurrentHashMap<>();
+        fsResponse = new AtomicInteger(0);
+        fileSystem =  new FileSystem();
     }
 
     public void start(int port) throws IOException {
@@ -121,6 +131,7 @@ public class Controller
             if(addr.equals(nodeAddr)) {
                 // key to delete is hostname
                 activeStorageNodes.remove(addr);
+                channelMap.remove(nodeMetadata.getIp());
             }
         });
     }
@@ -267,8 +278,31 @@ public class Controller
                     // add to active storage nodes
                     activeStorageNodes.put(IntroMsg.getIp(), IntroMsg);
                     nodeToBF.put(IntroMsg.getIp(), new BloomFilter(m, k));
+                    channelMap.put(IntroMsg.getIp(), ctx.channel());
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading DataNodeMetaData");
+                }
+                break;
+            case 8: //filesystem request
+                try{
+                    System.out.println("FileSystem request!");
+                    //tell all nodes to send their files
+                    getFileSystemRequest(message.getFileSystemRequest());
+                    DfsMessages.FileSystemResponse fileSystemResponse = DfsMessages.FileSystemResponse.newBuilder().addAllFilepaths(activeStorageNodes.keySet().stream().map(dirs-> dirs.split("/")[0]).collect(Collectors.toSet())).build();
+                    DfsMessages.MessagesWrapper messagesWrapper = DfsMessages.MessagesWrapper.newBuilder().setClientWrapper(DfsMessages.ClientMessagesWrapper.newBuilder().setFileSystemResponse(fileSystemResponse)).build();
+                    ctx.channel().writeAndFlush(messagesWrapper);
+                }catch (Exception e){
+                    System.out.println("");
+                }
+                break;
+            case 9: //filesystem response
+                try{
+                    System.out.println("Received FileSystem Response");
+                    if (fsResponse.incrementAndGet() == channelMap.size()){
+
+                    }
+                }catch (Exception e){
+                    System.out.println();
                 }
                 break;
             default:
@@ -276,6 +310,13 @@ public class Controller
                 break;
         }
 
+    }
+
+    private void getFileSystemRequest(DfsMessages.FileSystemRequest fileSystemRequest) {
+        DfsMessages.DataNodeMessagesWrapper messagesWrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileSystemRequest(fileSystemRequest).build();
+        channelMap.values().forEach(channel->{
+            channel.writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(messagesWrapper));
+        });
     }
 
     private void printMsg(DfsMessages.ControllerMessagesWrapper message) {
