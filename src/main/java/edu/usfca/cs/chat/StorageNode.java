@@ -7,6 +7,8 @@ import java.net.InetSocketAddress;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 import com.google.protobuf.ByteString;
 import edu.usfca.cs.chat.Utils.FileUtils;
@@ -31,7 +33,7 @@ public class StorageNode
     private String hostName;        // host and part where storage node will be listening as a server
     private int hostPort;
 
-    private AtomicInteger tempMemory;
+    private AtomicLong tempMemory;
     private int chunkSize;
 
     private AtomicInteger totalStorageReqs;
@@ -55,7 +57,7 @@ public class StorageNode
         this.hostPort = Integer.parseInt(args[2]);
         this.controllerHostname = args[3]; // sto
         this.controllerPort = Integer.parseInt(args[4]);
-        this.tempMemory = new AtomicInteger(Integer.parseInt(args[5]) * 1024);
+        this.tempMemory = new AtomicLong(Integer.parseInt(args[5]) * 1024);
         this.chunkSize = Integer.parseInt(args[6]) * 1024;
 
         totalStorageReqs = new AtomicInteger(0);
@@ -101,7 +103,7 @@ public class StorageNode
                 .setHostname(hostName)
                 .setIp(localAddr)
                 .setPort(hostPort)
-                .setMemory(tempMemory.get()) // todo figure out directory size
+                .setMemory(tempMemory.get())
                 .build();
     }
 
@@ -184,38 +186,40 @@ public class StorageNode
                 try {
                     String chunkName = message.getFileChunk().getFilepath();
                     DfsMessages.FileChunkHeader header = message.getFileChunk().getFilechunkHeader();
+                    if (message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.Patch)) {
+                        writeToFile(message.getFileChunk(), storagePath, "/" + ORIGINAL_DIR + "/");
+                    } else {
+
                     fileChunkMetadataMap.put(chunkName, header);
 
                     // IF SAME CHUNK REPLICA OR ORIGINAL exists here update it's value as well
                     String tempFileName = chunkName.contains(".replica") ? chunkName.substring(0, chunkName.lastIndexOf('.')) : chunkName + ".replica";
                     System.out.println("TEMP FILE NAME: " + tempFileName);
-                    if(fileChunkMetadataMap.keySet().contains(tempFileName)) {
+                    if (fileChunkMetadataMap.keySet().contains(tempFileName)) {
                         System.out.println("NODE ALSO CONTAINS TEMPFILENAME");
                         fileChunkMetadataMap.put(tempFileName, header);
                     }
 
-                    System.out.println(tempMemory.addAndGet(-this.chunkSize));
-                    totalStorageReqs.incrementAndGet();
-
                     System.out.println("FILE PATH TO WRITE: " + message.getFileChunk().getFilepath());
                     System.out.println("TYPE: " + message.getFileChunk().getType());
 
-                    if(message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.REPLICA)){ //replica
+                    if (message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.REPLICA)) { //replica
                         System.out.println("inside replica");
                         //  remove word replica from filepath
                         String filePath = message.getFileChunk().getFilepath();
                         String newFilePath = filePath.contains(".replica") ? filePath.substring(0, filePath.lastIndexOf('.')) : filePath;
                         DfsMessages.FileChunk newFC = DfsMessages.FileChunk.newBuilder(message.getFileChunk()).setFilepath(newFilePath).build();
-                        writeToFile(newFC,storagePath,"/" + REPLICA_DIR + "/");
+                        writeToFile(newFC, storagePath, "/" + REPLICA_DIR + "/");
                     } else {//leader
                         System.out.println("WRITING TO FILE: ");
-                        writeToFile(message.getFileChunk(),storagePath,"/" + ORIGINAL_DIR + "/");
+                        writeToFile(message.getFileChunk(), storagePath, "/" + ORIGINAL_DIR + "/");
                     }
-                    if(message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.LEADER)) {
+                    if (message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.LEADER)) {
                         // replicas only for leader not for maintenance leader which is when a node with original file is down and is replicated
                         sendFileToReplicas(message.getFileChunk());
                     }
-                    System.out.println(tempMemory.addAndGet(-this.chunkSize));
+                        System.out.println(tempMemory.addAndGet(-this.chunkSize));
+                    }
                     totalStorageReqs.incrementAndGet();
                     System.out.println("Successfully wrote to the file.");
                 } catch (Exception e) {
@@ -280,8 +284,8 @@ public class StorageNode
                         String filepath = message.getReplicaPatch().getFilepath();
                         String chunkNum = message.getReplicaPatch().getChunkNum();
                         System.out.println("Replication Patch for " + filepath + "-" + chunkNum);
-                        sendReplicationPath(ctx, filepath, chunkNum);
-                    } catch (IOException e) {
+                        sendReplicationPath(ctx, filepath, chunkNum, message.getReplicaPatch().getRequester().getNumber());
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
@@ -298,24 +302,46 @@ public class StorageNode
                     sendTotalNodeChunksToReplicateMsg(ctx, nodeDown.getIp(), replicas);
                 });
                 break;
+            case 6 : //fs request
+                System.out.println("Received FS request " + message.getFsRequest());
+                executor.submit(()-> {
+                String path = message.getFsRequest().getFilepath() + "/";
+                Set<String> paths = fileChunkMetadataMap.keySet().stream().filter(ele-> ele.startsWith(path)).map(ele-> ele.split("-")[0]).collect(Collectors.toSet());
+                Set<String> finalPaths = paths.stream().map(ele->{
+                    int startIndex = path.length();
+                    String rem = ele.substring(startIndex);
+                    int endIndex = rem.indexOf("/");
+                    String file = endIndex == -1 ? rem : rem.substring(0, endIndex + 1);
+                    return file.replaceFirst(path, "");
+                }).collect(Collectors.toSet());
+                ctx.channel().writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(
+                        DfsMessages.ControllerMessagesWrapper.newBuilder().setFsResponse(DfsMessages.FileSystemResponse.newBuilder().setInfo(String.join("\t\n", finalPaths)))).build());
+                });
+                break;
             default:
                 System.out.println("whaaaa");
                 break;
         }
     }
 
-    private void sendReplicationPath(ChannelHandlerContext ctx, String filepath, String chunkNum) throws IOException {
+    private void sendReplicationPath(ChannelHandlerContext ctx, String filepath, String chunkNum, int requester) throws IOException, InterruptedException {
         String storageDirectory = this.storagePath + "/replica/";
         File specificChunk = new File(storageDirectory + filepath + "/chunk-" + chunkNum );
         System.out.println("specificChunk.getPath() = " + specificChunk.getPath());
-        DfsMessages.FileChunk chunk = getChunks(specificChunk, fileChunkMetadataMap.get(filepath + "-" + chunkNum));
-        System.out.println("chunk = " + chunk);
-        ctx.channel().writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setClientWrapper(DfsMessages.ClientMessagesWrapper.newBuilder().setFileChunk(chunk)).build());
-        DfsMessages.DataNodeMetadata leaderToFix = fileChunkMetadataMap.get(filepath + "-" + chunkNum).getReplicas(0);
-        System.out.println("leaderToFix = " + leaderToFix);
-        channelMap.get(leaderToFix.getIp()).writeAndFlush(DfsMessages.MessagesWrapper.newBuilder()
-                .setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder()
-                        .setFileChunk(DfsMessages.FileChunk.newBuilder(chunk)).setFileChunkHeader(DfsMessages.FileChunkHeader.getDefaultInstance())).build());
+        System.out.println("requester = " + requester);
+        System.out.println("Shambala");
+        System.out.println(fileChunkMetadataMap.keySet());
+        if (requester == 0){
+            DfsMessages.FileChunk chunk = DfsMessages.FileChunk.newBuilder(getChunks(specificChunk, fileChunkMetadataMap.get(filepath + "-" + chunkNum), true)).setFilepath(filepath + "-" + chunkNum).build();
+            ctx.channel().writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileChunk(chunk)).build());
+            System.out.println("chunk = " + chunk);
+        }
+        else{
+            DfsMessages.FileChunk chunk = getChunks(specificChunk, fileChunkMetadataMap.get(filepath + "-" + chunkNum + ".replica"), false);
+//            Thread.sleep(1000);
+            ctx.channel().writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setClientWrapper(DfsMessages.ClientMessagesWrapper.newBuilder().setFileChunk(chunk)).build());
+            System.out.println("chunk = " + chunk);
+        }
     }
 
     // need to send total chunks space needed and ip of node that went down so that when the  controller
@@ -476,6 +502,7 @@ public class StorageNode
 
             System.out.println("UPDATING REPLICA LIST");
             if(type.equals(DfsMessages.FileChunk.Type.MAINTENANCE_LDR)) {
+                // the node the request is being sent to is going to be the new original of this file
                 // the node the request is being sent to is going to be the new original of this file
                 // update idx 0
                 // update the replicas list with new node if currently present on this node
@@ -737,20 +764,22 @@ public class StorageNode
         File[] allFiles = dir.listFiles();
 
         if(allFiles == null) return;
-
+        System.out.println("allFiles = " + allFiles);
         for (File eachFile: allFiles) {
             if (!eachFile.getName().contains("checksum") &&  !eachFile.getName().contains("metadata")){
                 System.out.println("eachFile = " + eachFile);
                 String currChunkNum = eachFile.getName().split("-")[1];
                 currChunkName = filepath + "-" +  currChunkNum;
                 System.out.println("currChunkName = " + currChunkName);
-                DfsMessages.FileChunk chunk = getChunks(eachFile, fileChunkMetadataMap.get(currChunkName));
+                DfsMessages.FileChunk chunk = getChunks(eachFile, fileChunkMetadataMap.get(currChunkName), false);
                 if(chunk == null){
                     DfsMessages.DataNodeMetadata nodeMetadata = fileChunkMetadataMap.get(currChunkName).getReplicas(1);
-                    DfsMessages.ReplicaPatch replicaPatch = DfsMessages.ReplicaPatch.newBuilder().setNodeMetadata(nodeMetadata).setFilepath(filepath).setChunkNum(currChunkNum).build();
-                    System.out.println("replicaPatch = " + replicaPatch);
-                    channelMap.get(nodeMetadata.getIp()).writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setReplicaPatch(replicaPatch)));
-                    ctx.channel().writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setClientWrapper(DfsMessages.ClientMessagesWrapper.newBuilder().setReplicaPatch(replicaPatch)));
+                    System.out.println("nodeMetadata = " + nodeMetadata);
+                    DfsMessages.ReplicaPatch replicaPatchToReplica = DfsMessages.ReplicaPatch.newBuilder().setRequester(DfsMessages.ReplicaPatch.Requester.node).setFilepath(filepath).setChunkNum(currChunkNum).build();
+                    System.out.println("replicaPatch = " + replicaPatchToReplica);
+                    channelMap.get(nodeMetadata.getIp()).writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setReplicaPatch(replicaPatchToReplica)));
+                    DfsMessages.ReplicaPatch replicaPatchToClient = DfsMessages.ReplicaPatch.newBuilder().setNodeMetadata(nodeMetadata).setRequester(DfsMessages.ReplicaPatch.Requester.client).setFilepath(filepath).setChunkNum(currChunkNum).build();
+                    ctx.channel().writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setClientWrapper(DfsMessages.ClientMessagesWrapper.newBuilder().setReplicaPatch(replicaPatchToClient)));
                     System.out.println("Waiting");
                     System.out.println("Asked for replica patch for " + eachFile.getName());
                 } else {
@@ -799,14 +828,4 @@ public class StorageNode
         cause.printStackTrace();
     }
 
-    public class RunnableTask implements Runnable {
-
-        public RunnableTask() {
-
-        }
-
-        public void run() {
-
-        }
-    }
 }

@@ -30,11 +30,10 @@ public class Client
     private int controllerPort;
 
     private Channel serverChannel;
-    private Channel leaderChannel;
 
     private Integer CHUNK_SIZE;
 
-    private static AtomicInteger chunksReceived;
+    private static volatile AtomicInteger chunksReceived;
     private static ConcurrentHashMap<String, Integer> totalChunks;
     private static ConcurrentHashMap<String, Channel> channelMap;
     private static ExecutorService executor ;
@@ -118,6 +117,7 @@ public class Client
                     DfsMessages.FileChunk.Type type = DfsMessages.FileChunk.Type.LEADER;
                     if(replicas.size() == 1) type = DfsMessages.FileChunk.Type.REPLICA;
                     sendChunks(filePartName, buffer, replicas, Integer.toString(numChunks), type);
+                    buffer = new byte[CHUNK_SIZE];
                     System.out.println("Sent");
             }
         }
@@ -167,12 +167,6 @@ public class Client
         write.syncUninterruptibly();
     }
 
-    private void sendChunks(String filePartName, byte[] buffer, Channel channel) {
-        DfsMessages.FileChunk fileChunkMessage = DfsMessages.FileChunk.newBuilder().setFilepath(filePartName).setChunks(ByteString.copyFrom(buffer)).build();
-        DfsMessages.MessagesWrapper msgWrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileChunk(fileChunkMessage)).build();
-        ChannelFuture write = channel.writeAndFlush(msgWrapper);
-        write.syncUninterruptibly();
-    }
 
     public void sendGreeting() {
         String message = "Hello all! I am " + username + ", pleased to meet you.";
@@ -209,12 +203,14 @@ public class Client
         try{
             switch(messageType){
                 case 1: // FileChunk
-                    totalChunks.putIfAbsent(message.getFileChunk().getFilechunkHeader().getFilepath(), message.getFileChunk().getFilechunkHeader().getTotalChunks());
+                    chunksReceived.incrementAndGet();
                     executor.submit(()->{
                         try {
                             storeFile("cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
                             System.out.println("chunksReceived = " + chunksReceived);
-                            if(chunksReceived.incrementAndGet() == totalChunks.get(message.getFileChunk().getFilechunkHeader().getFilepath())){
+                            System.out.println("totalChunks.get() = " + totalChunks.get(message.getFileChunk().getFilechunkHeader().getFilepath()));
+                            totalChunks.putIfAbsent(message.getFileChunk().getFilechunkHeader().getFilepath(), message.getFileChunk().getFilechunkHeader().getTotalChunks());
+                            if(chunksReceived.get() == totalChunks.get(message.getFileChunk().getFilechunkHeader().getFilepath())){
                                 mergeFiles("cache", getFileName(message.getFileChunk().getFilechunkHeader().getFilepath()));
                                 clearDirectoryContents("cache");
                                 chunksReceived = new AtomicInteger(0);
@@ -225,7 +221,7 @@ public class Client
                     });
                     break;
                 case 2: // FileResponse
-                            System.out.println(message);
+                    System.out.println(message);
                     System.out.println("Received a file response for " + message.getFileResponse().getSystemFilePath());
                     System.out.println("Request type is  " + message.getFileResponse().getType().name());
                     executor.submit(()->{
@@ -240,6 +236,7 @@ public class Client
                 case 5:
                     System.out.println("Received replica patch");
                     System.out.println("message.getReplicaPatch() = " + message.getReplicaPatch());
+                    System.out.println("message.getReplicaPatch().getNodeMetadata() = " + message.getReplicaPatch().getNodeMetadata());
                     DfsMessages.DataNodeMetadata nodeMetadata = message.getReplicaPatch().getNodeMetadata();
                     try {
                         Channel channel = channelMap.getOrDefault(nodeMetadata.getIp(), connectToNode(nodeMetadata.getIp().split(":")[0], nodeMetadata.getPort()));
@@ -249,6 +246,15 @@ public class Client
                         System.out.println("An error occurred.");
                         e.printStackTrace();
                     }
+                    break;
+                    case 6:
+                        System.out.println("message = " + message);
+                        System.out.println("received file response");
+                        System.out.println(message.getFsResponse().getInfo());
+                        break;
+                case 7:
+                    System.out.println("Received status info");
+                    System.out.println(message.getNodeStatus().getNodeMetadataList());
                     break;
                 default:
                     System.out.println("Default channelRead switch case statement");
@@ -277,9 +283,7 @@ public class Client
             catch(Exception e) {
                 System.out.println("error sending overwrite ack to storage nodes: " + e);
             }
-
         }
-
         try {
             chunkFileAndSendToNodes(message);
         }
@@ -328,6 +332,10 @@ public class Client
                         client.sendFileStoreToController(line);
                     else if (line.startsWith("retrieve"))
                         client.sendFileRetrieveToController(line);
+                    else if (line.startsWith("ls"))
+                        client.sendFsRequestToController(line);
+                    else if (line.startsWith("status"))
+                        client.getNodeStatusFromController();
                 } catch (IOException e) {
                     e.printStackTrace();
                     break;
@@ -336,12 +344,24 @@ public class Client
         }
     }
 
+    private void getNodeStatusFromController() {
+        DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(DfsMessages.ControllerMessagesWrapper.newBuilder().setFileRequest(
+                DfsMessages.FileRequest.newBuilder().setFilepath("").setDirectory("").setType(DfsMessages.FileRequest.Type.STATUS))).build();
+        serverChannel.writeAndFlush(wrapper);
+    }
+
+    private void sendFsRequestToController(String line) {
+
+        DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(DfsMessages.ControllerMessagesWrapper.newBuilder().setFsRequest(DfsMessages.FileSystemRequest.newBuilder()
+        .setFilepath(line.split(" ")[1]).setOpValue(0))).build();
+        serverChannel.writeAndFlush(wrapper);
+    }
+
     private void sendFileRetrieveToController(String line) {
         DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(DfsMessages.ControllerMessagesWrapper.newBuilder()
                 .setFileRequest(DfsMessages.FileRequest.newBuilder()
                         .setFilepath(line.split("\\s")[1]).setType(DfsMessages.FileRequest.Type.RETRIEVE))).build();
-        serverChannel.write(wrapper);
-        serverChannel.flush();
+        serverChannel.writeAndFlush(wrapper);
     }
 
     private void sendFileStoreToController(String line) {

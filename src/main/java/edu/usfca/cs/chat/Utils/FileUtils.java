@@ -89,13 +89,16 @@ public class FileUtils {
         }
     }
 
-    public static DfsMessages.FileChunk getChunks(File filepath, DfsMessages.FileChunkHeader fileChunkHeader) throws IOException {
+    public static synchronized DfsMessages.FileChunk getChunks(File filepath, DfsMessages.FileChunkHeader fileChunkHeader, boolean patchForNode) throws IOException {
 
         byte[] fileChunkString = Files.readAllBytes(Paths.get(filepath.getCanonicalPath()));
         byte[]  checkSum = Files.readAllBytes(Paths.get(filepath.getCanonicalPath() + "_checksum"));
         if(Arrays.equals(getCRC32Checksum(ByteString.copyFrom(fileChunkString).toByteArray()), checkSum)){
             System.out.println("issokay");
-            return DfsMessages.FileChunk.newBuilder().setFilepath(filepath.getName()).setChunks(ByteString.copyFrom(fileChunkString)).setFilechunkHeader(fileChunkHeader).build();
+            if(!patchForNode)
+                return DfsMessages.FileChunk.newBuilder().setFilepath(filepath.getName()).setChunks(ByteString.copyFrom(fileChunkString)).setFilechunkHeader(fileChunkHeader).build();
+            return DfsMessages.FileChunk.newBuilder().setChunks(ByteString.copyFrom(fileChunkString)).setType(DfsMessages.FileChunk.Type.Patch).build();
+
         } else { //request replica
             System.out.println("File is corrupted");
             Files.delete(Paths.get(filepath.getCanonicalPath()));

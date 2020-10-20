@@ -12,7 +12,22 @@ message FileChunk{ //from client to primary datanode, and primary datanode to ot
         LEADER = 0;
         REPLICA = 1;
         MAINTENANCE_LDR = 2; // separate one for leader node maintenance so that we don't replicate it
+        Patch = 4;
     }
+}
+
+
+message FileSystemRequest{
+    string filepath = 1;
+    Op op = 2;
+    enum Op{
+        ls = 0;
+        cat = 1;
+    }
+}
+
+message FileSystemResponse{
+    string info = 1;
 }
 
 message UpdateRoutingTable {
@@ -58,6 +73,7 @@ message FileRequest{
     enum Type{
         STORE = 0;
         RETRIEVE = 1;
+        STATUS = 2;
     }
 }
 
@@ -83,23 +99,30 @@ message FileResponse{
 message DataNodeMetadata{
     string hostname = 1;
     string ip = 2;
-    int32 memory = 3; // in mb 1GB=1024MB
+    int64 memory = 3; // in mb 1GB=1024MB
     int32 port = 4;
 }
 
 //sent from datanodes every five sec
 message HeartBeat{
-    DataNodeMetadata node_meta_data = 2;
-    int32 store_count = 3;
-    int32 retrieve_count = 4;
+    DataNodeMetadata node_meta_data = 1;
+    int32 store_count = 2;
+    int32 retrieve_count = 3;
 }
 
+message NodeStatus{
+    repeated HeartBeat node_metadata = 1;
+}
 //used for sending a chunk as a patch when something is corrupted or file is missing.
 message ReplicaPatch{
     string filepath = 1;        //contains chunk serial number
     string chunk_num = 2;
     DataNodeMetadata nodeMetadata = 3;
-
+    Requester requester = 4;
+    enum Requester{
+        node = 0;
+        client = 1;
+    }
 }
 
 // for fault tolerance when controller lets a related node know which node is down
@@ -137,7 +160,9 @@ message ClientMessagesWrapper{
         FileAck fileAck = 3;
         FileChunkHeader fileChunkHeader = 4;
         ReplicaPatch replicaPatch = 5;
-    }
+        FileSystemResponse fsResponse = 6;
+        NodeStatus nodeStatus = 7;
+}
 }
 
 //only what the storage node receives
@@ -148,6 +173,7 @@ message DataNodeMessagesWrapper{
         FileChunkHeader fileChunkHeader = 3;
         ReplicaPatch replicaPatch = 4;
         OnNodeDown onNodeDown = 5;
+        FileSystemRequest fsRequest = 6;
     }
 }
 
@@ -161,5 +187,8 @@ message ControllerMessagesWrapper{
         DataNodeMetadata IntroMessage = 6;
         GetFreeNodes getFreeNodes = 7;
         UpdateRoutingTable updateRoutingTable = 8;
+        FileSystemRequest fsRequest = 9;
+        FileSystemResponse fsResponse = 10;
+
     }
 }
