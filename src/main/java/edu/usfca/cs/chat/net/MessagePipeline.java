@@ -24,7 +24,7 @@ public class MessagePipeline extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = ch.pipeline();
 
         /* Here, we limit message sizes to 8192: */
-        pipeline.addLast(new LengthFieldBasedFrameDecoder(100000, 0, 4, 0, 4));
+        pipeline.addLast(new LengthFieldBasedFrameDecoder(150000000, 0, 4, 0, 4));
         pipeline.addLast(
                 new ProtobufDecoder(
                     DfsMessages.MessagesWrapper.getDefaultInstance()));

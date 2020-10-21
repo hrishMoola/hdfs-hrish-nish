@@ -57,7 +57,7 @@ public class StorageNode
         this.hostPort = Integer.parseInt(args[2]);
         this.controllerHostname = args[3]; // sto
         this.controllerPort = Integer.parseInt(args[4]);
-        this.tempMemory = new AtomicLong(Integer.parseInt(args[5]) * 1024);
+        this.tempMemory = new AtomicLong(Long.parseLong(args[5]) * 1024);
         this.chunkSize = Integer.parseInt(args[6]) * 1024;
 
         totalStorageReqs = new AtomicInteger(0);
@@ -72,7 +72,6 @@ public class StorageNode
         messageRouter = new ServerMessageRouter(this);
         messageRouter.listen(this.hostPort);
         System.out.println("Storage node " + this.hostName + " on port " + this.hostPort + "...");
-
         // before start clear directory contents
         FileUtils.clearDirectoryContents(storagePath);
         // on start connect to controller and send alive notification
@@ -212,6 +211,7 @@ public class StorageNode
                         writeToFile(newFC, storagePath, "/" + REPLICA_DIR + "/");
                     } else {//leader
                         System.out.println("WRITING TO FILE: ");
+                        System.out.println("STORAGE PATH IS: " + storagePath);
                         writeToFile(message.getFileChunk(), storagePath, "/" + ORIGINAL_DIR + "/");
                     }
                     if (message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.LEADER)) {
