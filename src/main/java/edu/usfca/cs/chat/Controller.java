@@ -297,6 +297,7 @@ public class Controller
                 } catch (Exception e) {
                     System.out.println("An  error in Controller while reading UpdateRoutingTable");
                 }
+                break;
             case 9: //file system request
                 System.out.println("Received filesytem request" + message.getFsRequest());
                 String path = message.getFsRequest().getFilepath();

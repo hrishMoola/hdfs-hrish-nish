@@ -528,6 +528,8 @@ public class StorageNode
 
             DfsMessages.FileChunkHeader newHeader = DfsMessages.FileChunkHeader.newBuilder()
             .addAllReplicas(replicas)
+            .setTotalChunks(header.getTotalChunks())
+            .setFilepath(header.getFilepath())
             .build();
 
             //  get replicas for creating filechunkheader
@@ -662,7 +664,12 @@ public class StorageNode
                 System.out.println("idx being replaced: " + i);
                 replicas.set(i, allMaintainedNodes.get(j));
                 System.out.println("AFTE NODES REPLACED: " + replicas);
-                DfsMessages.FileChunkHeader newHeader = DfsMessages.FileChunkHeader.newBuilder(header).clearReplicas().addAllReplicas(replicas).build();
+                DfsMessages.FileChunkHeader newHeader = DfsMessages.FileChunkHeader.newBuilder(header)
+                        .clearReplicas()
+                        .addAllReplicas(replicas)
+                        .setTotalChunks(header.getTotalChunks())
+                        .setFilepath(header.getFilepath())
+                        .build();
                 fileChunkMetadataMap.put(chunkName, newHeader);
             }
 
