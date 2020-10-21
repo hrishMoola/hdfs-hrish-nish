@@ -116,6 +116,10 @@ public class Client
                     System.out.println("replicas = " + replicas);
                     DfsMessages.FileChunk.Type type = DfsMessages.FileChunk.Type.LEADER;
                     if(replicas.size() == 1) type = DfsMessages.FileChunk.Type.REPLICA;
+                    if(partCounter == numChunks) {
+                        byte[] newBuffer = Arrays.copyOfRange(buffer, 0, bytesAmount);
+                        buffer = newBuffer;
+                    }
                     sendChunks(filePartName, buffer, replicas, Integer.toString(numChunks), type);
                     buffer = new byte[CHUNK_SIZE];
                     System.out.println("Sent");
