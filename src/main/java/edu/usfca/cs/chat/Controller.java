@@ -3,12 +3,10 @@ package edu.usfca.cs.chat;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import edu.usfca.cs.chat.Utils.FileUtils;
 import edu.usfca.cs.chat.net.MessagePipeline;
@@ -25,6 +23,9 @@ public class Controller
 
     // storage node map with key as IP and DataNodeMetadata
     private ConcurrentMap<String, DfsMessages.DataNodeMetadata> activeStorageNodes;
+    private static ConcurrentHashMap<String, Channel> channelMap;
+    private static ConcurrentHashMap<String, DfsMessages.HeartBeat> heartBeatMap;
+
 
     // routing table key is dir name
     // routing table value is map of Bloom Filter and associated DataNodeMetaData
@@ -38,7 +39,10 @@ public class Controller
     ConcurrentMap<String, BloomFilter> nodeToBF;
 
 //    public static int CHUNK_SIZE = 128; // MB
-    public static int CHUNK_SIZE = 10 * 1024; // 10kb
+    public static int CHUNK_SIZE ; // 10kb
+
+    private static volatile FileSystem fileSystem;
+
 
     int m = 1000000;
     int k = 20;
@@ -47,19 +51,22 @@ public class Controller
         activeStorageNodes = new ConcurrentHashMap<>();
         routingTable = new ConcurrentHashMap<>();
         masterBloomFilter = new BloomFilter(m, k);
+        channelMap = new ConcurrentHashMap<>();
+        heartBeatMap = new ConcurrentHashMap<>();
         nodeToBF = new ConcurrentHashMap<>();
     }
 
-    public void start(int port) throws IOException {
+    public void start(int port, int chunkSize) throws IOException {
         messageRouter = new ServerMessageRouter(this);
         messageRouter.listen(port);
+        CHUNK_SIZE = chunkSize * 1024;
         System.out.println("Controller started on port " + port + "...");
     }
 
     public static void main(String[] args)
             throws IOException {
         Controller s = new Controller();
-        s.start(Integer.parseInt(args[0]));
+        s.start(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
     }
 
     public Channel connectToNode(String hostname, Integer port) {
@@ -115,6 +122,8 @@ public class Controller
             if(addr.equals(nodeAddr)) {
                 // key to delete is hostname
                 activeStorageNodes.remove(addr);
+                heartBeatMap.remove(addr);
+                channelMap.remove(nodeMetadata.getIp());
             }
         });
     }
@@ -209,15 +218,17 @@ public class Controller
         System.out.println("INSIDE Ch Read messageType: " + messageType);
 
         switch(messageType){
-            case 1: // File Request - STORE/RETRIEVE
+            case 1: // File Request - STORE/RETRIEVE/STATUS
                 try {
                     System.out.println("Received a file request for " + message.getFileRequest().getFilepath());
                     System.out.println("Request type is  " + message.getFileRequest().getType().name());
                     //get list of nodes client can write to and reply to client with FileResponse
                     if(message.getFileRequest().getType().equals(DfsMessages.FileRequest.Type.STORE))
                         storeFile(ctx, message.getFileRequest());
-                    else
+                    else if(message.getFileRequest().getType().equals(DfsMessages.FileRequest.Type.RETRIEVE))
                         retrieveFile(ctx, message.getFileRequest());
+                    else
+                        returnHeartBeats(ctx);
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading FileRequest " + e);
                     e.printStackTrace();
@@ -249,6 +260,7 @@ public class Controller
                     DfsMessages.DataNodeMetadata info = message.getHeartBeat().getNodeMetaData();
                     // update activeStorageNode for info
                     String nodeIp = info.getIp();
+                    heartBeatMap.put(nodeIp, message.getHeartBeat());
                     activeStorageNodes.put(nodeIp, info);
                     System.out.println("Node: " + info.getHostname() + " alive at port: " + info.getPort() + " with memory: " + info.getMemory());
                 } catch (Exception e) {
@@ -262,6 +274,7 @@ public class Controller
                     printMsg(message);
                     // add to active storage nodes
                     activeStorageNodes.put(IntroMsg.getIp(), IntroMsg);
+                    channelMap.put(IntroMsg.getIp(), ctx.channel());
                     nodeToBF.put(IntroMsg.getIp(), new BloomFilter(m, k));
                 } catch (Exception e) {
                     System.out.println("An error in Controller while reading DataNodeMetaData");
@@ -284,11 +297,59 @@ public class Controller
                 } catch (Exception e) {
                     System.out.println("An  error in Controller while reading UpdateRoutingTable");
                 }
+                break;
+            case 9: //file system request
+                System.out.println("Received filesytem request" + message.getFsRequest());
+                String path = message.getFsRequest().getFilepath();
+                if (path.endsWith("/"))
+                    path = path.substring(path.length() - 1);
+                Set<String> paths = new HashSet<>();
+                Set<Channel> nodesToQuery = new HashSet<>();
+                System.out.println("-------gotfile-----");
+                String finalPath1 = path;
+                this.routingTable.forEach((k, v)->{
+//                    System.out.println(k);
+                    if(k.startsWith(finalPath1)){
+                        if(k.equals(finalPath1)){
+                            v.values().forEach(node-> {
+                                nodesToQuery.add(channelMap.get(node.getIp()));
+                            });
+//                            System.out.println("query table for " + k );
+                        } else {
+                            int startIndex = finalPath1.length();
+                            String rem = k.substring(startIndex);
+                            int endIndex = rem.indexOf("/");
+                            String finalPath = endIndex == -1 ? rem : rem.substring(0, endIndex);
+                            paths.add("\t" + finalPath + "/");
+//                            System.out.println("\t" + finalPath+ "/");
+                        }
+                    }
+                });
+                System.out.println("---gotfile----");
+                if(nodesToQuery.size() > 0){
+                    nodesToQuery.forEach(channel -> {
+                        channel.writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setFsRequest(message.getFsRequest())).build());
+                    });
+                    fileSystem = new FileSystem(nodesToQuery.size(), ctx.channel(), paths);
+                } else {
+                    ctx.channel().writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setClientWrapper(DfsMessages.ClientMessagesWrapper.newBuilder()
+                            .setFsResponse(DfsMessages.FileSystemResponse.newBuilder().setInfo(String.join("\n\t", paths)))).build());
+                }
+                break;
+            case 10: // file system response from datanodes
+                System.out.println("Recived filesystem response " + message.getFsResponse());
+                fileSystem.incrementAndCheck(Arrays.asList(message.getFsResponse().getInfo().split("\t\n")));
+                break;
             default:
                 System.out.println("Default switch case in channel read of controller, messageType: " + messageType);
                 break;
         }
 
+    }
+
+    private void returnHeartBeats(ChannelHandlerContext ctx) {
+        System.out.println("Outputting stuff " + heartBeatMap.values());
+        ctx.channel().writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setClientWrapper(DfsMessages.ClientMessagesWrapper.newBuilder().setNodeStatus(DfsMessages.NodeStatus.newBuilder().addAllNodeMetadata(heartBeatMap.values()))).build());
     }
 
     private void printMsg(DfsMessages.ControllerMessagesWrapper message) {
