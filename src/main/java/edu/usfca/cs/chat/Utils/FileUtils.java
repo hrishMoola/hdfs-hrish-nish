@@ -16,12 +16,6 @@ import java.util.zip.Checksum;
 
 public class FileUtils {
 
-    public static DfsMessages.OnNodeDown createOnNodeDownMsg(String ip, List<DfsMessages.DataNodeMetadata> replicaNodes) {
-        return DfsMessages.OnNodeDown.newBuilder()
-                .setIp(ip)
-                .addAllAffectedNodes(replicaNodes)
-                .build();
-    }
 
     public static void writeToFile(DfsMessages.FileChunk fileChunk, String storagePath, String type) throws Exception{
         String fileName = fileChunk.getFilepath();
@@ -61,24 +55,6 @@ public class FileUtils {
         }
     }
 
-    public static File findDir(String name, File file) {
-        File[] list = file.listFiles();
-        File foundFile = null;
-        if(list!=null)
-            for (File innerFile : list)
-            {
-                if (name.equals(innerFile.getName())) {
-                    foundFile = innerFile;
-                    break;
-                }
-                if (innerFile.isDirectory())
-                {
-                    return findDir(name,innerFile);
-                }
-            }
-        return foundFile;
-    }
-
     public static void clearDirectoryContents(String storagePath) {
         try {
             File dir = new File(storagePath);
@@ -94,13 +70,13 @@ public class FileUtils {
         byte[] fileChunkString = Files.readAllBytes(Paths.get(filepath.getCanonicalPath()));
         byte[]  checkSum = Files.readAllBytes(Paths.get(filepath.getCanonicalPath() + "_checksum"));
         if(Arrays.equals(getCRC32Checksum(ByteString.copyFrom(fileChunkString).toByteArray()), checkSum)){
-            System.out.println("issokay");
+            System.out.println("Chunk not corrupted");
             if(!patchForNode)
                 return DfsMessages.FileChunk.newBuilder().setFilepath(filepath.getName()).setChunks(ByteString.copyFrom(fileChunkString)).setFilechunkHeader(fileChunkHeader).build();
             return DfsMessages.FileChunk.newBuilder().setChunks(ByteString.copyFrom(fileChunkString)).setType(DfsMessages.FileChunk.Type.Patch).build();
 
         } else { //request replica
-            System.out.println("File is corrupted");
+            System.out.println("Chunk is corrupted");
             Files.delete(Paths.get(filepath.getCanonicalPath()));
             Files.delete(Paths.get(filepath.getCanonicalPath() + "_checksum"));
             System.out.println("Time to request replicas");
@@ -121,29 +97,46 @@ public class FileUtils {
 //        File chunk1OrgFile = new File("/Users/nishantmehta/Desktop/Videos/tiktokVer.mov");
 //        File chunkFinal = new File("/Users/nishantmehta/Desktop/Videos/tiktokVer.mov");
 
-        byte[] chunk1Og = getCRC32Checksum(Files.readAllBytes(Paths.get("/Users/nishantmehta/Desktop/CS677/P1-hrishikesh/_retrieved")));
-        byte[] chunkFinal = getCRC32Checksum(Files.readAllBytes(Paths.get("/Users/nishantmehta/Desktop/CS677/P1-hrishikesh/_retrieved")));
-
-        System.out.println("CHECKSUM");
-        System.out.println(Arrays.equals(chunk1Og, chunkFinal));
-
-        String storageDirectory = "storage1/original/";
-        String file = "nato_trial_file.txt";
-        File dir = new File(storageDirectory + file);
-//        List<DfsMessages.FileChunk> chunks = new ArrayList<>();
+//        byte[] chunk1Og = getCRC32Checksum(Files.readAllBytes(Paths.get("/Users/nishantmehta/Desktop/CS677/P1-hrishikesh/_retrieved")));
+//        byte[] chunkFinal = getCRC32Checksum(Files.readAllBytes(Paths.get("/Users/nishantmehta/Desktop/CS677/P1-hrishikesh/_retrieved")));
+//
+//        System.out.println("CHECKSUM");
+//        System.out.println(Arrays.equals(chunk1Og, chunkFinal));
+//
+//        String storageDirectory = "storage1/original/";
+//        String file = "nato_trial_file.txt";
+//        File dir = new File(storageDirectory + file);
+////        List<DfsMessages.FileChunk> chunks = new ArrayList<>();
 //        for (File eachFile: dir.listFiles()) {
 ////            if (!eachFile.getName().contains("checksum") &&  !eachFile.getName().contains("metadata"))
 ////                chunks.add(getChunks(eachFile, fileChunkMetadataMap.get(filepath)));
 //        }
 
-        System.out.println(getFileName("dfs/nato1"));
+
+        createLocalFolders("users/bigdata/something");
+//        System.out.println(getFileName("dfs/nato1"));
 //        System.out.println(chunks);
     }
 
+    public static void createLocalFolders(String storagePath) {
+        System.out.println(storagePath + "/" + "cache");
+        File directory = new File(storagePath + "/" + "cache");
+        if (!directory.exists()){
+            directory.mkdir();
+        } else {
+            purgeDirectory(directory);
+        }
+        System.out.println(storagePath + "/" + "output");
+        File directory2 = new File(storagePath + "/" + "output");
+        if (! directory2.exists()){
+            directory2.mkdir();
+        } else {
+            purgeDirectory(directory2);
+        }
+    }
+
     public static String getDirPath(String filepath) {
-        System.out.println("filepath: " + filepath);
         int fileNameStart = filepath.lastIndexOf('/');
-        System.out.println("fileNameStart: " + fileNameStart);
 
         if(fileNameStart == -1) return "";
         return filepath.substring(0, fileNameStart);

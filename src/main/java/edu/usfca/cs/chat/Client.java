@@ -17,6 +17,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import javax.xml.bind.SchemaOutputResolver;
+
 import static edu.usfca.cs.chat.DfsMessages.FileAck.Type.FILE_OVERWRITE;
 import static edu.usfca.cs.chat.Utils.FileChunker.mergeFiles;
 import static edu.usfca.cs.chat.Utils.FileUtils.*;
@@ -32,14 +34,14 @@ public class Client
     private Channel serverChannel;
 
     private Integer CHUNK_SIZE;
-
+    private static String storagePath;
     private static volatile AtomicInteger chunksReceived;
     private static ConcurrentHashMap<String, Integer> totalChunks;
     private static ConcurrentHashMap<String, Channel> channelMap;
     private static ExecutorService executor ;
 
 
-    public Client(String controllerHostName, int controllerPort, String username, Integer chunkSize) {
+    public Client(String controllerHostName, int controllerPort, String username, Integer chunkSize, String localStorage) {
         this.controllerHostName = controllerHostName;
         this.controllerPort = controllerPort;
         this.username = username;
@@ -48,15 +50,14 @@ public class Client
         channelMap = new ConcurrentHashMap<>();
         totalChunks = new ConcurrentHashMap<>();
         executor = Executors.newFixedThreadPool(8);
+        storagePath = localStorage;
+        createLocalFolders(localStorage);
     }
-
-
 
     public static void main(String[] args) throws IOException {
         Client c = null;
         if (args.length >= 3) {
-            c = new Client(args[0], Integer.parseInt(args[1]), args[2],Integer.parseInt(args[3]));
-//            c.serverChannel =  c.connectToNode(c.controllerHostName, c.controllerPort);
+            c = new Client(args[0], Integer.parseInt(args[1]), args[2],Integer.parseInt(args[3]), args[4]);
             c.connect();
         }
 
@@ -64,8 +65,6 @@ public class Client
             System.out.println("Usage: Client <hostname> <port> <username>");
             System.exit(1);
         }
-
-        c.sendGreeting();
 
         InputReader reader = new InputReader(c);
         Thread inputThread = new Thread(reader);
@@ -113,7 +112,6 @@ public class Client
                 // write each chunk of data into separate file with different number in name
                 String filePartName = String.format("%s-%03d", fileName, partCounter++);
                     List<DfsMessages.DataNodeMetadata> replicas = lruCache.getWithReplicas().stream().map(metadataMap::get).collect(Collectors.toList());
-                    System.out.println("replicas = " + replicas);
                     DfsMessages.FileChunk.Type type = DfsMessages.FileChunk.Type.LEADER;
                     if(replicas.size() == 1) type = DfsMessages.FileChunk.Type.REPLICA;
                     if(partCounter == numChunks) {
@@ -172,11 +170,6 @@ public class Client
     }
 
 
-    public void sendGreeting() {
-        String message = "Hello all! I am " + username + ", pleased to meet you.";
-//        sendMessage(message);
-    }
-
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         /* A connection has been established */
@@ -210,13 +203,14 @@ public class Client
                     chunksReceived.incrementAndGet();
                     executor.submit(()->{
                         try {
-                            storeFile("cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
+                            storeFile(storagePath + "/cache/" + message.getFileChunk().getFilepath(), message.getFileChunk().getChunks().toByteArray());
                             System.out.println("chunksReceived = " + chunksReceived);
                             System.out.println("totalChunks.get() = " + totalChunks.get(message.getFileChunk().getFilechunkHeader().getFilepath()));
                             totalChunks.putIfAbsent(message.getFileChunk().getFilechunkHeader().getFilepath(), message.getFileChunk().getFilechunkHeader().getTotalChunks());
                             if(chunksReceived.get() == totalChunks.get(message.getFileChunk().getFilechunkHeader().getFilepath())){
-                                mergeFiles("cache", getFileName(message.getFileChunk().getFilechunkHeader().getFilepath()));
-                                clearDirectoryContents("cache");
+                                System.out.println("Mergin file now");
+                                mergeFiles(storagePath + "/" + "cache", storagePath + "/output/" + getFileName(message.getFileChunk().getFilechunkHeader().getFilepath()));
+                                clearDirectoryContents(storagePath + "/cache");
                                 chunksReceived = new AtomicInteger(0);
                             }
                         } catch (IOException e) {
@@ -252,8 +246,7 @@ public class Client
                     }
                     break;
                     case 6:
-                        System.out.println("message = " + message);
-                        System.out.println("received file response");
+                        System.out.println("Received File System Response!");
                         System.out.println(message.getFsResponse().getInfo());
                         break;
                 case 7:
@@ -280,7 +273,6 @@ public class Client
             DfsMessages.FileAck ackMsg = createFileAckMsg(message);
             DfsMessages.DataNodeMessagesWrapper wrapper = DfsMessages.DataNodeMessagesWrapper.newBuilder().setFileAck(ackMsg).build();
             DfsMessages.MessagesWrapper msgWrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(wrapper).build();
-
             try {
                 message.getDataNodesList().forEach(nodeMetadata -> channelMap.get(nodeMetadata.getIp()).writeAndFlush(msgWrapper));
             }
@@ -306,7 +298,7 @@ public class Client
                             .setFilepath(fileResponse.getDfsFilePath())
                             .setType(DfsMessages.FileAck.Type.FILE_RETRIEVAL))).build();
             channelMap.get(nodeMetadata.getIp()).writeAndFlush(wrapper);
-            System.out.println("req");
+            System.out.println("Request sent for file chunks");
         });
     }
 
@@ -331,6 +323,10 @@ public class Client
                 String line = "";
                 try {
                     System.out.println("What do you want to do: ");
+                    System.out.println("1. store <localFilePath> dfs/<dfsFilePath>");
+                    System.out.println("2. retrieve dfs/<dfsFilePath>");
+                    System.out.println("3. ls dfs(/<dfsFolder>)");
+                    System.out.println("4. status");
                     line = reader.readLine();
                     if (line.startsWith("store"))
                         client.sendFileStoreToController(line);
@@ -385,7 +381,6 @@ public class Client
         DfsMessages.MessagesWrapper wrapper = DfsMessages.MessagesWrapper.newBuilder().setControllerWrapper(
                 DfsMessages.ControllerMessagesWrapper.newBuilder().setFileRequest(
                         getFileRequest(localFile, dfsPath, Double.valueOf(this.CHUNK_SIZE)))).build();
-        serverChannel.write(wrapper);
-        serverChannel.flush();
+        serverChannel.writeAndFlush(wrapper);
     }
 }
