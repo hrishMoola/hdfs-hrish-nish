@@ -80,7 +80,6 @@ public class StorageNode
         messageRouter = new ServerMessageRouter(this);
         messageRouter.listen(this.hostPort);
         System.out.println("Storage node " + this.hostName + " on port " + this.hostPort + "...");
-
         // before start clear directory contents
         FileUtils.clearDirectoryContents(storagePath);
         // on start connect to controller and send alive notification
@@ -197,32 +196,35 @@ public class StorageNode
                     if (message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.Patch)) {
                         writeToFile(message.getFileChunk(), storagePath, "/" + ORIGINAL_DIR + "/");
                     } else {
-                        fileChunkMetadataMap.put(chunkName, header);
-                        // IF SAME CHUNK REPLICA OR ORIGINAL exists here update it's value as well
-                        String tempFileName = chunkName.contains(".replica") ? chunkName.substring(0, chunkName.lastIndexOf('.')) : chunkName + ".replica";
-                        System.out.println("TEMP FILE NAME: " + tempFileName);
-                        if (fileChunkMetadataMap.keySet().contains(tempFileName)) {
-                            System.out.println("NODE ALSO CONTAINS TEMPFILENAME");
-                            fileChunkMetadataMap.put(tempFileName, header);
-                        }
+                    fileChunkMetadataMap.put(chunkName, header);
 
-                        System.out.println("FILE PATH TO WRITE: " + message.getFileChunk().getFilepath());
-                        System.out.println("TYPE: " + message.getFileChunk().getType());
+                    // IF SAME CHUNK REPLICA OR ORIGINAL exists here update it's value as well
+                    String tempFileName = chunkName.contains(".replica") ? chunkName.substring(0, chunkName.lastIndexOf('.')) : chunkName + ".replica";
+                    System.out.println("TEMP FILE NAME: " + tempFileName);
+                    if (fileChunkMetadataMap.keySet().contains(tempFileName)) {
+                        System.out.println("NODE ALSO CONTAINS TEMPFILENAME");
+                        fileChunkMetadataMap.put(tempFileName, header);
+                    }
 
-                        if (message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.REPLICA)) { //replica
-                            System.out.println("inside replica");
-                            String filePath = message.getFileChunk().getFilepath();
-                            String newFilePath = filePath.contains(".replica") ? filePath.substring(0, filePath.lastIndexOf('.')) : filePath;
-                            DfsMessages.FileChunk newFC = DfsMessages.FileChunk.newBuilder(message.getFileChunk()).setFilepath(newFilePath).build();
-                            writeToFile(newFC, storagePath, "/" + REPLICA_DIR + "/");
-                        } else {//leader
-                            System.out.println("WRITING TO FILE: ");
-                            writeToFile(message.getFileChunk(), storagePath, "/" + ORIGINAL_DIR + "/");
-                        }
-                        if (message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.LEADER)) {
-                            // replicas only for leader not for maintenance leader which is when a node with original file is down and is replicated
-                            sendFileToReplicas(message.getFileChunk());
-                        }
+                    System.out.println("FILE PATH TO WRITE: " + message.getFileChunk().getFilepath());
+                    System.out.println("TYPE: " + message.getFileChunk().getType());
+
+                    if (message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.REPLICA)) { //replica
+                        System.out.println("inside replica");
+                        //  remove word replica from filepath
+                        String filePath = message.getFileChunk().getFilepath();
+                        String newFilePath = filePath.contains(".replica") ? filePath.substring(0, filePath.lastIndexOf('.')) : filePath;
+                        DfsMessages.FileChunk newFC = DfsMessages.FileChunk.newBuilder(message.getFileChunk()).setFilepath(newFilePath).build();
+                        writeToFile(newFC, storagePath, "/" + REPLICA_DIR + "/");
+                    } else {//leader
+                        System.out.println("WRITING TO FILE: ");
+                        System.out.println("STORAGE PATH IS: " + storagePath);
+                        writeToFile(message.getFileChunk(), storagePath, "/" + ORIGINAL_DIR + "/");
+                    }
+                    if (message.getFileChunk().getType().equals(DfsMessages.FileChunk.Type.LEADER)) {
+                        // replicas only for leader not for maintenance leader which is when a node with original file is down and is replicated
+                        sendFileToReplicas(message.getFileChunk());
+                    }
                         System.out.println(tempMemory.addAndGet(-this.chunkSize));
                     }
                     totalStorageReqs.incrementAndGet();

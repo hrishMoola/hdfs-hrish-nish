@@ -368,7 +368,7 @@ public class Controller
         // this returns AT-MAX as many nodes as the number of chunks of file
 
         if(nodes.size() <= chunks) return nodes;
-        return nodes.subList(0, chunks);
+        return nodes.subList(0, Math.max(3, chunks));
     }
 
     private DfsMessages.MessagesWrapper createClientFileResponseMsg(String systemFilePath, String dfsFilePath, List<DfsMessages.DataNodeMetadata> availableNodes, DfsMessages.FileRequest.Type type, boolean shouldOverwrite) {
