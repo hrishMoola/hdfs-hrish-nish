@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/***
+ * Helper class for creating the filesystem from all the storage nodes queried for the filepath.
+ * This retrieval is in parallel, so we are using AtomicIntegers and a single volatile static instance of this class is created in the Controller.
+ */
 public class FileSystem {
     private AtomicInteger receivedFSReponse;
     private AtomicInteger requiredFSReponse;
