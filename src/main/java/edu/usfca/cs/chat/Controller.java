@@ -38,7 +38,6 @@ public class Controller
     // map of node ips to their corresponding bloom filters
     ConcurrentMap<String, BloomFilter> nodeToBF;
 
-//    public static int CHUNK_SIZE = 128; // MB
     public static int CHUNK_SIZE ; // 10kb
 
     private static volatile FileSystem fileSystem;
@@ -158,8 +157,6 @@ public class Controller
             ConcurrentMap<BloomFilter, DfsMessages.DataNodeMetadata> nodes = routingTable.get(dir);
             for(BloomFilter bf : nodes.keySet()) {
                 DfsMessages.DataNodeMetadata node = nodes.get(bf);
-                System.out.println("node addr: " + nodeAddr);
-                System.out.println("node ip: " + node.getIp());
                 if(nodeAddr.equals(node.getIp())) {
                     bfToRemove = bf;
                 }
@@ -305,27 +302,22 @@ public class Controller
                     path = path.substring(path.length() - 1);
                 Set<String> paths = new HashSet<>();
                 Set<Channel> nodesToQuery = new HashSet<>();
-                System.out.println("-------gotfile-----");
                 String finalPath1 = path;
                 this.routingTable.forEach((k, v)->{
-//                    System.out.println(k);
                     if(k.startsWith(finalPath1)){
                         if(k.equals(finalPath1)){
                             v.values().forEach(node-> {
                                 nodesToQuery.add(channelMap.get(node.getIp()));
                             });
-//                            System.out.println("query table for " + k );
                         } else {
                             int startIndex = finalPath1.length();
                             String rem = k.substring(startIndex);
                             int endIndex = rem.indexOf("/");
                             String finalPath = endIndex == -1 ? rem : rem.substring(0, endIndex);
                             paths.add("\t" + finalPath + "/");
-//                            System.out.println("\t" + finalPath+ "/");
                         }
                     }
                 });
-                System.out.println("---gotfile----");
                 if(nodesToQuery.size() > 0){
                     nodesToQuery.forEach(channel -> {
                         channel.writeAndFlush(DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(DfsMessages.DataNodeMessagesWrapper.newBuilder().setFsRequest(message.getFsRequest())).build());

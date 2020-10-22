@@ -3,12 +3,15 @@ package edu.usfca.cs.chat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/***
+ * A LRUCache Implementation that will take a list of nodes, and provide the three best nodes to to send a chunk and replica to during storage.
+ * Considers age first i.e. when it was last used and then remaning memory - to make it more evenly distrubted.
+ */
 public class LRUCache {
     //0 hostname, 1 - memory rem
     PriorityQueue<String[]> queue = null;
     Map<String, Integer> nodeAge;
     Map<String, Long> nodeMemoryConsumption;
-//    int globalAge = 0;
     int chunkSize;
 
     public LRUCache(int chunkSize)
@@ -16,8 +19,11 @@ public class LRUCache {
         this.chunkSize = chunkSize;
         nodeAge = new HashMap<>();
         queue = new PriorityQueue<>((a, b) -> {
-            if(nodeAge.get(a[0]).equals(nodeAge.get(b[0])))
-                return new Integer(b[1]).compareTo(Integer.parseInt(a[1]));
+            if(nodeAge.get(a[0]).equals(nodeAge.get(b[0]))){
+                Long bLong = Long.parseLong(b[1]);
+                Long aLong = Long.parseLong(a[1]);
+                return bLong.compareTo(aLong);
+            }
             return nodeAge.get(a[0]).compareTo(nodeAge.get(b[0]));
         });
         nodeMemoryConsumption = new HashMap<>();
@@ -30,7 +36,7 @@ public class LRUCache {
         System.out.println("latestNode = " + Arrays.toString(latestNode));
         if(latestNode != null){
             int currAge = nodeAge.get(latestNode[0]) + 1;
-            int remMory = Integer.parseInt(latestNode[1]) - chunkSize;
+            long remMory = Long.parseLong(latestNode[1]) - (long) chunkSize;
             if(remMory >= chunkSize){
                 String[] modifiedNode = new String[]{latestNode[0], String.valueOf(remMory)};
                 nodeAge.put(modifiedNode[0], currAge);
@@ -47,11 +53,9 @@ public class LRUCache {
 
         for(int i = 0; i <3; i++){
             String[] latestNode = queue.poll();
-//            System.out.println("nodeAge = " + nodeAge);
-//            System.out.println("latestNode = " + Arrays.toString(latestNode));
             if(latestNode != null){
                 int currAge = nodeAge.get(latestNode[0]) + 1;
-                int remMory = Integer.parseInt(latestNode[1]) - chunkSize;
+                long remMory = Long.parseLong(latestNode[1]) - (long) chunkSize;
                 if(remMory >= chunkSize){
                     String[] modifiedNode = new String[]{latestNode[0], String.valueOf(remMory)};
                     nodeAge.put(modifiedNode[0], currAge);
@@ -74,14 +78,8 @@ public class LRUCache {
         nodeList.forEach(node -> this.put(node.getIp(), node.getMemory()));
     }
 
-    public List<String> getUsedNodes(){
-        return nodeAge.entrySet().stream().filter(entry -> entry.getValue() > 0).map(Map.Entry::getKey).collect(Collectors.toList());
-    }
-
-
-    public Map<String, Integer> getRemainingMemory(){
-//        return ;
-        return queue.stream().collect(Collectors.toMap(entry-> entry[0], entry-> Integer.parseInt(entry[1])));
+    public Map<String, Long> getRemainingMemory(){
+        return queue.stream().collect(Collectors.toMap(entry-> entry[0], entry-> Long.parseLong(entry[1])));
     }
 
     public static void main(String[] args) {
