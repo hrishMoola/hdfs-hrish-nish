@@ -275,6 +275,7 @@ public class Client
             DfsMessages.MessagesWrapper msgWrapper = DfsMessages.MessagesWrapper.newBuilder().setDataNodeWrapper(wrapper).build();
             try {
                 message.getDataNodesList().forEach(nodeMetadata -> channelMap.get(nodeMetadata.getIp()).writeAndFlush(msgWrapper));
+                Thread.sleep(3000);
             }
             catch(Exception e) {
                 System.out.println("error sending overwrite ack to storage nodes: " + e);

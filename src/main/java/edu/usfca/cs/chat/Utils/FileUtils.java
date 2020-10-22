@@ -9,7 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
@@ -112,7 +114,18 @@ public class FileUtils {
 ////                chunks.add(getChunks(eachFile, fileChunkMetadataMap.get(filepath)));
 //        }
 
+        Map<String, Integer> chuma = new HashMap<>();
+        chuma.put("dfs/nato1",2);
+        chuma.put("dfs/nato2",2);
+        chuma.put("dfs/nato3",2);
+        chuma.put("dfs/nato1-09",2);
+        chuma.put("dfs/nato1-03",2);
+        chuma.put("dfs/nato1-08",2);
+        System.out.println(chuma);
 
+        chuma.entrySet().removeIf(entry -> entry.getKey().contains( "dfs/nato1-"));
+
+        System.out.println(chuma);
         createLocalFolders("users/bigdata/something");
 //        System.out.println(getFileName("dfs/nato1"));
 //        System.out.println(chunks);

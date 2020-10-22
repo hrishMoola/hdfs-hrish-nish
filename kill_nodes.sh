@@ -1,7 +1,8 @@
 echo "Killing all the components"
 
+
 echo "Killing storage node #1 at orion02:26042"
-ssh orion06 kill `jps | grep "StorageNode" | cut -d " " -f 1` | tmux kill-session -t storagenode
+ssh orion02 tmux kill-session -t storagenode
 
 echo "Killing storage node #2 at orion03:26043"
 ssh orion03 tmux kill-session -t storagenode

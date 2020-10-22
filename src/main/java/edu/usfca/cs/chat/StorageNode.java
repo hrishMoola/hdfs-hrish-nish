@@ -197,7 +197,6 @@ public class StorageNode
                         writeToFile(message.getFileChunk(), storagePath, "/" + ORIGINAL_DIR + "/");
                     } else {
                     fileChunkMetadataMap.put(chunkName, header);
-
                     // IF SAME CHUNK REPLICA OR ORIGINAL exists here update it's value as well
                     String tempFileName = chunkName.contains(".replica") ? chunkName.substring(0, chunkName.lastIndexOf('.')) : chunkName + ".replica";
                     System.out.println("TEMP FILE NAME: " + tempFileName);
@@ -251,11 +250,12 @@ public class StorageNode
                         int numChunks  = (int) fileChunkMetadataMap.entrySet().stream().filter(entry -> entry.getKey().contains(dirPath + "-")).count();
                         tempMemory.addAndGet(numChunks * chunkSize);
                         //clear from metadata map
+                        System.out.println("fileChunkMetadataMap = " + fileChunkMetadataMap.keySet());
                         fileChunkMetadataMap.entrySet().removeIf(entry -> entry.getKey().contains(dirPath + "-"));
+                        System.out.println("fileChunkMetadataMap after remove= " + fileChunkMetadataMap.keySet());
                         // delete directory from node to make space for new file
                         FileUtils.clearDirectoryContents(storagePath + "/" + ORIGINAL_DIR + "/" + dirPath);
                         FileUtils.clearDirectoryContents(storagePath + "/" + REPLICA_DIR + "/" + dirPath);
-                        // todo do we need to overwrite .replica folders here as well?
                     }
                 }catch (Exception e){
                     System.out.println("Error in fileAck in storage node: " + hostName + " at port: " + hostPort);
@@ -329,7 +329,7 @@ public class StorageNode
     }
 
     private void sendReplicationPath(ChannelHandlerContext ctx, String filepath, String chunkNum, int requester) throws IOException, InterruptedException {
-        String storageDirectory = this.storagePath + "/replica/";
+        String storageDirectory = this.storagePath + "/"+REPLICA_DIR+"/";
         File specificChunk = new File(storageDirectory + filepath + "/chunk-" + chunkNum );
         System.out.println("specificChunk.getPath() = " + specificChunk.getPath());
         System.out.println("requester = " + requester);
@@ -758,7 +758,7 @@ public class StorageNode
     }
 
     private void getAndSendChunks(ChannelHandlerContext ctx, String filepath) throws IOException {
-        String storageDirectory = this.storagePath + "/original/";
+        String storageDirectory = this.storagePath + "/" + ORIGINAL_DIR + "/";
 
         File dir = new File(storageDirectory + filepath);
         List<DfsMessages.MessagesWrapper> chunks = new ArrayList<>();
