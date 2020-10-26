@@ -1,5 +1,7 @@
 # Project 1: POSIX DFS With Probabilistic Routing
 
+Project Design Document - https://docs.google.com/document/d/11vsDLNDCNxHHZwioTigjVFluosOalx0f9OdnLPHTT04/edit
+
 See the project spec here: https://www.cs.usfca.edu/~mmalensek/cs677/assignments/project-1.html
 
 Run the datanode with this
